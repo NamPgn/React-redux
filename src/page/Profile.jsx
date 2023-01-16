@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { isAuthentication } from '../auth/getToken';
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { editImage, getUser_id, selectUserValue } from '../slice/userSlice';
-
+import { toast } from 'react-toastify';
 const Profile = () => {
   const { data } = isAuthentication();
   const { handleSubmit, register } = useForm();
   const dispath = useDispatch();
   const user = useSelector(selectUserValue);
   console.log("user", user);
+  const navigate=useNavigate();
   useEffect(() => {
     dispath(getUser_id(data ? data.user._id : ""));
   }, [])
@@ -19,10 +20,20 @@ const Profile = () => {
     formdata.append('image', data.image[0]);
     console.log("dataEdit", data.image[0]);
     dispath(editImage(formdata));
+    toast.success(`Cập nhật thành công`, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   }
   return (
     <>
-      {data ? <div class="page-content page-container" id="page-content">
+      {data ? <div class="page-content page-container" id="page-content" style={{margin:"20px"}}>
         {user ? <div class="">
           <div class="row container d-flex justify-content-center">
             <div class="col-md-12">
@@ -33,7 +44,7 @@ const Profile = () => {
                       <div class="m-b-25">
                         <img src={user ? user.image : ""} style={{ width: "200px", height: "200px", objectFit: "cover", borderRadius: "100%" }} class="img-radius" alt="User-Profile-Image" />
                         <form onSubmit={handleSubmit(onsubmit)}>
-                          <div>
+                          <div>onsubmit
                             <input style={{ cursor: "pointer" }} {...register('image')} type="file"
                               name="image"
                               accept="image/png, image/jpeg" />

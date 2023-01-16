@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { DashboardOutlined, NotificationOutlined, UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu } from "antd";
-
+import '../../index.css'
 const { Header, Content, Sider } = Layout;
 const LayoutAdmin = () => {
     return (
@@ -10,10 +10,9 @@ const LayoutAdmin = () => {
             <Layout style={{ height: "100%" }}>
                 <Header className="header">
                     <div className="logo" />
-
                 </Header>
                 <Layout>
-                    <Sider width={200} className="site-layout-background">
+                    <Sider width={200} className="site-layout-background" >
                         <Menu style={{ height: "100%" }}>
                             <Menu.Item>
                                 <NavLink to="/admin">
@@ -33,6 +32,11 @@ const LayoutAdmin = () => {
                             <Menu.Item>
                                 <NavLink to="/admin/adminUer">
                                     <UserOutlined /> Admin
+                                </NavLink>
+                            </Menu.Item>
+                            <Menu.Item>
+                                <NavLink to="/admin/category">
+                                    <UserOutlined /> Category
                                 </NavLink>
                             </Menu.Item>
                         </Menu>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Space, Table, Tag, Button, Image } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAdmin, selectUserValue } from '../../slice/userSlice';
+import { getAdmin, selectUserValue } from '../../../slice/userSlice';
 const columns = [
   {
     title: 'Name',

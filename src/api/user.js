@@ -23,9 +23,13 @@ export const deleteAuth = async (id) => {
 }
 
 export const editAuth = async (data) => {
-    return await intances.put(`user/${data.id}`, data);
+    return await intances.put(`user/${data._id}`, data);
 }
 
 export const editAvt = async (user) => {
     return await intances.put(`/user/image/${data.user._id}`, user)
+}
+
+export const importExcel = async (data) => {
+    return await intances.post('user/creating', data)
 }

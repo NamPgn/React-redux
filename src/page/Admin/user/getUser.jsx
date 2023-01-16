@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import { Space, Table, Tag, Button, Image } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAlluser, selectUserValue, deteleUser } from '../../slice/userSlice';
+import { getAlluser, selectUserValue, deteleUser } from '../../../slice/userSlice';
 import { NavLink } from "react-router-dom ";
 import { DownloadOutlined } from "@ant-design/icons";
+import { toast } from 'react-toastify';
 const columns = [
   {
     title: 'Name',
@@ -40,14 +41,12 @@ const columns = [
   },
 ];
 const GetUser = () => {
-
-  const states = useSelector(selectUserValue);
+  const states = useSelector(state => state.user.value);
   const dispath = useDispatch();
   useEffect(() => {
     dispath(getAlluser());
   }, []);
-  console.log("test", states);
-  const data = states ?states && states.map(item => {
+  const data = states ? states.map(item => {
     return {
       key: item._id,
       name: item.username,
@@ -66,7 +65,18 @@ const GetUser = () => {
       remove: (
         <Button
           type="primary"
-          onClick={() => dispath(deteleUser(item._id))}
+          onClick={() =>
+            toast.success(`Xóa user ${item.username} thành công`, {
+              position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            }, dispath(deteleUser(item._id)))
+          }
         >Delete</Button>
       )
     }
@@ -78,6 +88,13 @@ const GetUser = () => {
       <NavLink to={'/admin/user/add'}>
         <Button type="primary" shape="round">Add User</Button>
       </NavLink>
+      <NavLink to={'/admin/user/creatingUser'} >
+        <Button type="primary" shape="round" style={{ display: "inline-block", margin: "10px 10px", background: "#28a745" }}>Import Excel</Button>
+      </NavLink>
+      <NavLink to={'/admin/product/add'} >
+        <Button type="primary" shape="round" style={{ display: "inline-block  ", margin: "10px 10px", background: "#eca52b" }}>Export PDF</Button>
+      </NavLink>
+
       <Table columns={columns} dataSource={data} pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '20', '30'] }} />
     </>
   )

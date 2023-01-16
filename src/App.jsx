@@ -1,42 +1,121 @@
-import { Link, Route, Routes } from 'react-router-dom'
-import LayoutWebsite from './page/layout/LayoutWebsite'
-import LayoutAdmin from './page/layout/LayoutAdmin'
-import Signup from './page/Sign-up'
-import ProductAdmin from './page/Admin/ProductAdmin'
-import Product from './page/Product'
-import "./index.css"
-import Signin from './page/Sign-in'
-import PrivateRouter from './components/PrivateRouter'
-import Profile from './page/Profile'
-import Logout from './page/logout'
-import GetUser from './page/Admin/getUser'
-import Adduser from './page/Admin/Adduser'
-import EditUser from './page/Admin/Edituser'
-import GetAdmin from './page/Admin/getAdmin';
-import PrivateProfile from './components/PrivateProfile'
-import HomePage from './page/HomePage'
-import DetailProduct from './page/DetailProduct'
+import React, { Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { ToastContainer } from "react-toastify";
+import LayoutWebsite from './page/layout/LayoutWebsite';
+import LayoutAdmin from './page/layout/LayoutAdmin';
+import Signup from './page/Sign-up';
+import "./index.css";
+import Signin from './page/Sign-in';
+import PrivateRouter from './components/PrivateRouter';
+import Logout from './page/logout';
+import HomePage from './page/HomePage';
 
+const ProductPage = React.lazy(() => import('./page/Product'));
+const ProfilePage = React.lazy(() => import('./page/Profile'));
+const DetailProductPage = React.lazy(() => import('./page/DetailProduct'));
+const CategoryProduct = React.lazy(() => import('./page/CategoryProduct'));
+const ProductAdmin = React.lazy(() => import('./page/Admin/product/ProductAdmin'));
+const GetUser = React.lazy(() => import('./page/Admin/user/getUser'));
+const Adduser = React.lazy(() => import('./page/Admin/user/Adduser'));
+const EditUser = React.lazy(() => import('./page/Admin/user/EditUser'));
+const GetAdmin = React.lazy(() => import('./page/Admin/user/GetAdmin'));
+const ProductAdd = React.lazy(() => import('./page/Admin/product/ProductAdd'));
+const EditProduct = React.lazy(() => import('./page/Admin/product/EditProduct'));
+const CreatingUser = React.lazy(() => import('./page/Admin/user/CreatingUser'));
+const CreatingProducts = React.lazy(() => import('./page/Admin/product/CreatingProducts'));
+const CategoryAdmin = React.lazy(() => import('./page/Admin/category/CategoryAdmin'));
+const AdminPage = React.lazy(() => import('./page/Admin/AdminPage'));
 function App() {
-
   return (
     <div className="App">
+      <ToastContainer />
       <Routes>
         <Route path='/' element={<LayoutWebsite />}>
           <Route index element={<HomePage />}></Route>
-          <Route path='profile' element={<Profile />}></Route>
-          <Route path='product' element={<Product />}></Route>
-          <Route path='detail/:id' element={<DetailProduct />}></Route>
-          <Route path='signup' element={<Signup />}></Route>
-          <Route path='signin' element={<Signin />}></Route>
+          <Route path='profile' element={
+            <Suspense fallback={"Loading...."}>
+              <ProfilePage />
+            </Suspense>
+          }></Route>
+          <Route path='product' element={
+            <Suspense fallback={"Loading...."}>
+              <ProductPage />
+            </Suspense>
+          }></Route>
+          <Route path='detail/:id' element={
+            <Suspense fallback={"Loading...."}>
+              <DetailProductPage />
+            </Suspense>
+          }></Route>
+          <Route path='signup' element={
+            <Signup />
+          }></Route>
+          <Route path='signin' element={
+            <Signin />
+          }></Route>
           <Route path='logout' element={<Logout />}></Route>
+          <Route path='product/category/:id' element={
+            <Suspense fallback={"Loading...."}>
+              <CategoryProduct />
+            </Suspense>
+          }></Route>
         </Route>
         <Route path='/admin' element={<PrivateRouter> <LayoutAdmin /> </PrivateRouter>}>
-          <Route path='products' element={<ProductAdmin />}></Route>
-          <Route path='users' element={<GetUser />}></Route>
-          <Route path='adminUer' element={<GetAdmin />}></Route>
-          <Route path='users/:id/edit' element={<EditUser />}></Route>
-          <Route path='user/add' element={<Adduser />}></Route>
+          <Route index element={
+            <Suspense fallback={"Loading...."}>
+              <AdminPage />
+            </Suspense>
+          }></Route>
+          <Route path='products' element={
+            <Suspense fallback={"Loading...."}>
+              <ProductAdmin />
+            </Suspense>
+          }></Route>
+          <Route path='users' element={
+            <Suspense fallback={"Loading...."}>
+              <GetUser />
+            </Suspense>
+          }></Route>
+          <Route path='adminUer' element={
+            <Suspense fallback={"Loading...."}>
+              <GetAdmin />
+            </Suspense>
+          }></Route>
+          <Route path='users/:id/edit' element={
+            <Suspense fallback={"Loading...."}>
+              <EditUser />
+            </Suspense>
+          }></Route>
+          <Route path='user/add' element={
+            <Suspense fallback={"Loading...."}>
+              <Adduser />
+            </Suspense>
+          }></Route>
+          <Route path='user/creatingUser' element={
+            <Suspense fallback={"Loading...."}>
+              <CreatingUser />
+            </Suspense>
+          }></Route>
+          <Route path='product/add' element={
+            <Suspense fallback={"Loading...."}>
+              <ProductAdd />
+            </Suspense>
+          }></Route>
+          <Route path='product/edit/:id' element={
+            <Suspense fallback={"Loading...."}>
+              <EditProduct />
+            </Suspense>
+          }></Route>
+          <Route path='product/creacting' element={
+            <Suspense fallback={"Loading...."}>
+              <CreatingProducts />
+            </Suspense>
+          }></Route>
+          <Route path='category' element={
+            <Suspense fallback={"Loading...."}>
+              <CategoryAdmin />
+            </Suspense>
+          }></Route>
         </Route>
       </Routes>
     </div>

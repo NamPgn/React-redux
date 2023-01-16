@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form";
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { editUser, getUser_id } from '../../slice/userSlice';
-
+import { editUser, getUser_id } from '../../../slice/userSlice';
+import { toast } from 'react-toastify';
 
 const EditUser = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -11,7 +11,6 @@ const EditUser = () => {
   const { id } = useParams();
   const [user, setstate] = useState();
   const navigate = useNavigate();
-
   useEffect(() => {
     const getDataUser = async () => {
       const { payload } = await dispath(getUser_id(id));
@@ -26,11 +25,19 @@ const EditUser = () => {
     formData.append('username', data.username);
     formData.append('email', data.email);
     formData.append('password', data.password);
-    console.log("1")
-
+    formData.append('_id', id);
     dispath(editUser(formData));
-    console.log("data", data.image[0]);
-    // navigate("/admin/users");
+    navigate("/admin/users");
+    toast.success(`Sửa ${formdata.append('username', data.username)} thành công`, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   }
   return (
     <div>

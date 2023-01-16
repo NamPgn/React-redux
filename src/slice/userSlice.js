@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { resgister, login, getUser, deleteAuth, editAuth, getAuth, editAvt } from "../api/user";
+import { resgister, login, getUser, deleteAuth, editAuth, getAuth, editAvt, importExcel } from "../api/user";
 
 export const resgisterLogin = createAsyncThunk(
     "user/login",
@@ -63,8 +63,16 @@ export const editImage = createAsyncThunk(
     "edit/editAvt",
     async (payload) => {
         const { data } = await editAvt(payload);
-        console.log("datasss", data.data);
         return data.data;
+    }
+)
+
+export const importXlsx = createAsyncThunk(
+    'user/importXlsx',
+    async (dataImport) => {
+        const { data } = await importExcel(dataImport);
+        console.log("dataIp", data);
+        return data;
     }
 )
 const userSlice = createSlice({
@@ -102,21 +110,23 @@ const userSlice = createSlice({
         builder.addCase(deteleUser.fulfilled, (state, action) => {
             // console.log("actionUser", action.payload)
             // console.log("stateUser", state)
-            state.value = state.value.filter((item) => item._id !== action.payload._id);
+            state.value = state.value.filter(item => item._id !== action.payload._id);
         });
         builder.addCase(getAdmin.fulfilled, (state, action) => {
             state.value = action.payload;
         });
-        builder.addCase(getUser_id.fulfilled, (state, action) => {
-            state.value = action.payload;
-        });
+
         builder.addCase(editUser.fulfilled, (state, action) => {
-            state.value=action.payload;
-        })
+            state.value.push(action.payload);
+        });
         builder.addCase(editImage.fulfilled, (state, action) => {
             console.log("action", action.payload)
             state.value = action.payload;
+        });
+        builder.addCase(importXlsx.fulfilled, (state, action) => {
+            state.value.unshift(action.payload);
         })
+
     }
 })
 

@@ -24,7 +24,7 @@ const DetailProduct = () => {
             <div class="row">
               <div class="col-lg-5 col-md-5 col-sm-6">
                 <div class="white-box text-center">
-                  <img src={state.image} class="img-responsive" />
+                  <img src={state.image} style={{width:"100%" , height:"auto", objectFit:"cover"}} class="img-responsive" />
                 </div>
               </div>
               <div class="col-lg-7 col-md-7 col-sm-6">

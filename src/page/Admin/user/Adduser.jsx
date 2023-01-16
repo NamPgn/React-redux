@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { useForm } from "react-hook-form";
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { resgisterLogin } from '../../slice/userSlice';
-
+import { resgisterLogin } from '../../../slice/userSlice';
+import { toast } from 'react-toastify';
 
 const Adduser = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -17,7 +17,17 @@ const Adduser = () => {
     formData.append('password', data.password);
     console.log(data)
     dispath(resgisterLogin(formData));
-    navigate("/admin");
+    navigate("/admin/users");
+    toast.success(`Thêm user thành công`, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   }
   return (
     <div>
