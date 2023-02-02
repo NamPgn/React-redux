@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { addProductData, deleteProductById, editProductData, getAllProduct, getOneProduct, importData } from "../api/product";
+import { addProductData, deleteMultipleProduct, deleteProductById, editProductData, getAllProduct, getOneProduct, importData } from "../api/product";
 export const getProducts = createAsyncThunk(
   "product/getProducts",
   async () => {
     const { data } = await getAllProduct();
-    return data.data;
+    return data;
   }
 )
 
@@ -52,8 +52,26 @@ const productSlice = createSlice({
   name: "product",
   initialState: {
     value: [],
+    isChecked: false
   },
-  reducers: [],
+
+  reducers: {
+    addCheckbox: (state, action) => {
+      state.push(action.payload);
+    },
+
+    deleteData: (state, action) => {
+      state.filter = (item => {
+        return item._id !== action.payload
+      })
+    },
+
+    deleteSelectData: async (state, action) => {
+      console.log("action", action);
+      return action.payload;
+    }
+  },
+
   extraReducers: (builder) => {
     builder.addCase(getProducts.fulfilled, (state, action) => {
       state.value = action.payload;
@@ -73,4 +91,5 @@ const productSlice = createSlice({
   }
 })
 
+export const { addCheckbox, deleteData, deleteSelectData } = productSlice.actions;
 export default productSlice.reducer

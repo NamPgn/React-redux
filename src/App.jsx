@@ -9,6 +9,7 @@ import Signin from './page/Sign-in';
 import PrivateRouter from './components/PrivateRouter';
 import Logout from './page/logout';
 import HomePage from './page/HomePage';
+import DataProduct from './page/Admin/product/DataProduct';
 
 const ProductPage = React.lazy(() => import('./page/Product'));
 const ProfilePage = React.lazy(() => import('./page/Profile'));
@@ -68,7 +69,7 @@ function App() {
           }></Route>
           <Route path='products' element={
             <Suspense fallback={"Loading...."}>
-              <ProductAdmin />
+              <DataProduct />
             </Suspense>
           }></Route>
           <Route path='users' element={

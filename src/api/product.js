@@ -21,6 +21,10 @@ export const editProductData = async (data) => {
   return await intances.put(`/product/${data.get('_id')}`, data);
 }
 
-export const importData= async (data)=>{
-  return await intances.post('/product/creating',data);
+export const importData = async (data) => {
+  return await intances.post('/product/creating', data);
+}
+
+export const deleteMultipleProduct = async (id) => {
+  return await intances.post('/product/deleteMultiple', id);
 }
