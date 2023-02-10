@@ -1,9 +1,14 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import { logout } from '../slice/userSlice';
 
 const Logout = () => {
-  localStorage.removeItem("token");
+  // const dispath=useDispatch();
+  // dispath(logout());
+  
   return <Navigate to={"/"} />
 }
 
 export default Logout
+

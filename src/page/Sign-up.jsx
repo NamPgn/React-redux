@@ -16,33 +16,26 @@ const Signup = () => {
         formData.append('password', data.password);
         console.log("dataForm", data)
         dispath(resgisterLogin(formData));
-        navigate("/signin")
+        navigate("/auth/signin")
     }
     return (
         <div>
-            <form onSubmit={handleSubmit(onsubmit)} className="container">
-                <div className="mb-3">
-                    <label for="exampleInputEmail1" className="form-label">Username</label>
-                    <input type="text" className="form-control" name="username" {...register("username")} aria-describedby="emailHelp" />
+            <form onSubmit={handleSubmit(onsubmit)} className="container formContainer">
+                <div>
+                    <div className="mb-3">
+                        <input type="text" className="input" name="username" {...register("username")} aria-describedby="emailHelp" placeholder='Username' />
+                    </div>
+                    <div className="mb-3">
+                        <input type="email" className="input" name='email' {...register("email")} aria-describedby="emailHelp" placeholder='Email address' />
+                    </div>
+                    <div className="mb-3">
+                        <input type="password" className="input" name='password' placeholder='Password'  {...register("password")} id="exampleInputPassword1" />
+                    </div>
+                    <div className="mb-3">
+                        <input type="file" className="input" name='file' placeholder='Repassword'  {...register("image")} id="exampleInputPassword1" />
+                    </div>
+                    <button className="btn btn-primary">Submit</button>
                 </div>
-                <div className="mb-3">
-                    <label for="exampleInputEmail1" className="form-label">Email address</label>
-                    <input type="email" className="form-control" name='email' {...register("email")} aria-describedby="emailHelp" />
-                    <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
-                </div>
-                <div className="mb-3">
-                    <label for="exampleInputPassword1" className="form-label">Password</label>
-                    <input type="password" className="form-control" name='password'  {...register("password")} id="exampleInputPassword1" />
-                </div>
-                <div className="mb-3">
-                    <label for="exampleInputPassword1" className="form-label">Password</label>
-                    <input type="file" className="form-control" name='file'  {...register("image")} id="exampleInputPassword1" />
-                </div>
-                <div className="mb-3 form-check">
-                    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                    <label className="form-check-label" for="exampleCheck1">Check me out</label>
-                </div>
-                <button className="btn btn-primary">Submit</button>
             </form>
         </div>
     )

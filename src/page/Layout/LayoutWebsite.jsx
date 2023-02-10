@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, } from "react-router-dom";
+import CategoryProduct from '../../components/CategoryProduct';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-import { Cate } from '../../main';
 const HomePage = () => {
-  
+
   return (
     <div>
-      <main class="flex-shrink-0" style={{ background: "#333" }}>
+      <main >
         <div>
           <Header />
         </div>
-        <Outlet />
+        <div className="container">
+          <Outlet />
+        </div>
         <div>
           <Footer />
         </div>

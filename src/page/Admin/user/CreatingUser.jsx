@@ -29,9 +29,9 @@ const CreatingUser = () => {
   return (
     <div style={{ display: "flex", justifyContent: "center", textAlign: "center", height: "100vh" }}>
       <form onSubmit={handleSubmit(onsubmit)}>
-        <label class="form-label" for="customFile">Default file input example</label>
-        <input type="file" {...register('xlsx')} class="form-control" id="customFile" />
-        <button class="btn btn-success" style={{ margin: "20px 0" }}>Submit</button>
+        <label className="form-label" for="customFile">Default file input example</label>
+        <input type="file" {...register('xlsx')} className="form-control" id="customFile" />
+        <button className="btn btn-success" style={{ margin: "20px 0" }}>Submit</button>
       </form>
     </div>
   )

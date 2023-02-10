@@ -20,9 +20,14 @@ const ProductAdd = () => {
     const formdata = new FormData();
     formdata.append('image', data.image[0]);
     formdata.append('name', data.name);
-    formdata.append('descriptions', data.descriptions);
     formdata.append('price', data.price);
     formdata.append('category', data.category);
+    formdata.append('linkVideo', data.linkVideo);
+    formdata.append('seri', data.seri);
+    formdata.append('LinkCopyright', data.LinkCopyright);
+    formdata.append('copyright', data.copyright)
+    formdata.append('descriptions',data.descriptions);
+    console.log("data",data);
     dispath(addProduct(formdata));
     navigate('/admin/products');
     toast.success('Add Product Success', {
@@ -44,14 +49,29 @@ const ProductAdd = () => {
           <input type="text" {...register('name')} className="form-control" required />
         </div>
         <div className="mb-3">
-          <label className="form-label">Description</label>
+          <label className="form-label">View</label>
+          <input type="text" {...register('price')} className="form-control" required />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Video Url</label>
+          <input type="text" {...register('linkVideo')} className="form-control" required />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Desciption</label>
           <input type="text" {...register('descriptions')} className="form-control" required />
         </div>
         <div className="mb-3">
-          <label className="form-label">Price</label>
-          <input type="text" {...register('price')} className="form-control" required />
+          <label className="form-label">Seri</label>
+          <input type="text" {...register('seri')} className="form-control" required />
         </div>
-
+        <div className="mb-3">
+          <label className="form-label">Copyright</label>
+          <input type="text" {...register('copyright')} className="form-control" required />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">LinkCopyright</label>
+          <input type="text" {...register('LinkCopyright')} className="form-control" required />
+        </div>
         <div className="form-label">Category</div>
         <select className="form-select-sm" {...register('category')} style={{ border: "none", padding: "10px", outline: "none" }} aria-label=".form-select-sm example">
           <option value={''} >Open this select menu</option>

@@ -1,24 +1,84 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import Iframe from 'react-iframe'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom';
+import { getAllcategory } from '../api/categoty';
+import CategoryProduct from '../components/CategoryProduct';
+import ContactAdmin from '../components/ContactAdmin';
+import { getProducts } from '../slice/productSlice';
 const HomePage = () => {
-  return (
-    <div className='text-center' style={{ background: "#333", height: "100vh", color: "#fff" }}>
-      <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-      
-        <main role="main" class="inner cover mt-auto">
-          <h1 class="cover-heading">Cover your page.</h1>
-          <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
-          <p class="lead">
-            <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
-          </p>
-        </main>
+  const [category, setCategory] = useState([]);
+  const product = useSelector(state => state.product.value);
+  const dispath = useDispatch();
+  useEffect(() => {
+    dispath(getProducts());
 
-        <footer class="mastfoot mt-auto">
-          <div class="inner">
-            <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+    const category = async () => {
+      const { data } = await getAllcategory();
+      setCategory(data);
+    }
+    category();
+  }, [])
+  return (
+    <div >
+      <div className=' d-flex'>
+        <div className='col-md-9 ' >
+          <div className="h-full" >
+            <Iframe src='https://www.youtube.com/embed/DHhuZI_U31U?mute=1&autoplay=1'
+              width='100%'
+              height='300px'
+              allowFullScreen='true'
+              allow='autoplay'
+
+            />
+            <ContactAdmin />
           </div>
-        </footer>
+        </div>
+        <CategoryProduct />
       </div>
+      <div className="categoryMovie">
+        {category.map((cate, index) => {
+          return <div className='movie_css' key={index}>
+            <h5 className='text-light text_product'>{index + 1 + ". " + " " + cate.name}</h5>
+            <div style={{ position: "relative" }}>
+              <div className="cateConten d-flex" style={{ width: "100%",  }} >
+                {product.map((item) => {
+                  
+                  if (item.category == cate._id) {
+                    return <div className='mt-3' >
+                      <div className="cateItem">
+                        <Link to={'/detail/' + item._id}>
+                          <img style={{ width: "100%" }} src={item.image} alt="" />
+                        </Link>
+                      </div>
+                      <div className="cateTitle text-light mt-1">
+                        <p>{item.name + " " + item.seri}</p>
+                      </div>
+                      <div className='release_date'>
+                        <p>2021</p>
+                      </div>
+
+                    </div>
+
+                  }
+                  if (item.length >= 6) {
+                    return <>
+                      <div className="left text-light position-absolute">
+                        <i className="fa-solid fa-angle-left __"></i>
+                      </div>
+                      <div className="right text-light position-absolute">
+                        <i className="fa-solid fa-angle-right __"></i>
+                      </div>
+                    </>
+                  }
+                })}
+              </div>
+
+            </div>
+          </div>
+        })}
+      </div>
+
     </div>
   )
 }

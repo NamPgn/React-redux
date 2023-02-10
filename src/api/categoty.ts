@@ -21,6 +21,6 @@ export const updateCate = async (data) => {
   return await intances.put('/category' + data._id, data)
 }
 
-export const getCategoryProduct=async()=>{
+export const getCategoryProduct = async () => {
   return await intances.get('/category/products');
 }

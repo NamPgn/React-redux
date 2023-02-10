@@ -10,6 +10,7 @@ import PrivateRouter from './components/PrivateRouter';
 import Logout from './page/logout';
 import HomePage from './page/HomePage';
 import DataProduct from './page/Admin/product/DataProduct';
+import AuthComponent from './components/AuthComponent';
 
 const ProductPage = React.lazy(() => import('./page/Product'));
 const ProfilePage = React.lazy(() => import('./page/Profile'));
@@ -31,13 +32,21 @@ function App() {
     <div className="App">
       <ToastContainer />
       <Routes>
-        <Route path='/' element={<LayoutWebsite />}>
-          <Route index element={<HomePage />}></Route>
+        <Route path='/auth' element={<AuthComponent/>}>
+          <Route path='signup' element={
+            <Signup />
+          }></Route>
+          <Route path='signin' element={
+            <Signin />
+          }></Route>
           <Route path='profile' element={
             <Suspense fallback={"Loading...."}>
               <ProfilePage />
             </Suspense>
           }></Route>
+        </Route>
+        <Route path='/' element={<LayoutWebsite />}>
+          <Route index element={<HomePage />}></Route>
           <Route path='product' element={
             <Suspense fallback={"Loading...."}>
               <ProductPage />
@@ -47,12 +56,6 @@ function App() {
             <Suspense fallback={"Loading...."}>
               <DetailProductPage />
             </Suspense>
-          }></Route>
-          <Route path='signup' element={
-            <Signup />
-          }></Route>
-          <Route path='signin' element={
-            <Signin />
           }></Route>
           <Route path='logout' element={<Logout />}></Route>
           <Route path='product/category/:id' element={

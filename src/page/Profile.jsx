@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { isAuthentication } from '../auth/getToken';
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
-import { editImage, getUser_id, selectUserValue } from '../slice/userSlice';
+import { editImage, getUser_id, logout, selectUserValue } from '../slice/userSlice';
 import { toast } from 'react-toastify';
+import Logout from './logout';
 const Profile = () => {
   const { data } = isAuthentication();
   const { handleSubmit, register } = useForm();
   const dispath = useDispatch();
   const user = useSelector(selectUserValue);
-  console.log("user", user);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   useEffect(() => {
     dispath(getUser_id(data ? data.user._id : ""));
   }, [])
@@ -31,69 +31,65 @@ const Profile = () => {
       theme: "light",
     });
   }
+
+  const handleLogOut = () => {
+    dispath(logout());
+    navigate('/');
+  }
   return (
     <>
-      {data ? <div class="page-content page-container" id="page-content" style={{margin:"20px"}}>
-        {user ? <div class="">
-          <div class="row container d-flex justify-content-center">
-            <div class="col-md-12">
-              <div class="card user-card-full">
-                <div class="row m-l-0 m-r-0">
-                  <div class="col-sm-4 bg-c-lite-green user-profile">
-                    <div class="card-block text-center text-white">
-                      <div class="m-b-25">
-                        <img src={user ? user.image : ""} style={{ width: "200px", height: "200px", objectFit: "cover", borderRadius: "100%" }} class="img-radius" alt="User-Profile-Image" />
-                        <form onSubmit={handleSubmit(onsubmit)}>
-                          <div>onsubmit
-                            <input style={{ cursor: "pointer" }} {...register('image')} type="file"
-                              name="image"
-                              accept="image/png, image/jpeg" />
-                          </div>
-                          <button className="btn btn-primary">Submit</button>
-                        </form>
+      {data ? <div className="page-content page-container" id="page-content" style={{ margin: "20px" }}>
+        {user ? <div className="">
+          <section className="vh-100">
+            <div className="container py-5 h-100">
+              <div className="row d-flex justify-content-center align-items-center h-100">
+                <div className="col-md-12 col-xl-4">
+                  <div className="card" style={{ borderRadius: "15px" }}>
+                    <div className="card-body text-center">
+                      <div className="mt-3 mb-4">
+                        <img src={data.user.image}
+                          className=" img-fluid" style={{ width: "100px" }} />
                       </div>
-                      <h6 class="f-w-600">{user ? user.username : ""}</h6>
-                      <p>Web Designer</p>
-                      <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
-                    </div>
-                  </div>
-                  <div class="col-sm-8">
-                    <div class="card-block">
-                      <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
-                      <div class="row">
-                        <div class="col-sm-6">
-                          <p class="m-b-10 f-w-600">Email</p>
-                          <h6 class="text-muted f-w-400">{user ? user.email : ""}</h6>
-                        </div>
-                        <div class="col-sm-6">
-                          <p class="m-b-10 f-w-600">Phone</p>
-                          <h6 class="text-muted f-w-400">98979989898</h6>
-                        </div>
+                      <h4 className="mb-2 text-light">{data.user.username}</h4>
+                      <p className="text-muted mb-4">@Programmer <span className="mx-2">|</span> <a
+                        href="#!">mdbootstrap.com</a></p>
+                      <div className="mb-4 pb-2">
+                        <button type="button" className="btn btn-outline-primary btn-floating">
+                          <i className="fab fa-facebook-f fa-lg"></i>
+                        </button>
+                        <button type="button" className="btn btn-outline-primary btn-floating">
+                          <i className="fab fa-twitter fa-lg"></i>
+                        </button>
+                        <button type="button" className="btn btn-outline-primary btn-floating">
+                          <i className="fab fa-skype fa-lg"></i>
+                        </button>
                       </div>
-                      <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Projects</h6>
-                      <div class="row">
-                        <div class="col-sm-6">
-                          <p class="m-b-10 f-w-600">Token</p>
-                          <h6 class="text-muted f-w-400">{data.token}</h6>
+                      <button onClick={() => handleLogOut()} type="button" className="btn btn-primary btn-rounded btn-lg">
+                        Logout
+                      </button>
+                      <div className="d-flex justify-content-between text-center mt-5 mb-2">
+                        <div>
+                          <p className="mb-2 h5">8471</p>
+                          <p className="text-muted mb-0">Wallets Balance</p>
                         </div>
-                        <div class="col-sm-6">
-                          <p class="m-b-10 f-w-600">Quyền</p>
-                          <h6 class="text-muted f-w-400">{user.role == 0 ? "Bạn đéo phải Admin" : "Bạn là Admin"}</h6>
+                        <div className="px-3">
+                          <p className="mb-2 h5">8512</p>
+                          <p className="text-muted mb-0">{data.user.role == 0 ? "Bạn đéo phải Admin" : "Bạn là Admin"}</p>
+                        </div>
+                        <div>
+                          <p className="mb-2 h5">4751</p>
+                          <p className="text-muted mb-0">Total Transactions</p>
                         </div>
                       </div>
-                      <ul class="social-link list-unstyled m-t-40 m-b-10">
-                        <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="facebook" data-abc="true"><i class="mdi mdi-facebook feather icon-facebook facebook" aria-hidden="true"></i></a></li>
-                        <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="twitter" data-abc="true"><i class="mdi mdi-twitter feather icon-twitter twitter" aria-hidden="true"></i></a></li>
-                        <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="instagram" data-abc="true"><i class="mdi mdi-instagram feather icon-instagram instagram" aria-hidden="true"></i></a></li>
-                      </ul>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </section>
         </div> : ""}
-      </div> : <Link to={"/signin"}>Đăng nhập</Link>}
+      </div> : <div className='position-absolute top-50 start-50 translate-middle' ><Link to={"/auth/signin"}>Đăng nhập</Link></div>
+      }
     </>
   )
 }

@@ -56,7 +56,7 @@ const EditUser = () => {
         </div>
         <div>Image</div>
         {/* <input type="text" {...register('image', { required: true })} className="form-control" /> */}
-        <img src={user ? user.image : ""} style={{ width: "200px", height: "200px", objectFit: "cover" }} class="img-radius" alt="User-Profile-Image" />
+        <img src={user ? user.image : ""} style={{ width: "200px", height: "200px", objectFit: "cover" }} className="img-radius" alt="User-Profile-Image" />
         <div className="mb-3">
           <label className="form-label">Image</label>
           <input type="file" {...register('image')} className="form-control" />

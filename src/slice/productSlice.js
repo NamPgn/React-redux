@@ -48,6 +48,14 @@ export const importDataFile = createAsyncThunk(
   }
 )
 
+
+// export const deleteMultipleData = createAsyncThunk(
+//   'product/deleteProductMultiple',
+//   async (id) => {
+//     const { data } = await deleteMultipleProduct(id);
+//     return data;
+//   }
+// )
 const productSlice = createSlice({
   name: "product",
   initialState: {
@@ -66,14 +74,14 @@ const productSlice = createSlice({
       })
     },
 
-    deleteSelectData: async (state, action) => {
-      console.log("action", action);
-      return action.payload;
-    }
+    // deleteSelectData: async (state, action) => {
+    //   return state.value = state.value.filter(item => item !== deleteMultipleData);
+    // }
   },
 
   extraReducers: (builder) => {
     builder.addCase(getProducts.fulfilled, (state, action) => {
+      // console.log("actionProductdataa", action.payload);
       state.value = action.payload;
     });
     builder.addCase(deleteProduct.fulfilled, (state, action) => {
@@ -87,7 +95,11 @@ const productSlice = createSlice({
     });
     builder.addCase(importDataFile.fulfilled, (state, action) => {
       state.value.unshift(action.payload);
-    })
+    });
+    // builder.addCase(deleteMultipleData.fulfilled, (state, action) => {
+    //   console.log(state.value = state.value.filter(item => item !== action.payload.data));
+      
+    // })
   }
 })
 

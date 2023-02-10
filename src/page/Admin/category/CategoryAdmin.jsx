@@ -16,6 +16,11 @@ const CategoryAdmin = () => {
       key: 'name',
     },
     {
+      title: 'Image',
+      dataIndex: 'image',
+      key: 'Image',
+    },
+    {
       title: 'CreateAt',
       dataIndex: 'createAt',
       key: 'createAt',
@@ -31,6 +36,7 @@ const CategoryAdmin = () => {
       key: item._id,
       stt: index + 1,
       name: item.name,
+      image: <Image width={150} height={200} style={{ objectFit: "cover" }} src={item.linkImg} />,
       createAt: item.createdAt,
     }
   }) : ""

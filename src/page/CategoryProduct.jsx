@@ -7,6 +7,7 @@ const CategoryProduct = () => {
   const [category, setCategory] = useState([]);
   const { id } = useParams();
   const [state, setState] = useState([]);
+
   useEffect(() => {
     const getDataAll = async () => {
       const data = await getCateProduct();
@@ -18,31 +19,47 @@ const CategoryProduct = () => {
   }, []);
   return (
     <>
-      {state.filter(({ category: { _id } }) => {
-        return _id == id;
-      }).map((item, index) => {
-        return <div className="col mb-5 col-md-3" style={{ height: "100%" }} key={index}>
-          <div className="card rounded bg-white " style={{ boxShadow: "0 0 13px #555" }}>
-            <img className="card-img-top" src={item.image} style={{ width: "100%" }} alt="..." />
-            <div className="card-body p-4">
-              <div className="text-center">
-                <h5 className="fw-bolder">{item.name}</h5>
-                Price : ${item.price}
-                <p>Categoty : {`[ ${filterCate(category, item.category._id)} ]`}</p>
-                <p>Description : {item.descriptions}</p>
+      <div className="col-md-9">
+        {category.map((item, index) => {
+          if (item._id == id) {
+            return <div style={{ margin: "20px" }} >
+              <div style={{ color: "#fff" }}>
+                <div className='d-flex detail_video'>
+                  <div style={{ maxWidth: "200px" }} className="data_img">
+                    <img src={item.linkImg} style={{ width: "100%", borderRadius: "3px" }} alt="" />
+                  </div>
+                  <div>
+                    <div className="category">
+                      <p>{item.name}</p>
+                    </div>
+                    <div className="loai">
+                      <p>Thể loại : Kiếm hiệp, truyện</p>
+                    </div>
+                    <div>Số tập :</div>
+                    <br />
+                    <div className='d-flex' style={{ gap: "0 10px" }}>
+                      {state.filter(({ category: { _id } }) => {
+                        return _id == id;
+                      }).map((item, index) => {
+                        return <div style={{ border: "1px solid #fff", width: "50px", textAlign: "center", }}>
+                          <NavLink to={'/detail/' + item._id}>
+                            <button type="button" className="btn btn-dark">{item.seri}</button>
+                          </NavLink>
+                        </div>
+                      })}
+                    </div>
+                  </div>
+                </div>
+                <div className='des'>
+                  <h5>Nội dung Phim: </h5>
+                  <p>{item.descriptions}</p>
+                </div>
               </div>
             </div>
-            <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
-              <div className="text-center">
-                <NavLink to={'/detail/' + item._id}>
-                  <a className="btn btn-outline-dark mt-auto" >View Product</a>
-                </NavLink>
-              </div>
-            </div>
-          </div>
-        </div>
+          }
+        })}
 
-      })}
+      </div>
     </>
   )
 }

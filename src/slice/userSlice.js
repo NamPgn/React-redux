@@ -82,7 +82,7 @@ const userSlice = createSlice({
         value: [],
     },
     reducers: {
-        logout(state) {
+        logout() {
             localStorage.clear()
         },
         resetState(state) {
@@ -108,9 +108,7 @@ const userSlice = createSlice({
             state.value = action.payload;
         });
         builder.addCase(deteleUser.fulfilled, (state, action) => {
-            // console.log("actionUser", action.payload)
-            // console.log("stateUser", state)
-            state.value = state.value.filter(item => item._id !== action.payload._id);
+            state.value = state.value.filter(item => item._id !== action.payload.id);
         });
         builder.addCase(getAdmin.fulfilled, (state, action) => {
             state.value = action.payload;
@@ -130,7 +128,7 @@ const userSlice = createSlice({
     }
 })
 
-export const userActions = userSlice.actions;
+export const { logout } = userSlice.actions;
 
 export const selectUserValue = (state) => state.user.value;
 

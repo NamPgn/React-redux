@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Table, Image, Button } from 'antd';
 import { useDispatch, useSelector, } from 'react-redux';
-import { getProducts, deleteProduct, editProduct, deleteSelectData } from '../../../slice/productSlice';
+import { getProducts, deleteProduct, editProduct, deleteSelectData, } from '../../../slice/productSlice';
 import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getAllcate } from '../../../slice/categorySlice';
@@ -26,11 +26,7 @@ const columns = [
         dataIndex: 'price',
         key: 'price',
     },
-    {
-        title: 'Description',
-        dataIndex: 'description',
-        key: 'description',
-    },
+
     {
         title: 'Image',
         key: 'image',
@@ -40,6 +36,21 @@ const columns = [
         title: 'Category',
         key: 'category',
         dataIndex: 'category',
+    },
+    {
+        title: 'Video Url',
+        key: 'video',
+        dataIndex: 'video',
+    },
+    {
+        title: 'Seri',
+        key: 'Seri',
+        dataIndex: 'Seri',
+    },
+    {
+        title: 'Copyright',
+        key: 'copyright',
+        dataIndex: 'copyright',
     },
     {
         title: 'Delete',
@@ -58,11 +69,9 @@ const ProductAdmin = ({ product }) => {
     const [state, setCate] = useState([]);
     const [search, searchState] = useState("");
     const [filter, setFilter] = useState("");
-
-
     const [checkedId, setCheckedId] = useState([]);
     const [checkAllid, setCheckAllid] = useState(false);
-    console.log("checkAllid", checkAllid);
+    const [init, setInit] = useState(false);
     const dispath = useDispatch();
     useEffect(() => {
         const dataCate = async () => {
@@ -72,9 +81,10 @@ const ProductAdmin = ({ product }) => {
 
         dispath(getProducts());
 
-    }, [])
+    }, [init])
 
     let dataS = product;
+
     (search.length) ? dataS = product.filter((item) => item.name.toLowerCase().includes(search.toLowerCase())) : "";
     if (filter.length) {
         dataS = product.filter(item => (filter == item.category));
@@ -98,28 +108,33 @@ const ProductAdmin = ({ product }) => {
         }
     }
     //bấm để cút
-    const hanedleDeleteData = async () => {
-        dispath(deleteSelectData(checkedId)); //xóa theo mảng
+    const handleDeleteData = async () => {
+        console.log("checkAllid", checkedId);
+        // dispath(deleteMultipleData(checkedId)) //xóa theo mảng
         // setCheckAllid([]); //xóa xong thì về 1 mảng rỗng
-        await deleteMultipleProduct(checkedId);
+        // await deleteMultipleProduct(checkedId);
+        const deleteId = await deleteMultipleProduct(checkedId);
+        setInit(true);
+        return deleteId;
     }
 
     const data = dataS ? dataS.map((value, index) => {
         return {
             key: value._id,
             all: <div>
-                <input class="form-check-input"
+                <input className="form-check-input"
                     checked={checkedId.includes(value._id)}
-                    onChange={() => hanedleCheckboxChange(value._id)
-                    }
-                    type="checkbox" id="defaultCheck1" />
+                    onChange={() => hanedleCheckboxChange(value._id)}
+                    type="checkbox" id="defaultCheck1"
+                />
             </div>,
             name: value.name,
             price: value.price,
-            description: value.descriptions,
             category: filterCate(state, value.category),
             image: <Image width={150} height={200} style={{ objectFit: "cover" }} src={value.image} />,
-
+            video: value.linkVideo,
+            Seri: value.seri,
+            copyright: value.copyright,
             delete: <Button
                 type="primary"
                 onClick={() => toast.success(`Delete ${value.name} Success!`, {
@@ -145,19 +160,12 @@ const ProductAdmin = ({ product }) => {
         <>
             <input type="checkbox"
                 checked={checkAllid} name=""
-                onChange={() => handleCheckAll()
-                    // let { checked } = e.target;
-                    // setCheck(e.target.checked);
-                    // setProductState(
-                    //     dataS.map(item => {
-
-                    //         item.select = checked;
-                    //         return item;
-                    //     })
-
-                    // )
-                } id="" />
-            <button className='btn btn-danger' onClick={() => { hanedleDeleteData() }}>Cút</button>
+                onChange={() => handleCheckAll()}
+                id=""
+            />
+            <button onClick={() => { handleDeleteData() }} className='btn_remove'>
+                <i className="fa-solid fa-trash text-light"></i>
+            </button>
             <NavLink to={'/admin/product/add'} >
                 <Button type="primary" shape="round" style={{ display: "inline-block", margin: "10px 10px" }}>Add Product</Button>
             </NavLink>
@@ -167,7 +175,7 @@ const ProductAdmin = ({ product }) => {
             <NavLink to={'/admin/product/add'} >
                 <Button type="primary" shape="round" style={{ display: "inline-block  ", margin: "10px 10px", background: "#eca52b" }}>Export PDF</Button>
             </NavLink>
-            <select className="form-select-sm" onChange={e => setFilter(e.target.value)} style={{ border: "none", padding: "10px", outline: "none" }} aria-label=".form-select-sm example">
+            <select className="form-select-sm" onChange={e => setFilter(e.target.value)} style={{ border: "none", padding: "10px", outline: "none", width: "250px" }} aria-label=".form-select-sm example">
                 <option value={"all"}>Open this select menu</option>
                 {state.map((item, index) => {
                     return <option value={item._id} key={index} >{item.name}</option>
@@ -183,9 +191,6 @@ const ProductAdmin = ({ product }) => {
                             searchState(e.target.value);
                         }} />
                     </div>
-                    <button type="button" className="btn btn-primary">
-                        <i className="fas fa-search"></i>
-                    </button>
                 </div>
             </div>
             <Table columns={columns} dataSource={data} pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '20', '30'] }} />

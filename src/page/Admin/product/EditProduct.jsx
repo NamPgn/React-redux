@@ -15,7 +15,7 @@ const EditProduct = () => {
   const dispath = useDispatch();
   const [state, setState] = useState({});
   const [cate, setCate] = useState([]);
-  const [category,setCategory]=useState([]);
+  const [category, setCategory] = useState([]);
   useEffect(() => {
     const getFormProduct = async () => {
       const { payload } = await dispath(getProduct(id));
@@ -40,10 +40,14 @@ const EditProduct = () => {
     const formdata = new FormData();
     formdata.append('image', data.image[0]);
     formdata.append('name', data.name);
-    formdata.append('descriptions', data.descriptions);
     formdata.append('price', data.price);
     formdata.append('category', data.category);
     formdata.append('_id', id);
+    formdata.append('linkVideo', data.linkVideo);
+    formdata.append('seri', data.seri);
+    formdata.append('LinkCopyright', data.LinkCopyright);
+    formdata.append('copyright', data.copyright)
+    formdata.append('descriptions', data.descriptions);
     dispath(editProduct(formdata));
     navigate('/admin/products');
     toast.success(`Sửa ${data.name}} công`, {
@@ -64,13 +68,30 @@ const EditProduct = () => {
           <label className="form-label">Product name</label>
           <input type="text" {...register('name')} className="form-control" required />
         </div>
-        <div className="mb-3">
-          <label className="form-label">Description</label>
-          <input type="text" {...register('descriptions')} className="form-control" required />
-        </div>
+
         <div className="mb-3">
           <label className="form-label">Price</label>
           <input type="text" {...register('price')} className="form-control" required />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Video Url</label>
+          <input type="text" {...register('linkVideo')} className="form-control" required />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Desciption</label>
+          <input type="text" {...register('descriptions')} className="form-control" required />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Seri</label>
+          <input type="text" {...register('seri')} className="form-control" required />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Copyright</label>
+          <input type="text" {...register('copyright')} className="form-control" required />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">LinkCopyright</label>
+          <input type="text" {...register('LinkCopyright')} className="form-control" required />
         </div>
         <div className="mb-3">
           <div className="form-label">Category</div>

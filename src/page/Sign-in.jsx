@@ -1,7 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { isAuthentication } from '../auth/getToken';
 import { loginForm } from '../slice/userSlice';
 const Signin = () => {
@@ -12,28 +12,24 @@ const Signin = () => {
     console.log("dtaafrom", data)
     if (dispath(loginForm(data))) {
       navigate('/')
-    }else{
+    } else {
       alert("Đăng nhập lại đi")
     }
   }
 
   return (
     <div>
-      <form className='container' onSubmit={handleSubmit(onsubmit)}>
-        <div class="mb-3">
-          <label for="exampleInputEmail1" className="form-label">Email address</label>
-          <input type="email" className="form-control" {...register('email')} id="exampleInputEmail1" name='email' aria-describedby="emailHelp" />
-          <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+      <form className='container formContainer' onSubmit={handleSubmit(onsubmit)} >
+        <div>
+          <div className="inputGroup">
+            <input type="text" className="input" {...register('email')} required="" placeholder='Email' autocomplete="off" />
+          </div>
+          <div className="inputGroup">
+            <input type="password" className="input" {...register('password')} placeholder='Pass' required="" autocomplete="off" />
+          </div>
+          <button className="btn btn-primary">Submit</button>
+          <Link to={'/auth/signup'} style={{margin:"0px 10px"}} >Đăng kí </Link>
         </div>
-        <div className="mb-3">
-          <label for="exampleInputPassword1" className="form-label">Password</label>
-          <input type="password" className="form-control" {...register('password')} name='password' id="exampleInputPassword1" />
-        </div>
-        <div className="mb-3 form-check">
-          <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-          <label className="form-check-label" for="exampleCheck1">Check me out</label>
-        </div>
-        <button className="btn btn-primary">Submit</button>
       </form>
     </div>
   )
