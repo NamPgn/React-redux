@@ -41,11 +41,10 @@ const HomePage = () => {
           return <div className='movie_css' key={index}>
             <h5 className='text-light text_product'>{index + 1 + ". " + " " + cate.name}</h5>
             <div style={{ position: "relative" }}>
-              <div className="cateConten d-flex" style={{ width: "100%",  }} >
+              <div className="cateConten d-flex" style={{ width: "100%", }} >
                 {product.map((item) => {
-                  
                   if (item.category == cate._id) {
-                    return <div className='mt-3' >
+                    return <div className='mt-3' key={item._id}>
                       <div className="cateItem">
                         <Link to={'/detail/' + item._id}>
                           <img style={{ width: "100%" }} src={item.image} alt="" />
@@ -73,12 +72,10 @@ const HomePage = () => {
                   }
                 })}
               </div>
-
             </div>
           </div>
         })}
       </div>
-
     </div>
   )
 }

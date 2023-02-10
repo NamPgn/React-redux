@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Link, NavLink, Outlet, } from "react-router-dom";
-import CategoryProduct from '../../components/CategoryProduct';
+import React from 'react'
+import { Outlet } from "react-router-dom";
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 const HomePage = () => {
