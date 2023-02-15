@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form";
 import { useDispatch } from 'react-redux';
-import { addProduct } from '../../../slice/productSlice';
+import { addProduct } from '../../../redux/slice/productSlice';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Cate } from '../../../main';
@@ -18,16 +18,16 @@ const ProductAdd = () => {
   const { handleSubmit, register } = useForm();
   const onsubmit = (data) => {
     const formdata = new FormData();
-    formdata.append('image', data.image[0]);
+    // formdata.append('image', data.image[0]);
     formdata.append('name', data.name);
     formdata.append('price', data.price);
     formdata.append('category', data.category);
-    formdata.append('linkVideo', data.linkVideo);
+    formdata.append('linkVideo', data.linkVideo[0]);
     formdata.append('seri', data.seri);
     formdata.append('LinkCopyright', data.LinkCopyright);
     formdata.append('copyright', data.copyright)
-    formdata.append('descriptions',data.descriptions);
-    console.log("data",data);
+    formdata.append('descriptions', data.descriptions);
+    console.log("data", data);
     dispath(addProduct(formdata));
     navigate('/admin/products');
     toast.success('Add Product Success', {
@@ -52,10 +52,7 @@ const ProductAdd = () => {
           <label className="form-label">View</label>
           <input type="text" {...register('price')} className="form-control" required />
         </div>
-        <div className="mb-3">
-          <label className="form-label">Video Url</label>
-          <input type="text" {...register('linkVideo')} className="form-control" required />
-        </div>
+
         <div className="mb-3">
           <label className="form-label">Desciption</label>
           <input type="text" {...register('descriptions')} className="form-control" required />
@@ -79,9 +76,13 @@ const ProductAdd = () => {
             return <option value={item._id} key={index}>{item.name}</option>
           })}
         </select>
-        <div className="mb-3">
+        {/* <div className="mb-3">
           <label className="form-label">Image</label>
           <input type="file" {...register('image')} className="form-control" required />
+        </div> */}
+        <div className="mb-3">
+          <label className="form-label">Video Url</label>
+          <input type="file" {...register('linkVideo')} className="form-control" required />
         </div>
         <button className="btn btn-primary">Submit</button>
       </form>

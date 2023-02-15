@@ -6,11 +6,11 @@ const HomePage = () => {
 
   return (
     <div>
-      <main >
+      <main>
         <div>
           <Header />
         </div>
-        <div className="container">
+        <div className="container" >
           <Outlet />
         </div>
         <div>

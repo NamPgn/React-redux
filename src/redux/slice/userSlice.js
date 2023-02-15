@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { resgister, login, getUser, deleteAuth, editAuth, getAuth, editAvt, importExcel } from "../api/user";
+import { resgister, login, getUser, deleteAuth, editAuth, getAuth, editAvt, importExcel } from "../../api/user";
 
 export const resgisterLogin = createAsyncThunk(
     "user/login",
@@ -130,7 +130,6 @@ const userSlice = createSlice({
 
 export const { logout } = userSlice.actions;
 
-export const selectUserValue = (state) => state.user.value;
 
 const userReducer = userSlice.reducer
 

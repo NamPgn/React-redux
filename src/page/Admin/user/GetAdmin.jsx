@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { Space, Table, Tag, Button, Image } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAdmin, selectUserValue } from '../../../slice/userSlice';
+import { getAdmin } from '../../../redux/slice/userSlice';
+import { admin$ } from '../../../redux/selectors';
 const columns = [
   {
     title: 'Name',
@@ -27,7 +28,7 @@ const columns = [
 ];
 const GetAdmin = () => {
   const dispath = useDispatch();
-  const adminUser = useSelector(selectUserValue);
+  const adminUser = useSelector(admin$);
   useEffect(() => {
     dispath(getAdmin());
   }, [])

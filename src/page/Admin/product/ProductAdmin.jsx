@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Table, Image, Button } from 'antd';
 import { useDispatch, useSelector, } from 'react-redux';
-import { getProducts, deleteProduct, editProduct, deleteSelectData, } from '../../../slice/productSlice';
+import { getProducts, deleteProduct, editProduct, deleteSelectData, } from '../../../redux/slice/productSlice';
 import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { getAllcate } from '../../../slice/categorySlice';
-import { getAllcategory, getCategoryProduct } from '../../../api/categoty';
+import { getAllcate } from '../../../redux/slice/categorySlice';
+import { getAllcategory, getCategoryProduct } from '../../../api/category';
 import { Cate, filterCate } from '../../../main';
 import axios from 'axios';
 import { deleteMultipleProduct, getAllProduct } from '../../../api/product';
@@ -13,54 +13,73 @@ const columns = [
     {
         title: "Select",
         key: "all",
-        dataIndex: 'all'
+        dataIndex: 'all',
+        showOnResponse: true,
+        showOnDesktop: true
     },
 
     {
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
+        showOnResponse: true,
+        showOnDesktop: true
     },
     {
         title: 'Price',
         dataIndex: 'price',
         key: 'price',
+        showOnResponse: true,
+        showOnDesktop: true
     },
-
     {
         title: 'Image',
         key: 'image',
         dataIndex: 'image',
+        showOnResponse: true,
+        showOnDesktop: true
     },
     {
         title: 'Category',
         key: 'category',
         dataIndex: 'category',
+        showOnResponse: true,
+        showOnDesktop: true
     },
     {
         title: 'Video Url',
         key: 'video',
         dataIndex: 'video',
+        showOnResponse: true,
+        showOnDesktop: true
     },
     {
         title: 'Seri',
         key: 'Seri',
         dataIndex: 'Seri',
+        showOnResponse: true,
+        showOnDesktop: true
     },
     {
         title: 'Copyright',
         key: 'copyright',
         dataIndex: 'copyright',
+        showOnResponse: true,
+        showOnDesktop: true
     },
     {
         title: 'Delete',
         key: 'delete',
         dataIndex: 'delete',
+        showOnResponse: true,
+        showOnDesktop: true
     },
     {
         title: 'Edit',
         key: 'edit',
         dataIndex: 'edit',
+        showOnResponse: true,
+        showOnDesktop: true
     },
 
 ];
@@ -131,7 +150,7 @@ const ProductAdmin = ({ product }) => {
             name: value.name,
             price: value.price,
             category: filterCate(state, value.category),
-            image: <Image width={150} height={200} style={{ objectFit: "cover" }} src={value.image} />,
+            image: <Image width={150} height={200} style={{ objectFit: "cover" }} src={'https://hoathinh3d.com/wp-content/uploads/2021/10/dau-pha-thuong-khung-ova-3-hen-uoc-3-nam-856-300x450.jpg'} />,
             video: value.linkVideo,
             Seri: value.seri,
             copyright: value.copyright,
@@ -193,7 +212,7 @@ const ProductAdmin = ({ product }) => {
                     </div>
                 </div>
             </div>
-            <Table columns={columns} dataSource={data} pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '20', '30'] }} />
+            <Table columns={columns} mobileBreakPoint={768} dataSource={data} pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '20', '30'] }} />
         </>
     )
 }

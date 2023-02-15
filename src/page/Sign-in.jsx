@@ -3,13 +3,12 @@ import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { isAuthentication } from '../auth/getToken';
-import { loginForm } from '../slice/userSlice';
+import { loginForm } from '../redux/slice/userSlice';
 const Signin = () => {
   const { register, handleSubmit } = useForm();
   const dispath = useDispatch();
   const navigate = useNavigate();
   const onsubmit = (data) => {
-    console.log("dtaafrom", data)
     if (dispath(loginForm(data))) {
       navigate('/')
     } else {
@@ -28,7 +27,7 @@ const Signin = () => {
             <input type="password" className="input" {...register('password')} placeholder='Pass' required="" autocomplete="off" />
           </div>
           <button className="btn btn-primary">Submit</button>
-          <Link to={'/auth/signup'} style={{margin:"0px 10px"}} >Đăng kí </Link>
+          <Link to={'/auth/signup'} style={{ margin: "0px 10px" }} >Đăng kí </Link>
         </div>
       </form>
     </div>

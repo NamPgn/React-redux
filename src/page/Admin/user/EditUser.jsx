@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form";
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { editUser, getUser_id } from '../../../slice/userSlice';
+import { editUser, getUser_id } from '../../../redux/slice/userSlice';
 import { toast } from 'react-toastify';
 
 const EditUser = () => {

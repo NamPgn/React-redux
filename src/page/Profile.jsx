@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react'
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { isAuthentication } from '../auth/getToken';
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
-import { editImage, getUser_id, logout, selectUserValue } from '../slice/userSlice';
+import { editImage, getUser_id, logout } from '../redux/slice/userSlice';
 import { toast } from 'react-toastify';
-import Logout from './logout';
+import { user$ } from '../redux/selectors';
 const Profile = () => {
   const { data } = isAuthentication();
   const { handleSubmit, register } = useForm();
   const dispath = useDispatch();
-  const user = useSelector(selectUserValue);
+  const user = useSelector(user$);
   const navigate = useNavigate();
   useEffect(() => {
     dispath(getUser_id(data ? data.user._id : ""));
@@ -88,7 +88,7 @@ const Profile = () => {
             </div>
           </section>
         </div> : ""}
-      </div> : <div className='position-absolute top-50 start-50 translate-middle' ><Link to={"/auth/signin"}>Đăng nhập</Link></div>
+      </div> : <div className='text-light container text-center' ><Link to={"/auth/signin"}>Đăng nhập</Link></div>
       }
     </>
   )

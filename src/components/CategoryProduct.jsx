@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { Cate } from '../main';
-const CategoryProduct = () => {
+const CategoryProductDm = () => {
   const [category, setCategory] = useState([]);
   useEffect(() => {
     const getDta = async () => {
@@ -9,13 +9,14 @@ const CategoryProduct = () => {
     }
     getDta();
   }, []);
+  const catedata = category.slice(0, 4);
   return (
-    <nav className="nav navCate col-sm-3" style={{height:"100%"}}>
-      <div style={{color:"#fff"}}>Seri</div>
-      {category.map((item, index) => {
+    <nav className="nav navCate col-sm-3" style={{ height: "100%" }}>
+      <div style={{ color: "#fff" }}>Xếp hạng</div>
+      {catedata.map((item, index) => {
         return <div className='d-flex categoryContent col-md-12' key={index}>
           <div style={{ maxWidth: "50px" }} className='col-md-2'>
-            <img style={{ width: "100%", objectFit: "cover", height:'100%' ,borderRadius:"8px", boxShadow:"0 0 3px #fff"}} src={item.linkImg} alt="" />
+            <img style={{ width: "100%", objectFit: "cover", height: '100%', borderRadius: "8px", boxShadow: "0 0 3px #fff" }} src={item.linkImg} alt="" />
           </div>
           <div className='col-md-10'>
             <Link className={"p-2"} key={index}
@@ -28,4 +29,4 @@ const CategoryProduct = () => {
   )
 }
 
-export default CategoryProduct
+export default CategoryProductDm

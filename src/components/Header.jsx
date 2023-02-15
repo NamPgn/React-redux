@@ -5,11 +5,11 @@ const Header = () => {
 
     return (
         <header className="masthead mb-auto">
-            <div className="inner" >
-                <h3 className="masthead-brand" style={{ textAlign: "center", background: "", color: "#fff" }}>Cover</h3>
+            <div className="inner fixed-top " style={{ background: "#000", boxShadow: "0 0 3px #fff" }} >
+                <h3 className="masthead-brand" style={{ textAlign: "center", color: "#fff" }}>Cover</h3>
                 <nav className="nav nav-masthead justify-content-center">
                     <li className="nav-item"><Link style={{ color: "#fff", textDecoration: "none", margin: "0 20px" }} to={'/'}>Home</Link></li>
-                    <li className="nav-item"><Link style={{ color: "#fff", textDecoration: "none", margin: "0 20px" }} to={'/product'}>Trailer</Link></li>
+                    <li className="nav-item"><Link style={{ color: "#fff", textDecoration: "none", margin: "0 20px" }} to={'/postList'}>Post</Link></li>
                     <li className="nav-item"><Link style={{ color: "#fff", textDecoration: "none", margin: "0 20px" }} to={'/auth/signin'}>Signin</Link></li>
                     <li className="nav-item"><Link style={{ color: "#fff", textDecoration: "none", margin: "0 20px" }} to={'/auth/signup'}>Signup</Link></li>
                     <li className="nav-item"><Link style={{ color: "#fff", textDecoration: "none", margin: "0 20px" }} to={'/auth/profile'}>Profile</Link></li>

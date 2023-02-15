@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import React from 'react'
 import { Link, useNavigate } from "react-router-dom"
-import { resgisterLogin } from "../slice/userSlice"
+import { resgisterLogin } from "../redux/slice/userSlice"
 
 import { useDispatch } from 'react-redux';
 const Signup = () => {

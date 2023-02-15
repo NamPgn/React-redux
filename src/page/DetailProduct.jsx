@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { isAuthentication } from '../auth/getToken';
-import CategoryProduct from '../components/CategoryProduct';
-import { getProduct } from '../slice/productSlice';
-import jwtDecode from 'jwt-decode';
+import CategoryProductDm from '../components/CategoryProduct';
+import { getProduct, getProducts } from '../redux/slice/productSlice';
+
 import ContactAdmin from '../components/ContactAdmin';
+import { decodeUser } from '../auth/getToken';
+import { getOneProduct$, product$ } from '../redux/selectors';
 const DetailProduct = () => {
+  const product = useSelector(product$);
+  const getOneProductDetail = useSelector(getOneProduct$)
   const dispath = useDispatch();
-  const [state, setProduct] = useState();
   const { id } = useParams();
   useEffect(() => {
-    const detail = async () => {
-      const data = await dispath(getProduct(id));
-      setProduct(data.payload);
-    };
-    detail();
-  }, [])
-  const { data: { token } } = isAuthentication();
-  const decodeUser = jwtDecode(token);
+
+    dispath(getProduct(id));
+
+    dispath(getProducts());
+  }, [id])
   return (
     <>
       <React.Fragment>
@@ -26,17 +26,35 @@ const DetailProduct = () => {
         <div className='d-flex'>
           <div className={'col-sm-9'}>
             <div style={{ margin: "12px 5px" }} >
-              {state ? <div>
-                {state.linkVideo ? <video width="100%" controls autoPlay={true} muted style={{ borderRadius: "10px" }}>
-                  <source src={state.linkVideo}  />
-                </video> : " Will be updated soon... "}
-                <h4 className='mt-4 mb-4'>{state.name + " " + state.seri}</h4>
+              {getOneProductDetail ? <div>
+                <video width="100%" src={getOneProductDetail.linkVideo} controls muted autoPlay={true} style={{ borderRadius: "10px" }}>
+                </video>
+                <div style={{color:"#fff",margin:"10px 10px",textAlign:"end"}}>
+                <i className="fa-solid fa-eye"></i> 
+                  {getOneProductDetail.price} View</div>
+                <h4 className='mt-4 mb-4'>{getOneProductDetail.name + " " + getOneProductDetail.seri}</h4>
+                <h5>Tập số {getOneProductDetail.seri + " / " + "40"} </h5>
+                <div className='d-flex'>
+                  {
+                    product.map(item => {
+                      if (item.category == getOneProductDetail.category) {
+                        return <div key={item._id}>
+                          <Link to={'/detail/' + item._id}>
+                            {
+                              item._id == id ? <button className='btnMovieSeri'>Tập {item.seri}</button> : <button className='btnMovieSeri'>Tập {item.seri}</button>
+                            }
+                          </Link>
+                        </div>
+                      }
+                    })
+                  }
+                </div>
                 <div className='p-3 mt-3 mb-3 text-white rounded' style={{ background: "rgb(0 0 0 / 47%)" }}>
-                  Bản quyền video thuộc : <a href={state.LinkCopyright}>  {state.copyright} </a>
+                  Bản quyền video thuộc : <a href={getOneProductDetail.LinkCopyright}>  {getOneProductDetail.copyright} </a>
                 </div>
                 <div className='des mt-5 mb-5'>
                   <h5>Nội dung Phim: </h5>
-                  <p>{state.descriptions}</p>
+                  <p>{getOneProductDetail.descriptions}</p>
                   <h4 className='mt-5'>Bình luận</h4>
                   <section >
                     <div className="container py-5">
@@ -55,7 +73,6 @@ const DetailProduct = () => {
                                   </p>
                                 </div>
                               </div>
-
                               <p className="mt-3 mb-4 pb-2">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                                 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -102,7 +119,7 @@ const DetailProduct = () => {
               </div> : ""}
             </div>
           </div>
-          <CategoryProduct />
+          <CategoryProductDm />
         </div>
       </React.Fragment>
     </>

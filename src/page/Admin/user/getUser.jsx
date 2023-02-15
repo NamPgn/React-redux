@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { Space, Table, Tag, Button, Image } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAlluser, selectUserValue, deteleUser } from '../../../slice/userSlice';
+import { getAlluser, deteleUser } from '../../../redux/slice/userSlice';
 import { NavLink } from "react-router-dom ";
 import { DownloadOutlined } from "@ant-design/icons";
 import { toast } from 'react-toastify';
+import { user$ } from '../../../redux/selectors';
 const columns = [
   {
     title: 'Name',
@@ -41,7 +42,7 @@ const columns = [
   },
 ];
 const GetUser = () => {
-  const states = useSelector(state => state.user.value);
+  const states = useSelector(user$);
   const dispath = useDispatch();
   useEffect(() => {
     dispath(getAlluser());
@@ -94,7 +95,6 @@ const GetUser = () => {
       <NavLink to={'/admin/product/add'} >
         <Button type="primary" shape="round" style={{ display: "inline-block  ", margin: "10px 10px", background: "#eca52b" }}>Export PDF</Button>
       </NavLink>
-
       <Table columns={columns} dataSource={data} pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '20', '30'] }} />
     </>
   )

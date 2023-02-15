@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { editProduct, getProduct } from '../../../slice/productSlice';
+import { editProduct, getProduct } from '../../../redux/slice/productSlice';
 
 import { toast } from 'react-toastify';
-import { getAdmin } from '../../../slice/userSlice';
-import { getAllcategory } from '../../../api/categoty';
+import { getAdmin } from '../../../redux/slice/userSlice';
+import { getAllcategory } from '../../../api/category';
 import { Cate, filterCate } from '../../../main';
 const EditProduct = () => {
   const navigate = useNavigate();
@@ -43,7 +43,7 @@ const EditProduct = () => {
     formdata.append('price', data.price);
     formdata.append('category', data.category);
     formdata.append('_id', id);
-    formdata.append('linkVideo', data.linkVideo);
+    formdata.append('filename', data.filename);
     formdata.append('seri', data.seri);
     formdata.append('LinkCopyright', data.LinkCopyright);
     formdata.append('copyright', data.copyright)
@@ -73,10 +73,7 @@ const EditProduct = () => {
           <label className="form-label">Price</label>
           <input type="text" {...register('price')} className="form-control" required />
         </div>
-        <div className="mb-3">
-          <label className="form-label">Video Url</label>
-          <input type="text" {...register('linkVideo')} className="form-control" required />
-        </div>
+
         <div className="mb-3">
           <label className="form-label">Desciption</label>
           <input type="text" {...register('descriptions')} className="form-control" required />
@@ -103,9 +100,14 @@ const EditProduct = () => {
           </select>
         </div>
         <div className="mb-3">
+          <label className="form-label">Video Url</label>
+          
+          <input type="file" {...register('filename')}  className="form-control" required />
+        </div>
+        {/* <div className="mb-3">
           <label className="form-label">Image</label>
           <input type="file" {...register('image')} className="form-control" />
-        </div>
+        </div> */}
         <button className="btn btn-primary">Submit</button>
       </form>
     </div>

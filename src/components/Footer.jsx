@@ -9,7 +9,6 @@ const Footer = () => {
           <footer className="bg-dark-gradient footer">
             <div className="footer-top">
               <div className="container">
-
                 <div className="row">
                   <div className="col-sm-6 col-lg-3 my-4">
                     <div className="mb-4">

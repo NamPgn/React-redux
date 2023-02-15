@@ -12,7 +12,7 @@ import HomePage from './page/HomePage';
 import DataProduct from './page/Admin/product/DataProduct';
 import AuthComponent from './components/AuthComponent';
 
-const ProductPage = React.lazy(() => import('./page/Product'));
+const ProductPage = React.lazy(() => import('./page/PostList'));
 const ProfilePage = React.lazy(() => import('./page/Profile'));
 const DetailProductPage = React.lazy(() => import('./page/DetailProduct'));
 const CategoryProduct = React.lazy(() => import('./page/CategoryProduct'));
@@ -47,7 +47,7 @@ function App() {
         </Route>
         <Route path='/' element={<LayoutWebsite />}>
           <Route index element={<HomePage />}></Route>
-          <Route path='product' element={
+          <Route path='postList' element={
             <Suspense fallback={"Loading...."}>
               <ProductPage />
             </Suspense>

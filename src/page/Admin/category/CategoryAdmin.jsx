@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { Table, Image, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllcate } from '../../../slice/categorySlice';
+import { getAllcate } from '../../../redux/slice/categorySlice';
+import { category$ } from '../../../redux/selectors';
 const CategoryAdmin = () => {
 
   const columns = [
@@ -27,7 +28,7 @@ const CategoryAdmin = () => {
     }
   ];
   const dispath = useDispatch();
-  const category = useSelector(state => state.category.value);
+  const category = useSelector(category$);
   useEffect(() => {
     dispath(getAllcate());
   }, []);

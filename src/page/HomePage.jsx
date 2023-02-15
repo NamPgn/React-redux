@@ -2,22 +2,17 @@ import React, { useEffect, useState } from 'react'
 import Iframe from 'react-iframe'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
-import { getAllcategory } from '../api/categoty';
-import CategoryProduct from '../components/CategoryProduct';
+import CategoryProductDm from '../components/CategoryProduct';
 import ContactAdmin from '../components/ContactAdmin';
-import { getProducts } from '../slice/productSlice';
+import { category$ } from '../redux/selectors';
+import { getAllcate } from '../redux/slice/categorySlice';
+import { getProducts } from '../redux/slice/productSlice';
 const HomePage = () => {
-  const [category, setCategory] = useState([]);
-  const product = useSelector(state => state.product.value);
   const dispath = useDispatch();
+  const cate = useSelector(category$);
   useEffect(() => {
     dispath(getProducts());
-
-    const category = async () => {
-      const { data } = await getAllcategory();
-      setCategory(data);
-    }
-    category();
+    dispath(getAllcate());
   }, [])
   return (
     <div >
@@ -34,15 +29,26 @@ const HomePage = () => {
             <ContactAdmin />
           </div>
         </div>
-        <CategoryProduct />
+        <CategoryProductDm />
       </div>
+      <div className='text-light'>All Movie</div>
       <div className="categoryMovie">
-        {category.map((cate, index) => {
+        {cate.map((item, index) => {
           return <div className='movie_css' key={index}>
-            <h5 className='text-light text_product'>{index + 1 + ". " + " " + cate.name}</h5>
-            <div style={{ position: "relative" }}>
-              <div className="cateConten d-flex" style={{ width: "100%", }} >
-                {product.map((item) => {
+            <div >
+              <div className="cateConten cateItem" style={{ width: "100%", }} >
+                <Link to={'/product/category/' + item._id + `?category=${item.name}`}>
+                  <img style={{ width: "100%" }} src={item.linkImg} alt="" />
+                </Link>
+                <div className="cateTitle text-light mt-1">
+                  <Link to={'/product/category/' + item._id + `?category=${item.name}`}>
+                    <p>{item.name}</p>
+                  </Link>
+                </div>
+                <div className='release_date'>
+                  <p>Thời gian 20/12 phút</p>
+                </div>
+                {/* {product.map((item) => {
                   if (item.category == cate._id) {
                     return <div className='mt-3' key={item._id}>
                       <div className="cateItem">
@@ -56,9 +62,7 @@ const HomePage = () => {
                       <div className='release_date'>
                         <p>2021</p>
                       </div>
-
                     </div>
-
                   }
                   if (item.length >= 6) {
                     return <>
@@ -70,7 +74,7 @@ const HomePage = () => {
                       </div>
                     </>
                   }
-                })}
+                })} */}
               </div>
             </div>
           </div>

@@ -3,7 +3,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import { Button, Upload, Form } from 'antd';
 import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
-import { importXlsx } from '../../../slice/userSlice';
+import { importXlsx } from '../../../redux/slice/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 const CreatingUser = () => {
