@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { resgister, login, getUser, deleteAuth, editAuth, getAuth, editAvt, importExcel } from "../../api/user";
+import { resgister, login, getUser, deleteAuth, editAuth, getAuth, importExcel } from "../../api/user";
 
 export const resgisterLogin = createAsyncThunk(
     "user/login",
@@ -59,14 +59,6 @@ export const editUser = createAsyncThunk(
     }
 )
 
-export const editImage = createAsyncThunk(
-    "edit/editAvt",
-    async (payload) => {
-        const { data } = await editAvt(payload);
-        return data.data;
-    }
-)
-
 export const importXlsx = createAsyncThunk(
     'user/importXlsx',
     async (dataImport) => {
@@ -75,6 +67,7 @@ export const importXlsx = createAsyncThunk(
         return data;
     }
 )
+
 const userSlice = createSlice({
 
     name: "user",
@@ -101,7 +94,6 @@ const userSlice = createSlice({
         builder.addCase(loginForm.fulfilled, (state, action) => {
             localStorage.setItem('token', JSON.stringify(action.payload))
             // console.log("action.payload", action.payload);
-            state.isAuthenticate = true;
         });
         builder.addCase(getAlluser.fulfilled, (state, action) => {
             // console.log("action", action.payload)
@@ -117,10 +109,7 @@ const userSlice = createSlice({
         builder.addCase(editUser.fulfilled, (state, action) => {
             state.value.push(action.payload);
         });
-        builder.addCase(editImage.fulfilled, (state, action) => {
-            console.log("action", action.payload)
-            state.value = action.payload;
-        });
+        
         builder.addCase(importXlsx.fulfilled, (state, action) => {
             state.value.unshift(action.payload);
         })

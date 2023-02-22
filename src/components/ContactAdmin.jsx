@@ -12,7 +12,7 @@ const ContactAdmin = () => {
                 <div className="dropdown-menu dropdown-menu-end"><a className="dropdown-item" href="#">Edit</a><a className="dropdown-item" href="#">Action</a><a className="dropdown-item" href="#">Remove</a></div>
               </div>
               <div className="img_contact">
-                <div><img src="http://localhost:8001/product/16756604982548543973fe4b3f66ea3a6e4a25e09e7a5.jpg" alt="" className="avatar-md rounded-circle img-thumbnail" /></div>
+                <div><img src="https://i.pinimg.com/564x/60/36/41/6036415c3560662af8404a82676baa09.jpg" alt="" className="avatar-md rounded-circle img-thumbnail" /></div>
                 <div className="flex-1 ">
                   <h5 className="font-size-16 mb-1 mt-1"><a href="#" className="text-light">Admin Contact</a></h5>
                   <span className="badge badge-soft-success mb-0">Web Developer</span>

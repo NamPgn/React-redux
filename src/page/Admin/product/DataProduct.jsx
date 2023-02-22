@@ -3,10 +3,10 @@ import { useSelector } from 'react-redux'
 import ProductAdmin from './ProductAdmin'
 
 const DataProduct = () => {
-  const product=useSelector(state=>state.product.value);
+  const product = useSelector(state => state.product.value);
   return (
     <div>
-      <ProductAdmin product={product}/>
+      <ProductAdmin product={product} />
     </div>
   )
 }

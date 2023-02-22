@@ -1,37 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { isAuthentication } from '../auth/getToken';
-import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
-import { editImage, getUser_id, logout } from '../redux/slice/userSlice';
-import { toast } from 'react-toastify';
+import { getUser_id, logout } from '../redux/slice/userSlice';
 import { user$ } from '../redux/selectors';
+import jwtDecode from 'jwt-decode';
 const Profile = () => {
-  const { data } = isAuthentication();
-  const { handleSubmit, register } = useForm();
+  const [decodeUser, setDataToken] = useState('');
+  const data = isAuthentication();
   const dispath = useDispatch();
   const user = useSelector(user$);
   const navigate = useNavigate();
   useEffect(() => {
-    dispath(getUser_id(data ? data.user._id : ""));
   }, [])
-  const onsubmit = (data) => {
-    const formdata = new FormData();
-    formdata.append('image', data.image[0]);
-    console.log("dataEdit", data.image[0]);
-    dispath(editImage(formdata));
-    toast.success(`Cập nhật thành công`, {
-      position: "bottom-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  }
-
   const handleLogOut = () => {
     dispath(logout());
     navigate('/');
@@ -47,10 +28,10 @@ const Profile = () => {
                   <div className="card" style={{ borderRadius: "15px" }}>
                     <div className="card-body text-center">
                       <div className="mt-3 mb-4">
-                        <img src={data.user.image}
+                        <img src={data.data.user.image}
                           className=" img-fluid" style={{ width: "100px" }} />
                       </div>
-                      <h4 className="mb-2 text-light">{data.user.username}</h4>
+                      <h4 className="mb-2 text-light">{data.data.user.username}</h4>
                       <p className="text-muted mb-4">@Programmer <span className="mx-2">|</span> <a
                         href="#!">mdbootstrap.com</a></p>
                       <div className="mb-4 pb-2">
@@ -74,7 +55,7 @@ const Profile = () => {
                         </div>
                         <div className="px-3">
                           <p className="mb-2 h5">8512</p>
-                          <p className="text-muted mb-0">{data.user.role == 0 ? "Bạn đéo phải Admin" : "Bạn là Admin"}</p>
+                          <p className="text-muted mb-0">{decodeUser.role == 0 ? "Bạn đéo phải Admin" : "Bạn là Admin"}</p>
                         </div>
                         <div>
                           <p className="mb-2 h5">4751</p>

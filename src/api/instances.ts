@@ -1,6 +1,6 @@
 import axios from "axios"
 
 const intances = axios.create({
-    baseURL: "http://localhost:8001/api/"
+    baseURL: "https://test-19k8.onrender.com/api"
 })
 export default intances

@@ -5,9 +5,8 @@ export const getOneProduct$ = (state => state.product.getOneProduct);
 
 //category
 export const category$ = (state => state.category.value);
-
 export const allCategoryNotReq$ = (state => state.category.categoryNotReqId);
-
+export const getCategoryOne$=(state => state.category.details);
 //user
 export const user$ = (state => state.user.value);
 

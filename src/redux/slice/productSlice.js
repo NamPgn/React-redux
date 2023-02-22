@@ -28,6 +28,7 @@ export const addProduct = createAsyncThunk(
   'product/addProduct',
   async (dataProduct) => {
     const { data } = await addProductData(dataProduct);
+    console.log("data",data)
     return data;
   }
 )
@@ -67,14 +68,13 @@ const productSlice = createSlice({
         return item._id !== action.payload
       })
     },
-
-
     // deleteSelectData: async (state, action) => {
     //   return state.value = state.value.filter(item => item !== deleteMultipleData);
     // }
   },
 
   extraReducers: (builder) => {
+ 
     builder.addCase(getProducts.fulfilled, (state, action) => {
       state.value = action.payload;
     });

@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import { useForm } from "react-hook-form";
 import { useDispatch } from 'react-redux';
 import { addProduct } from '../../../redux/slice/productSlice';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Cate } from '../../../main';
+import FileBase64 from 'react-file-base64';
 const ProductAdd = () => {
   const [state, setCate] = useState([]);
+  const [formatted, SetFormatted] = useState({
+    name: '',
+    price: '',
+    descriptions: '',
+    seri: '',
+    copyright: '',
+    LinkCopyright: '',
+    category: '',
+    image: '',
+    linkVideo: ''
+  })
   useEffect(() => {
     const dataCate = async () => {
       setCate(await Cate());
@@ -15,77 +26,65 @@ const ProductAdd = () => {
   })
   const dispath = useDispatch();
   const navigate = useNavigate();
-  const { handleSubmit, register } = useForm();
   const onsubmit = (data) => {
-    const formdata = new FormData();
-    // formdata.append('image', data.image[0]);
-    formdata.append('name', data.name);
-    formdata.append('price', data.price);
-    formdata.append('category', data.category);
-    formdata.append('linkVideo', data.linkVideo[0]);
-    formdata.append('seri', data.seri);
-    formdata.append('LinkCopyright', data.LinkCopyright);
-    formdata.append('copyright', data.copyright)
-    formdata.append('descriptions', data.descriptions);
-    console.log("data", data);
-    dispath(addProduct(formdata));
+    console.log("state", formatted)
+    dispath(addProduct(formatted));
     navigate('/admin/products');
     toast.success('Add Product Success', {
       position: "bottom-right",
       autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
       theme: "light",
     });
   }
   return (
     <div>
-      <form onSubmit={handleSubmit(onsubmit)}>
-        <div className="mb-3">
-          <label className="form-label">Product name</label>
-          <input type="text" {...register('name')} className="form-control" required />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">View</label>
-          <input type="text" {...register('price')} className="form-control" required />
-        </div>
-
-        <div className="mb-3">
-          <label className="form-label">Desciption</label>
-          <input type="text" {...register('descriptions')} className="form-control" required />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Seri</label>
-          <input type="text" {...register('seri')} className="form-control" required />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Copyright</label>
-          <input type="text" {...register('copyright')} className="form-control" required />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">LinkCopyright</label>
-          <input type="text" {...register('LinkCopyright')} className="form-control" required />
-        </div>
-        <div className="form-label">Category</div>
-        <select className="form-select-sm" {...register('category')} style={{ border: "none", padding: "10px", outline: "none" }} aria-label=".form-select-sm example">
-          <option value={''} >Open this select menu</option>
-          {state.map((item, index) => {
-            return <option value={item._id} key={index}>{item.name}</option>
-          })}
-        </select>
-        {/* <div className="mb-3">
-          <label className="form-label">Image</label>
-          <input type="file" {...register('image')} className="form-control" required />
-        </div> */}
-        <div className="mb-3">
-          <label className="form-label">Video Url</label>
-          <input type="file" {...register('linkVideo')} className="form-control" required />
-        </div>
-        <button className="btn btn-primary">Submit</button>
-      </form>
+      {/* <form > */}
+      <div className="mb-3">
+        <label className="form-label">Product name</label>
+        <input type="text" name='name' onChange={(e) => { SetFormatted({ ...formatted, name: e.target.value }) }} className="form-control" required />
+      </div>
+      <div className="mb-3">
+        <label className="form-label">View</label>
+        <input type="text" name='price' onChange={(e) => { SetFormatted({ ...formatted, price: e.target.value }) }} className="form-control" required />
+      </div>
+      <div className="mb-3">
+        <label className="form-label">Desciption</label>
+        <input type="text" name='descriptions' onChange={(e) => { SetFormatted({ ...formatted, descriptions: e.target.value }) }} className="form-control" required />
+      </div>
+      <div className="mb-3">
+        <label className="form-label">Seri</label>
+        <input type="text" name='seri' onChange={(e) => { SetFormatted({ ...formatted, seri: e.target.value }) }} className="form-control" required />
+      </div>
+      <div className="mb-3">
+        <label className="form-label">Copyright</label>
+        <input type="text" name='copyright' onChange={(e) => { SetFormatted({ ...formatted, copyright: e.target.value }) }} className="form-control" required />
+      </div>
+      <div className="mb-3">
+        <label className="form-label">LinkCopyright</label>
+        <input type="text" name='LinkCopyright' onChange={(e) => { SetFormatted({ ...formatted, LinkCopyright: e.target.value }) }} className="form-control" required />
+      </div>
+      <div className="form-label">Category</div>
+      <select className="form-select-sm" onChange={(e) => { SetFormatted({ ...formatted, category: e.target.value }) }} style={{ border: "none", padding: "10px", outline: "none" }} aria-label=".form-select-sm example">
+        <option value={''} >Open this select menu</option>
+        {state.map((item, index) => {
+          return <option value={item._id} key={index}>{item.name}</option>
+        })}
+      </select>
+      <div className="mb-3">
+        <label className="form-label">Image</label>
+        <FileBase64 type='file'
+          multiple={false}
+          onDone={({ base64 }) => {
+            SetFormatted({ ...formatted, image: base64 });
+          }}
+        />
+      </div>
+      <div className="mb-3">
+        <label className="form-label">Video Url</label>
+        <input type="text" name='videourl' onChange={(e) => { SetFormatted({ ...formatted, linkVideo: e.target.value }) }} className="form-control" required />
+      </div>
+      <button onClick={() => onsubmit()} className="btn btn-primary">Submit</button>
+      {/* </form> */}
     </div>
   )
 }

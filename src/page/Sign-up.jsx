@@ -1,42 +1,59 @@
 import { useForm } from 'react-hook-form'
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from "react-router-dom"
 import { resgisterLogin } from "../redux/slice/userSlice"
-
+import FileBase64 from 'react-file-base64';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 const Signup = () => {
     const { handleSubmit, register } = useForm();
     const dispath = useDispatch();
     const navigate = useNavigate();
+    const [state, setSate] = useState({
+        username: '',
+        email: '',
+        password: '',
+        image: ''
+    });
+
     const onsubmit = (data) => {
-        const formData = new FormData();
-        formData.append("image", data.image[0]);
-        formData.append('username', data.username);
-        formData.append('email', data.email);
-        formData.append('password', data.password);
-        console.log("dataForm", data)
-        dispath(resgisterLogin(formData));
-        navigate("/auth/signin")
+        // const formData = new FormData();
+        // formData.append("image", data.image[0]);
+        // formData.append('username', data.username);
+        // formData.append('email', data.email);
+        // formData.append('password', data.password);
+        console.log(state);
+        dispath(resgisterLogin(state));
+        toast.success('Login Success');
+        navigate("/auth/signin");
+
     }
     return (
         <div>
-            <form onSubmit={handleSubmit(onsubmit)} className="container formContainer">
+            {/* <form onSubmit={(onsubmit)} className="container formContainer"> */}
+            <div className='formContainer container'>
                 <div>
                     <div className="mb-3">
-                        <input type="text" className="input" name="username" {...register("username")} aria-describedby="emailHelp" placeholder='Username' />
+                        <input type="text" className="input" onChange={(e) => { setSate({ ...state, username: e.target.value }) }} name="username" aria-describedby="emailHelp" placeholder='Username' />
                     </div>
                     <div className="mb-3">
-                        <input type="email" className="input" name='email' {...register("email")} aria-describedby="emailHelp" placeholder='Email address' />
+                        <input type="email" className="input" name='email' onChange={(e) => { setSate({ ...state, email: e.target.value }) }} aria-describedby="emailHelp" placeholder='Email address' />
                     </div>
                     <div className="mb-3">
-                        <input type="password" className="input" name='password' placeholder='Password'  {...register("password")} id="exampleInputPassword1" />
+                        <input type="password" className="input" onChange={(e) => { setSate({ ...state, password: e.target.value }) }} name='password' placeholder='Password' id="exampleInputPassword1" />
                     </div>
-                    <div className="mb-3">
-                        <input type="file" className="input" name='file' placeholder='Repassword'  {...register("image")} id="exampleInputPassword1" />
+                    <div className="mb-3" style={{ color: "#fff" }}>
+                        <FileBase64 type='file'
+                            multiple={false}
+                            onDone={({ base64 }) => {
+                                setSate({ ...state, image: base64 });
+                            }}
+                        />
                     </div>
-                    <button className="btn btn-primary">Submit</button>
+                    <button className="btn btn-primary" onClick={() => onsubmit()}>Submit</button>
                 </div>
-            </form>
+            </div>
+            {/* </form> */}
         </div>
     )
 }

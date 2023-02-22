@@ -9,6 +9,10 @@ const GetAllCategoryNotRequest = ({ id }) => {
   const dispath = useDispatch();
   useEffect(() => {
     dispath(getAllCategoryNotReqSlice(id));
+    window.scrollTo({
+      top: 0,
+      behavior:'smooth',
+    })
   }, [id]);
 
   return (

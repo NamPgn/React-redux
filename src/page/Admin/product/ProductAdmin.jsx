@@ -47,13 +47,6 @@ const columns = [
         showOnDesktop: true
     },
     {
-        title: 'Video Url',
-        key: 'video',
-        dataIndex: 'video',
-        showOnResponse: true,
-        showOnDesktop: true
-    },
-    {
         title: 'Seri',
         key: 'Seri',
         dataIndex: 'Seri',
@@ -150,8 +143,10 @@ const ProductAdmin = ({ product }) => {
             name: value.name,
             price: value.price,
             category: filterCate(state, value.category),
-            image: <Image width={150} height={200} style={{ objectFit: "cover" }} src={'https://hoathinh3d.com/wp-content/uploads/2021/10/dau-pha-thuong-khung-ova-3-hen-uoc-3-nam-856-300x450.jpg'} />,
-            video: value.linkVideo,
+            image: <Image width={150} height={200} style={{ objectFit: "cover" }}
+                src={ 
+                    value.image ? value.image : "https://hoathinh3d.com/wp-content/uploads/2021/10/dau-pha-thuong-khung-ova-3-hen-uoc-3-nam-856-300x450.jpg"
+                } />,
             Seri: value.seri,
             copyright: value.copyright,
             delete: <Button

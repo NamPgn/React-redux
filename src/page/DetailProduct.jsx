@@ -1,51 +1,58 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { isAuthentication } from '../auth/getToken';
 import CategoryProductDm from '../components/CategoryProduct';
 import { getProduct, getProducts } from '../redux/slice/productSlice';
 
 import ContactAdmin from '../components/ContactAdmin';
-import { decodeUser } from '../auth/getToken';
+
 import { getOneProduct$, product$ } from '../redux/selectors';
+import { isAuthentication } from '../auth/getToken';
+import jwtDecode from 'jwt-decode';
+import GetAllCategoryNotRequest from '../components/GetAllCategoryNotRequest';
+import CategoryHomePage from '../components/CategoryHomePage';
 const DetailProduct = () => {
+  const [decodeUser, setdecodeUser] = useState('');
   const product = useSelector(product$);
   const getOneProductDetail = useSelector(getOneProduct$)
   const dispath = useDispatch();
   const { id } = useParams();
+  const data = isAuthentication();
   useEffect(() => {
-
     dispath(getProduct(id));
-
     dispath(getProducts());
-  }, [id])
+    window.scrollTo({
+      top: 0,
+      behavior:'smooth',
+    })
+  }, [id]);
+  
   return (
     <>
       <React.Fragment>
         <ContactAdmin />
-        <div className='d-flex'>
+        <div className='d-flex justify-content-center' style={{gap:"10px"}}>
           <div className={'col-sm-9'}>
             <div style={{ margin: "12px 5px" }} >
               {getOneProductDetail ? <div>
-                <video width="100%" src={getOneProductDetail.linkVideo} controls muted autoPlay={true} style={{ borderRadius: "10px" }}>
-                </video>
-                <div style={{color:"#fff",margin:"10px 10px",textAlign:"end"}}>
-                <i className="fa-solid fa-eye"></i> 
+                <video title="vimeo-player" controls autoPlay muted src={getOneProductDetail.linkVideo} width="100%" height="100%" frameBorder="0" allowFullScreen />
+                <div style={{ color: "#fff", margin: "10px 0" }}>
+                  <i className="fa-solid fa-eye"></i>
                   {getOneProductDetail.price} View</div>
                 <h4 className='mt-4 mb-4'>{getOneProductDetail.name + " " + getOneProductDetail.seri}</h4>
                 <h5>Tập số {getOneProductDetail.seri + " / " + "40"} </h5>
-                <div className='d-flex'>
+                <div className='product_seri_item_deltail'>
                   {
-                    product.map(item => {
-                      if (item.category == getOneProductDetail.category) {
-                        return <div key={item._id}>
-                          <Link to={'/detail/' + item._id}>
-                            {
-                              item._id == id ? <button className='btnMovieSeri'>Tập {item.seri}</button> : <button className='btnMovieSeri'>Tập {item.seri}</button>
-                            }
-                          </Link>
-                        </div>
-                      }
+                    product.filter(
+                      item => item.category == getOneProductDetail.category
+                    ).sort((a, b) => Number(a.seri) < Number(b.seri) ? 1 : -1).map((item) => {
+                      return <div key={item._id}>
+                        <Link  to={'/detail/' + item._id} >
+                          {
+                            item._id == id ? <button className='btnMovieSeri bg-primary'>Tập {item.seri}</button> : <button className='btnMovieSeri'>Tập {item.seri}</button>
+                          }
+                        </Link>
+                      </div>
                     })
                   }
                 </div>
@@ -55,9 +62,10 @@ const DetailProduct = () => {
                 <div className='des mt-5 mb-5'>
                   <h5>Nội dung Phim: </h5>
                   <p>{getOneProductDetail.descriptions}</p>
-                  <h4 className='mt-5'>Bình luận</h4>
-                  <section >
-                    <div className="container py-5">
+                  <h4 className=''>Bình luận phim</h4>
+                  <div className='text-light des'>
+                    <p>Đang cập nhật.....</p>
+                    {/* <div className="container ">
                       <div className="row">
                         <div className="col-md-12 col-lg-10 col-xl-8">
                           <div className="card " style={{ background: "#fff", textAlign: "start" }}>
@@ -113,14 +121,15 @@ const DetailProduct = () => {
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </section>
+                    </div> */}
+                  </div>
                 </div>
               </div> : ""}
             </div>
           </div>
           <CategoryProductDm />
         </div>
+        <CategoryHomePage />
       </React.Fragment>
     </>
   )
