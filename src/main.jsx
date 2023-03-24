@@ -5,7 +5,6 @@ import './index.css';
 import { BrowserRouter } from "react-router-dom"
 import 'antd/dist/reset.css';
 import { Provider } from "react-redux"
-
 import 'react-toastify/dist/ReactToastify.css';
 import { store } from './redux/store/store';
 

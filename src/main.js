@@ -1,5 +1,5 @@
 import { getAllcategory, getCategoryProduct } from "./api/category";
-import { getAllcate } from "./redux/slice/categorySlice";
+import { getAllcate } from "./redux/slice/category/ThunkCategory/category";
 
 export const filterCate = (states, id) => {
   const data = states.find(item => item._id === id);

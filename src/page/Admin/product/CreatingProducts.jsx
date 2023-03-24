@@ -1,6 +1,6 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
-import { importDataFile } from '../../../redux/slice/productSlice';
+import { importDataFile } from '../../../redux/slice/product/ThunkProduct/product';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';

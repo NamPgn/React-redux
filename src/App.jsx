@@ -5,10 +5,11 @@ import LayoutWebsite from './page/layout/LayoutWebsite';
 import LayoutAdmin from './page/layout/LayoutAdmin';
 import "./index.css";
 import PrivateRouter from './components/PrivateRouter';
-import {Loading} from './components/Loading';
+import { Loading } from './components/Loading';
 import { RoutersAdminUser, RouterLayoutWebsite, AuthComponents } from './router';
-
+import Page404 from './components/Page404';
 function App() {
+
   return (
     <div className="App">
       <ToastContainer />
@@ -48,6 +49,7 @@ function App() {
             )
           }
         </Route>
+        <Route path='*' element={<Page404 />}></Route>
       </Routes>
     </div>
   )

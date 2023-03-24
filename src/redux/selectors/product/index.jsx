@@ -1,0 +1,1 @@
+export const ProductsPending$ = (state => state.product.isLoading)

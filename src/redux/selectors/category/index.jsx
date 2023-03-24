@@ -1,0 +1,1 @@
+export const isPendingCategory$ = (state => state.category.isLoading);

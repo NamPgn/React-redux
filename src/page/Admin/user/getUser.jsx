@@ -65,6 +65,7 @@ const GetUser = () => {
       ),
       remove: (
         <Button
+          style={{ background: "#1677ff" }}
           type="primary"
           onClick={() =>
             toast.success(`Xóa user ${item.username} thành công`, {
@@ -87,7 +88,7 @@ const GetUser = () => {
   return (
     <>
       <NavLink to={'/admin/user/add'}>
-        <Button type="primary" shape="round">Add User</Button>
+        <Button style={{ background: "#1677ff" }} type="primary" shape="round">Add User</Button>
       </NavLink>
       <NavLink to={'/admin/user/creatingUser'} >
         <Button type="primary" shape="round" style={{ display: "inline-block", margin: "10px 10px", background: "#28a745" }}>Import Excel</Button>

@@ -1,19 +1,25 @@
 import { isAuthentication } from "../auth/getToken";
 import React, { useEffect } from 'react'
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Navigate } from 'react-router-dom';
+import jwtDecode from "jwt-decode";
 const PrivateRouter = (props) => {
-  // console.log("prop",props.children)
   const data = isAuthentication();
-  if (data) {
-    if (data.data.user.role == 0) {
-      return <Navigate to={'/'} />
+  try {
+    const token = jwtDecode(data.token)
+    if (data) {
+      if (token.role == 0) {
+        return <Navigate to={'/'} />
+      } else {
+        return props.children
+      }
     } else {
-      return props.children
+      return <Navigate to={'/'} />
     }
-  } else {
-    return <Navigate to={'/'} />
+  } catch (error) {
+    return <div className='text-light container text-center' ><Link to={"/auth/signin"}>Đăng nhập</Link></div>
   }
+
 }
 
 export default PrivateRouter

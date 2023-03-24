@@ -1,11 +1,11 @@
 import { isAuthentication } from "../auth/getToken";
 import intances from "./instances";
 export const resgister = async (data:any) => {
-    return await intances.post('signup', data);
+    return await intances.post('/signup', data);
 }
 
 export const login = async (data:any) => {
-    return await intances.post("signin", data)
+    return await intances.post("/signin", data)
 }
 
 export const getUser = async () => {
@@ -17,7 +17,6 @@ export const getAuth = async (id:any) => {
 }
 
 export const deleteAuth = async (id:any ) => {
-    console.log("id", id)
     return await intances.delete("removeUser/" + id);
 }
 

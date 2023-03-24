@@ -6,8 +6,8 @@ import { TableRouterAdminPage } from '../../router';
 const { Header, Content, Sider } = Layout;
 const LayoutAdmin = () => {
     return (
-        <div>
-            <Layout style={{ height: "100%" }}>
+        <div >
+            <Layout style={{ height: "vh" }}>
                 <Header className="header">
                     <div className="logo" />
                 </Header>

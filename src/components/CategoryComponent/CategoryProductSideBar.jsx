@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Cate } from '../main';
+import { category$ } from '../../redux/selectors';
+import { isPendingCategory$ } from '../../redux/selectors/category';
+import { getAllcate } from '../../redux/slice/category/ThunkCategory/category';
 const CategoryProductDm = () => {
-  const [category, setCategory] = useState([]);
+  const catedatas = useSelector(category$);
+  const dispath = useDispatch();
+  const isPendingCategory = useSelector(isPendingCategory$);
   useEffect(() => {
-    const getDta = async () => {
-      setCategory(await Cate());
-    }
-    getDta();
+    dispath(getAllcate());
   }, []);
-  const catedata = category.slice(0, 4);
+  const catedata = catedatas.slice(0, 4);
   return (
-    <nav className="nav navCate col-sm-3" style={{ height: "100%" }}>
-      <div style={{ color: "#fff" }}>Xếp hạng</div>
-      {catedata.map((item, index) => {
+    <nav className="nav navCate col-sm-3 des" style={{ height: "100%" }}>
+      <p style={{ color: "#fff" }}>Xếp hạng</p>
+      {isPendingCategory === false ? catedata.map((item, index) => {
         return <div className='d-flex categoryContent col-md-12' key={index}>
           <div style={{ maxWidth: "50px", height: "55px" }} className='col-md-2'>
             <Link
@@ -31,7 +33,7 @@ const CategoryProductDm = () => {
             </Link>
           </div>
         </div>
-      })}
+      }) : <div className='text-light text-center'>Chờ 1 chút...</div>}
     </nav>
   )
 }

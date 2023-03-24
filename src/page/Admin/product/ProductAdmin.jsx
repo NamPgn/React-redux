@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Table, Image, Button } from 'antd';
 import { useDispatch, useSelector, } from 'react-redux';
-import { getProducts, deleteProduct, editProduct, deleteSelectData, } from '../../../redux/slice/productSlice';
+import { getProducts, deleteProduct } from '../../../redux/slice/product/ThunkProduct/product';
 import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { getAllcate } from '../../../redux/slice/categorySlice';
+import { getAllcate } from '../../../redux/slice/category/ThunkCategory/category';
 import { getAllcategory, getCategoryProduct } from '../../../api/category';
 import { Cate, filterCate } from '../../../main';
-import axios from 'axios';
 import { deleteMultipleProduct, getAllProduct } from '../../../api/product';
 const columns = [
     {
@@ -17,7 +16,11 @@ const columns = [
         showOnResponse: true,
         showOnDesktop: true
     },
-
+    {
+        title: 'Id',
+        dataIndex: '_id',
+        key: '_id',
+    },
     {
         title: 'Name',
         dataIndex: 'name',
@@ -61,6 +64,11 @@ const columns = [
         showOnDesktop: true
     },
     {
+        title: 'Trailer',
+        dataIndex: 'trailer',
+        key: 'trailer',
+    },
+    {
         title: 'Delete',
         key: 'delete',
         dataIndex: 'delete',
@@ -92,7 +100,7 @@ const ProductAdmin = ({ product }) => {
         dataCate();
 
         dispath(getProducts());
-
+        document.title = "Admin Page";
     }, [init])
 
     let dataS = product;
@@ -121,13 +129,17 @@ const ProductAdmin = ({ product }) => {
     }
     //bấm để cút
     const handleDeleteData = async () => {
-        console.log("checkAllid", checkedId);
         // dispath(deleteMultipleData(checkedId)) //xóa theo mảng
         // setCheckAllid([]); //xóa xong thì về 1 mảng rỗng
         // await deleteMultipleProduct(checkedId);
-        const deleteId = await deleteMultipleProduct(checkedId);
-        setInit(true);
-        return deleteId;
+        const text = 'Mày có muốn xóa không ?'
+        if (window.confirm(checkedId) == true) {
+            setInit(true);
+            toast.success('Xóa tất cả thành công');
+            return await deleteMultipleProduct(checkedId);;
+        } else {
+            return "";
+        }
     }
 
     const data = dataS ? dataS.map((value, index) => {
@@ -140,26 +152,22 @@ const ProductAdmin = ({ product }) => {
                     type="checkbox" id="defaultCheck1"
                 />
             </div>,
+            _id: value._id,
             name: value.name,
             price: value.price,
             category: filterCate(state, value.category),
             image: <Image width={150} height={200} style={{ objectFit: "cover" }}
-                src={ 
+                src={
                     value.image ? value.image : "https://hoathinh3d.com/wp-content/uploads/2021/10/dau-pha-thuong-khung-ova-3-hen-uoc-3-nam-856-300x450.jpg"
                 } />,
             Seri: value.seri,
             copyright: value.copyright,
-            delete: <Button
+            trailer: value.trailer ? "true" : "false",
+            delete: <Button style={{ background: "#1677ff" }}
                 type="primary"
                 onClick={() => toast.success(`Delete ${value.name} Success!`, {
                     position: "bottom-right",
                     autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
                 }, dispath(deleteProduct(value._id)))}
             >Delete</Button>,
             edit: <NavLink to={`/admin/product/edit/${value._id}`}>
@@ -180,8 +188,8 @@ const ProductAdmin = ({ product }) => {
             <button onClick={() => { handleDeleteData() }} className='btn_remove'>
                 <i className="fa-solid fa-trash text-light"></i>
             </button>
-            <NavLink to={'/admin/product/add'} >
-                <Button type="primary" shape="round" style={{ display: "inline-block", margin: "10px 10px" }}>Add Product</Button>
+            <NavLink to={'/admin/product/add'}  >
+                <Button type="primary" shape="round" style={{ display: "inline-block", margin: "10px 10px", background: "#1677ff" }}>Add Product</Button>
             </NavLink>
             <NavLink to={'/admin/product/creacting'} >
                 <Button type="primary" shape="round" style={{ display: "inline-block", margin: "10px 10px", background: "#28a745" }}>Add Multiple</Button>

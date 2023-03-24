@@ -1,0 +1,1 @@
+export const comment$ = (state => state.comment.value)

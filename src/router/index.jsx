@@ -11,7 +11,7 @@ import {
   StarOutlined
 } from "@ant-design/icons";
 
-
+const SearchResults = React.lazy(() => import('../components/SearchResults'));
 const AdminPage = React.lazy(() => import('../page/Admin/AdminPage'));
 const ProductPage = React.lazy(() => import('../page/PostList'));
 const ProfilePage = React.lazy(() => import('../page/Profile'));
@@ -29,6 +29,12 @@ const EditProduct = React.lazy(() => import('../page/Admin/product/EditProduct')
 const CreatingUser = React.lazy(() => import('../page/Admin/user/CreatingUser'));
 const CreatingProducts = React.lazy(() => import('../page/Admin/product/CreatingProducts'));
 const CategoryAdmin = React.lazy(() => import('../page/Admin/category/CategoryAdmin'));
+const EditCategoryAdmin = React.lazy(() => import('../page/Admin/category/EditCategory'));
+const PostAdmin = React.lazy(() => import('../page/Admin/posts/PostAdmin'));
+const Index = React.lazy(() => import('../page/Admin/trailer/Index'));
+const EditTrailerUrl = React.lazy(() => import('../page/Admin/trailer/EditTrailerUrl'));
+const CommentAdmin = React.lazy(() => import('../page/Admin/Comment/CommentAdmin'));
+
 export const routerNavBar = [
   {
     Path: '/',
@@ -50,8 +56,62 @@ export const routerNavBar = [
     Path: '/auth/profile',
     name: "Profile"
   },
+
 ]
 
+
+
+
+export const RouterLayoutWebsite = [
+  {
+    Path: "",
+    component: <HomePage />,
+    indexPath: true
+  },
+  {
+    Path: "postList",
+    component: <ProductPage />,
+  },
+  {
+    Path: "detail/:id",
+    component: <DetailProductPage />,
+  },
+  {
+    Path: "logout",
+    component: <Logout />,
+  },
+  {
+    Path: "product/category/:id",
+    component: <CategoryProduct />,
+  },
+  {
+    Path: '/search/category',
+    name: <SearchResults />
+  }
+];
+
+
+export const AuthComponents = [
+  {
+    Path: "auth",
+    component: <AuthComponent />,
+    chidrent: [
+      {
+        Path: "signin",
+        component: <Signin />
+      },
+      {
+        Path: "signup",
+        component: <Signup />
+      },
+      {
+        Path: "profile",
+        component: <ProfilePage />
+      },
+
+    ]
+  }
+];
 
 export const RoutersAdminUser = [
   {
@@ -98,53 +158,26 @@ export const RoutersAdminUser = [
   {
     Path: "category",
     component: <CategoryAdmin />,
-  }
-];
-
-
-export const RouterLayoutWebsite = [
-  {
-    Path: "",
-    component: <HomePage />,
-    indexPath: true
   },
   {
-    Path: "postList",
-    component: <ProductPage />,
+    Path: "category/edit/:id",
+    component: <EditCategoryAdmin />
   },
   {
-    Path: "detail/:id",
-    component: <DetailProductPage />,
+    Path: "posts",
+    component: <PostAdmin />
   },
   {
-    Path: "logout",
-    component: <Logout />,
+    Path: "trailing",
+    component: <Index />,
   },
   {
-    Path: "product/category/:id",
-    component: <CategoryProduct />,
+    Path: "/admin/trailerUrl/:id",
+    component: <EditTrailerUrl />,
   },
-];
-
-
-export const AuthComponents = [
   {
-    Path: "auth",
-    component: <AuthComponent />,
-    chidrent: [
-      {
-        Path: "signin",
-        component: <Signin />
-      },
-      {
-        Path: "signup",
-        component: <Signup />
-      },
-      {
-        Path: "profile",
-        component: <ProfilePage />
-      },
-    ]
+    Path: "/admin/comments",
+    component: <CommentAdmin />,
   }
 ];
 
@@ -176,8 +209,18 @@ export const TableRouterAdminPage = [
     iconComponent: <ControlOutlined />
   },
   {
-    Path: "/admin/category",
+    Path: "/admin/posts",
     name: "Posts",
     iconComponent: <StarOutlined />
   },
+  {
+    Path: "/admin/trailing",
+    name: "Trailer",
+    iconComponent: <LaptopOutlined />
+  },
+  {
+    Path: "/admin/comments",
+    name: "Comments",
+    iconComponent: <LaptopOutlined />
+  }
 ]

@@ -1,16 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit"
 import userReducer from "../slice/userSlice";
-import productReduce from "../slice/productSlice";
-import categoryReducer from "../slice/categorySlice";
-import postReducer from "../slice/postSlice"
-// const middleWare = applyMiddleware(sagaMiddleWare)
+import productReduce from "../slice/product/index";
+import categoryReducer from "../slice/category/index";
+import postReducer from "../slice/postSlice";
+import commentReducer from "../slice/comment/index";
 export const store = configureStore({
   reducer: {  //data
     product: productReduce,
     user: userReducer,
     category: categoryReducer,
-    post: postReducer
+    post: postReducer,
+    comment: commentReducer
   },
 });
-// export const store = createStore(persist_Reducer);
-// export const persitor = persistStore(store);

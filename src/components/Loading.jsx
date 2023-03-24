@@ -1,7 +1,7 @@
 import React from 'react'
 export const Loading = () => {
   return (
-    <div className='loading '>
+    <div className='loading'>
       Loading...
     </div>
   )
@@ -9,6 +9,6 @@ export const Loading = () => {
 
 export const Loader = () => {
   return (
-    <div className='loader'></div>
+    <div className='loading'>Loading...</div>
   )
 }

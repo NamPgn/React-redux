@@ -1,24 +1,26 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { allCategoryNotReq$ } from '../redux/selectors';
-import { getAllCategoryNotReqSlice } from '../redux/slice/categorySlice';
+import { allCategoryNotReq$ } from '../../redux/selectors';
+import { isPendingCategory$ } from '../../redux/selectors/category';
+import { getAllCategoryNotReqSlice } from '../../redux/slice/category/ThunkCategory/category';
 
 const GetAllCategoryNotRequest = ({ id }) => {
   const category = useSelector(allCategoryNotReq$);
   const dispath = useDispatch();
+  const isPendingCategory = useSelector(isPendingCategory$);
   useEffect(() => {
     dispath(getAllCategoryNotReqSlice(id));
     window.scrollTo({
       top: 0,
-      behavior:'smooth',
+      behavior: 'smooth',
     })
   }, [id]);
 
   return (
     <div>
-      <h5>Liên quan</h5>
-      <div className="categoryMovie">
+      <h5 style={{ margin: "0 20px" }}>Liên quan</h5>
+      {isPendingCategory === false ? <div className="categoryMovie px-3 mt-5">
         {category ? category.map((item, index) => {
           return <div className='movie_css' key={index}>
             <div >
@@ -32,13 +34,16 @@ const GetAllCategoryNotRequest = ({ id }) => {
                   </Link>
                 </div>
                 <div className='release_date'>
+                  <p>Tổng {item.sumSeri} tập</p>
+                </div>
+                <div className='release_date'>
                   <p>Thời gian 20/12 phút</p>
                 </div>
               </div>
             </div>
           </div>
-        }) : ""}
-      </div>
+        }) : "Trống!"}
+      </div> : <div className='text-light text-center'>Chờ 1 chút...</div>}
     </div>
   )
 }

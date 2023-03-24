@@ -2,18 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { editProduct, getProduct } from '../../../redux/slice/productSlice';
+import { editProduct, getProduct } from '../../../redux/slice/product/ThunkProduct/product';
 
 import { toast } from 'react-toastify';
-import { getAllcategory } from '../../../api/category';
-import { Cate, filterCate } from '../../../main';
+import { Cate } from '../../../main';
 const EditProduct = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { handleSubmit, reset, register } = useForm();
   const dispath = useDispatch();
   const [state, setState] = useState({});
-  const [cate, setCate] = useState([]);
   const [category, setCategory] = useState([]);
   useEffect(() => {
     const getFormProduct = async () => {
@@ -22,19 +20,12 @@ const EditProduct = () => {
       setState(payload);
     }
     getFormProduct();
-
     const dataCate = async () => {
       setCategory(await Cate());
     }
     dataCate();
   }, []);
-  useEffect(() => {
-    const Cate = async () => {
-      const { data } = await getAllcategory();
-      setCate(data);
-    }
-    Cate();
-  }, []);
+
   const onsubmit = (data) => {
     const formdata = new FormData();
     // formdata.append('image', data.image[0]);
@@ -47,7 +38,7 @@ const EditProduct = () => {
     formdata.append('LinkCopyright', data.LinkCopyright);
     formdata.append('copyright', data.copyright)
     formdata.append('descriptions', data.descriptions);
-    console.log("data",data)
+    formdata.append('trailer', data.trailer);
     dispath(editProduct(formdata));
     navigate('/admin/products');
     toast.success(`Sửa ${data.name}} công`, {
@@ -85,6 +76,20 @@ const EditProduct = () => {
           <label className="form-label">LinkCopyright</label>
           <input type="text" {...register('LinkCopyright')} className="form-control" />
         </div>
+
+        <div className="mb-3">
+          <label className="form-label">Video Url</label>
+          <input type="text" {...register('linkVideo')} className="form-control" />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Trailer Video</label>
+          <input type="text" {...register('trailer')} className="form-control" />
+        </div>
+        <div className="mb-3">
+          <div style={{ width: "150px", height: "200px" }}>
+            <img style={{ height: "100%", width: "100%" }} src={state.image ? state.image : "https://hoathinh3d.com/wp-content/uploads/2021/10/dau-pha-thuong-khung-ova-3-hen-uoc-3-nam-856-300x450.jpg"} {...register('image')} alt="" />
+          </div>
+        </div>
         <div className="mb-3">
           <div className="form-label">Category</div>
           <select className="form-select-sm" {...register('category')} style={{ border: "none", padding: "10px", outline: "none" }} aria-label=".form-select-sm example">
@@ -93,15 +98,6 @@ const EditProduct = () => {
               return <option value={item._id} key={index}>{item.name}</option>
             })}
           </select>
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Video Url</label>
-          <input type="text" {...register('linkVideo')} className="form-control" />
-        </div>
-        <div className="mb-3">
-          <div style={{ width: "150px", height: "200px" }}>
-            <img style={{ height: "100%", width: "100%" }} src={state.image} {...register('image')} alt="" />
-          </div>
         </div>
         <button className="btn btn-primary">Submit</button>
       </form>

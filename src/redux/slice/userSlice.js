@@ -54,7 +54,6 @@ export const editUser = createAsyncThunk(
     "edit/editUser",
     async (payload) => {
         const { data } = await editAuth(payload);
-        console.log("data", data);
         return data;
     }
 )
@@ -63,7 +62,6 @@ export const importXlsx = createAsyncThunk(
     'user/importXlsx',
     async (dataImport) => {
         const { data } = await importExcel(dataImport);
-        console.log("dataIp", data);
         return data;
     }
 )
@@ -73,6 +71,7 @@ const userSlice = createSlice({
     name: "user",
     initialState: {
         value: [],
+        error: false
     },
     reducers: {
         logout() {
@@ -88,15 +87,15 @@ const userSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(resgisterLogin.fulfilled, (state, action) => {
-            // console.log("action", action)
             state.value = action.payload.newUser;
         });
-        builder.addCase(loginForm.fulfilled, (state, action) => {
+        builder.addCase(loginForm.rejected, (state, action) => {
+            state.error = true
+        }).addCase(loginForm.fulfilled, (state, action) => {
             localStorage.setItem('token', JSON.stringify(action.payload))
-            // console.log("action.payload", action.payload);
-        });
+            state.error = false
+        })
         builder.addCase(getAlluser.fulfilled, (state, action) => {
-            // console.log("action", action.payload)
             state.value = action.payload;
         });
         builder.addCase(deteleUser.fulfilled, (state, action) => {
@@ -109,7 +108,7 @@ const userSlice = createSlice({
         builder.addCase(editUser.fulfilled, (state, action) => {
             state.value.push(action.payload);
         });
-        
+
         builder.addCase(importXlsx.fulfilled, (state, action) => {
             state.value.unshift(action.payload);
         })

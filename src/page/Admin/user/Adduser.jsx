@@ -15,7 +15,6 @@ const Adduser = () => {
     formData.append('username', data.username);
     formData.append('email', data.email);
     formData.append('password', data.password);
-    console.log(data)
     dispath(resgisterLogin(formData));
     navigate("/admin/users");
     toast.success(`Thêm user thành công`, {

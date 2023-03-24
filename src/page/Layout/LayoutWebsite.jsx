@@ -1,12 +1,12 @@
 import React from 'react'
 import { Outlet } from "react-router-dom";
-import Footer from '../../components/Footer';
-import Header from '../../components/Header';
+import Footer from '../../components/Page/Footer';
+import Header from '../../components/Page/Header';
 const HomePage = () => {
 
   return (
     <div>
-      <main>
+      <main >
         <div>
           <Header />
         </div>

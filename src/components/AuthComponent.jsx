@@ -1,11 +1,11 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import Footer from './Footer'
-import Header from './Header'
+import Footer from './Page/Footer'
+import Header from './Page/Header'
 const AuthComponent = () => {
   return (
     <div>
-      <Header/>
+      <Header />
       <Outlet />
       <Footer />
     </div>
