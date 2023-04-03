@@ -1,8 +1,8 @@
 import React, { Suspense } from 'react'
-import { Loading } from '../components/Loading';
+import { Loading } from '../../../components/Message/Loading';
 import { useParams } from 'react-router-dom'
-import GetAllCategoryNotRequest from '../components/CategoryComponent/GetAllCategoryNotRequest';
-const CategoryProductsComponent = React.lazy(() => import('../components/CategoryComponent/CategoryProductDesCriptionComponent'));
+import GetAllCategoryNotRequest from '../../../components/CategoryComponent/GetAllCategoryNotRequest';
+const CategoryProductsComponent = React.lazy(() => import('../../../components/CategoryComponent/CategoryProductDesCriptionComponent'));
 const CategoryProduct = () => {
   const { id } = useParams();
   return (

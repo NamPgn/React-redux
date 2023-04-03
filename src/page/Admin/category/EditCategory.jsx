@@ -10,13 +10,13 @@ const EditCategory = () => {
   const getCategoryOne = useSelector(getCategoryOne$);
   const { register, reset, handleSubmit } = useForm();
   const { id } = useParams();
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   const [state, setData] = useState('');
   const onsubmit = (data) => {
-    data ? toast.success('Edit successfully', dispath(updateCatgorySlice(data))) : toast.error('Edit failure')
+    data ? toast.success('Edit successfully', dispatch(updateCatgorySlice(data))) : toast.error('Edit failure')
   }
   useEffect(() => {
-    dispath(getCateSlice(id));
+    dispatch(getCateSlice(id));
     const data = async () => {
       const { data } = await getCategory(id);
       reset(data);

@@ -1,17 +1,27 @@
 import React, { useState } from 'react'
-import { searCategory } from '../api/category';
-import SearchResults from '../components/SearchResults';
-import ConfigHomePage from './ConfigHomePage';
-
+import { Link, useNavigate } from 'react-router-dom';
+import { searCategory } from '../../../api/category';
+import SearchResults from '../../../components/Search/SearchResults';
+import ConfigHomePage from '../../Home/Libs/ConfigHomePage';
+import { toast } from 'react-toastify'
+import { isAuthentication } from '../../../auth/getToken';
 
 const HomePage = () => {
   const [searchValue, setSearchValue] = useState('');
   const [results, setResults] = useState([]);
+  const Auth = isAuthentication();
+  const naviagate = useNavigate();
   const handleSearch = async () => {
     const { data } = await searCategory(searchValue);
     setResults(data);
   }
-
+  const handleCheckCart = () => {
+    if (!Auth) {
+      toast.error('Bạn cần đăng nhập!')
+    } else {
+      naviagate('/cart/user')
+    }
+  }
   return (
     <div >
       <div className=''>
@@ -24,6 +34,14 @@ const HomePage = () => {
             <div>
               <button className='btnSearch' onClick={handleSearch}>Search</button>
             </div>
+            <div className='ml-5' onClick={handleCheckCart}>
+              <i className="fa-solid fa-bookmark text-warning h3 __"></i>
+            </div>
+            <a href={'https://github.com/NamPgn'}>
+              <div >
+                <i className="fa-brands fa-github h3 ml-5 text-light"></i>
+              </div>
+            </a>
           </div>
         </div>
       </div>

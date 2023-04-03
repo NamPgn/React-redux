@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import { Table, Button, Image } from 'antd';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteCommentSlice, getAllCommentSlice } from '../../../redux/slice/comment/thunkComment/comment';
-import { comment$ } from '../../../redux/selectors/comment';
 import moment from 'moment';
-const CommentAdmin = () => {
-  const comment = useSelector(comment$);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAllCommentSlice());
-  }, []);
+import { cart$ } from '../../../redux/selectors/Cart';
+import { getAllCartSlice } from '../../../redux/slice/cart/thunk/cart';
+import {  useGetAllcartQuery } from '../../../redux/slice/cart';
+const index = () => {
+  // const cart = useSelector(cart$);
+  // const dispatch = useDispatch();
+  const { data: cart = [], error, isLoading } = useGetAllcartQuery();
+  // useEffect(() => {
+  //   dispatch(getAllCartSlice())
+  // }, []);
   const columns = [
     {
       title: 'Stt',
@@ -18,9 +20,9 @@ const CommentAdmin = () => {
       key: 'stt',
     },
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: 'ProductName',
+      dataIndex: 'ProductName',
+      key: 'ProductName',
     },
     {
       title: 'User',
@@ -31,11 +33,6 @@ const CommentAdmin = () => {
       title: 'Image',
       dataIndex: 'image',
       key: 'Image',
-    },
-    {
-      title: 'Product',
-      dataIndex: 'product',
-      key: 'product',
     },
     {
       title: 'Permission',
@@ -53,17 +50,15 @@ const CommentAdmin = () => {
       key: 'action',
     }
   ];
-
-  const data = comment ? comment.map((item, index) => {
+  const data = cart ? cart.map((item, index) => {
     return {
       key: item._id,
       stt: index + 1,
-      name: item.commentContent,
-      user: item.user.username + " Tập: " ,
-      image: <Image width={60} height={80} style={{ objectFit: "cover" }} src={item.user.image} />,
-      product:"product",
-      permission: item.role == 0 ? "User" : "Admin",
-      Time: moment(item.createdAt).format('LTS DD-MM-YYYY'),
+      ProductName: item.product.name + " " + item.product.seri,
+      user: item.user.username,
+      image: <Image width={60} height={80} style={{ objectFit: "cover" }} src={item.product.image ? item.product.image : "https://i.pinimg.com/736x/0d/56/7a/0d567a768f35faab85b96f84691235d3.jpg"} />,
+      permission: item.user.role == 0 ? "User" : "Admin",
+      Time: moment(item.updatedAt).format('LTS DD-MM-YYYY'),
       action: (
         <span>
           <Link to={`/admin/trailerUrl/${item._id}`}>
@@ -85,4 +80,4 @@ const CommentAdmin = () => {
   )
 }
 
-export default CommentAdmin
+export default index

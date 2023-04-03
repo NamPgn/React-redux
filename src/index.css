@@ -369,7 +369,6 @@ iframe {
 }
 
 @media(min-width:1024px) {
-
   .navbar_mb {
     display: none;
   }
@@ -384,7 +383,7 @@ iframe {
 
   main::before {
     content: " ";
-    background: url('https://i.pinimg.com/564x/71/6d/7b/716d7bd9fd311c97cfefbe5398dffc3b.jpg');
+    background: url('/img/FB_IMG_1674382115803.jpg');
     position: absolute;
     left: 0;
     top: 0;

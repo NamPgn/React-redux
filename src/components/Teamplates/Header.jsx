@@ -5,14 +5,14 @@ import { routerNavBar } from '../../router';
 import jwtDecode from 'jwt-decode';
 import AuthLogged from '../OptionsAuth/AuthLogged';
 import AuthUnLogger from '../OptionsAuth/AuthUnLogger';
+
 const Header = () => {
-    
+
     const data = isAuthentication();
     const handleClickOptionsAccount = () => {
         $(".acountImageContent").toggle();
     }
     const handleClickOptionsSignin = () => {
-
         $(".acountImageContent").toggle();
     }
     const handleClick = () => {
@@ -56,7 +56,6 @@ const Header = () => {
                         }
                     </div>
                 </div>
-
 
                 <div className='navbar_mb '>
                     <div className='justify-content-center lgmb_content'>

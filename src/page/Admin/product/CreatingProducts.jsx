@@ -7,11 +7,11 @@ import { useNavigate } from 'react-router-dom';
 const CreatingProducts = () => {
   const { handleSubmit, register } = useForm();
   const navigate = useNavigate();
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   const onsubmit = (data) => {
     const formData = new FormData();
     formData.append('xlsxProduct', data.xlsxProduct[0]);
-    dispath(importDataFile(formData));
+    dispatch(importDataFile(formData));
     toast.success(`Thêm sản phẩm thành công`, {
       position: "bottom-right",
       autoClose: 5000,

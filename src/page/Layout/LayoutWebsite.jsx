@@ -1,23 +1,21 @@
 import React from 'react'
 import { Outlet } from "react-router-dom";
-import Footer from '../../components/Page/Footer';
-import Header from '../../components/Page/Header';
+import Header from '../../components/Teamplates/Header';
+import Footer from '../../components/Teamplates/Footer';
 const HomePage = () => {
 
   return (
-    <div>
-      <main >
-        <div>
-          <Header />
-        </div>
-        <div className="container" >
-          <Outlet />
-        </div>
-        <div>
-          <Footer />
-        </div>
-      </main>
-    </div>
+    <main >
+      <div>
+        <Header />
+      </div>
+      <div className="container" >
+        <Outlet />
+      </div>
+      <div>
+        <Footer />
+      </div>
+    </main>
   )
 }
 

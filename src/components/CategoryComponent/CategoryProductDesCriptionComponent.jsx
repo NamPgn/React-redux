@@ -5,15 +5,15 @@ import { category$ } from '../../redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllcate } from '../../redux/slice/category/ThunkCategory/category';
 import { useParams } from 'react-router-dom'
-import { Loading } from '../Loading';
+import { Loading } from '../Message/Loading';
 const SeriNumberMovie = React.lazy(() => import('../seri/SeriNumberMovie.jsx'))
 const CategoryProductComponent = () => {
   const { id } = useParams();
   const category = useSelector(category$); //getAllcategory
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   const [state, setSate] = useState([]); //getone category
   useEffect(() => {
-    dispath(getAllcate());
+    dispatch(getAllcate());
     const getOne = async () => {
       const { data } = await getCategory(id);
       setSate(data);

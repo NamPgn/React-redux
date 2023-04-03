@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import React, { useState } from 'react'
 import { Link, useNavigate } from "react-router-dom"
-import { resgisterLogin } from "../redux/slice/userSlice"
+import { resgisterLogin } from "../../redux/slice/userSlice"
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as yup from "yup";
@@ -16,7 +16,7 @@ const Signup = () => {
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
-    const dispath = useDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const onsubmit = (data) => {
         // const formData = new FormData();
@@ -24,16 +24,15 @@ const Signup = () => {
         // formData.append('username', data.username);
         // formData.append('email', data.email);
         // formData.append('password', data.password);
-        console.log("data",data)
-        dispath(resgisterLogin(data));
+        dispatch(resgisterLogin(data));
         toast.success('Register Success');
         navigate("/auth/signin");
     }
     return (
-        <form onSubmit={handleSubmit(onsubmit)}>
+        <form onSubmit={handleSubmit(onsubmit)} className='vh-100'>
             <div className='mb-5'>
                 {/* <form onSubmit={(onsubmit)} className="container formContainer"> */}
-                <div className='formContainer container'>
+                <div className='formContainer container '>
                     <div>
                         <div className="mb-3 des">
                             <input type="text" className="input" {...register('username')} name="username" aria-describedby="emailHelp" placeholder='Username' />

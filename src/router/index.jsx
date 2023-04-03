@@ -1,24 +1,25 @@
 import React from 'react';
-import AuthComponent from '../components/AuthComponent';
-import HomePage from '../page/HomePage';
-import Logout from '../page/logout';
+import AuthComponent from '../components/OptionsAuth/AuthComponent';
+import HomePage from '../page/Home/Container/HomePage';
+import Logout from '../page/Auth-Page/Logout';
 import {
   DashboardOutlined,
   NotificationOutlined,
   UserOutlined,
   LaptopOutlined,
   ControlOutlined,
-  StarOutlined
+  StarOutlined,
+  CompassOutlined,
+  CarryOutOutlined
 } from "@ant-design/icons";
-
-const SearchResults = React.lazy(() => import('../components/SearchResults'));
+const SearchResults = React.lazy(() => import('../components/Search/SearchResults'));
 const AdminPage = React.lazy(() => import('../page/Admin/AdminPage'));
 const ProductPage = React.lazy(() => import('../page/PostList'));
-const ProfilePage = React.lazy(() => import('../page/Profile'));
-const Signin = React.lazy(() => import('../page/Sign-in'));
-const Signup = React.lazy(() => import('../page/Sign-up'));
-const DetailProductPage = React.lazy(() => import('../page/DetailProduct'));
-const CategoryProduct = React.lazy(() => import('../page/CategoryProduct'));
+const ProfilePage = React.lazy(() => import('../page/Auth-Page/Profile'));
+const Signin = React.lazy(() => import('../page/Auth-Page/Sign-in'));
+const Signup = React.lazy(() => import('../page/Auth-Page/Sign-up'));
+const DetailProductPage = React.lazy(() => import('../page/Home/Libs/DetailProduct'));
+const CategoryProduct = React.lazy(() => import('../page/Home/Libs/CategoryPage'));
 const DataProduct = React.lazy(() => import('../page/Admin/product/DataProduct'));
 const GetUser = React.lazy(() => import('../page/Admin/user/getUser'));
 const Adduser = React.lazy(() => import('../page/Admin/user/Adduser'));
@@ -33,17 +34,18 @@ const EditCategoryAdmin = React.lazy(() => import('../page/Admin/category/EditCa
 const PostAdmin = React.lazy(() => import('../page/Admin/posts/PostAdmin'));
 const Index = React.lazy(() => import('../page/Admin/trailer/Index'));
 const EditTrailerUrl = React.lazy(() => import('../page/Admin/trailer/EditTrailerUrl'));
-const CommentAdmin = React.lazy(() => import('../page/Admin/Comment/CommentAdmin'));
-
+const CommentAdmin = React.lazy(() => import('../page/Admin/comment/CommentAdmin'));
+const CartUser = React.lazy(() => import('../components/Cart/CartUser'));
+const CartAdmin = React.lazy(() => import('../page/Admin/Cart/CartAdmin'));
 export const routerNavBar = [
   {
     Path: '/',
     name: "Home"
   },
-  {
-    Path: '/postList',
-    name: "Post"
-  },
+  // {
+  //   Path: '/postList',
+  //   name: "Post"
+  // },
   {
     Path: '/auth/signin',
     name: "Signin"
@@ -87,6 +89,11 @@ export const RouterLayoutWebsite = [
   {
     Path: '/search/category',
     name: <SearchResults />
+  },
+  {
+    Path: "/cart/user",
+    component: <CartUser />,
+    indexPath: true
   }
 ];
 
@@ -178,7 +185,11 @@ export const RoutersAdminUser = [
   {
     Path: "/admin/comments",
     component: <CommentAdmin />,
-  }
+  },
+  {
+    Path: "cart",
+    component: <CartAdmin />,
+  },
 ];
 
 export const TableRouterAdminPage = [
@@ -221,6 +232,11 @@ export const TableRouterAdminPage = [
   {
     Path: "/admin/comments",
     name: "Comments",
-    iconComponent: <LaptopOutlined />
+    iconComponent: <CarryOutOutlined />
+  },
+  {
+    Path: "/admin/cart",
+    name: "Cart",
+    iconComponent: <CompassOutlined />
   }
 ]

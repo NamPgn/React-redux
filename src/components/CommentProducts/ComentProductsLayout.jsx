@@ -6,7 +6,7 @@ import { isAuthentication } from '../../auth/getToken';
 import { addCommentSlice } from '../../redux/slice/comment/thunkComment/comment';
 import { toast } from 'react-toastify';
 const ComentProductsLayout = ({ setCommentAdded }) => {
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   const { id } = useParams();
   const data = isAuthentication();
   try {
@@ -19,7 +19,7 @@ const ComentProductsLayout = ({ setCommentAdded }) => {
 
     const handleAddComment = () => {
       setCommentAdded(commentAdded => !commentAdded);
-      data ? toast.success('Add Comment Successfully', dispath(addCommentSlice(s))) : toast.error("You are not logged in! ");
+      data ? toast.success('Add Comment Successfully', dispatch(addCommentSlice(s))) : toast.error("You are not logged in! ");
     }
 
     return <div className='text-light des'>

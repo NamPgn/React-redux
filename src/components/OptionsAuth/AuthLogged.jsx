@@ -5,11 +5,11 @@ import { toast } from 'react-toastify';
 import { logout } from '../../redux/slice/userSlice';
 
 const AuthLogged = ({ token }) => {
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
     toast.success('Logout Success!');
-    dispath(logout());
+    dispatch(logout());
     navigate('/auth/signin');
   }
 

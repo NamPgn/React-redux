@@ -1,19 +1,11 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { category$ } from '../../redux/selectors';
-import { getAllcate } from '../../redux/slice/category/ThunkCategory/category';
 import { Link } from 'react-router-dom';
-import { isPendingCategory$ } from '../../redux/selectors/category';
-const CategoryHomePage = () => {
-  const dispatch = useDispatch();
-  useEffect(() => { dispatch(getAllcate()) }, [])
-  const cate = useSelector(category$);
-  const isPendingCate = useSelector(isPendingCategory$);
+const CategoryHomePage = ({ category, isLoading }) => {
   return (
     <div>
       <div className='text-light all_movie'>All Movie</div>
-      {isPendingCate === false ? <div className="categoryMovie">
-        {cate.map((item, index) => {
+      {isLoading === false ? <div className="categoryMovie">
+        {category ? category.map((item, index) => {
           return <div className='movie_css' key={index}>
             <div >
               <div className="cateConten cateItem" style={{ width: "100%", }} >
@@ -34,12 +26,11 @@ const CategoryHomePage = () => {
               </div>
             </div>
           </div>
-        })}
+        }) : ""}
       </div> : <div className='text-light text-center'>Chờ 1 chút...</div>}
       <div style={{ color: "#fff", marginTop: "150px" }} className='des'>News Movie
-        <p className='text-secondary'>Upadting.....</p>
+        <p className='text-secondary'>Updating.....</p>
       </div>
-
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { resgister, login, getUser, deleteAuth, editAuth, getAuth, importExcel } from "../../api/user";
+import { resgister, login, getUser, deleteAuth, editAuth, getAuth, importExcel, findCartByUser } from "../../api/user";
 
 export const resgisterLogin = createAsyncThunk(
     "user/login",
@@ -66,11 +66,21 @@ export const importXlsx = createAsyncThunk(
     }
 )
 
+
+export const findCartByUserSlice = createAsyncThunk(
+    'findcart',
+    async (id) => {
+        const { data } = await findCartByUser(id);
+        return data;
+    }
+)
 const userSlice = createSlice({
 
     name: "user",
     initialState: {
         value: [],
+        cartUser: [],
+        isLoading: false,
         error: false
     },
     reducers: {
@@ -111,8 +121,15 @@ const userSlice = createSlice({
 
         builder.addCase(importXlsx.fulfilled, (state, action) => {
             state.value.unshift(action.payload);
-        })
+        });
 
+
+        builder.addCase(findCartByUserSlice.pending, (state, action) => {
+            state.isLoading = true;
+        }).addCase(findCartByUserSlice.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.cartUser = action.payload;
+        })
     }
 })
 

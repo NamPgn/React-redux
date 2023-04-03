@@ -35,7 +35,7 @@ const CategoryAdmin = () => {
 
     }
   ];
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   const category = useSelector(category$);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -54,7 +54,7 @@ const CategoryAdmin = () => {
       setIsModalOpen(false);
       setConfirmLoading(false);
     }, 2000);
-    dispath(addCateGorySlice(stateAdd));
+    dispatch(addCateGorySlice(stateAdd));
     toast.success('Thành công')
   };
   const handleCancel = () => {
@@ -64,13 +64,13 @@ const CategoryAdmin = () => {
   const handleDelete = (id) => {
     if (id) {
       toast.success('Delete Success');
-      dispath(deleteCategorySlice(id))
+      dispatch(deleteCategorySlice(id))
     } else {
       toast.error('Delete Fail');
     }
   }
   useEffect(() => {
-    dispath(getAllcate());
+    dispatch(getAllcate());
   }, []);
   const data = category ? category.map((item, index) => {
     return {

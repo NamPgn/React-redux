@@ -8,7 +8,6 @@ import { Provider } from "react-redux"
 import 'react-toastify/dist/ReactToastify.css';
 import { store } from './redux/store/store';
 
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>

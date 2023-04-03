@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import { isAuthentication } from '../auth/getToken';
+import { isAuthentication } from '../../auth/getToken';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser_id, logout } from '../redux/slice/userSlice';
-import { user$ } from '../redux/selectors';
+import { getUser_id, logout } from '../../redux/slice/userSlice';
+import { user$ } from '../../redux/selectors';
 import jwtDecode from 'jwt-decode';
 const Profile = () => {
   const data = isAuthentication();
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
   }, [])
   const handleLogOut = () => {
-    dispath(logout());
+    dispatch(logout());
     navigate('/');
   }
   try {
@@ -69,7 +69,7 @@ const Profile = () => {
       </div>
     </div>
   } catch (error) {
-    return <div className='text-light container text-center' ><Link to={"/auth/signin"}>Đăng nhập</Link></div>
+    return <div className='text-light container text-center vh-100 pt-5'  ><Link to={"/auth/signin"}>Đăng nhập</Link></div>
   }
 
 }

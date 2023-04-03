@@ -3,7 +3,7 @@ import { isAuthentication } from "../auth/getToken";
 import jwtDecode from 'jwt-decode';
 
 export const getAllProduct = async () => {
-  return await intances.get('products');
+  return await intances.get(`products`);
 }
 
 export const getOneProduct = async (id) => {

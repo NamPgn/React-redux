@@ -15,7 +15,7 @@ const ProductAdd = () => {
     }
     dataCate();
   }, []);
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { register, reset, handleSubmit } = useForm();
@@ -30,7 +30,7 @@ const ProductAdd = () => {
     formdata.append('copyright', data.copyright)
     formdata.append('descriptions', data.descriptions);
     formdata.append('trailer', data.trailer);
-    dispath(addProduct(formdata));
+    dispatch(addProduct(formdata));
     // navigate('/admin/products');
     toast.success('Add Product Success', {
       position: "bottom-right",

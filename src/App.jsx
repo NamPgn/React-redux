@@ -4,12 +4,11 @@ import { ToastContainer } from "react-toastify";
 import LayoutWebsite from './page/layout/LayoutWebsite';
 import LayoutAdmin from './page/layout/LayoutAdmin';
 import "./index.css";
-import PrivateRouter from './components/PrivateRouter';
-import { Loading } from './components/Loading';
+import PrivateRouter from './components/Router-Security/PrivateRouter';
+import { Loading } from './components/Message/Loading';
 import { RoutersAdminUser, RouterLayoutWebsite, AuthComponents } from './router';
-import Page404 from './components/Page404';
+import Page404 from './components/404/Page404';
 function App() {
-
   return (
     <div className="App">
       <ToastContainer />

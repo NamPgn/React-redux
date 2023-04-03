@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { allCategoryNotReq$ } from '../../redux/selectors';
@@ -7,16 +7,15 @@ import { getAllCategoryNotReqSlice } from '../../redux/slice/category/ThunkCateg
 
 const GetAllCategoryNotRequest = ({ id }) => {
   const category = useSelector(allCategoryNotReq$);
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   const isPendingCategory = useSelector(isPendingCategory$);
   useEffect(() => {
-    dispath(getAllCategoryNotReqSlice(id));
+    dispatch(getAllCategoryNotReqSlice(id));
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     })
   }, [id]);
-
   return (
     <div>
       <h5 style={{ margin: "0 20px" }}>Liên quan</h5>

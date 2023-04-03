@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import { loginForm } from '../redux/slice/userSlice';
+import { loginForm } from '../../redux/slice/userSlice';
 import { toast } from 'react-toastify';
-import { userErr$ } from '../redux/selectors/user';
+import { userErr$ } from '../../redux/selectors/user';
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Navigate } from 'react-router-dom';
 const Signin = () => {
   const schema = yup.object().shape({
     username: yup.string().required().test('is-email', 'Username must not contain @', (value) => {
@@ -17,19 +18,19 @@ const Signin = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   });
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const userErr = useSelector(userErr$);
   const onsubmit = (data) => {
-    if (userErr == false) {
-      toast.success("Login Success", dispath(loginForm(data)));
+    if (userErr == false) { //if error then return login error
+      toast.success("Login Success", dispatch(loginForm(data)));
       navigate('/');
     } else {
       toast.error("Login failure");
     }
   }
   return (
-    <div className='mb-5'>
+    <div className='mb-5 vh-100' >
       <form className='container formContainer' onSubmit={handleSubmit(onsubmit)} >
         <div>
           <div className="inputGroup des">

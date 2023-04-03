@@ -1,8 +1,9 @@
 import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 
-const SeriDetailProducts = ({seriProduct}) => {
+const SeriDetailProducts = ({ seriProduct }) => {
   const { id } = useParams();
+  //chi tiết tập phìm khi vào trăng xem phim
   return (
     <div className='product_seri_item_deltail justify-items-center '>
       {

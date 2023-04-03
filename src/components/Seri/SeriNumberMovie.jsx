@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { getAllProductsByCategory$, } from '../../redux/selectors';
-import { getAllProductDataByCategorySlice } from '../../redux/slice/product/ThunkProduct/product';
+import { urlSwr } from '../../main';
+import { useSWRWithAxios } from '../../hook/Swr';
 const SeriNumberMovie = () => {
+  //còn đây là khi vào danh mục để list tâp phim
   const { id } = useParams();
-  const productByCategory = useSelector(getAllProductsByCategory$);
-  const dispath = useDispatch();
-  useEffect(() => {
-    dispath(getAllProductDataByCategorySlice(id));
-  }, [id]);
-  const data = [...productByCategory].sort((a, b) => Number(a.seri) < Number(b.seri) ? 1 : -1);
+  const { data, error, isLoading } = useSWRWithAxios(urlSwr + `/category/products/${id}`)
+  const datas = [...data ? data : ""].sort((a, b) => Number(a.seri) < Number(b.seri) ? 1 : -1);
 
   return (
     <div>
       {
-        data.length > 0 ? <div className='product_seri_item'>
+        datas.length > 0 ? <div className='product_seri_item'>
           {
-            data.map((item, index) => {
+            datas ? datas.map((item, index) => {
               return <div style={{ textAlign: "center", }} key={index}>
-                <Link to={'/detail/' + item._id + `?category=${item.category}` + "?name=" + `${item.name + " " + item.seri} `}>
-                  {item.trailer ? <button type="button" className="btn  d-flex  btn-dark " style={{ padding: "8px 9px", fontSize: "14px" }}>
+                <Link to={
+                  '/detail/' + item._id + `?category=${item.category}` + "?name=" + `${item.name + " " + item.seri} `
+                }>
+                  {item.trailer ? <button type="button" className="btn d-flex  btn-dark " style={{ padding: "8px 9px", fontSize: "14px" }}>
                     <span>
                       {item.seri}
                     </span>
@@ -32,13 +30,12 @@ const SeriNumberMovie = () => {
                   }
                 </Link>
               </div>
-            })
+            }) : " Not found! "
           }
         </div> : <div className='des'>
-          <p style={{ padding: "5px", border: "1px solid #999" }}>Will be updated soon!!!</p>
+          <p style={{ padding: "5px", border: "1px solid #999" }}>Loading...</p>
         </div>
       }
-      {/* <DetailProduct sumSeri={state.sumSeri} /> */}
     </div>
   )
 }

@@ -10,12 +10,12 @@ const EditProduct = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { handleSubmit, reset, register } = useForm();
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   const [state, setState] = useState({});
   const [category, setCategory] = useState([]);
   useEffect(() => {
     const getFormProduct = async () => {
-      const { payload } = await dispath(getProduct(id));
+      const { payload } = await dispatch(getProduct(id));
       reset(payload);
       setState(payload);
     }
@@ -39,7 +39,7 @@ const EditProduct = () => {
     formdata.append('copyright', data.copyright)
     formdata.append('descriptions', data.descriptions);
     formdata.append('trailer', data.trailer);
-    dispath(editProduct(formdata));
+    dispatch(editProduct(formdata));
     navigate('/admin/products');
     toast.success(`Sửa ${data.name}} công`, {
       position: "bottom-right",

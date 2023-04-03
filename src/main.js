@@ -3,7 +3,7 @@ import { getAllcate } from "./redux/slice/category/ThunkCategory/category";
 
 export const filterCate = (states, id) => {
   const data = states.find(item => item._id === id);
-  return data?.name
+  return data
 }
 
 
@@ -19,3 +19,5 @@ export const Cate = async () => {
   const { data } = await getAllcategory();
   return data;
 }
+
+export const urlSwr = 'https://test-19k8.onrender.com/api';
