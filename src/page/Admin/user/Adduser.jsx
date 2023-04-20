@@ -4,7 +4,10 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { resgisterLogin } from '../../../redux/slice/userSlice';
 import { toast } from 'react-toastify';
-
+import styled from 'styled-components';
+const Divstyled = styled.div``;
+const BtnStyled = styled.button``;
+const InputStyled = styled.input``;
 const Adduser = () => {
   const { register, handleSubmit, reset } = useForm();
   const dispath = useDispatch();
@@ -29,27 +32,27 @@ const Adduser = () => {
     });
   }
   return (
-    <div>
+    <Divstyled>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-3">
+        <Divstyled className="mb-3">
           <label className="form-label">User name</label>
-          <input type="text" {...register('username', { required: true })} className="form-control" required />
-        </div>
-        <div className="mb-3">
+          <InputStyled type="text" {...register('username', { required: true })} className="form-control" required />
+        </Divstyled>
+        <Divstyled className="mb-3">
           <label className="form-label">Email</label>
-          <input type="text" {...register('email', { required: true })} className="form-control" required />
-        </div>
-        <div className="mb-3">
+          <InputStyled type="text" {...register('email', { required: true })} className="form-control" required />
+        </Divstyled>
+        <Divstyled className="mb-3">
           <label className="form-label">Password</label>
-          <input type="password"  {...register(`password`, { required: true })} className="form-control" required />
-        </div>
-        <div className="mb-3">
+          <InputStyled type="password"  {...register(`password`, { required: true })} className="form-control" required />
+        </Divstyled>
+        <Divstyled className="mb-3">
           <label className="form-label">Image</label>
-          <input type="file"  {...register("image")} className="form-control" required />
-        </div>
-        <button className="btn btn-primary">Submit</button>
+          <InputStyled type="file"  {...register("image")} className="form-control" required />
+        </Divstyled>
+        <BtnStyled className="btn btn-primary">Submit</BtnStyled>
       </form>
-    </div>
+    </Divstyled>
   )
 }
 

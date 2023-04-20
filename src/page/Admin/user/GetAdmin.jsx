@@ -43,9 +43,7 @@ const GetAdmin = () => {
     }
   })
   return (
-    <div>
-      <Table columns={columns} dataSource={data} pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '20', '30'] }} />
-    </div>
+    <Table columns={columns} dataSource={data} pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '20', '30'] }} />
   )
 }
 

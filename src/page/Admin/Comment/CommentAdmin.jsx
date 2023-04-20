@@ -79,9 +79,9 @@ const CommentAdmin = () => {
     }
   }) : "";
   return (
-    <div>
+    <>
       <Table columns={columns} dataSource={data} pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '10', '15'] }}></Table>
-    </div>
+    </>
   )
 }
 

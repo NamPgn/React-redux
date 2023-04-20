@@ -48,9 +48,9 @@ const indexTrailer = () => {
     }
   }) : ""
   return (
-    <div>
+    <>
       <Table columns={columns} dataSource={data} ></Table>
-    </div>
+    </>
   )
 }
 

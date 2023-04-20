@@ -1,14 +1,19 @@
-import React from 'react'
+import React from 'react';
+import styed from 'styled-components';
+const LoadingStyled = styed.div`
+color: #fff;
+text-align: center;
+font-size: 15px;
+margin-top: 20%;
+`
 export const Loading = () => {
   return (
-    <div className='loading'>
-      Loading...
-    </div>
+    <LoadingStyled>Loading...</LoadingStyled>
   )
 }
 
 export const Loader = () => {
   return (
-    <div className='loading'>Loading...</div>
+    <LoadingStyled>Chờ 1 chút...</LoadingStyled>
   )
 }

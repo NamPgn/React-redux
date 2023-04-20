@@ -10,16 +10,22 @@ import {
   ControlOutlined,
   StarOutlined,
   CompassOutlined,
-  CarryOutOutlined
+  CarryOutOutlined,
+
 } from "@ant-design/icons";
-const SearchResults = React.lazy(() => import('../components/Search/SearchResults'));
-const AdminPage = React.lazy(() => import('../page/Admin/AdminPage'));
-const ProductPage = React.lazy(() => import('../page/PostList'));
-const ProfilePage = React.lazy(() => import('../page/Auth-Page/Profile'));
-const Signin = React.lazy(() => import('../page/Auth-Page/Sign-in'));
-const Signup = React.lazy(() => import('../page/Auth-Page/Sign-up'));
-const DetailProductPage = React.lazy(() => import('../page/Home/Libs/DetailProduct'));
-const CategoryProduct = React.lazy(() => import('../page/Home/Libs/CategoryPage'));
+//type component
+
+const ListType=React.lazy(() => import('../page/Type/TypesMovie/ListProduct'));
+const OllMovie=React.lazy(() => import('./page/Type/SidebarContent'));
+const TypesMovie=React.lazy(() => import('../page/Type/TypesMovie'));
+
+const SearchResults = React.lazy(() => import('../components/Search/SearchResults')); //search
+const AdminPage = React.lazy(() => import('../page/Admin/AdminPage')); //admin
+const ProfilePage = React.lazy(() => import('../page/Auth-Page/Profile')); //profile
+const Signin = React.lazy(() => import('../page/Auth-Page/Sign-in')); //signin
+const Signup = React.lazy(() => import('../page/Auth-Page/Sign-up')); //signup
+const DetailProductPage = React.lazy(() => import('../page/Home/Libs/DetailProduct')); //chi tiết
+const CategoryProduct = React.lazy(() => import('../page/Home/Libs/CategoryPage')); //danh mục
 const DataProduct = React.lazy(() => import('../page/Admin/product/DataProduct'));
 const GetUser = React.lazy(() => import('../page/Admin/user/getUser'));
 const Adduser = React.lazy(() => import('../page/Admin/user/Adduser'));
@@ -40,7 +46,7 @@ const CartAdmin = React.lazy(() => import('../page/Admin/Cart/CartAdmin'));
 export const routerNavBar = [
   {
     Path: '/',
-    name: "Home"
+    name: "Trang chủ"
   },
   // {
   //   Path: '/postList',
@@ -48,21 +54,17 @@ export const routerNavBar = [
   // },
   {
     Path: '/auth/signin',
-    name: "Signin"
+    name: "Đăng nhập"
   },
   {
     Path: '/auth/signup',
-    name: "Signup"
+    name: "Đăng kí"
   },
   {
     Path: '/auth/profile',
-    name: "Profile"
+    name: "Hồ sơ"
   },
-
 ]
-
-
-
 
 export const RouterLayoutWebsite = [
   {
@@ -70,30 +72,43 @@ export const RouterLayoutWebsite = [
     component: <HomePage />,
     indexPath: true
   },
+
   {
-    Path: "postList",
-    component: <ProductPage />,
-  },
-  {
-    Path: "detail/:id",
+    Path: "d/:id",
     component: <DetailProductPage />,
   },
+
   {
     Path: "logout",
     component: <Logout />,
   },
+
   {
-    Path: "product/category/:id",
+    Path: "q/:id",
     component: <CategoryProduct />,
   },
+
   {
     Path: '/search/category',
     name: <SearchResults />
   },
+
   {
     Path: "/cart/user",
     component: <CartUser />,
-    indexPath: true
+  },
+
+  {
+    Path: "/types/:id",
+    component: <TypesMovie />,
+  },
+  {
+    Path: "/odd/:id",
+    component: <OllMovie />,
+  },
+  {
+    Path: "/types/h/:id",
+    component: <ListType />,
   }
 ];
 
@@ -239,4 +254,6 @@ export const TableRouterAdminPage = [
     name: "Cart",
     iconComponent: <CompassOutlined />
   }
-]
+];
+
+

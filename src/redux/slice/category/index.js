@@ -8,8 +8,7 @@ const categorySlice = createSlice({
     value: [],
     isLoading: false,
     categoryNotReqId: [],
-    details: {
-    }
+    details: null
   },
   reducers: {
 

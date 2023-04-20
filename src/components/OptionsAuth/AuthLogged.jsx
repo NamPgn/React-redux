@@ -3,7 +3,9 @@ import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { logout } from '../../redux/slice/userSlice';
+import styled from 'styled-components';
 
+const Divstyled = styled.div``;
 const AuthLogged = ({ token }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -14,34 +16,34 @@ const AuthLogged = ({ token }) => {
   }
 
   return (
-    <div className="acountImageContent position-absolute ">
-      <div className="signleAs d-flex justify-content-center">
-        <div>  Signed in as <b>
+    <Divstyled className="acountImageContent position-absolute ">
+      <Divstyled className="signleAs d-flex justify-content-center">
+        <Divstyled>  Signed in as <b>
           {token.username}
-        </b></div>
-      </div>
+        </b></Divstyled>
+      </Divstyled>
       <hr />
       <Link to={'/auth/profile'}>
-        <div className='d-flex align-items-center hv_'>
+        <Divstyled className='d-flex align-items-center hv_'>
           <i className="fa-solid fa-users"></i>
-          <div className='auth'>
+          <Divstyled className='auth'>
             Your profile
-          </div>
-        </div>
+          </Divstyled>
+        </Divstyled>
       </Link>
       {token.role === 1 ? <Link to={'/admin'}>
-        <div className='d-flex align-items-center hv_'>
+        <Divstyled className='d-flex align-items-center hv_'>
           <i className="fa-regular fa-user"></i>
-          <div className='auth'>
+          <Divstyled className='auth'>
             Admin
-          </div>
-        </div>
+          </Divstyled>
+        </Divstyled>
       </Link> : ""}
-      <div className='d-flex align-items-center hv_'>
+      <Divstyled className='d-flex align-items-center hv_'>
         <i className="fa-solid fa-right-from-bracket"></i>
-        <div className='' onClick={() => { handleLogout() }}>Logout</div>
-      </div>
-    </div>
+        <Divstyled className='' onClick={() => { handleLogout() }}>Logout</Divstyled>
+      </Divstyled>
+    </Divstyled>
   )
 }
 

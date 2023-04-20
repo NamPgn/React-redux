@@ -1,25 +1,27 @@
 import React from 'react'
 import { Link, useParams } from 'react-router-dom'
-
+import styled from 'styled-components';
+const Divstyled = styled.div``;
+const BtnStyled = styled.button``;
 const SeriDetailProducts = ({ seriProduct }) => {
   const { id } = useParams();
   //chi tiết tập phìm khi vào trăng xem phim
   return (
-    <div className='product_seri_item_deltail justify-items-center '>
+    <Divstyled className='product_seri_item_deltail'>
       {
         seriProduct.map((item) => {
-          return <div key={item._id} className='mt-2'>
-            <Link to={'/detail/' + item._id + `?category=${item.category}` + `?name=${item.name}/tập/${item.seri}`} >
+          return <Divstyled key={item._id} className='mt-2'>
+            <Link to={'/d/' + item._id + `?c=${item.category}` + `?n=${item.name}/tập/${item.seri}`} >
               {
-                item._id == id ? <button className='btnMovieSeri d-flex text-dark bg-light' >
+                item._id == id ? <BtnStyled className='btnMovieSeri d-flex text-dark bg-light' >
                   <span>Tập {item.seri}</span>
-                </button> : <button className='btnMovieSeri'>Tập {item.seri}</button>
+                </BtnStyled> : <BtnStyled className='btnMovieSeri'>Tập {item.seri}</BtnStyled>
               }
             </Link>
-          </div>
+          </Divstyled>
         })
       }
-    </div>
+    </Divstyled>
   )
 }
 

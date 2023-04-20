@@ -4,6 +4,10 @@ import { importDataFile } from '../../../redux/slice/product/ThunkProduct/produc
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+const Divstyled = styled.div``;
+const BtnStyled = styled.button``;
+const InputStyled = styled.input``;
 const CreatingProducts = () => {
   const { handleSubmit, register } = useForm();
   const navigate = useNavigate();
@@ -25,15 +29,15 @@ const CreatingProducts = () => {
     navigate('/admin/products');
   }
   return (
-    <div>
-      <div style={{ display: "flex", justifyContent: "center", textAlign: "center", height: "100vh" }}>
+    <Divstyled>
+      <Divstyled style={{ display: "flex", justifyContent: "center", textAlign: "center", height: "100vh" }}>
         <form onSubmit={handleSubmit(onsubmit)}>
           <label className="form-label" for="customFile">Default file input example</label>
-          <input type="file" {...register('xlsxProduct')} className="form-control" id="customFile" />
-          <button className="btn btn-success" style={{ margin: "20px 0" }}>Submit</button>
+          <InputStyled type="file" {...register('xlsxProduct')} className="form-control" id="customFile" />
+          <BtnStyled className="btn btn-success" style={{ margin: "20px 0" }}>Submit</BtnStyled>
         </form>
-      </div>
-    </div>
+      </Divstyled>
+    </Divstyled>
   )
 }
 

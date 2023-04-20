@@ -1,32 +1,36 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+const Divstyled = styled.div``;
+const BtnStyled = styled.button``;
+const PStyled = styled.p``;
 const SearchResults = ({ data }) => {
 
   return (
-    <div >
-      <div className='container'>
+    <Divstyled >
+      <Divstyled className='container'>
         {data ? data.map((item, index) => (
-          <div style={{ padding: "20px 0" }} key={index}>
-            <div className='searhValue' key={index}>
-              <Link to={'/product/category/' + item._id + `?category=${item.name}`}>
-                <div className='searchValueImg'><img src={item.linkImg} style={{ borderRadius: "5px" }} alt="" /></div>
+          <Divstyled style={{ padding: "20px 0" }} key={index}>
+            <Divstyled className='searhValue' key={index}>
+              <Link to={'/q/' + item._id + `?category=${item.name}`}>
+                <Divstyled className='searchValueImg'><img src={item.linkImg} style={{ borderRadius: "5px" }} alt="" /></Divstyled>
               </Link>
-              <Link to={'/product/category/' + item._id + `?category=${item.name}`}>
-                <div className='des'>{item.name}
-                  <p>
+              <Link to={'/q/' + item._id + `?category=${item.name}`}>
+                <Divstyled className='des'>{item.name}
+                  <PStyled>
                     {item.updatedAt}
-                  </p>
-                  <p>
+                  </PStyled>
+                  <PStyled>
                     {item.sumSeri}
-                  </p>
-                </div>
+                  </PStyled>
+                </Divstyled>
               </Link>
-            </div>
-          </div>
-        )) : <div style={{ color: "#fff", textAlign: "center" }}>Not Found</div>
+            </Divstyled>
+          </Divstyled>
+        )) : <Divstyled style={{ color: "#fff", textAlign: "center" }}>Not Found</Divstyled>
         }
-      </div>
-    </div>
+      </Divstyled>
+    </Divstyled>
   )
 }
 

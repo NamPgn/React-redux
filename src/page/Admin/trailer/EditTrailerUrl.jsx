@@ -5,6 +5,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getTrailerUrl } from '../../../api/trailer';
 import { toast } from 'react-toastify';
 import { editTrailerSlice } from '../../../redux/slice/postSlice';
+import styled from 'styled-components';
+const Divstyled = styled.div``;
+const BtnStyled = styled.button``;
+const InputStyled = styled.input``;
 const editTrailerUrl = () => {
   const { handleSubmit, register, reset } = useForm();
   const { id } = useParams();
@@ -27,15 +31,15 @@ const editTrailerUrl = () => {
     }
   }
   return (
-    <div>
+    <Divstyled>
       <form onSubmit={handleSubmit(onsubmit)}>
-        <div className="mb-3">
+        <Divstyled className="mb-3">
           <label className="form-label">Product name</label>
-          <input type="text" {...register('url')} className="form-control" />
-        </div>
-        <button className="btn btn-primary">Submit</button>
+          <InputStyled type="text" {...register('url')} className="form-control" />
+        </Divstyled>
+        <BtnStyled className="btn btn-primary">Submit</BtnStyled>
       </form>
-    </div>
+    </Divstyled>
   )
 }
 

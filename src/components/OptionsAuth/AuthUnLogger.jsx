@@ -1,23 +1,25 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components';
 
+const Divstyled = styled.div``;
 const AuthUnLogger = () => {
   return (
-    <div className="authUnLoggerToggle acountImageContent position-absolute ">
-      <div className="signleAs d-flex justify-content-center">
-        <div> <i className="fa-regular fa-face-laugh"></i> <b>
-        </b></div>
-      </div>
+    <Divstyled className="authUnLoggerToggle acountImageContent position-absolute ">
+      <Divstyled className="signleAs d-flex justify-content-center">
+        <Divstyled> <i className="fa-regular fa-face-laugh"></i> <b>
+        </b></Divstyled>
+      </Divstyled>
       <hr />
       <Link to={'/auth/signin'}>
-        <div className='d-flex align-items-center hv_'>
+        <Divstyled className='d-flex align-items-center hv_'>
           <i className="fa-regular fa-user"></i>
-          <div className='auth'>
+          <Divstyled className='auth'>
             Signin
-          </div>
-        </div>
+          </Divstyled>
+        </Divstyled>
       </Link>
-    </div>
+    </Divstyled>
   )
 }
 

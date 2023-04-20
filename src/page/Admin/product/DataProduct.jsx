@@ -5,9 +5,9 @@ import ProductAdmin from './ProductAdmin'
 const DataProduct = () => {
   const product = useSelector(state => state.product.value);
   return (
-    <div>
+    <>
       <ProductAdmin product={product} />
-    </div>
+    </>
   )
 }
 

@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { Table, Image, Button } from 'antd';
 import { useDispatch, useSelector, } from 'react-redux';
 import { getProducts, deleteProduct } from '../../../redux/slice/product/ThunkProduct/product';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getAllcate } from '../../../redux/slice/category/ThunkCategory/category';
 import { getAllcategory, getCategoryProduct } from '../../../api/category';
-import { Cate, filterCate } from '../../../main';
+import { Cate, filterCate } from '../../../function';
 import { deleteMultipleProduct, getAllProduct } from '../../../api/product';
+import styled from 'styled-components';
+const Divstyled = styled.div``;
+const BtnStyled = styled.button``;
+const InputStyled = styled.input``;
 const columns = [
     {
         title: "Select",
@@ -145,13 +149,13 @@ const ProductAdmin = ({ product }) => {
     const data = dataS ? dataS.map((value, index) => {
         return {
             key: value._id,
-            all: <div>
-                <input className="form-check-input"
+            all: <Divstyled>
+                <InputStyled className="form-check-input"
                     checked={checkedId.includes(value._id)}
                     onChange={() => hanedleCheckboxChange(value._id)}
                     type="checkbox" id="defaultCheck1"
                 />
-            </div>,
+            </Divstyled>,
             _id: value._id,
             name: value.name,
             price: value.price,
@@ -170,51 +174,51 @@ const ProductAdmin = ({ product }) => {
                     autoClose: 5000,
                 }, dispath(deleteProduct(value._id)))}
             >Delete</Button>,
-            edit: <NavLink to={`/admin/product/edit/${value._id}`}>
+            edit: <Link to={`/admin/product/edit/${value._id}`}>
                 <Button
                     type="primary" danger
                 >Edit</Button>
-            </NavLink>
+            </Link>
         }
     }) : "";
 
     return (
         <>
-            <input type="checkbox"
+            <InputStyled type="checkbox"
                 checked={checkAllid} name=""
                 onChange={() => handleCheckAll()}
                 id=""
             />
-            <button onClick={() => { handleDeleteData() }} className='btn_remove'>
+            <BtnStyled onClick={() => { handleDeleteData() }} className='btn_remove'>
                 <i className="fa-solid fa-trash text-light"></i>
-            </button>
-            <NavLink to={'/admin/product/add'}  >
+            </BtnStyled>
+            <Link to={'/admin/product/add'}  >
                 <Button type="primary" shape="round" style={{ display: "inline-block", margin: "10px 10px", background: "#1677ff" }}>Add Product</Button>
-            </NavLink>
-            <NavLink to={'/admin/product/creacting'} >
+            </Link>
+            <Link to={'/admin/product/creacting'} >
                 <Button type="primary" shape="round" style={{ display: "inline-block", margin: "10px 10px", background: "#28a745" }}>Add Multiple</Button>
-            </NavLink>
-            <NavLink to={'/admin/product/add'} >
+            </Link>
+            <Link to={'/admin/product/add'} >
                 <Button type="primary" shape="round" style={{ display: "inline-block  ", margin: "10px 10px", background: "#eca52b" }}>Export PDF</Button>
-            </NavLink>
+            </Link>
             <select className="form-select-sm" onChange={e => setFilter(e.target.value)} style={{ border: "none", padding: "10px", outline: "none", width: "250px" }} aria-label=".form-select-sm example">
                 <option value={"all"}>Open this select menu</option>
                 {state.map((item, index) => {
                     return <option value={item._id} key={index} >{item.name}</option>
                 })}
             </select>
-            <NavLink to={'/admin/product/add'} >
+            <Link to={'/admin/product/add'} >
                 <Button type="primary" danger shape="round" style={{ display: "inline-block  ", margin: "10px 10px" }}>Export Excel</Button>
-            </NavLink>
-            <div style={{ display: "inline-block" }}>
-                <div className="input-group">
-                    <div className="form-outline">
-                        <input type="search" id="form1" placeholder='search...' className="form-control" onChange={e => {
+            </Link>
+            <Divstyled style={{ display: "inline-block" }}>
+                <Divstyled className="input-group">
+                    <Divstyled className="form-outline">
+                        <InputStyled type="search" id="form1" placeholder='search...' className="form-control" onChange={e => {
                             searchState(e.target.value);
                         }} />
-                    </div>
-                </div>
-            </div>
+                    </Divstyled>
+                </Divstyled>
+            </Divstyled>
             <Table columns={columns} mobileBreakPoint={768} dataSource={data} pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '20', '30'] }} />
         </>
     )

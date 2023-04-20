@@ -5,69 +5,79 @@ import { routerNavBar } from '../../router';
 import jwtDecode from 'jwt-decode';
 import AuthLogged from '../OptionsAuth/AuthLogged';
 import AuthUnLogger from '../OptionsAuth/AuthUnLogger';
+import styled from 'styled-components';
 
+const Divstyled = styled.div``;
+const Imagetyled = styled.img``;
+const Buttontyled = styled.button``;
 const Header = () => {
-
-    const data = isAuthentication();
-    const handleClickOptionsAccount = () => {
-        $(".acountImageContent").toggle();
-    }
-    const handleClickOptionsSignin = () => {
-        $(".acountImageContent").toggle();
-    }
+    const [state, setState] = useState(false);
+    const [stateNav, setStateNav] = useState(false);
     const handleClick = () => {
-        $('#navbarToggleExternalContent2').slideToggle();
+        setState(value => !value);
     }
+    const handleClickNav = () => {
+        setStateNav(value => !value);
+    }
+    const data = isAuthentication();
     return (
         <>
             <header className="masthead mb-auto">
-                <div className="inner fixed-top dk" style={{ boxShadow: "0 0 3px #fff" }} >
-                    <div className="masthead-brand-img">
+                <Divstyled className="inner fixed-top dk" >
+                    <Divstyled className="masthead-brand-img">
                         <Link to="/" style={{ textDecoration: "none" }}>
-                            <img src="/img/logo.png" alt="logo" />
+                            <Imagetyled src="/img/logo.png" alt="logo" />
                         </Link>
-                    </div>
-                    <nav className="nav nav-masthead justify-content-center">
+                    </Divstyled>
+                    <Divstyled className="nav nav-masthead justify-content-center">
                         {routerNavBar.map((item, index) => (
                             <li key={index} className="nav-item"><Link style={{ color: "#fff", textDecoration: "none", margin: "0 20px" }} to={item.Path}>{item.name}</Link></li>
                         ))}
 
-                    </nav>
-                    <div className='acountUser'>
+                    </Divstyled>
+                    <Divstyled className='acountUser'>
                         {
                             (() => {
                                 try {
                                     const token = jwtDecode(data?.token);
-                                    return <div className=" position-relative " >
-                                        <div className='acountImage'>
-                                            <img src={'https://pgddttramtau.edu.vn/wp-content/uploads/2022/12/1671376682_170_45-Avatar-Trang-Xoa-Cute-Dep-Cho-FB-Nam-Nu.jpg'} alt="" onClick={() => handleClickOptionsAccount()} />
-                                        </div>
-                                        <AuthLogged token={token} />
-                                    </div>
+                                    return <Divstyled className="position-relative" onClick={handleClick}>
+                                        <Divstyled className='acountImage'>
+                                            <Imagetyled src={'https://pgddttramtau.edu.vn/wp-content/uploads/2022/12/1671376682_170_45-Avatar-Trang-Xoa-Cute-Dep-Cho-FB-Nam-Nu.jpg'} alt="" />
+                                        </Divstyled>
+                                        {
+                                            state ? (
+                                                <>
+                                                    <AuthLogged token={token} />
+                                                </>
+                                            ) : (<>
+                                            </>)}
+                                    </Divstyled>
                                 } catch (error) {
-                                    return <div className=" position-relative ">
-                                        <div className="acountImage">
-                                            <img onClick={() => handleClickOptionsSignin()} src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7gTERsv3nO-4I-R9C00Uor_m_nmxT0sE9Cg&usqp=CAU'} alt="" />
-                                        </div>
-                                        <AuthUnLogger />
-                                    </div>
+                                    return <Divstyled className=" position-relative" onClick={handleClick}>
+                                        <Divstyled className="acountImage" >
+                                            <Imagetyled src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7gTERsv3nO-4I-R9C00Uor_m_nmxT0sE9Cg&usqp=CAU'} alt="" />
+                                        </Divstyled>
+                                        {state ? (
+                                            <><AuthUnLogger /></>
+                                        ) : (<></>)}
+                                    </Divstyled>
                                 }
                             })()
                         }
-                    </div>
-                </div>
+                    </Divstyled>
+                </Divstyled>
 
-                <div className='navbar_mb '>
-                    <div className='justify-content-center lgmb_content'>
-                        <div className="masthead-brand-img mb_img_lg py-2">
+                <Divstyled className='navbar_mb '>
+                    <Divstyled className='justify-content-center lgmb_content'>
+                        <Divstyled className="masthead-brand-img mb_img_lg py-2">
                             <Link to="/" style={{ textDecoration: "none" }}>
-                                <img src="/img/logo.png" alt="logo" />
+                                <Imagetyled src="/img/logo.png" alt="logo" />
                             </Link>
-                        </div>
-                    </div>
-                    <nav className="navbar bgNav mb">
-                        <div className="container-fluid">
-                            <button onClick={() => handleClick()}
+                        </Divstyled>
+                    </Divstyled>
+                    <Divstyled className="navbar bgNav mb">
+                        <Divstyled className="container-fluid">
+                            <Buttontyled onClick={() => handleClickNav()}
                                 className="navbar-toggler"
                                 type="button"
                                 data-mdb-toggle="collapse"
@@ -76,41 +86,47 @@ const Header = () => {
                                 aria-expanded="false"
                                 aria-label="Toggle navigation"
                             >
-                                <i className="fas fa-bars text-light fsicon"></i>
-                            </button>
+                            <i className="fas fa-bars text-light fsicon"></i>
+                            </Buttontyled>
                             {/* user */}
-                            <div className='acountUser'>
+                            <Divstyled className='acountUser'>
                                 {
                                     (() => {
                                         try {
                                             const token = jwtDecode(data?.token);
-                                            return <div className=" position-relative " >
-                                                <div className='acountImage'>
-                                                    <img src={'https://pgddttramtau.edu.vn/wp-content/uploads/2022/12/1671376682_170_45-Avatar-Trang-Xoa-Cute-Dep-Cho-FB-Nam-Nu.jpg'} alt="" onClick={() => handleClickOptionsAccount()} />
-                                                </div>
-                                                <AuthLogged token={token} />
-                                            </div>
+                                            return <Divstyled className=" position-relative " onClick={handleClick}>
+                                                <Divstyled className='acountImage'>
+                                                    <img src={'https://pgddttramtau.edu.vn/wp-content/uploads/2022/12/1671376682_170_45-Avatar-Trang-Xoa-Cute-Dep-Cho-FB-Nam-Nu.jpg'} alt="" />
+                                                </Divstyled>
+                                                {state ? (<>
+                                                    <AuthLogged token={token} />
+                                                </>) : (<></>)}
+                                            </Divstyled>
                                         } catch (error) {
-                                            return <div className=" position-relative ">
-                                                <div className="acountImage">
-                                                    <img onClick={() => handleClickOptionsSignin()} src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHwEgAHtFlzbKxbhus9ocoNE_ox89K_eTPkLBPdOPPyw&s'} alt="" />
-                                                </div>
-                                                <AuthUnLogger />
-                                            </div>
+                                            return <Divstyled className=" position-relative ">
+                                                <Divstyled className="acountImage">
+                                                    <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHwEgAHtFlzbKxbhus9ocoNE_ox89K_eTPkLBPdOPPyw&s'} alt="" />
+                                                </Divstyled>
+                                                {state ? (<>
+                                                    <AuthUnLogger />
+                                                </>) : (<></>)}
+                                            </Divstyled>
                                         }
                                     })()
                                 }
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-                <div className="bgNav" id="navbarToggleExternalContent2">
-                    <div className="shadow-3 py-2 none" >
-                        {routerNavBar.map((item, index) => (
-                            <li key={index} className="nav-item mt-4 mb-4 text-dark"><Link style={{ color: "#fff", textDecoration: "none", margin: "0 20px" }} to={item.Path}>{item.name}</Link></li>
-                        ))}
-                    </div>
-                </div>
+                            </Divstyled>
+                        </Divstyled>
+                    </Divstyled>
+                </Divstyled>
+                {
+                    stateNav ? (<Divstyled className="bgNav">
+                        <Divstyled className="shadow-3 py-2 " >
+                            {routerNavBar.map((item, index) => (
+                                <li key={index} className="nav-item mt-4 mb-4 text-dark"><Link style={{ color: "#fff", textDecoration: "none", margin: "0 20px" }} to={item.Path}>{item.name}</Link></li>
+                            ))}
+                        </Divstyled>
+                    </Divstyled>) : (<></>)
+                }
             </header>
         </>
     );

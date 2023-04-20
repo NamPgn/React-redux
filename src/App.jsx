@@ -3,14 +3,18 @@ import { Route, Routes } from 'react-router-dom';
 import { ToastContainer } from "react-toastify";
 import LayoutWebsite from './page/layout/LayoutWebsite';
 import LayoutAdmin from './page/layout/LayoutAdmin';
-import "./index.css";
 import PrivateRouter from './components/Router-Security/PrivateRouter';
 import { Loading } from './components/Message/Loading';
 import { RoutersAdminUser, RouterLayoutWebsite, AuthComponents } from './router';
 import Page404 from './components/404/Page404';
+import { GlobalStyle } from './components/Styled/Global';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "./index.css";
 function App() {
   return (
     <div className="App">
+      <GlobalStyle />
       <ToastContainer />
       <Routes>
         {
@@ -33,7 +37,9 @@ function App() {
                 <Suspense fallback={<Loading />}>
                   {router.component}
                 </Suspense>
-              }></Route>
+              }>
+                
+              </Route>
             )
           }
         </Route>

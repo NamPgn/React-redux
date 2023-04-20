@@ -6,6 +6,20 @@ import { useForm } from "react-hook-form";
 import { importXlsx } from '../../../redux/slice/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import styled from 'styled-components';
+const DivstyledAuth = styled.div`
+display: flex;
+justifyContent: center;
+textAlign: center; 
+height: 100vh ;
+`;
+const BtnStyledCreateAuth = styled.button`
+margin: 20px 0;
+`;
+const FormStyledCreateAuth = styled.form`
+
+`
+const InputStyled = styled.input``;
 const CreatingUser = () => {
   const dispath = useDispatch();
   const navigate = useNavigate();
@@ -17,23 +31,16 @@ const CreatingUser = () => {
     navigate('/admin/users');
     toast.success(`Thêm user thành công`, {
       position: "bottom-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
     });
   }
   return (
-    <div style={{ display: "flex", justifyContent: "center", textAlign: "center", height: "100vh" }}>
-      <form onSubmit={handleSubmit(onsubmit)}>
+    <DivstyledAuth>
+      <FormStyledCreateAuth onSubmit={handleSubmit(onsubmit)}>
         <label className="form-label" for="customFile">Default file input example</label>
-        <input type="file" {...register('xlsx')} className="form-control" id="customFile" />
-        <button className="btn btn-success" style={{ margin: "20px 0" }}>Submit</button>
-      </form>
-    </div>
+        <InputStyled type="file" {...register('xlsx')} className="form-control" id="customFile" />
+        <BtnStyledCreateAuth className="btn btn-success">Submit</BtnStyledCreateAuth>
+      </FormStyledCreateAuth>
+    </DivstyledAuth>
   )
 }
 

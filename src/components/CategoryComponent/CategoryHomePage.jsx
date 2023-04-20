@@ -1,37 +1,62 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import SidebarApi from '../../page/Type/SidebarContent/'
+const Divstyled = styled.div``;
+const DivstyOllMovie = styled.div``;
+const DivstyledContainer = styled.div`
+padding:20px;
+`;
+const DivstyledCateContent = styled.div`
+width: 100%;
+height:100%; 
+`
+const Psyled = styled.p``;
+const ImageStyled = styled.img`
+  width:100%;
+  height:100%;
+`;
+
+const DivstyledAllTitle = styled.div`
+  margin: 40px 0px;
+`
+
 const CategoryHomePage = ({ category, isLoading }) => {
   return (
-    <div>
-      <div className='text-light all_movie'>All Movie</div>
-      {isLoading === false ? <div className="categoryMovie">
+    <DivstyledContainer >
+      <DivstyledAllTitle className='text-light all_movie underline text-3xl font-extrabold dark:text-white'>Hh 3d</DivstyledAllTitle>
+      {isLoading === false ? <Divstyled className="categoryMovie">
         {category ? category.map((item, index) => {
-          return <div className='movie_css' key={index}>
-            <div >
-              <div className="cateConten cateItem" style={{ width: "100%", }} >
-                <Link to={'/product/category/' + item._id + `?category=${item.name}`}>
-                  <img style={{ width: "100%" }} src={item.linkImg} alt="" />
+          return <Divstyled className='movie_css' key={index}>
+            <Divstyled >
+              <DivstyledCateContent className="cateConten cateItem">
+                <Link to={'/q/' + item._id + `?n=${item.name}`}>
+                  <ImageStyled src={item.linkImg} alt="" />
                 </Link>
-                <div className="cateTitle text-light mt-1" style={{ height: "50px" }}>
-                  <Link to={'/product/category/' + item._id + `?category=${item.name}`} >
-                    <p>{item.name}</p>
+                <Divstyled className="cateTitle text-light mt-1" >
+                  <Link to={'/q/' + item._id + `?n=${item.name}`} >
+                    <Psyled>{item.name}</Psyled>
                   </Link>
-                </div>
-                <div className='release_date'>
-                  <div style={{ fontWeight: "500" }}>{item.sumSeri} Tập</div>
-                </div>
-                <div className='release_date'>
-                  <p>Thời gian 20/12 phút</p>
-                </div>
-              </div>
-            </div>
-          </div>
+                </Divstyled>
+                <Divstyled className='release_date mt-2 mb-2'>
+                  <Divstyled style={{ fontWeight: "500" }}>{item.sumSeri} Tập</Divstyled>
+                </Divstyled>
+                <Divstyled className='des'>
+                  <Psyled className='h6'>Full hđ/Vietsub</Psyled>
+                </Divstyled>
+                <Divstyled className='release_date'>
+                  <Psyled>Thời gian 20/12 phút</Psyled>
+                </Divstyled>
+              </DivstyledCateContent>
+            </Divstyled>
+          </Divstyled>
         }) : ""}
-      </div> : <div className='text-light text-center'>Chờ 1 chút...</div>}
-      <div style={{ color: "#fff", marginTop: "150px" }} className='des'>News Movie
-        <p className='text-secondary'>Updating.....</p>
-      </div>
-    </div>
+      </Divstyled> : <Divstyled className='text-light text-center'>Chờ 1 chút...</Divstyled>}
+      <DivstyOllMovie>
+        <DivstyledAllTitle style={{ color: "#fff" }} className='text-light all_movie underline text-3xl font-extrabold dark:text-white'>Phim lẻ</DivstyledAllTitle>
+        <SidebarApi idProp={'643fb6b667a17cd6a2ee3ace'} />
+      </DivstyOllMovie>
+    </DivstyledContainer>
   )
 }
 

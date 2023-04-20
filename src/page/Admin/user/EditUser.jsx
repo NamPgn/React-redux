@@ -4,7 +4,14 @@ import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { editUser, getUser_id } from '../../../redux/slice/userSlice';
 import { toast } from 'react-toastify';
-
+import styled from 'styled-components';
+const DivstyledEditAuth = styled.div``;
+const BtnStyledEditAuth = styled.button``;
+const InputStyledEditAuth = styled.input``;
+const FormStyledEditAuth = styled.form``;
+const ImageStyledEditAuth = styled.img`
+width: 200px; height: 200px; objectFit: cover ;
+`;
 const EditUser = () => {
   const { register, handleSubmit, reset } = useForm();
   const dispath = useDispatch();
@@ -40,30 +47,30 @@ const EditUser = () => {
     });
   }
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-3">
+    <DivstyledEditAuth>
+      <FormStyledEditAuth onSubmit={handleSubmit(onSubmit)}>
+        <DivstyledEditAuth className="mb-3">
           <label className="form-label">User name</label>
-          <input type="text" {...register('username', { required: true })} className="form-control" />
-        </div>
-        <div className="mb-3">
+          <InputStyledEditAuth type="text" {...register('username', { required: true })} className="form-control" />
+        </DivstyledEditAuth>
+        <DivstyledEditAuth className="mb-3">
           <label className="form-label">Email</label>
-          <input type="email"  {...register('email', { required: true })} className="form-control" />
-        </div>
-        <div className="mb-3">
+          <InputStyledEditAuth type="email"  {...register('email', { required: true })} className="form-control" />
+        </DivstyledEditAuth>
+        <DivstyledEditAuth className="mb-3">
           <label className="form-label">Password</label>
-          <input type="password"  {...register('password', { required: true })} className="form-control" />
-        </div>
-        <div>Image</div>
-        {/* <input type="text" {...register('image', { required: true })} className="form-control" /> */}
-        <img src={user ? user.image : ""} style={{ width: "200px", height: "200px", objectFit: "cover" }} className="img-radius" alt="User-Profile-Image" />
-        <div className="mb-3">
+          <InputStyledEditAuth type="password"  {...register('password', { required: true })} className="form-control" />
+        </DivstyledEditAuth>
+        <DivstyledEditAuth>Image</DivstyledEditAuth>
+        {/* <InputStyledEditAuth type="text" {...register('image', { required: true })} className="form-control" /> */}
+        <ImageStyledEditAuth src={user ? user.image : ""}  className="img-radius" alt="User-Profile-Image" />
+        <DivstyledEditAuth className="mb-3">
           <label className="form-label">Image</label>
-          <input type="file" {...register('image')} className="form-control" />
-        </div>
-        <button className="btn btn-primary">Submit</button>
-      </form>
-    </div>
+          <InputStyledEditAuth type="file" {...register('image')} className="form-control" />
+        </DivstyledEditAuth>
+        <BtnStyledEditAuth className="btn btn-primary">Submit</BtnStyledEditAuth>
+      </FormStyledEditAuth>
+    </DivstyledEditAuth>
   )
 }
 

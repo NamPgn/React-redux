@@ -6,6 +6,10 @@ import { getCategoryOne$ } from '../../../redux/selectors';
 import { getCateSlice, updateCatgorySlice } from '../../../redux/slice/category/ThunkCategory/category';
 import { toast } from 'react-toastify';
 import { getCategory } from '../../../api/category';
+import styled from 'styled-components';
+const Divstyled = styled.div``;
+const BtnStyled = styled.button``;
+const InputStyled = styled.input``;
 const EditCategory = () => {
   const getCategoryOne = useSelector(getCategoryOne$);
   const { register, reset, handleSubmit } = useForm();
@@ -37,30 +41,30 @@ const EditCategory = () => {
     });
   }
   return (
-    <div>
+    <Divstyled>
       <form onSubmit={handleSubmit(onsubmit)}>
-        <div className="mb-3">
+        <Divstyled className="mb-3">
           <label className="form-label">Category name</label>
-          <input type="text" {...register('name')} className="form-control" />
-        </div>
-        <div className="mb-3">
+          <InputStyled type="text" {...register('name')} className="form-control" />
+        </Divstyled>
+        <Divstyled className="mb-3">
           <label className="form-label">Category des</label>
-          <input type="text" {...register('des')} className="form-control" />
-        </div>
-        <div className='mb-2' style={{ width: "150px", height: "150px" }}>
+          <InputStyled type="text" {...register('des')} className="form-control" />
+        </Divstyled>
+        <Divstyled className='mb-2' style={{ width: "150px", height: "150px" }}>
           <img src={getCategoryOne.linkImg} alt="" />
-        </div>
-        <div className="mb-3">
+        </Divstyled>
+        <Divstyled className="mb-3">
           <label className="form-label">Image</label>
-          <input type="text" {...register('linkImg')} className="form-control" />
-        </div>
-        <input type="file" onChange={(e) => onchange(e)} placeholder='Imgae Edit' />
-        <div style={{ width: "150px", height: "150px" }}>
-          <input type="text" value={state} className="form-control" />
-        </div>
-        <button className="btn btn-primary">Click</button>
+          <InputStyled type="text" {...register('linkImg')} className="form-control" />
+        </Divstyled>
+        <InputStyled type="file" onChange={(e) => onchange(e)} placeholder='Imgae Edit' />
+        <Divstyled style={{ width: "150px", height: "150px" }}>
+          <InputStyled type="text" value={state} className="form-control" />
+        </Divstyled>
+        <BtnStyled className="btn btn-primary">Click</BtnStyled>
       </form>
-    </div>
+    </Divstyled>
   )
 }
 

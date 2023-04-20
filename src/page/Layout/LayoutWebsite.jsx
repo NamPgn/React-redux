@@ -2,19 +2,27 @@ import React from 'react'
 import { Outlet } from "react-router-dom";
 import Header from '../../components/Teamplates/Header';
 import Footer from '../../components/Teamplates/Footer';
-const HomePage = () => {
+import styled from 'styled-components';
+import SideBar from '../../components/SideBar';
+const DivstyledConfigLayout = styled.div`
+  display:flex;
+`;
 
+const Divstyled = styled.div``;
+
+const HomePage = () => {
   return (
     <main >
-      <div>
+      <Divstyled>
         <Header />
-      </div>
-      <div className="container" >
+      </Divstyled>
+      <DivstyledConfigLayout className="containers" >
+        <SideBar/>
         <Outlet />
-      </div>
-      <div>
+      </DivstyledConfigLayout>
+      <Divstyled>
         <Footer />
-      </div>
+      </Divstyled>
     </main>
   )
 }

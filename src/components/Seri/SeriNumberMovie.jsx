@@ -1,42 +1,56 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
-import { urlSwr } from '../../main';
+import { urlSwr } from '../../function';
 import { useSWRWithAxios } from '../../hook/Swr';
+import styled from 'styled-components';
+import { Loader } from '../Message/Loading';
+const Divstyled = styled.div``;
+const SpanStyled = styled.span``;
+const BtnStyled = styled.button`
+padding: 9px 20px;
+background: #000;
+font-size: 15px;
+border-radius: 3px;
+`;
+const DivstyledContent = styled.div`
+background: #00000052;
+padding: 20px;
+border-radius: 2px;
+`
 const SeriNumberMovie = () => {
   //còn đây là khi vào danh mục để list tâp phim
   const { id } = useParams();
-  const { data, error, isLoading } = useSWRWithAxios(urlSwr + `/category/products/${id}`)
+  const { data, error, isLoading } = useSWRWithAxios(urlSwr + `/category/products/${id}`);
   const datas = [...data ? data : ""].sort((a, b) => Number(a.seri) < Number(b.seri) ? 1 : -1);
-
   return (
-    <div>
+    <DivstyledContent>
       {
-        datas.length > 0 ? <div className='product_seri_item'>
+        datas.length > 0 ? <Divstyled className='product_seri_item'>
           {
             datas ? datas.map((item, index) => {
-              return <div style={{ textAlign: "center", }} key={index}>
+              return <Divstyled style={{ textAlign: "center", }} key={index}>
                 <Link to={
-                  '/detail/' + item._id + `?category=${item.category}` + "?name=" + `${item.name + " " + item.seri} `
+                  '/d/' + item._id + `?c=${item.category}` + "?n=" + `${item.name + " " + item.seri} `
                 }>
-                  {item.trailer ? <button type="button" className="btn d-flex  btn-dark " style={{ padding: "8px 9px", fontSize: "14px" }}>
-                    <span>
+                  {item.trailer ? <BtnStyled type="button" className="btn d-flex  btn-dark " >
+                    <SpanStyled>
                       {item.seri}
-                    </span>
-                    <span >
+                    </SpanStyled>
+                    <SpanStyled >
                       Raw
-                    </span>
-                  </button>
-                    : <button type="button" className="btn btn-dark" style={{ padding: "6px 20px", boxShadow: "0 0 2px #999" }}>{item.seri}</button>
+                    </SpanStyled>
+                  </BtnStyled>
+                    : <BtnStyled type="button" className="" >{item.seri}</BtnStyled>
                   }
                 </Link>
-              </div>
-            }) : " Not found! "
+              </Divstyled>
+            }) : <Loader />
           }
-        </div> : <div className='des'>
-          <p style={{ padding: "5px", border: "1px solid #999" }}>Loading...</p>
-        </div>
+        </Divstyled> : <Divstyled className='des'>
+          <Divstyled style={{ padding: "5px", border: "1px solid #999" }}>Chưa cập nhật!</Divstyled>
+        </Divstyled>
       }
-    </div>
+    </DivstyledContent>
   )
 }
 

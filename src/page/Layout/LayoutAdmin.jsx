@@ -1,12 +1,12 @@
 import React from 'react'
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import { Breadcrumb, Layout, Menu } from "antd";
 import '../../index.css'
 import { TableRouterAdminPage } from '../../router';
 const { Header, Content, Sider } = Layout;
 const LayoutAdmin = () => {
     return (
-        <div >
+        <>
             <Layout style={{ height: "vh" }}>
                 <Header className="header">
                     <div className="logo" />
@@ -16,9 +16,9 @@ const LayoutAdmin = () => {
                         <Menu style={{ height: "100%" }}>
                             {TableRouterAdminPage.map((router, index) => (
                                 <Menu.Item key={index}>
-                                    <NavLink to={router.Path}>
+                                    <Link to={router.Path}>
                                         {router.iconComponent}  {router.name}
-                                    </NavLink>
+                                    </Link>
                                 </Menu.Item>
                             ))}
                         </Menu>
@@ -42,7 +42,7 @@ const LayoutAdmin = () => {
                     </Layout>
                 </Layout>
             </Layout>
-        </div>
+        </>
     )
 }
 

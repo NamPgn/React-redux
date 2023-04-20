@@ -11,7 +11,7 @@ export const resgisterLogin = createAsyncThunk(
 export const loginForm = createAsyncThunk(
     "user/signin",
     async (payload) => {
-        const { data } = await login(payload)
+        const { data, status } = await login(payload);
         return data
     }
 )
@@ -81,7 +81,9 @@ const userSlice = createSlice({
         value: [],
         cartUser: [],
         isLoading: false,
-        error: false
+        error: false,
+        login: {},
+        isLogin: false,
     },
     reducers: {
         logout() {
@@ -100,10 +102,13 @@ const userSlice = createSlice({
             state.value = action.payload.newUser;
         });
         builder.addCase(loginForm.rejected, (state, action) => {
-            state.error = true
+            state.error = false
+            state.isLogin = false
         }).addCase(loginForm.fulfilled, (state, action) => {
             localStorage.setItem('token', JSON.stringify(action.payload))
+            state.login = action.payload
             state.error = false
+            state.isLogin = true
         })
         builder.addCase(getAlluser.fulfilled, (state, action) => {
             state.value = action.payload;

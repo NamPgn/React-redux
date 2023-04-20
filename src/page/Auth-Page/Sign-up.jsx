@@ -6,6 +6,11 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
+import styled from 'styled-components';
+const Divstyled = styled.div``;
+const BtnStyled = styled.button``;
+const InputStyled = styled.input``;
+const FormStyled = styled.form``;
 const Signup = () => {
     const schema = yup.object().shape({
         username: yup.string().required().test('is-email', 'Username must not contain @', (value) => {
@@ -29,36 +34,36 @@ const Signup = () => {
         navigate("/auth/signin");
     }
     return (
-        <form onSubmit={handleSubmit(onsubmit)} className='vh-100'>
-            <div className='mb-5'>
+        <FormStyled onSubmit={handleSubmit(onsubmit)} className='vh-100'>
+            <Divstyled className='mb-5'>
                 {/* <form onSubmit={(onsubmit)} className="container formContainer"> */}
-                <div className='formContainer container '>
-                    <div>
-                        <div className="mb-3 des">
-                            <input type="text" className="input" {...register('username')} name="username" aria-describedby="emailHelp" placeholder='Username' />
+                <Divstyled className='formContainer containers '>
+                    <Divstyled>
+                        <Divstyled className="mb-3 des">
+                            <InputStyled type="text" className="input" {...register('username')} name="username" aria-describedby="emailHelp" placeholder='Username' />
                             {errors.username && <p>{errors.username.message}</p>}
-                        </div>
-                        {/* <div className="mb-3">
+                        </Divstyled>
+                        {/* <Divstyled className="mb-3">
                         <input type="hidden"  className="input" name='email' onChange={(e) => { setSate({ ...state, email: e.target.value }) }} aria-describedby="emailHelp" placeholder='Email address' />
-                    </div> */}
-                        <div className="mb-3 des">
-                            <input type="password" className="input" {...register('password')} name='password' placeholder='Password' id="exampleInputPassword1" />
+                    </Divstyled> */}
+                        <Divstyled className="mb-3 des">
+                            <InputStyled type="password" className="input" {...register('password')} name='password' placeholder='Password' id="exampleInputPassword1" />
                             {errors.password && <p>{errors.password.message}</p>}
-                        </div>
-                        {/* <div className="mb-3" style={{ color: "#fff" }}>
+                        </Divstyled>
+                        {/* <Divstyled className="mb-3" style={{ color: "#fff" }}>
                         <FileBase64 type='file'
                             multiple={false}
                             onDone={({ base64 }) => {
                                 setSate({ ...state, image: base64 });
                             }}
                         />
-                    </div> */}
-                        <button className="btn btn-primary">Register</button>
-                    </div>
-                </div>
+                    </Divstyled> */}
+                        <BtnStyled className="btn btn-primary">Register</BtnStyled>
+                    </Divstyled>
+                </Divstyled>
                 {/* </form> */}
-            </div>
-        </form>
+            </Divstyled>
+        </FormStyled>
     )
 }
 

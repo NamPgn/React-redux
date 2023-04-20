@@ -2,13 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Cate } from '../../../main';
+import { Cate } from '../../../function';
 import FileBase64 from 'react-file-base64';
 import { useForm } from "react-hook-form";
 import { addProduct } from '../../../redux/slice/product/ThunkProduct/product';
+import styled from 'styled-components';
+const Divstyled = styled.div``;
+const BtnStyled = styled.button``;
+const InputStyled = styled.input``;
+const SelectStyled = styled.select``;
 const ProductAdd = () => {
   const [state, setCate] = useState([]);
-
   useEffect(() => {
     const dataCate = async () => {
       setCate(await Cate());
@@ -17,8 +21,8 @@ const ProductAdd = () => {
   }, []);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const { register, reset, handleSubmit } = useForm();
+  
   const onsubmit = (data) => {
     const formdata = new FormData();
     formdata.append('name', data.name);
@@ -30,7 +34,9 @@ const ProductAdd = () => {
     formdata.append('copyright', data.copyright)
     formdata.append('descriptions', data.descriptions);
     formdata.append('trailer', data.trailer);
+    formdata.append('image', data.image);
     dispatch(addProduct(formdata));
+    console.log(data);
     // navigate('/admin/products');
     toast.success('Add Product Success', {
       position: "bottom-right",
@@ -39,48 +45,52 @@ const ProductAdd = () => {
     });
   }
   return (
-    <div>
+    <Divstyled>
       <form onSubmit={handleSubmit(onsubmit)}>
-        <div className="mb-3">
+        <Divstyled className="mb-3">
           <label className="form-label">Product name</label>
-          <input type="text" name='name' {...register('name')} className="form-control" />
-        </div>
-        <div className="mb-3">
+          <InputStyled type="text" name='name' {...register('name')} className="form-control" />
+        </Divstyled>
+        <Divstyled className="mb-3">
           <label className="form-label">View</label>
-          <input type="text" name='price' {...register('price')} className="form-control" />
-        </div>
-        <div className="mb-3">
+          <InputStyled type="text" name='price' {...register('price')} className="form-control" />
+        </Divstyled>
+        <Divstyled className="mb-3">
           <label className="form-label">Desciption</label>
-          <input type="text" name='descriptions' {...register('descriptions')} className="form-control" />
-        </div>
-        <div className="mb-3">
+          <InputStyled type="text" name='descriptions' {...register('descriptions')} className="form-control" />
+        </Divstyled>
+        <Divstyled className="mb-3">
           <label className="form-label">Seri</label>
-          <input type="text" name='seri' {...register('seri')} className="form-control" />
-        </div>
-        <div className="mb-3">
+          <InputStyled type="text" name='seri' {...register('seri')} className="form-control" />
+        </Divstyled>
+        <Divstyled className="mb-3">
           <label className="form-label">Copyright</label>
-          <input type="text" name='copyright' {...register('copyright')} className="form-control" />
-        </div>
-        <div className="mb-3">
+          <InputStyled type="text" name='copyright' {...register('copyright')} className="form-control" />
+        </Divstyled>
+        <Divstyled className="mb-3">
           <label className="form-label">LinkCopyright</label>
-          <input type="text" name='LinkCopyright' {...register('LinkCopyright')} className="form-control" />
-        </div>
-        <div className="mb-3">
+          <InputStyled type="text" name='LinkCopyright' {...register('LinkCopyright')} className="form-control" />
+        </Divstyled>
+        <Divstyled className="mb-3">
           <label className="form-label">Video Url</label>
-          <input type="file" name='file' {...register('file')} className="form-control" />
-        </div>
-        <div className="mb-3">
+          <InputStyled type="file" name='file' {...register('file')} className="form-control" />
+        </Divstyled>
+        <Divstyled className="mb-3">
+          <label className="form-label">Image</label>
+          <InputStyled type="text" name='image' {...register('image')} className="form-control" />
+        </Divstyled>
+        <Divstyled className="mb-3">
           <label className="form-label">Trailer Video</label>
-          <input type="text" name='trailer' {...register('trailer')} className="form-control" />
-        </div>
-        <div className="form-label">Category</div>
-        <select className="form-select-sm" {...register('category')} style={{ border: "none", padding: "10px", outline: "none" }} aria-label=".form-select-sm example">
+          <InputStyled type="text" name='trailer' {...register('trailer')} className="form-control" />
+        </Divstyled>
+        <Divstyled className="form-label">Category</Divstyled>
+        <SelectStyled className="form-select-sm" {...register('category')} style={{ border: "none", padding: "10px", outline: "none" }} aria-label=".form-select-sm example">
           <option value={''} >Open this select menu</option>
           {state.map((item, index) => {
             return <option value={item._id} key={index}>{item.name}</option>
           })}
-        </select>
-        {/* <div className="mb-3 mt-2">
+        </SelectStyled>
+        {/* <Divstyled className="mb-3 mt-2">
           <label className="form-label">Image</label>
           <FileBase64 type='file'
             multiple={false}
@@ -88,13 +98,13 @@ const ProductAdd = () => {
               // SetFormatted({ ...formatted, image: base64 });
             }}
           />
-        </div> */}
+        </Divstyled> */}
         <br />
-        <div className='mt-2'>
-          <button className="btn btn-primary">Submit</button>
-        </div>
+        <Divstyled className='mt-2'>
+          <BtnStyled className="btn btn-primary">Submit</BtnStyled>
+        </Divstyled>
       </form>
-    </div>
+    </Divstyled>
   )
 }
 

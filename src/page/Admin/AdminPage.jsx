@@ -1,11 +1,11 @@
 import React from 'react'
+import styled from 'styled-components'
 
+const Divstyled = styled.div``
 
 const AdminPage = () => {
   return (
-    <div>
-      Admin Page
-    </div>
+    <Divstyled>Admin page</Divstyled>
   )
 }
 

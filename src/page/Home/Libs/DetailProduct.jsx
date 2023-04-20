@@ -1,21 +1,22 @@
 
 import ContactAdmin from '../../../components/Contact/ContactAdmin';
 import CategoryHomePage from '../../../components/CategoryComponent/CategoryHomePage';
-import React, { Suspense } from 'react';
+import React, { Suspense, useContext } from 'react';
 import { Loader } from '../../../components/Message/Loading';
-import { urlSwr } from '../../../main';
-import { useSWRWithAxios } from '../../../hook/Swr';
+import { MyContext } from '../../../components/Context';
 const DetailProduct = () => {
   const DetailComponent = React.lazy(() => import('../../../components/Main/DetailComponent'));
-  const { data: category, isLoading } = useSWRWithAxios(urlSwr + `/categorys`);
+  const { category, isLoading } = useContext(MyContext);
   return (
     <>
       <React.Fragment>
-        <ContactAdmin />
-        <Suspense fallback={<Loader />}>
-          <DetailComponent />
-        </Suspense>
-        <CategoryHomePage category={category} isLoading={isLoading} />
+        <div className='col-md-10' style={{background: '#00000037'}}>
+          <ContactAdmin />
+          <Suspense fallback={<Loader />}>
+            <DetailComponent />
+          </Suspense>
+          <CategoryHomePage category={category} isLoading={isLoading} />
+        </div>
       </React.Fragment>
     </>
   )

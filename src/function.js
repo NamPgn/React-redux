@@ -20,4 +20,4 @@ export const Cate = async () => {
   return data;
 }
 
-export const urlSwr = 'https://test-19k8.onrender.com/api';
+export const urlSwr = 'https://moviee.up.railway.app/api';

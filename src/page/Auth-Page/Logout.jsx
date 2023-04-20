@@ -4,9 +4,6 @@ import { Navigate } from 'react-router-dom';
 import { logout } from '../../redux/slice/userSlice';
 
 const Logout = () => {
-  // const dispath=useDispatch();
-  // dispath(logout());
-
   return <Navigate to={"/"} />
 }
 

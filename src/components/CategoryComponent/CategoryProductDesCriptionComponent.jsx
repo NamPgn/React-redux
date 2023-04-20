@@ -1,61 +1,76 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Suspense, useEffect, useState } from 'react'
 import { getCategory } from '../../api/category';
 import { category$ } from '../../redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllcate } from '../../redux/slice/category/ThunkCategory/category';
+import { getAllcate, getCateSlice } from '../../redux/slice/category/ThunkCategory/category';
 import { useParams } from 'react-router-dom'
+import styled from 'styled-components';
+import SeriNumberMovie from '../seri/SeriNumberMovie.jsx';
+import { getOneById$ } from '../../redux/selectors/category';
+import { useSWRWithAxios } from '../../hook/Swr';
+import { urlSwr } from '../../function';
 import { Loading } from '../Message/Loading';
-const SeriNumberMovie = React.lazy(() => import('../seri/SeriNumberMovie.jsx'))
+import { MyContext } from '../Context';
+const Divstyled = styled.div``;
+const Psyled = styled.p``;
+const DivstyledTitle = styled.div`
+  font-size:20px;
+  margin-bottom:10px;
+`;
+
+const ImageStyled = styled.img`
+  width:100%;
+  height:100%;
+  object-fit: cover;
+  border-radius:3px;
+`
+
 const CategoryProductComponent = () => {
   const { id } = useParams();
-  const category = useSelector(category$); //getAllcategory
-  const dispatch = useDispatch();
-  const [state, setSate] = useState([]); //getone category
-  useEffect(() => {
-    dispatch(getAllcate());
-    const getOne = async () => {
-      const { data } = await getCategory(id);
-      setSate(data);
-    }
-    getOne();
-  }, [id]);
+  // const category = useSelector(getOneById$); //getAllcategory
+  // const { data: category, isLoading } = useSWRWithAxios(urlSwr + `/category/${id}`); cách 2
+  // const dispatch = useDispatch();
+  // useEffect(() => { //cách 1
+  //    dispatch(getCateSlice(id));
+  // }, [id]);
+  const { category, isLoading } = useContext(MyContext);
+  if (isLoading) {
+    return <Loading />
+  }
   return (
-    <div className="">
-      {category.map((item) => {
-        if (item._id == id) {
-          return <div style={{ margin: "20px" }} key={item._id}>
-            <div style={{ color: "#fff" }}>
-              <div className='d-flex detail_video'>
-                <div className="data_img mb-5">
-                  <img src={item.linkImg} style={{ width: "100%", height: "100%", borderRadius: "3px" }} alt="" />
-                </div>
-                <div>
-                  <div className="category">
-                    <h5>{item.name}</h5>
-                  </div>
-                  <div className="loai des">
-                    <p>Thể loại : Kiếm hiệp, truyện</p>
-                    <p>Tổng Số tập: {state.sumSeri}</p>
-                    <p>Thời gian: 15-20 phút </p>
-                    <p>Năm phát hành : 2023</p>
-                    <p></p>
-                  </div>
-                  <br />
-                  <Suspense fallback={<Loading />}>
-                    <SeriNumberMovie />
-                  </Suspense>
-                </div>
-              </div>
-              <div className='des'>
-                <h5>Nội dung Phim: </h5>
-                <p>{item.des}</p>
-              </div>
-            </div>
-          </div>
-        }
-      })}
-    </div>
+    <Divstyled>
+      {category ? category.map((item, index) => (
+        // cách 3
+        item._id == id ? <Divstyled style={{ margin: "20px" }} key={index}> 
+          <Divstyled style={{ color: "#fff" }}>
+            <Divstyled className='d-flex detail_video'>
+              <Divstyled className="data_img mb-5">
+                <ImageStyled src={item.linkImg} alt="" />
+              </Divstyled>
+              <Divstyled>
+                <Divstyled className="category">
+                  <DivstyledTitle>{item.name}</DivstyledTitle>
+                </Divstyled>
+                <Divstyled className="loai des">
+                  <Psyled>Thể loại : Kiếm hiệp, truyện</Psyled>
+                  <Psyled>Tổng Số tập: {item._id == id ? item.sumSeri : ""}</Psyled>
+                  <Psyled>Thời gian: 15-20 phút </Psyled>
+                  <Psyled>Năm phát hành : 2023</Psyled>
+                  <Psyled>Kiểu: Thuyết minh</Psyled>
+                </Divstyled>
+                <br />
+                <SeriNumberMovie />
+              </Divstyled>
+            </Divstyled>
+            <Divstyled className='des'>
+              <Divstyled className='h6'>Nội dung Phim: </Divstyled>
+              <Psyled>{item.des}</Psyled>
+            </Divstyled>
+          </Divstyled>
+        </Divstyled> : ""
+      )) : ""}
+    </Divstyled>
   )
 }
 
