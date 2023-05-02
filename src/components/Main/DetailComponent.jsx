@@ -11,6 +11,8 @@ import ComentProductsLayout from '../CommentProducts/ComentProductsLayout';
 import SeriDetailProducts from '../Seri/SeriDetailProducts';
 import CartAddContent from '../Cart/CartAddContent';
 import styled from 'styled-components';
+import { useSWRWithAxios } from '../../hook/Swr';
+import { urlSwr } from '../../function';
 
 const Divstyled = styled.div``;
 const Psyled = styled.p``;
@@ -54,7 +56,10 @@ const DetailComponent = () => {
     dispatch(getProducts());
     dispatch(getAllProductDataByCategorySlice(c));
   }, [id, c, commentAdded]); //nếu mà 2 thằng này có thay đổi thì rereder
+  const { data: typeSeri, isError } = useSWRWithAxios(urlSwr + `/type/${c}`);
+  const { data: dataSeriCateMain, isError: err } = useSWRWithAxios(urlSwr + `/categorymain/${c}`);
   const seriProduct = [...productByCategory].sort((a, b) => Number(a.seri) < Number(b.seri) ? 1 : -1); //sắp xếp
+  
   return (
     <Divstyled>
       <Divstyled className='d-flex justify-content-center' style={{ gap: "10px", }}>
@@ -72,15 +77,8 @@ const DetailComponent = () => {
             <Divstyled>
               <br />
             </Divstyled>
-            <Divstyled className='des'>
-              <Psyled>Ngày đăng: {moment(getOneProductDetail.uploadDate).format('LTS DD-MM-YYYY')}</Psyled>
-            </Divstyled>
-            <Divstyled style={{ color: "#fff", margin: "10px 0" }} className='des'>
-              <Psyled><i className="fa-solid fa-eye"></i>
-                {getOneProductDetail.price} Lượt xem</Psyled>
-            </Divstyled>
 
-
+            <Divstyled style={{ color: "#fff", margin: "10px 0 35px 0px" }}>Server khác: Đang cập nhật!...</Divstyled>
 
             {/* chi tiết */}
             <DivStyledContent>
@@ -94,7 +92,24 @@ const DetailComponent = () => {
               <DivStyledContentText className='col-md-9'>
                 <CartAddContent item={getOneProductDetail} id={id} categoryId={c} />
                 <Divstyled style={{ color: "#fff", margin: "10px 0" }}>{getOneProductDetail.trailer ? 'Trailer ' + getOneProductDetail.seri : 'Tập ' + getOneProductDetail.seri} </Divstyled>
-                <SeriDetailProducts seriProduct={seriProduct} />
+                <Divstyled className='des'>
+                  <Psyled>Ngày đăng: {moment(getOneProductDetail.uploadDate).format('LTS DD-MM-YYYY')}</Psyled>
+                </Divstyled>
+                <Divstyled style={{ color: "#fff", margin: "10px 0" }} className='des'>
+                  <Psyled>
+                    <i className="fa-solid fa-eye mr-1"></i>
+                    {getOneProductDetail.price} Lượt xem
+                  </Psyled>
+                </Divstyled>
+
+
+                <SeriDetailProducts
+                  seriProduct={seriProduct}
+                  typeProduct={typeSeri ? typeSeri.products : ""}
+                  cateMainProduct={dataSeriCateMain ? dataSeriCateMain.products : ""}
+                />
+
+
                 <Divstyled className='p-3 mt-3 mb-3 text-white rounded' style={{ background: "rgb(0 0 0 / 47%)" }}>
                   Copyright video : <a href={getOneProductDetail.LinkCopyright} className='text-primary'>  {getOneProductDetail.copyright} </a>
                 </Divstyled>
@@ -109,8 +124,6 @@ const DetailComponent = () => {
             <Divstyled className='h6 text-light mt-4'>Bình luận</Divstyled>
             <CommentProductsIndex getOne={getOneProductDetail} />
             <ComentProductsLayout setCommentAdded={setCommentAdded} />
-
-
           </Divstyled> : ""}
         </Divstyled>
       </Divstyled>

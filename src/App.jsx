@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 import LayoutWebsite from './page/layout/LayoutWebsite';
 import LayoutAdmin from './page/layout/LayoutAdmin';
 import PrivateRouter from './components/Router-Security/PrivateRouter';
-import { Loading } from './components/Message/Loading';
+import { Loader, Loading } from './components/Message/Loading';
 import { RoutersAdminUser, RouterLayoutWebsite, AuthComponents } from './router';
 import Page404 from './components/404/Page404';
 import { GlobalStyle } from './components/Styled/Global';
@@ -34,7 +34,7 @@ function App() {
           {
             RouterLayoutWebsite.map((router, index) =>
               <Route index={router.indexPath ? router.indexPath : ""} key={index} path={router.Path} element={
-                <Suspense fallback={<Loading />}>
+                <Suspense fallback={<Loader />}>
                   {router.component}
                 </Suspense>
               }>

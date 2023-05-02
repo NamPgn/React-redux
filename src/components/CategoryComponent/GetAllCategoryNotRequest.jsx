@@ -32,11 +32,11 @@ const GetAllCategoryNotRequest = ({ id }) => {
           <Divstyled className='movie_css' key={index}>
             <Divstyled >
               <Divstyled className="cateConten cateItem" style={{ width: "100%", }} >
-                <Link to={'/q/' + item._id + `?category=${item.name}`} >
+                <Link to={'/q/' + item._id + `?n=${item.name}`} >
                   <img style={{ width: "100%" }} src={item.linkImg} alt="" />
                 </Link>
                 <Divstyled className="cateTitle text-light mt-1">
-                  <Link to={'/q/' + item._id + `?category=${item.name}`}>
+                  <Link to={'/q/' + item._id + `?n=${item.name}`}>
                     <Psyled>{item.name}</Psyled>
                   </Link>
                 </Divstyled>

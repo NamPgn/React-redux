@@ -164,13 +164,18 @@ font-size:14px;
 @media(max-width:768px){
   display:none;
 }
+
+&:hover {
+  cursor:pointer;
+  color:#999;
+}
 `
 
 const SideBar = () => {
   const { seri, loadingSeri } = useContext(MyContext);
   return (
     <DivstySideBar className='col-md-2'>
-      <DivstyledContent>
+      <DivstyledContent className='col-md-2'>
         <DivStyledTitle>
           <Link to={'/'} style={{ display: 'contents' }}>
             <SibarImage src='/img/logo.png' />

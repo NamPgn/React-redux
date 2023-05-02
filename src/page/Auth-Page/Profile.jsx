@@ -21,7 +21,7 @@ const Profile = () => {
   }
   try {
     const decode = jwtDecode(data?.token);
-    return <Divstyled className="page-content page-container" id="page-content" style={{ margin: "20px" }}>
+    return <Divstyled className="page-content page-container" id="page-content" >
       <Divstyled className="">
         <Divstyled className="vh-100">
           <Divstyled className="containers py-5 h-100">
@@ -68,7 +68,7 @@ const Profile = () => {
       </Divstyled>
     </Divstyled>
   } catch (error) {
-    return <Divstyled className='text-light container text-center vh-100 pt-5'  ><Link to={"/auth/signin"}>Đăng nhập</Link></Divstyled>
+    return <Divstyled className='text-light text-center vh-100' style={{ paddingTop: "200px" }}  ><Link to={"/auth/signin"}>Đăng nhập</Link></Divstyled>
   }
 
 }

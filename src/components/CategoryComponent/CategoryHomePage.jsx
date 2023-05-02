@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import SidebarApi from '../../page/Type/SidebarContent/'
+import SidebarApi from '../../page/Type/SidebarData'
 const Divstyled = styled.div``;
 const DivstyOllMovie = styled.div``;
 const DivstyledContainer = styled.div`

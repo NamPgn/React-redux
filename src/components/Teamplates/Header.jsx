@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { isAuthentication } from '../../auth/getToken';
 import { routerNavBar } from '../../router';
 import jwtDecode from 'jwt-decode';
@@ -8,8 +8,27 @@ import AuthUnLogger from '../OptionsAuth/AuthUnLogger';
 import styled from 'styled-components';
 
 const Divstyled = styled.div``;
+const DivstyledMkt = styled.div`
+color:#999;
+font-weight:500;
+`;
+const DivLink = styled.div`
+color: rgb(255, 214, 99);
+font-weight:500;
+`;
 const Imagetyled = styled.img``;
 const Buttontyled = styled.button``;
+const DivContentMkt = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+gap:0 5px;
+ 
+&>a{
+    color: rgb(255, 214, 99) !important;
+    font-weight:500;
+}
+`;
 const Header = () => {
     const [state, setState] = useState(false);
     const [stateNav, setStateNav] = useState(false);
@@ -33,7 +52,12 @@ const Header = () => {
                         {routerNavBar.map((item, index) => (
                             <li key={index} className="nav-item"><Link style={{ color: "#fff", textDecoration: "none", margin: "0 20px" }} to={item.Path}>{item.name}</Link></li>
                         ))}
-
+                        <DivContentMkt>
+                            <DivstyledMkt>Liên hệ qc tele: </DivstyledMkt>
+                            <a href={'https://web.telegram.org/k/#@nampg'}>
+                                <DivLink />@nampg
+                            </a>
+                        </DivContentMkt>
                     </Divstyled>
                     <Divstyled className='acountUser'>
                         {
@@ -42,7 +66,7 @@ const Header = () => {
                                     const token = jwtDecode(data?.token);
                                     return <Divstyled className="position-relative" onClick={handleClick}>
                                         <Divstyled className='acountImage'>
-                                            <Imagetyled src={'https://pgddttramtau.edu.vn/wp-content/uploads/2022/12/1671376682_170_45-Avatar-Trang-Xoa-Cute-Dep-Cho-FB-Nam-Nu.jpg'} alt="" />
+                                            <Imagetyled src={''} alt="" />
                                         </Divstyled>
                                         {
                                             state ? (
@@ -55,7 +79,7 @@ const Header = () => {
                                 } catch (error) {
                                     return <Divstyled className=" position-relative" onClick={handleClick}>
                                         <Divstyled className="acountImage" >
-                                            <Imagetyled src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7gTERsv3nO-4I-R9C00Uor_m_nmxT0sE9Cg&usqp=CAU'} alt="" />
+                                            <img />
                                         </Divstyled>
                                         {state ? (
                                             <><AuthUnLogger /></>
@@ -86,7 +110,7 @@ const Header = () => {
                                 aria-expanded="false"
                                 aria-label="Toggle navigation"
                             >
-                            <i className="fas fa-bars text-light fsicon"></i>
+                                <i className="fas fa-bars text-light fsicon"></i>
                             </Buttontyled>
                             {/* user */}
                             <Divstyled className='acountUser'>
@@ -96,7 +120,7 @@ const Header = () => {
                                             const token = jwtDecode(data?.token);
                                             return <Divstyled className=" position-relative " onClick={handleClick}>
                                                 <Divstyled className='acountImage'>
-                                                    <img src={'https://pgddttramtau.edu.vn/wp-content/uploads/2022/12/1671376682_170_45-Avatar-Trang-Xoa-Cute-Dep-Cho-FB-Nam-Nu.jpg'} alt="" />
+                                                    <img src={''} alt="" />
                                                 </Divstyled>
                                                 {state ? (<>
                                                     <AuthLogged token={token} />
@@ -105,7 +129,7 @@ const Header = () => {
                                         } catch (error) {
                                             return <Divstyled className=" position-relative ">
                                                 <Divstyled className="acountImage">
-                                                    <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHwEgAHtFlzbKxbhus9ocoNE_ox89K_eTPkLBPdOPPyw&s'} alt="" />
+                                                    <img src={''} alt="" />
                                                 </Divstyled>
                                                 {state ? (<>
                                                     <AuthUnLogger />

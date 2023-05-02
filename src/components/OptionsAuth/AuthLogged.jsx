@@ -14,7 +14,6 @@ const AuthLogged = ({ token }) => {
     dispatch(logout());
     navigate('/auth/signin');
   }
-
   return (
     <Divstyled className="acountImageContent position-absolute ">
       <Divstyled className="signleAs d-flex justify-content-center">

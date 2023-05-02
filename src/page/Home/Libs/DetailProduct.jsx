@@ -10,7 +10,7 @@ const DetailProduct = () => {
   return (
     <>
       <React.Fragment>
-        <div className='col-md-10' style={{background: '#00000037'}}>
+        <div className='col-md-10' style={{ background: '#00000037' }}>
           <ContactAdmin />
           <Suspense fallback={<Loader />}>
             <DetailComponent />

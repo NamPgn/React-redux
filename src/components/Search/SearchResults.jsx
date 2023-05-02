@@ -12,10 +12,10 @@ const SearchResults = ({ data }) => {
         {data ? data.map((item, index) => (
           <Divstyled style={{ padding: "20px 0" }} key={index}>
             <Divstyled className='searhValue' key={index}>
-              <Link to={'/q/' + item._id + `?category=${item.name}`}>
+              <Link to={'/q/' + item._id + `?n=${item.name}`}>
                 <Divstyled className='searchValueImg'><img src={item.linkImg} style={{ borderRadius: "5px" }} alt="" /></Divstyled>
               </Link>
-              <Link to={'/q/' + item._id + `?category=${item.name}`}>
+              <Link to={'/q/' + item._id + `?n=${item.name}`}>
                 <Divstyled className='des'>{item.name}
                   <PStyled>
                     {item.updatedAt}

@@ -4,25 +4,27 @@ import { DivStyledText, DivStyledTitle } from '../../../components/TypeComponent
 import { Link, useParams } from 'react-router-dom';
 import { useSWRWithAxios } from '../../../hook/Swr';
 import { urlSwr } from '../../../function';
-import { Div, DivStyled, DivStyledContent, DivStyledImage, DivStyledItem, DivStyledTitleItem } from '../TypesMovie/ListProduct';
+import { Div, DivStyled, DivStyledContent, DivStyledImage, DivStyledItem, DivStyledTitleItem } from '../TypesMovie/ListProductChildrenCate';
 import { Loader } from '../../../components/Message/Loading';
 
 const SidebarApi = ({ idProp }) => {
   const { id } = useParams();
-  const { data, isLoading, isError } = useSWRWithAxios(urlSwr + `/type/${id ? id : idProp}`);
-
+  const { data, isLoading, isError } = useSWRWithAxios(urlSwr + `/type/${idProp ? idProp : id}`);
   if (isLoading) {
     return <Loader />
   }
   if (isError) {
     return 'Lỗi rồi'
   }
-
   const styles = {
-    display: id ? 'block' : 'none'
+    display: idProp ? 'none' : 'block',
+
+  }
+  const stylespd = {
+    padding: idProp ? '0px' : '15px'
   }
   return (
-    <TypeStyled className='col-md-10'>
+    <TypeStyled className='col-md-10' style={stylespd}>
       <div style={styles}>
         <DivStyledText>Trang chủ - {data ? data.name : ""}</DivStyledText>
         <DivStyledTitle>{data ? data.name : ""}</DivStyledTitle>

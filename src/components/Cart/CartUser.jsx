@@ -42,7 +42,7 @@ const CartUser = () => {
               <Divstyled style={{ padding: "20px 0" }} key={index}>
                 <Divstyled className='d-flex align-items-center justify-content-between'>
                   <Divstyled className='searhValue' key={index}>
-                    <Link to={'/d/' + item.product._id + `?c=${item.product.category}` + "?n=" + `${decodeURI(item.product.name) + " " + item.product.seri} `}>
+                    <Link to={'/d/' + item.product._id + `?c=${item.product.category}` + "?n=" + `${decodeURI(item.product.name) + " " + item.product.seri} ` }>
                       <Divstyled className='searchValueImg'><img src={filterCate(category, item.product.category).linkImg} style={{ borderRadius: "5px" }} alt="" /></Divstyled>
                     </Link>
                     <Link to={'/d/' + item.product._id + `?c=${item.product.category}` + "?n=" + `${decodeURI(item.product.name) + " " + item.product.seri} `}>

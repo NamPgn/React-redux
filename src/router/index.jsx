@@ -11,22 +11,27 @@ import {
   StarOutlined,
   CompassOutlined,
   CarryOutOutlined,
-
+  PicRightOutlined,
 } from "@ant-design/icons";
+import CatemainProduct from '../page/Admin/TypesCategory/CatemainProduct';
 //type component
 
-const ListType=React.lazy(() => import('../page/Type/TypesMovie/ListProduct'));
-const OllMovie=React.lazy(() => import('./page/Type/SidebarContent'));
-const TypesMovie=React.lazy(() => import('../page/Type/TypesMovie'));
+const ListType = React.lazy(() => import('../page/Type/TypesMovie/ListProductChildrenCate'));
+const OllMovie = React.lazy(() => import('../page/Type/SidebarData'));
+const TypesMovie = React.lazy(() => import('../page/Type/TypesMovie'));
 
 const SearchResults = React.lazy(() => import('../components/Search/SearchResults')); //search
-const AdminPage = React.lazy(() => import('../page/Admin/AdminPage')); //admin
+const AdminPage = React.lazy(() => import('../page/Admin')); //admin
 const ProfilePage = React.lazy(() => import('../page/Auth-Page/Profile')); //profile
 const Signin = React.lazy(() => import('../page/Auth-Page/Sign-in')); //signin
 const Signup = React.lazy(() => import('../page/Auth-Page/Sign-up')); //signup
 const DetailProductPage = React.lazy(() => import('../page/Home/Libs/DetailProduct')); //chi tiết
 const CategoryProduct = React.lazy(() => import('../page/Home/Libs/CategoryPage')); //danh mục
 const DataProduct = React.lazy(() => import('../page/Admin/product/DataProduct'));
+
+
+
+//router admin
 const GetUser = React.lazy(() => import('../page/Admin/user/getUser'));
 const Adduser = React.lazy(() => import('../page/Admin/user/Adduser'));
 const EditUser = React.lazy(() => import('../page/Admin/user/EditUser'));
@@ -43,6 +48,8 @@ const EditTrailerUrl = React.lazy(() => import('../page/Admin/trailer/EditTraile
 const CommentAdmin = React.lazy(() => import('../page/Admin/comment/CommentAdmin'));
 const CartUser = React.lazy(() => import('../components/Cart/CartUser'));
 const CartAdmin = React.lazy(() => import('../page/Admin/Cart/CartAdmin'));
+const TypesCateAdmin = React.lazy(() => import('../page/Admin/TypesCategory'));
+
 export const routerNavBar = [
   {
     Path: '/',
@@ -103,13 +110,14 @@ export const RouterLayoutWebsite = [
     component: <TypesMovie />,
   },
   {
-    Path: "/odd/:id",
+    Path: "/movie-content/:id",
     component: <OllMovie />,
   },
   {
     Path: "/types/h/:id",
     component: <ListType />,
-  }
+  },
+ 
 ];
 
 
@@ -205,6 +213,15 @@ export const RoutersAdminUser = [
     Path: "cart",
     component: <CartAdmin />,
   },
+  {
+    Path: "types",
+    component: <TypesCateAdmin />,
+  },
+  {
+    Path: "/admin/types/CateMainProduct/:id",
+    component: <CatemainProduct />
+  },
+
 ];
 
 export const TableRouterAdminPage = [
@@ -253,7 +270,12 @@ export const TableRouterAdminPage = [
     Path: "/admin/cart",
     name: "Cart",
     iconComponent: <CompassOutlined />
-  }
+  },
+  {
+    Path: "/admin/types",
+    name: "Types",
+    iconComponent: <PicRightOutlined />
+  },
 ];
 
 

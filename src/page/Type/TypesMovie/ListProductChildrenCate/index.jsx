@@ -37,7 +37,6 @@ font-weight:500;
 const ListType = () => {
   const { id } = useParams();
   const { data, isLoading, isError } = useSWRWithAxios(urlSwr + `/categorymain/${id}`);
-
   if (isLoading) {
     return <Loader />
   }
@@ -51,11 +50,11 @@ const ListType = () => {
         <DivStyledText>Trang chủ - {data.name}</DivStyledText>
         <DivStyledTitle>{data.name}</DivStyledTitle>
         <DivStyledText className='mt-3'>Tuyển chọn Phim hay nhất chất lượng cao, Phim Chiếu Rạp 2022 chọn lọc có thuyết minh và việt sub.</DivStyledText>
-        <DivStyled>
+        <DivStyled className='mt-4'>
           {data.products && data.products.length ? data.products.map((item, index) => (
             <DivStyledContent key={index}>
               <DivStyledItem>
-                <Link to={'/d/' + item._id + `?c=${item.categorymain}` + "?n=" + `${item.name + " " + item.seri} `}>
+                <Link to={'/d/' + item._id + `?c=${item.categorymain}` + "?n=" + `${item.name + " " + item.seri} ` }>
                   <Div>
                     <DivStyledImage src={item.image}></DivStyledImage>
                   </Div>

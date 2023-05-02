@@ -11,8 +11,9 @@ a.active {
   background: #40404894;
   border-radius: 5px;
   font-weight: 500;
+  border-left: 2px solid;
 }
 
-a:hover{
+a:hover {
   color: #ffffffa5;
 }

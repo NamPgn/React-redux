@@ -22,34 +22,38 @@ const SeriNumberMovie = () => {
   const { id } = useParams();
   const { data, error, isLoading } = useSWRWithAxios(urlSwr + `/category/products/${id}`);
   const datas = [...data ? data : ""].sort((a, b) => Number(a.seri) < Number(b.seri) ? 1 : -1);
+  if (isLoading) {
+    return <Loader />
+  }
+  if (error) {
+    return 'Lỗi rồi'
+  }
   return (
     <DivstyledContent>
-      {
-        datas.length > 0 ? <Divstyled className='product_seri_item'>
-          {
-            datas ? datas.map((item, index) => {
-              return <Divstyled style={{ textAlign: "center", }} key={index}>
-                <Link to={
-                  '/d/' + item._id + `?c=${item.category}` + "?n=" + `${item.name + " " + item.seri} `
-                }>
-                  {item.trailer ? <BtnStyled type="button" className="btn d-flex  btn-dark " >
-                    <SpanStyled>
-                      {item.seri}
-                    </SpanStyled>
-                    <SpanStyled >
-                      Raw
-                    </SpanStyled>
-                  </BtnStyled>
-                    : <BtnStyled type="button" className="" >{item.seri}</BtnStyled>
-                  }
-                </Link>
-              </Divstyled>
-            }) : <Loader />
-          }
-        </Divstyled> : <Divstyled className='des'>
-          <Divstyled style={{ padding: "5px", border: "1px solid #999" }}>Chưa cập nhật!</Divstyled>
-        </Divstyled>
-      }
+      <Divstyled className='product_seri_item'>
+        {
+          datas.length > 0 && datas ? datas.map((item, index) => {
+            return <Divstyled style={{ textAlign: "center", }} key={index}>
+              <Link to={
+                '/d/' + item._id + `?c=${item.category}` + "?n=" + `${item.name + " " + item.seri} `
+              }>
+                {item.trailer ? <BtnStyled type="button" className="btn d-flex  btn-dark " >
+                  <SpanStyled>
+                    {item.seri}
+                  </SpanStyled>
+                  <SpanStyled >
+                    Raw
+                  </SpanStyled>
+                </BtnStyled>
+                  : <BtnStyled type="button" className="" >{item.seri}</BtnStyled>
+                }
+              </Link>
+            </Divstyled>
+          }) : <Divstyled className='des'>
+            <Divstyled style={{ padding: "5px", border: "1px solid #999", fontSize: "12px" }}>Chưa cập nhật!</Divstyled>
+          </Divstyled>
+        }
+      </Divstyled>
     </DivstyledContent>
   )
 }

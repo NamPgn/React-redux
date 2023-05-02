@@ -15,7 +15,7 @@ const BtnStyled = styled.button``;
 const InputStyled = styled.input``;
 const FormStyled = styled.form``;
 const Signin = () => {
-  const [state, setSate] = useState(localStorage.getItem('token'));
+  const [state, setSate] = useState(null);
   const schema = yup.object().shape({
     username: yup.string().required().test('is-email', 'Username must not contain @', (value) => {
       return !value.includes('@');
@@ -28,14 +28,14 @@ const Signin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onsubmit = (data) => {
-    dispatch(loginForm(data))
+    dispatch(loginForm(data));
+    console.log(state);
+    setInterval(() => {
+      setSate(localStorage.getItem('token'));
+    }, 2000);
+    toast.success('thành công')
+    navigate('/');
     //if error then return login error
-    if (state !== null && state !== undefined) {
-      toast.success('thành công')
-      navigate('/');
-    } else {
-      toast.error('thất bại')
-    }
   }
   return (
     <Divstyled className='mb-5 vh-100' >

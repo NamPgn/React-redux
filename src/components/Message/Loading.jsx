@@ -4,7 +4,11 @@ const LoadingStyled = styed.div`
 color: #fff;
 text-align: center;
 font-size: 15px;
-margin-top: 20%;
+display: flex;
+justify-content: center !important;
+align-items: center;
+height: 100vh;
+width: 100%;
 `
 export const Loading = () => {
   return (
