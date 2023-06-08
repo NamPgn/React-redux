@@ -42,7 +42,6 @@ const CreatingUser = React.lazy(() => import('../page/Admin/user/CreatingUser'))
 const CreatingProducts = React.lazy(() => import('../page/Admin/product/CreatingProducts'));
 const CategoryAdmin = React.lazy(() => import('../page/Admin/category/CategoryAdmin'));
 const EditCategoryAdmin = React.lazy(() => import('../page/Admin/category/EditCategory'));
-const PostAdmin = React.lazy(() => import('../page/Admin/posts/PostAdmin'));
 const Index = React.lazy(() => import('../page/Admin/trailer/Index'));
 const EditTrailerUrl = React.lazy(() => import('../page/Admin/trailer/EditTrailerUrl'));
 const CommentAdmin = React.lazy(() => import('../page/Admin/comment/CommentAdmin'));
@@ -192,10 +191,6 @@ export const RoutersAdminUser = [
   {
     Path: "category/edit/:id",
     component: <EditCategoryAdmin />
-  },
-  {
-    Path: "posts",
-    component: <PostAdmin />
   },
   {
     Path: "trailing",
