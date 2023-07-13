@@ -5,26 +5,24 @@ import { logout } from '../../redux/slice/userSlice';
 import { user$ } from '../../redux/selectors';
 import styled from 'styled-components';
 import { useAppDispatch } from '../../hook';
-import { UserAuth } from '../../context';
+import { message } from 'antd';
+// import { UserAuth } from '../../context';
 const Divstyled = styled.div``;
 const BtnStyled = styled.button``;
 const PStyled = styled.p``;
 const Profile = () => {
-  const { user, logOut } = UserAuth();
+  // const { user, logOut } = UserAuth();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   useEffect(() => {
   }, [])
   const Auth = isAuthentication();
   const handleLogOut = async () => {
-    if (user) {
-      await logOut();
-    } else {
-      dispatch(logout());
-    }
+    dispatch(logout());
+    message.success('Logout successfuly!')
     navigate('/');
   }
-  if (user || Auth) {
+  if (Auth) {
     return <Divstyled className="page-content page-container" id="page-content" >
       <Divstyled className="">
         <Divstyled className="vh-100">
@@ -34,10 +32,10 @@ const Profile = () => {
                 <Divstyled className="card" style={{ borderRadius: "15px" }}>
                   <Divstyled className="card-body text-center">
                     <Divstyled className="mt-3 mb-4 d-flex justify-content-center">
-                      <img src={user ? user.photoURL : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHwEgAHtFlzbKxbhus9ocoNE_ox89K_eTPkLBPdOPPyw&s'}
+                      <img
                         className=" img-fluid" style={{ width: "100px", borderRadius: '5px' }} />
                     </Divstyled>
-                    <h4 className="mb-2 text-light">{user ? user.displayName : Auth.user.username}</h4>
+                    <h4 className="mb-2 text-light">{Auth ? Auth.user.username : ''}</h4>
                     <Divstyled className="mb-4 pb-2">
                       <BtnStyled type="button" className="btn btn-outline-primary btn-floating">
                         <i className="fab fa-facebook-f fa-lg"></i>

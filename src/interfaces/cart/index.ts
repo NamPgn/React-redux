@@ -1,5 +1,7 @@
+import { ObjectId } from 'bson';
+
 export interface Icart {
-  _id: string;
+  _id?: ObjectId;
   user: any;
   product: any;
 }

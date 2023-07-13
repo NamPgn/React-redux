@@ -1,4 +1,4 @@
 export interface Itraier {
-  _id?: string;
+  _id?: any;
   url: string;
 }

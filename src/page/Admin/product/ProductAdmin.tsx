@@ -3,109 +3,99 @@ import { Table, Image, Button } from 'antd';
 import { getProducts, deleteProduct } from '../../../redux/slice/product/ThunkProduct/product';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Cate, filterCate } from '../../../function';
+import { Cate } from '../../../function';
 import { deleteMultipleProduct } from '../../../api/product';
 import styled from 'styled-components';
 import { useAppDispatch } from '../../../hook';
+import type { ColumnsType } from 'antd/es/table';
 declare var Promise: any;
 const Divstyled = styled.div``;
 const BtnStyled = styled.button``;
 const InputStyled = styled.input``;
-const columns = [
+const columns: ColumnsType<any> = [
     {
         title: "Select",
         key: "all",
         dataIndex: 'all',
-        showOnResponse: true,
-        showOnDesktop: true
-    },
-    {
-        title: 'Id',
-        dataIndex: '_id',
-        key: '_id',
+        width: 100,
+        fixed: 'left',
     },
     {
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
-        showOnResponse: true,
-        showOnDesktop: true
     },
     {
-        title: 'Price',
-        dataIndex: 'price',
-        key: 'price',
-        showOnResponse: true,
-        showOnDesktop: true
+        title: 'Options',
+        dataIndex: 'options',
+        key: 'options',
     },
     {
         title: 'Image',
         key: 'image',
         dataIndex: 'image',
-        showOnResponse: true,
-        showOnDesktop: true
     },
     {
         title: 'Category',
         key: 'category',
         dataIndex: 'category',
-        showOnResponse: true,
-        showOnDesktop: true
     },
     {
         title: 'Seri',
         key: 'Seri',
         dataIndex: 'Seri',
-        showOnResponse: true,
-        showOnDesktop: true
+        width: 100,
     },
     {
         title: 'Copyright',
         key: 'copyright',
         dataIndex: 'copyright',
-        showOnResponse: true,
-        showOnDesktop: true
+        width: 100,
     },
     {
         title: 'Trailer',
         dataIndex: 'trailer',
         key: 'trailer',
+        width: 100,
     },
     {
-        title: 'Delete',
-        key: 'delete',
-        dataIndex: 'delete',
-        showOnResponse: true,
-        showOnDesktop: true
+        title: 'Year',
+        dataIndex: 'year',
+        key: 'year',
+        width: 100,
     },
     {
-        title: 'Edit',
-        key: 'edit',
-        dataIndex: 'edit',
-        showOnResponse: true,
-        showOnDesktop: true
+        title: 'Country',
+        dataIndex: 'country',
+        key: 'country',
+        width: 100,
     },
-
+    {
+        title: 'Action',
+        key: 'action',
+        dataIndex: 'action',
+        width: 180,
+        fixed: 'right',
+    },
 ];
 
-const ProductAdmin = ({ product }) => {
+const ProductAdmin = ({ product, length }) => {
     const [state, setCate] = useState([]);
     const [search, searchState] = useState("");
     const [filter, setFilter] = useState("");
     const [checkedId, setCheckedId]: any = useState([]);
     const [checkAllid, setCheckAllid] = useState(false);
     const [init, setInit] = useState(false);
-
+    const [page, setPage] = useState(1);
     const dispath = useAppDispatch();
     useEffect(() => {
         const dataCate = async (): Promise<any> => {
             setCate(await Cate());
         }
         dataCate();
-
-        dispath(getProducts());
+        dispath(getProducts(page));
         document.title = "Admin Page";
-    }, [init])
+    }, [init, page])
 
     let dataS = product;
     (search.length) ? dataS = product.filter((item) => item.name.toLowerCase().includes(search.toLowerCase())) : "";
@@ -139,14 +129,11 @@ const ProductAdmin = ({ product }) => {
         if (window.confirm(checkedId) == true) {
             setInit(true);
             toast.success('Xóa tất cả thành công');
-            return await deleteMultipleProduct(checkedId);;
-        } else {
-            return "";
+            await deleteMultipleProduct(checkedId);;
         }
     }
 
     const data = dataS ? dataS.map((value: any, index: any) => {
-
         return {
             key: value._id,
             all: <Divstyled>
@@ -158,7 +145,7 @@ const ProductAdmin = ({ product }) => {
             </Divstyled>,
             // _id: value._id,
             name: value.name,
-            price: value.price,
+            options: value.options,
             category: state.map((item: any) => {
                 if (item._id === value.category)
                     return item.name
@@ -170,21 +157,26 @@ const ProductAdmin = ({ product }) => {
             Seri: value.seri,
             copyright: value.copyright,
             trailer: value.trailer ? "true" : "false",
-            delete: <Button style={{ background: "#1677ff" }}
-                type="primary"
-                onClick={() => {
-                    dispath(deleteProduct(value._id));
-                    toast.success('delete product successfully');
-                }}
-            >Delete</Button>,
-            edit: <Link to={`/admin/product/edit/${value._id}`}>
-                <Button
-                    type="primary" danger
-                >Edit</Button>
-            </Link>
+            country: value.country ? value.country : "null",
+            year: value.year ? value.year : "null",
+            action: (
+                <>
+                    <Link to={`/admin/product/edit/${value._id}`}>
+                        <Button
+                            type="primary" danger
+                        >Edit</Button>
+                    </Link>
+                    <Button style={{ background: "#1677ff" }}
+                        type="primary"
+                        onClick={() => {
+                            dispath(deleteProduct(value._id));
+                            toast.success('delete product successfully');
+                        }}
+                    >Delete</Button>
+                </>
+            )
         }
     }) : "";
-
     return (
         <>
             <InputStyled type="checkbox"
@@ -222,7 +214,19 @@ const ProductAdmin = ({ product }) => {
                     </Divstyled>
                 </Divstyled>
             </Divstyled>
-            <Table columns={columns} dataSource={data} pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '20', '30'] }} />
+            <Table
+                columns={columns}
+                dataSource={data}
+                scroll={{ x: 1500, y: 1000 }}
+                pagination={{
+                    defaultPageSize: 10,
+                    showSizeChanger: true,
+                    pageSizeOptions: ['10', '20', '30'],
+                    current: page,
+                    onChange: (value) => { setPage(value) },
+                    total: length
+                }}
+            />
         </>
     )
 }

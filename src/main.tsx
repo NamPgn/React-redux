@@ -7,17 +7,20 @@ import 'antd/dist/reset.css';
 import { Provider } from "react-redux"
 import 'react-toastify/dist/ReactToastify.css';
 import { store } from './redux/store/store';
-import { AuthContextProvider, MyContextProvider } from './context';
+import { ChangeContextProvider, MyContextProvider } from './context';
+import { AnimatePresence } from 'framer-motion';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <MyContextProvider>
-      <AuthContextProvider>
-        <BrowserRouter>
-          <Provider store={store}>
-            <App />
-          </Provider>
-        </BrowserRouter>
-      </AuthContextProvider>
-    </MyContextProvider>
+    <AnimatePresence>
+      <MyContextProvider>
+        <ChangeContextProvider>
+          <BrowserRouter>
+            <Provider store={store}>
+              <App />
+            </Provider>
+          </BrowserRouter>
+        </ChangeContextProvider>
+      </MyContextProvider>
+    </AnimatePresence>
   </React.StrictMode>
 )

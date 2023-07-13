@@ -73,23 +73,21 @@ const Signup = () => {
         //         {/* </form> */}
         //     </Divstyled>
         // </FormStyled>
-
-        <Divstyled className="h-screen">
-            <Divstyled className="container h-full px-6 py-24 ">
+        <Divstyled className="h-screen relative" >
+            <Divstyled>
                 <Divstyled
-                    className="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between">
-                    <Divstyled className="mb-12 md:mb-0 md:w-8/12 lg:w-6/12">
-                        <Image
-                            src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
-                            className="w-full"
-                            alt="Phone image" />
-                    </Divstyled>
-
-                    <Divstyled className="md:w-8/12 lg:ml-6 lg:w-4/12">
+                    className="g-6 flex flex-wrap w-full items-center justify-center absolute top-1/2 left-1/2 translate-x-2/4 translate-y-2/4"
+                    style={{ transform: 'translate(-50%,-50%)' }}
+                >
+                    <Divstyled className="md:w-8/12 lg:ml-6 lg:w-4/12" style={{
+                        background: 'rgba(248, 248, 248, 0.04)',
+                        padding: '20px',
+                        borderRadius: ' 5px'
+                    }}>
                         <FormStyled onSubmit={handleSubmit(onsubmit)}>
                             <Divstyled className="relative mb-6" data-te-input-wrapper-init>
                                 <Divstyled>
-                                    <Label className="block mb-2 text-sm font-medium text-gray-900 text-white">Your usename:</Label>
+                                    <Label className="block mb-2 text-sm font-medium  text-white">Your usename:</Label>
                                     <InputStyled style={{ width: '100%' }} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" {...register('username')} required="" placeholder='Username' autoComplete="off" />
                                     {errors.username && <p>{errors.username.message}</p>}
                                 </Divstyled>
@@ -97,7 +95,7 @@ const Signup = () => {
 
                             <Divstyled className="relative mb-6" data-te-input-wrapper-init>
                                 <Divstyled>
-                                    <Label className="block mb-2 text-sm font-medium text-gray-900 text-white">Your password:</Label>
+                                    <Label className="block mb-2 text-sm font-medium  text-white">Your password:</Label>
                                     <InputStyled type="password"  {...register('password')} name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="password" />
                                     {errors.password && <P>{errors.password.message}</P>}
                                 </Divstyled>

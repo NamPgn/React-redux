@@ -5,14 +5,15 @@ import { resgisterLogin } from '../../../redux/slice/userSlice';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { useAppDispatch } from '../../../hook';
+import renderInput from '../../../hook/form';
+import { Button } from 'antd';
 const Divstyled = styled.div``;
-const BtnStyled = styled.button``;
 const InputStyled = styled.input``;
 const Adduser = () => {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, control } = useForm();
   const dispath = useAppDispatch();
   const navigate = useNavigate();
-  const onSubmit = (data:any) => {
+  const onSubmit = (data: any) => {
     const formData = new FormData();
     formData.append("image", data.image[0]);
     formData.append('username', data.username);
@@ -35,22 +36,19 @@ const Adduser = () => {
     <Divstyled>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Divstyled className="mb-3">
-          <label className="form-label">User name</label>
-          <InputStyled type="text" {...register('username', { required: true })} className="form-control" required />
+          {renderInput('username', 'User name', control, { required: true })}
         </Divstyled>
         <Divstyled className="mb-3">
-          <label className="form-label">Email</label>
-          <InputStyled type="text" {...register('email', { required: true })} className="form-control" required />
+          {renderInput('email', 'Email', control, { required: true })}
         </Divstyled>
         <Divstyled className="mb-3">
-          <label className="form-label">Password</label>
-          <InputStyled type="password"  {...register(`password`, { required: true })} className="form-control" required />
+          {renderInput('password', 'Password', control, { required: true })}
         </Divstyled>
         <Divstyled className="mb-3">
           <label className="form-label">Image</label>
           <InputStyled type="file"  {...register("image")} className="form-control" required />
         </Divstyled>
-        <BtnStyled className="btn btn-primary">Submit</BtnStyled>
+        <Button className="btn btn-primary">Submit</Button>
       </form>
     </Divstyled>
   )

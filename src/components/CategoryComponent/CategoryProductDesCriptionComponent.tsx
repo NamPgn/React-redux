@@ -20,12 +20,6 @@ const ImageStyled = styled.img`
 
 const CategoryProductComponent = () => {
   const { id } = useParams();
-  // const category = useSelector(getOneById$); //getAllcategory
-  // const { data: category, isLoading } = useSWRWithAxios(urlSwr + `/category/${id}`); cách 2
-  // const dispatch = useDispatch();
-  // useEffect(() => { //cách 1
-  //    dispatch(getCateSlice(id));
-  // }, [id]);
   const { category, isLoading }: any = useContext(MyContext);
   if (isLoading) {
     return <Loading />
@@ -42,7 +36,7 @@ const CategoryProductComponent = () => {
               </Divstyled>
               <Divstyled>
                 <Divstyled className="category">
-                  <DivstyledTitle>{item.name}</DivstyledTitle>
+                  <DivstyledTitle style={{textTransform: 'capitalize'}}>{item.name}</DivstyledTitle>
                 </Divstyled>
                 <Divstyled className="loai des">
                   <Psyled>Thể loại : Kiếm hiệp, truyện</Psyled>

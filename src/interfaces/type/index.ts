@@ -1,5 +1,7 @@
+import { ObjectId } from "bson";
+
 export interface Itypes {
-  _id?: string;
+  _id?: ObjectId;
   name: string;
   categorymain: any;
   path: string;

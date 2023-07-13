@@ -5,8 +5,8 @@ import { MyContext } from '../../../context';
 import { Link, useParams } from 'react-router-dom';
 import { urlSwr } from '../../../function';
 import { useSWRWithAxios } from '../../../hook/Swr';
+import { deleteCatemainByProduct } from '../../../api/catemain';
 const columns = [
-
   {
     title: 'Stt',
     dataIndex: 'stt',
@@ -38,8 +38,11 @@ const CatemainProduct = () => {
   const { id } = useParams();
   const { data: datas } = useSWRWithAxios(urlSwr + '/categorymain/' + id);
 
-  const handleclick = (id: string | number) => {
-    console.log(id);
+  const handleclick = async (id: any, CatemainId: any) => {
+    const body = {
+      CatemainId: CatemainId
+    }
+    await deleteCatemainByProduct(id, body)
   }
   const data = datas.products ? datas.products.map((item, index) => ({
     key: index,
@@ -49,12 +52,12 @@ const CatemainProduct = () => {
     createdAt: item.createdAt,
     action: (
       <span>
-        <Link to={`/admin/trailerUrl/${item._id}`} style={{ background: 'rgb(22, 119, 255)' }}>
-          <Button type="primary"  >
+        <Link to={`/admin/trailerUrl/${item._id}`} >
+          <Button type="primary" style={{ background: 'rgb(22, 119, 255)' }}>
             Edit
           </Button>
         </Link>
-        <Button type="primary" danger className='ml-2' onClick={() => handleclick(item._id)}>
+        <Button type="primary" danger className='ml-2' onClick={() => handleclick(item._id, item.categorymain)}>
           Cút
         </Button>
       </span>

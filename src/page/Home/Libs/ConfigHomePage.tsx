@@ -1,56 +1,57 @@
 
-import React, { useEffect, Suspense } from 'react';
-import Iframe from 'react-iframe';
+import React, { useEffect } from 'react';
 import ContactAdmin from '../../../components/Contact/ContactAdmin';
-import { Loader, MessageErr } from '../../../components/Message/Loading';
+import { MessageErr } from '../../../components/Message/Loading';
 import { useSWRWithAxios } from '../../../hook/Swr';
 import { urlSwr } from '../../../function';
 import CategoryProductSidebar from '../../../components/CategoryComponent/CategoryProductSideBar';
+import WeekComponent from '../../../components/Week';
+import CategoryHomePage from '../../../components/CategoryComponent/CategoryHomePage';
 import styled from 'styled-components';
-const CategoryHomePage = React.lazy(() => import('../../../components/CategoryComponent/CategoryHomePage'));
-const Divstyled = styled.div``;
-const ConfigHomePage = ({ category, isLoading, isError }) => {
+
+const Video = styled.video`
+`
+
+const VideoContainer = styled.div`
+padding-bottom:60%;
+@media(min-width:768px){
+  padding-bottom:50%;
+}
+@media(min-width:1024px){
+  padding-bottom:45%;
+}
+`
+const ConfigHomePage = ({ category, isLoading, isError, state }) => {
   useEffect(() => {
     document.title = "Home Page";
   }, []);
-  const { data: trailer, isLoading: LoadingTrailer, isError: ErrTrailer }: any = useSWRWithAxios(urlSwr + `/trailerUrl`);
-  if (LoadingTrailer) {
-    return <Loader />
-  }
+  const { data: trailer, isLoading: LoadingTrailer, isError: ErrTrailer }: any = useSWRWithAxios(urlSwr + `/trailer`);
   if (ErrTrailer) {
     return <MessageErr />
   }
   return (
-    <Divstyled>
-      <Divstyled className=' d-flex'>
-        <Divstyled className='col-md-9 ' >
-          <Divstyled className="h-full" >
-            {
-              trailer ? trailer.map((item: any, index: any) => (
-                <Divstyled key={index}>
-                  <Iframe url={`${item.url}?mute=1&autoplay=1`}
-                    width='100%'
-                    allow='autoplay'
-                    allowFullScreen
-                  />
-                </Divstyled>
-              )) : ""
-            }
-          </Divstyled>
-        </Divstyled>
+    <div className={state ? 'p-3' : 'mt-3'}>
+      <div className='d-flex'>
+        <div className='lg:w-9/12 md:w-12/12 sm:w-full tl'>
+          <div className="h-full" >
+            <VideoContainer className='relative md:mx-2 '>
+              <Video className='h-full absolute bg-black rounded' width="100%" loop muted autoPlay controls src={trailer.url} />
+            </VideoContainer>
+          </div>
+        </div>
         <CategoryProductSidebar
           category={category}
           isLoading={isLoading}
-          isError={isError}
         />
-      </Divstyled>
+      </div>
       <ContactAdmin />
+      <WeekComponent />
       <CategoryHomePage
         category={category}
         isLoading={isLoading}
         isError={isError}
       />
-    </Divstyled>
+    </div>
   )
 }
 

@@ -1,12 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { addProductData, deleteMultipleProduct, deleteProductById, editProductData, getAllProduct, getAllProductsByCategory, getOneProduct, importData, pushListData } from "../../../../api/product";
-import { IProduct } from "../../../../interfaces/product";
-declare var Promise: any;
 export const getProducts = createAsyncThunk(
   "product/getProducts",
-  async () => {
-    const { data }: any = await getAllProduct();
-    return data;
+  async (page: number) => {
+    const { data }: any = await getAllProduct(page);
+    return {
+      product: data.data,
+      length: data.length
+    };
   }
 )
 
@@ -30,7 +31,6 @@ export const addProduct = createAsyncThunk(
   'product/addProduct',
   async (dataProduct: any) => {
     const { data }: any = await addProductData(dataProduct);
-    console.log("data", data);
     return data;
   }
 )

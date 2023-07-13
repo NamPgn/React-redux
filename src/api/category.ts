@@ -1,8 +1,8 @@
 import intances from "./instances";
 import { isAuthentication } from "../auth/getToken";
-import jwtDecode from 'jwt-decode';
 import { Icategory } from "../interfaces/category";
 declare var Promise: any;
+const dataToken = isAuthentication();
 export const getAllcategory = async (): Promise<Icategory[]> => {
   return await intances.get(`/categorys`);
 }
@@ -12,9 +12,7 @@ export const getCategory = async (id: string): Promise<Icategory> => {
 }
 
 export const addCate = async (data: any): Promise<Icategory> => {
-  const dataToken = isAuthentication();
-  const tokenDecode: any = jwtDecode(dataToken.token);
-  return await intances.post(`/category/${tokenDecode._id}`, data, {
+  return await intances.post(`/category/${dataToken.user._id}`, data, {
     headers: {
       "Authorization": `Bearer ${dataToken.token}`
     }
@@ -22,9 +20,7 @@ export const addCate = async (data: any): Promise<Icategory> => {
 }
 
 export const deleteCate = async (id: any): Promise<Icategory> => {
-  const dataToken = isAuthentication();
-  const tokenDecode: any = jwtDecode(dataToken.token);
-  return await intances.delete(`/category/${id}/${tokenDecode._id}`, {
+  return await intances.delete(`/category/${id}/${dataToken.user._id}`, {
     headers: {
       "Authorization": `Bearer ${dataToken.token}`
     }
@@ -33,9 +29,7 @@ export const deleteCate = async (id: any): Promise<Icategory> => {
 
 
 export const updateCate = async (data:any): Promise<Icategory> => {
-  const dataToken = isAuthentication();
-  const tokenDecode:any = jwtDecode(dataToken.token);
-  return await intances.put(`/category/${data._id}/${tokenDecode._id}`, data, {
+  return await intances.put(`/category/${data._id}/${dataToken.user._id}`, data, {
     headers: {
       "Authorization": `Bearer ${dataToken.token}`
     }

@@ -1,15 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Link, NavLink } from 'react-router-dom';
-import { LogoutOutlined } from '@ant-design/icons';
-import { MyContext } from '../../context';
+import { DoubleLeftOutlined, DoubleRightOutlined, LogoutOutlined, SearchOutlined } from '@ant-design/icons';
+import { ChangeContext, MyContext } from '../../context';
 import parse from 'html-react-parser';
 import { Loader } from '../Message/Loading';
+import { Skeleton } from 'antd';
 const DivstySideBar = styled.div`
-display: none;
+display: block;
 
 @media(max-width:768px){
-  width:20%;
   background-color: none;
 }
 @media(min-width:1024px){
@@ -71,7 +71,7 @@ font-weight:400;
 `;
 
 const DivstyledContent = styled.div`
-padding:30px 20px 30px 20px;
+padding:20px;
 position:fixed;
 left: 0;
 bottom: 0; 
@@ -79,21 +79,12 @@ top: 0;
 background-color: rgba(0, 0, 0, 0.37);
 bottom: 0;
 z-index: 9;
-  @media(max-width:768px){
-    top:50%;
-    transform: translateY(-50%);
-    margin: 0 0 0 17px;
-    
-    border-radius:10px;
-  }
-
 `
 const DivStyledTitle = styled.div`
 width:50px;
 display:flex;
 gap:0 5px;
-
-
+align-items: center;
 `;
 
 const RouterLink = styled.div`
@@ -103,7 +94,7 @@ const RouterLink = styled.div`
 const DivStyledRouter = styled.div`
 display:flex;
 align-items: center;
-padding: 10px 10px 15px 10px;
+padding: 10px  15px ;
 margin:10px 0;
 justify-content: start;
 gap:0 10px;
@@ -145,41 +136,57 @@ margin-top:4px;
     display:none;
   }
 `
-
-const LogoutStyled = styled.div`
-margin-top:20px;
-display:flex;
-align-items: center;
-gap:10px;
-margin:10px;
-font-size:14px;
-@media(min-width:768px){
-  display:none;
-}
-
-@media(min-width:1024px){
-  display:flex ;
-}
+const Icon = styled.div`
+display: block;
 @media(max-width:768px){
-  display:none;
-}
-
-&:hover {
-  cursor:pointer;
-  color:#999;
+  display: none;
 }
 `
 
+// const LogoutStyled = styled.div`
+// margin-top:20px;
+// display:flex;
+// align-items: center;
+// gap:10px;
+// margin:10px;
+// font-size:14px;
+// @media(min-width:768px){
+//   display:none;
+// }
+
+// @media(min-width:1024px){
+//   display:flex ;
+// }
+// @media(max-width:768px){
+//   display:none;
+// }
+
+// &:hover {
+//   cursor:pointer;
+//   color:#999;
+// }
+// `
+
 const SideBar = () => {
   const { seri, loadingSeri }: any = useContext(MyContext);
+  const { state, handleClick } = useContext(ChangeContext);
+  if (loadingSeri) {
+    return <Skeleton style={{ padding: "20px", width: '0' }}
+      active
+      loading
+      title={{ width: 200 }}
+      paragraph={{ rows: 6, width: [50, 60, 30, 20, 10, 70] }}
+    />
+  }
+
   return (
-    <DivstySideBar className='col-md-2'>
-      <DivstyledContent className='col-md-2'>
+    <DivstySideBar className={state ? 'w-1/12' : 'w-2/12'} >
+      <DivstyledContent className={state ? 'w-1/12' : 'w-2/12'} >
         <DivStyledTitle>
           <Link to={'/'} style={{ display: 'contents' }}>
-            <SibarImage src='/img/logo.png' />
+            <SibarImage src='/img/zyro-image.png' />
           </Link>
-          <SideBarText>
+          <SideBarText className={state ? 'hiddenn' : 'block'}>
             <Link to={'/'}>
               <Title>
                 Hhtrungquoc.tv
@@ -191,22 +198,32 @@ const SideBar = () => {
               </Text>
             </Link>
           </SideBarText>
+          <Icon onClick={handleClick} style={{ cursor: "pointer" }}>
+            {state ? <DoubleRightOutlined /> : <DoubleLeftOutlined className='ml-4' />}
+          </Icon>
         </DivStyledTitle>
         <DivStyled>
-          <DivStyledSearchBarStyle placeholder='Search...' />
-          {loadingSeri == false ? <RouterLink>
+          {state ? <SearchOutlined style={{
+            textAlign: "center",
+            padding: "10px 15px",
+            margin: "25px 0 0 0"
+          }} /> : <DivStyledSearchBarStyle placeholder='Search...' />}
+          <RouterLink className='sideBarActive'>
             {seri ? seri.map((item: any, index: any) => (
               <NavLink
+                style={
+                  { width: state ? '70%' : 'auto' }
+                }
                 to={item.path == '/' ? item.path : item.path + '/' + `${item._id}`}
                 key={index}
               >
                 <DivStyledRouter >
                   <RouterIcon>{parse(`${item.icon}`)}</RouterIcon>
-                  <RouterText>{item.name}</RouterText>
+                  <RouterText className={state ? 'hiddenn' : 'block'}>{item.name}</RouterText>
                 </DivStyledRouter>
               </NavLink>
             )) : ""}
-          </RouterLink> : <Loader />}
+          </RouterLink>
         </DivStyled>
 
         {/* <DivStyled>

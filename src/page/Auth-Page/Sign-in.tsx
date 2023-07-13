@@ -8,7 +8,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import styled from 'styled-components';
 import { user$ } from '../../redux/selectors';
 import { useAppDispatch } from '../../hook';
-import { UserAuth } from '../../context';
 import { message } from 'antd';
 const Divstyled = styled.div``;
 const BtnStyled = styled.button``;
@@ -56,85 +55,51 @@ const Signin = () => {
     navigate('/');
     //if error then return login error
   }
-  const { googleSignin, user, facebookSignin } = UserAuth();
 
-  const handleSiginFaceLogin = async () => {
-    try {
-      await facebookSignin();
-      
-      // if (face) {
-      //   localStorage.setItem('token', JSON.stringify(face.accessToken));
-      // }
-    } catch (error) {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.customData.email;
-      message.error(errorMessage);
-    }
-  }
-  const handleSiginGoogleLogin = async () => {
-    try {
-      await googleSignin();
-      if (user) {
-        localStorage.setItem('token', JSON.stringify(user.accessToken));
-        navigate('/');
-      }
-    } catch (error) {
-      const errorMessage = error.message;
-      message.error(errorMessage);
-    }
+  // const handleSiginFaceLogin = async () => {
+  //   try {
+  //     await facebookSignin();
+
+  //     // if (face) {
+  //     //   localStorage.setItem('token', JSON.stringify(face.accessToken));
+  //     // }
+  //   } catch (error) {
+  //     // Handle Errors here.
+  //     const errorCode = error.code;
+  //     const errorMessage = error.message;
+  //     // The email of the user's account used.
+  //     const email = error.customData.email;
+  //     message.error(errorMessage);
+  //   }
+  // }
+  // const handleSiginGoogleLogin = async () => {
+  //   try {
+  //     await googleSignin();
+  //     if (user) {
+  //       localStorage.setItem('token', JSON.stringify(user.accessToken));
+  //       navigate('/');
+  //     }
+  //   } catch (error) {
+  //     const errorMessage = error.message;
+  //     message.error(errorMessage);
+  //   }
+  // }
+  const handleMessage = () => {
+    message.success('Đang cập nhật!');
   }
   return (
     <>
-      {/* <Divstyled className='mb-5 vh-100 ' style={{ paddingTop: '14%' }} >
-        <Divstyled className="flex gap-2 flex-col mb-4 col-md-4 mt-4" style={{ margin: '0 auto' }}>
-          <BtnStyled onClick={handleSiginFaceLogin} type="button" className="py-2 px-4 flex justify-center items-center  bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-            <svg width="20" height="20" fill="currentColor" className="mr-2" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1343 12v264h-157q-86 0-116 36t-30 108v189h293l-39 296h-254v759h-306v-759h-255v-296h255v-218q0-186 104-288.5t277-102.5q147 0 228 12z">
-              </path>
-            </svg>
-            Sign in with Facebook
-          </BtnStyled>
-          <BtnStyledGoogleSignin onClick={handleSiginGoogleLogin} type="button" className="gap-2 py-2 px-4 flex justify-center items-center  bg-light w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-            <ImageGoogle style={{ width: "23px" }} className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo" />
-            Sign in with Google
-          </BtnStyledGoogleSignin>
-        </Divstyled>
-        <FormStyled className='formContainer' onSubmit={handleSubmit(onsubmit)} >
-          <Divstyled className='col-md-4'>
-            <Divstyled className="inputGroup des">
-              <InputStyled style={{ width: '100%' }} type="text" className="input" {...register('username')} required="" placeholder='Username' autoComplete="off" />
-              {errors.username && <p>{errors.username.message}</p>}
-            </Divstyled>
-            <Divstyled className="inputGroup des">
-              <InputStyled style={{ width: '100%' }} type="password" className="input" {...register('password')} placeholder='Pass' required="" autoComplete="off" />
-              {errors.password && <p>{errors.password.message}</p>}
-            </Divstyled>
-            <BtnStyled className="btn btn-primary" >Đăng nhập</BtnStyled>
-            <Link to={'/auth/signup'} style={{ margin: "0px 10px", color: "#0d6efd" }}> Đăng kí </Link>
-          </Divstyled>
-        </FormStyled>
-
-
-      </Divstyled> */}
-      <Divstyled className="h-screen">
-        <Divstyled className="container h-full px-6 py-24 ">
+      <Divstyled className="h-screen relative">
+        <Divstyled>
           <Divstyled
-            className="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between">
-            <Divstyled className="mb-12 md:mb-0 md:w-8/12 lg:w-6/12">
-              <Image
-                src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
-                className="w-full"
-                alt="Phone image" />
-            </Divstyled>
-
-            <Divstyled className="md:w-8/12 lg:ml-6 lg:w-4/12">
+            className="g-6 w-full flex flex-wrap items-center justify-center absolute top-1/2 left-1/2 "
+            style={{ transform: 'translate(-50%,-50%)' }}
+          >
+            <Divstyled className="md:w-8/12  lg:w-4/12">
               <FormStyled onSubmit={handleSubmit(onsubmit)}>
                 <Divstyled className="relative mb-6" data-te-input-wrapper-init>
                   <Divstyled>
-                    <Label className="block mb-2 text-sm font-medium text-gray-900 text-white">Your usename:</Label>
+                    <Label className="block mb-2 text-sm font-medium  text-white">Your usename:</Label>
                     <InputStyled style={{ width: '100%' }} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" {...register('username')} required="" placeholder='Username' autoComplete="off" />
                     {errors.username && <p>{errors.username.message}</p>}
                   </Divstyled>
@@ -142,7 +107,7 @@ const Signin = () => {
 
                 <Divstyled className="relative mb-6" data-te-input-wrapper-init>
                   <Divstyled>
-                    <Label className="block mb-2 text-sm font-medium text-gray-900 text-white">Your password:</Label>
+                    <Label className="block mb-2 text-sm font-medium  text-white">Your password:</Label>
                     <InputStyled type="password"  {...register('password')} name="password" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="password" />
                     {errors.password && <P>{errors.password.message}</P>}
@@ -180,14 +145,14 @@ const Signin = () => {
                   </P>
                 </Divstyled>
 
-                <BtnStyled onClick={handleSiginFaceLogin} type="button" className="mb-4 py-2 px-4 flex justify-center items-center  bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                <BtnStyled onClick={() => handleMessage()} type="button" className="mb-4 py-2 px-4 flex justify-center items-center  bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                   <svg width="20" height="20" fill="currentColor" className="mr-2" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1343 12v264h-157q-86 0-116 36t-30 108v189h293l-39 296h-254v759h-306v-759h-255v-296h255v-218q0-186 104-288.5t277-102.5q147 0 228 12z">
                     </path>
                   </svg>
                   Login with Facebook
                 </BtnStyled>
-                <BtnStyledGoogleSignin onClick={handleSiginGoogleLogin} type="button" className="gap-2 py-2 px-4 flex justify-center items-center  bg-light w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                <BtnStyledGoogleSignin onClick={() => handleMessage()} type="button" className="gap-2 py-2 px-4 flex justify-center items-center  bg-light w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                   <Image style={{ width: "23px" }} className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo" />
                   Login with Google
                 </BtnStyledGoogleSignin>

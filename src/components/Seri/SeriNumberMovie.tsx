@@ -8,7 +8,7 @@ const Divstyled = styled.div``;
 const SpanStyled = styled.span``;
 const BtnStyled = styled.button`
 padding: 9px 20px;
-background: #000;
+background: #7a7a7a52;
 font-size: 15px;
 border-radius: 3px;
 `;

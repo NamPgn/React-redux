@@ -2,7 +2,6 @@ import jwtDecode from 'jwt-decode';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { isAuthentication } from '../../auth/getToken';
-import { StyledCartAddContent, StyledTitleFavorite } from '../Styled/Styled';
 import { cart$ } from '../../redux/selectors/Cart';
 import styled from 'styled-components';
 import { addCartSlice, getAllCartSlice } from '../../redux/slice/cart/thunk/cart';
@@ -12,7 +11,6 @@ const CartAddItem = styled.div`
   color: #fff;
   font-size: 14px;
   padding: 5px;
-  width: 200px;
   text-align: center;
   border: 1px solid;
   &:hover{
@@ -35,7 +33,7 @@ const CartAddContent = ({ item, id, categoryId }) => {
     const { cart, code, message } = useAppSelector(cart$);
     const Auth = isAuthentication();
     const AuthDecode: { _id: string } = jwtDecode(Auth.token);
-    const state:Istate = {
+    const state: Istate = {
       user: AuthDecode._id,
       product: id,
     };
@@ -60,19 +58,19 @@ const CartAddContent = ({ item, id, categoryId }) => {
       }
     }
     return (
-      <StyledCartAddContent>
-        <DivStyled style={{ color: "#fff", margin: "10px 0px" }}>{item.name + " " + item.seri}</DivStyled>
+      <div className='d-flex items-center justify-between'>
+        <DivStyled style={{ color: "#fff", margin: "10px 0px" }}>{item.name}</DivStyled>
         <CartAddItem onClick={() => handleAddCart()}>
           Thêm vào yêu thích: <IconFavoritesCart className='fa-solid fa-bookmark' />
         </CartAddItem>
-      </StyledCartAddContent>
+      </div>
     )
   } catch (error) {
-    return <div className='d-flex align-items-center justify-content-between'>
+    return <div className='d-flex items-center justify-between'>
       <h4 className='mt-4 mb-4'>{item.name + " " + item.seri}</h4>
-      <div className='ml-5' title='Save' onClick={() => { toast.error('Bạn cần đăng nhập a!') }}>
-        <i className="fa-solid fa-bookmark text-warning h3 __"></i>
-      </div>
+      <CartAddItem className='ml-5' title='Save' onClick={() => { toast.error('Bạn cần đăng nhập a!') }}>
+        Thêm vào yêu thích: <i className="fa-solid fa-bookmark text-warning h3 __"></i>
+      </CartAddItem>
     </div>
   }
 }

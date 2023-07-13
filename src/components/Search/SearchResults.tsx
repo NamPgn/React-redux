@@ -1,10 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 import { Loader, MessageErr } from '../Message/Loading';
-const Divstyled = styled.div``;
-const BtnStyled = styled.button``;
-const PStyled = styled.p``;
 const SearchResults = ({ data: { doc, isError, isLoading } }:any) => {
   if (isLoading) {
     return <Loader />
@@ -13,30 +9,30 @@ const SearchResults = ({ data: { doc, isError, isLoading } }:any) => {
     return <MessageErr />
   }
   return (
-    <Divstyled style={{ height: '100%' }}>
-      <Divstyled className='container'>
+    <div style={{ height: '100%' }}>
+      <div className='container'>
         {doc ? doc.map((item: any, index: any) => (
-          <Divstyled style={{ padding: "20px 0" }} key={index}>
-            <Divstyled className='searhValue' key={index}>
+          <div style={{ padding: "20px 0" }} key={index}>
+            <div className='searhValue' key={index}>
               <Link to={'/q/' + item._id + `?n=${item.name}`}>
-                <Divstyled className='searchValueImg'><img src={item.linkImg} style={{ borderRadius: "5px" }} alt="" /></Divstyled>
+                <div className='searchValueImg'><img src={item.linkImg} style={{ borderRadius: "5px" }} alt="" /></div>
               </Link>
               <Link to={'/q/' + item._id + `?n=${item.name}`}>
-                <Divstyled className='des'>{item.name}
-                  <PStyled>
+                <div className='des'>{item.name}
+                  <p>
                     {item.updatedAt}
-                  </PStyled>
-                  <PStyled>
+                  </p>
+                  <p>
                     {item.sumSeri}
-                  </PStyled>
-                </Divstyled>
+                  </p>
+                </div>
               </Link>
-            </Divstyled>
-          </Divstyled>
-        )) : <Divstyled style={{ color: "#fff", textAlign: "center",height:'100vh' }}>Not Found</Divstyled>
+            </div>
+          </div>
+        )) : <div style={{ color: "#fff", textAlign: "center",height:'100vh' }}>Not Found</div>
         }
-      </Divstyled>
-    </Divstyled>
+      </div>
+    </div>
   )
 }
 

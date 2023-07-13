@@ -3,10 +3,10 @@ import ProductAdmin from './ProductAdmin'
 import { useAppSelector } from '../../../hook';
 
 const DataProduct = () => {
-  const product = useAppSelector(state => state.product.value);
+  const { product, length }: any = useAppSelector(state => state.product.value);
   return (
     <>
-      <ProductAdmin product={product} />
+      <ProductAdmin product={product} length={length} />
     </>
   )
 }

@@ -41,25 +41,24 @@ export const GlobalStyle = createGlobalStyle`
     padding-top: 6.5% !important;
   }
   
-  main::before {
-    content: " ";
-    background: url('/img/b82b4b15b4923cf253e69eebb914d3ec.jpg');
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    opacity: .2;
-    background-position: center;
-    -ms-background-size: cover;
-    -o-background-size: cover;
-    -moz-background-size: cover;
-    -webkit-background-size: cover;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-  }
+  // main::before {
+  //   content: " ";
+  //   position: absolute;
+  //   left: 0;
+  //   top: 0;
+  //   width: 100%;
+  //   height: 100%;
+  //   z-index: -1;
+  //   opacity: .2;
+  //   background-position: center;
+  //   -ms-background-size: cover;
+  //   -o-background-size: cover;
+  //   -moz-background-size: cover;
+  //   -webkit-background-size: cover;
+  //   background-size: cover;
+  //   background-repeat: no-repeat;
+  //   background-attachment: fixed;
+  // }
   
   .d-flex {
     display: block !important;
@@ -138,43 +137,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   
   
-  .btnMovieSeri {
-    margin: 5px 5px;
-    background-color: #242a35;
-    border-radius: .2rem;
-    color: #111827;
-    font-family: ui-sans-serif, system-ui, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-size: .875rem;
-    font-weight: 600;
-    line-height: 1.25rem;
-    padding: .25rem .6rem;
-    text-align: center;
-    -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    cursor: pointer;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-user-select: none;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    color: #fff;
-  }
   
-  .btnMovieSeri:hover {
-    background-color: #f9fafb;
-    color: #242a35;
-  }
-  
-  .btnMovieSeri:focus {
-    outline: 2px solid rgba(0, 0, 0, 0.1);
-    outline-offset: 2px;
-  }
-  
-  .btnMovieSeri:focus-visible {
-    -webkit-box-shadow: none;
-    box-shadow: none;
-  }
   
   .group {
     display: flex;
@@ -197,6 +160,7 @@ export const GlobalStyle = createGlobalStyle`
     color: #0d0c22;
     transition: .3s ease;
     border-top-left-radius: 5px;
+    margin-left: 5px;
   }
   
   .inputSearch::placeholder {
@@ -218,8 +182,13 @@ export const GlobalStyle = createGlobalStyle`
     width: 1rem;
     height: 1rem;
   }
-  
-  
+
+  .slick-next{
+    right:0;
+  }
+  .slick-prev{
+    z-index:9
+  }
   .btnSearch {
     border-radius: .25rem;
     text-transform: uppercase;
@@ -248,10 +217,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   
   
-  iframe {
-    height: 300px;
-    width: 100%;
-  }
+ 
   
   .navbar_mb {
     display: block;
@@ -264,7 +230,7 @@ export const GlobalStyle = createGlobalStyle`
   
   .product_seri_item_deltail {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
   
   .acountImage {
@@ -287,6 +253,10 @@ export const GlobalStyle = createGlobalStyle`
     margin-top: 30%;
   }
   
+  .index{
+    width: 83%;
+  }
+
   .acountImageContent div {
     font-weight: 500;
     padding: 5px 15px;
@@ -300,10 +270,8 @@ export const GlobalStyle = createGlobalStyle`
   }
   
   .bgNav {
-    background-color: #0000003f;
+    background-color: rgb(0 0 0 / 19%);
   }
-  
-  
   
   .img_category_Mb {
     display: flex;
@@ -342,20 +310,25 @@ export const GlobalStyle = createGlobalStyle`
     padding: 15px;
   }
   
-  
-
-  
   .card {
     background-color: rgb(28 28 30 / 22%);
   }
 
-  .bPlCtP{
-    margin:20px 0px;
+  .container-fluid{
+    display: flex;
+    justify-content: space-between;
   }
 
+  .pl{
+    display: none;
+  }
 
+  
   @media(min-width:768px){
     font-size:14px;
+    .pl{
+      display: block;
+    }
   }
 
 
@@ -417,6 +390,7 @@ export const GlobalStyle = createGlobalStyle`
     }
   
   
+    
     .navbar {
       display: none;
     }
@@ -425,7 +399,7 @@ export const GlobalStyle = createGlobalStyle`
       display: block;
     }
   
-  
+    
   
     .masthead-brand {
       display: block;
@@ -435,8 +409,8 @@ export const GlobalStyle = createGlobalStyle`
       display: flex;
       justify-content: space-around;
       align-items: center;
-      padding: 20px 0;
       background: #00000038;
+      transition: all .2s ease-in-out;
     }
   
     .ft {
@@ -450,12 +424,6 @@ export const GlobalStyle = createGlobalStyle`
       box-shadow: 0px 2px 2px #23232a;
       border-radius: 10px;
       margin: 10px 0;
-    }
-  
-    iframe {
-      width: 100%;
-      height: 100%;
-      padding: 10px;
     }
   
     .navCate a {
@@ -483,16 +451,9 @@ export const GlobalStyle = createGlobalStyle`
       font-size: 14px;
       color: #999 !important;
     }
-  
-    .cateItem {
-      max-width: 250px;
-    }
-  
-    .cateItem img {
-      width: 100%;
-      border-radius: 3px;
-    }
-  
+    
+    
+    
     .cateTitle p {
       margin-top: 7px;
       font-size: 14px;
@@ -753,18 +714,6 @@ export const GlobalStyle = createGlobalStyle`
       grid-template-columns: repeat(5, 1fr);
     }
   
-    .cateItem {
-      max-width: 250px;
-    }
-  
-    .cateItem img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  
-  
-  
     .movie_css {
       border-radius: 6px;
     }
@@ -797,12 +746,6 @@ export const GlobalStyle = createGlobalStyle`
       color: #fff;
       font-size: 12px;
     }
-  
-    iframe {
-      height: 400px !important;
-      width: 100%;
-    }
-  
   
   
     /* //check */
@@ -903,7 +846,7 @@ export const GlobalStyle = createGlobalStyle`
       border: 2px solid transparent;
       border-radius: 8px;
       outline: none;
-      background-color: #f3f3f4;
+      background-color: #fff;
       color: #0d0c22;
       transition: .3s ease;
     }
@@ -989,7 +932,7 @@ export const GlobalStyle = createGlobalStyle`
   
     .product_seri_item_deltail {
       display: grid;
-      grid-template-columns: repeat(10, 1fr);
+      grid-template-columns: repeat(11, 1fr);
     }
   
     .data_img {
@@ -1052,8 +995,6 @@ export const GlobalStyle = createGlobalStyle`
     }
   
     .detailProduct {
-      padding: 15px;
-  
       border-radius: 5px;
     }
   

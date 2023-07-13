@@ -1,5 +1,4 @@
 import { getAllcategory, getCategoryProduct } from "./api/category";
-import { Icategory } from "./interfaces/category";
 
 export const filterCate = (states: any, id: any) => {
   const data = states.find((item: any) => item._id == id);
@@ -20,4 +19,4 @@ export const Cate = async () => {
   return data;
 }
 
-export const urlSwr = 'https://test-19k8.onrender.com/api';
+export const urlSwr = 'https://movies-rdez.onrender.com/api';

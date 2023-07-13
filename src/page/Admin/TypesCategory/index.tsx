@@ -5,7 +5,7 @@ import { MyContext } from '../../../context';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { pushListData } from '../../../api/product';
-
+import { deleteTypeByProducts } from '../../../api/type';
 const Divstyled = styled.div``;
 const DivstyledContent = styled.div`
 align-items: center;
@@ -54,18 +54,22 @@ const columns = [
 ];
 const TypesCateAdmin = () => {
   const [state, setState] = useState('');
-  const handleClickdeleTypeProduct = (id: string) => {
-    console.log(id);
+  const handleDeleTypeProduct = async (id: any, typeId: any) => {
+    const body = {
+      typeId: typeId
+    }
+    await deleteTypeByProducts(id, body)
   }
   const handleAddid = (id: string | any) => {
     setState(id);
   }
   const handlePushItem = async (id: string | any) => {
     const push = {
-      typeId: state
+      TypeId: state
     }
     await pushListData(id, push)
   }
+
   const { seri, loadingSeri }: any = useContext(MyContext);
   const data = seri ? seri.map((item: any, index: any) => ({
     key: index,
@@ -77,10 +81,12 @@ const TypesCateAdmin = () => {
         <Divstyled className='mr-2'>
           {product.name}
         </Divstyled>
-        <Button type="primary" style={{ background: "#1677ff" }}>
-          Edit
-        </Button>
-        <Button onClick={() => handleClickdeleTypeProduct(product._id)} type="primary" danger className='ml-2'>
+        <Link to={`/admin/product/edit/${product._id}`}>
+          <Button type="primary" style={{ background: "#1677ff" }}>
+            Edit
+          </Button>
+        </Link>
+        <Button onClick={() => handleDeleTypeProduct(product._id, item._id)} type="primary" danger className='ml-2'>
           Cút
         </Button>
         <Button type="primary" onClick={() => handlePushItem(product._id)} style={{ background: "#1677ff" }} className='ml-2'>
@@ -107,13 +113,13 @@ const TypesCateAdmin = () => {
       </span>
     ),
     checked: <input className="form-check-input"
-      type="checkbox" id="defaultCheck1"
+      type="radio" name='123' id="defaultCheck1"
       onChange={() => handleAddid(item._id)}
     />
   }
   )) : ""
   return (
-    <Table columns={columns} dataSource={data} ></Table>
+    <Table columns={columns} dataSource={data} pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '20', '30'] }} ></Table>
   )
 }
 

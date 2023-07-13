@@ -26,10 +26,10 @@
   },
   "include": [
     "./src/**/*.ts",
-    "src/router/index.jsx",
+    "src/router/index.tsx",
     "src/components/Router-Security/PrivateRouter.tsx",
     "src/@types/.d.ts"
-  ],
+, "src/components/Lazy/LazyComponent.tsx", "src/components/Message/Warning.tsx", "src/components/Message/Error.tsx", "src/hook/form/index.tsx"  ],
   "references": [
     {
       "path": "./tsconfig.node.json"

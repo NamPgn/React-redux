@@ -1,10 +1,12 @@
+import { ObjectId } from 'bson';
+
 export interface IProduct {
-  _id?: string;
+  _id?: ObjectId,
   name: string;
-  seri: number;
+  seri: string;
   image?: string;
   descriptions?: string;
-  category?: string;
+  category?: ObjectId;
   select?: boolean;
   uploadDate: Date;
   options: string;
@@ -14,6 +16,6 @@ export interface IProduct {
   year: Date;
   country: string;
   comments: any;
-  categorymain?: string;
-  typeId?: string;
+  categorymain?: ObjectId;
+  typeId?: ObjectId;
 }

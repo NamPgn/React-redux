@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { getTrailerUrls } from '../../../api/trailer';
+import { getTrailerUrl } from '../../../api/trailer';
 import { Table, Button } from 'antd';
 import { Link } from 'react-router-dom';
-declare var Promise: any;
+declare var Promise;
 const indexTrailer = () => {
-
   const columns = [
     {
-      title: 'Stt',
-      dataIndex: 'stt',
-      key: 'stt',
+      title: 'Id',
+      dataIndex: '_id',
+      key: '_id',
     },
     {
       title: 'Url',
@@ -23,33 +22,30 @@ const indexTrailer = () => {
     },
   ];
 
-  const [trailer, setTrailer] = useState([]);
+  const [trailer, setTrailer]: any = useState([]);
   useEffect(() => {
     const getAlldata = async (): Promise<any> => {
-      const { data } = await getTrailerUrls();
+      const { data } = await getTrailerUrl();
       setTrailer(data);
     }
     getAlldata();
   }, [])
-  const data:any = trailer ? trailer.map((item, index) => {
-    return {
-      key: item._id,
-      stt: index + 1,
-      url: item.url,
-      action: (
-        <span>
-          <Link to={`/admin/trailerUrl/${item._id}`}>
-            <Button type="primary" style={{ background: "#1677ff" }}>
-              Edit
-            </Button>
-          </Link>
-        </span>
-      )
-    }
-  }) : ""
+  const data = {
+    _id: trailer._id,
+    url: trailer.url,
+    action: (
+      <span>
+        <Link to={`/admin/trailerUrl/${trailer._id}`}>
+          <Button type="primary" style={{ background: "#1677ff" }}>
+            Edit
+          </Button>
+        </Link>
+      </span>
+    )
+  }
   return (
     <>
-      <Table columns={columns} dataSource={data} ></Table>
+      <Table columns={columns} dataSource={[data]} ></Table>
     </>
   )
 }

@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { deleteCartSlice } from '../../redux/slice/cart/thunk/cart';
 import { useAppDispatch } from '../../hook';
 
-
 const BtnClickDeleteCartById = styled.div`
 font-size: 14px;
 &:hover >i{

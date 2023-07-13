@@ -6,7 +6,7 @@
   text-decoration: none;
 }
 
-a.active {
+.sideBarActive .active {
   display: block;
   background: #40404894;
   border-radius: 5px;
@@ -16,4 +16,28 @@ a.active {
 
 a:hover {
   color: #ffffffa5;
+}
+
+.activeServer {
+  color: #999;
+  padding: 6px 14px;
+  background: #99999959;
+}
+
+.activeSeriNumber .active button {
+  background-color: #999;
+
+}
+
+/* .ant-skeleton-element {
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+.ant-skeleton-title,
+.ant-skeleton-paragraph {
+  background-color: #eee;
+} */
+
+.hiddenn {
+  display: none !important;
 }

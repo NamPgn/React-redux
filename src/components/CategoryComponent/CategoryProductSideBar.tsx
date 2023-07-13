@@ -1,21 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 import { Loader } from '../Message/Loading';
-const Divstyled = styled.div``;
-const SpanStyled = styled.span``;
-const Psyled = styled.p``;
-const CategoryProductSidebar = ({ category, isLoading, isError }) => {
+const CategoryProductSidebar = ({ category, isLoading }) => {
   const catedata = category ? category.slice(0, 4) : '';
   if (isLoading) {
     return <Loader />
   }
   return (
-    <Divstyled className="nav navCate col-sm-3 des" >
-      <Psyled style={{ color: "#fff" }}>See more</Psyled>
+    <div className="nav navCate col-sm-3 des w-3/12" >
+      <p style={{ color: "#fff" }}>See more</p>
       {
-        catedata ? catedata.map((item: any, index: any) => <Divstyled className='d-flex categoryContent col-md-12' key={index}>
-          <Divstyled style={{ maxWidth: "50px", height: "55px" }} className='col-md-2'>
+        catedata ? catedata.map((item: any, index: any) => <div className='d-flex categoryContent col-md-12' key={index}>
+          <div style={{ maxWidth: "50px", height: "55px" }} className='w-3/12'>
             <Link
               key={index}
               to={'/q/' + item._id + `?n=${item.name}`}>
@@ -24,15 +20,15 @@ const CategoryProductSidebar = ({ category, isLoading, isError }) => {
                 src={item.linkImg} alt=""
               />
             </Link>
-          </Divstyled>
-          <Divstyled className='col-md-10'>
+          </div>
+          <div className='w-9/12'>
             <Link key={index}
               style={{ textDecoration: "none", color: "#999", fontSize: "11px" }} to={'/q/' + item._id + `?n=${item.name}`}>{item.name}
             </Link>
-          </Divstyled>
-        </Divstyled>
+          </div>
+        </div>
         ) : ""}
-    </Divstyled>
+    </div>
   )
 }
 

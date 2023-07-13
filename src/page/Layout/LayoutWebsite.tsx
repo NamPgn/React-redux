@@ -10,9 +10,10 @@ const DivstyledConfigLayout = styled.div`
 
 const Divstyled = styled.div``;
 
-const HomePage = () => {
+const LayoutWebsite = () => {
+
   return (
-    <main >
+    <main>
       <Divstyled>
         <Header />
       </Divstyled>
@@ -27,4 +28,4 @@ const HomePage = () => {
   )
 }
 
-export default HomePage;
+export default LayoutWebsite;
