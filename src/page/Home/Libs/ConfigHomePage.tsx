@@ -4,14 +4,13 @@ import ContactAdmin from '../../../components/Contact/ContactAdmin';
 import { MessageErr } from '../../../components/Message/Loading';
 import { useSWRWithAxios } from '../../../hook/Swr';
 import { urlSwr } from '../../../function';
-import CategoryProductSidebar from '../../../components/CategoryComponent/CategoryProductSideBar';
+import CategoryProductSidebar from '../../../components/Category/CategorySideBar';
 import WeekComponent from '../../../components/Week';
-import CategoryHomePage from '../../../components/CategoryComponent/CategoryHomePage';
+import CategoryHomePage from '../../../components/Category/CategoryHomePage';
 import styled from 'styled-components';
 
 const Video = styled.video`
 `
-
 const VideoContainer = styled.div`
 padding-bottom:60%;
 @media(min-width:768px){
@@ -25,7 +24,7 @@ const ConfigHomePage = ({ category, isLoading, isError, state }) => {
   useEffect(() => {
     document.title = "Home Page";
   }, []);
-  const { data: trailer, isLoading: LoadingTrailer, isError: ErrTrailer }: any = useSWRWithAxios(urlSwr + `/trailer`);
+  const { data: trailer, isError: ErrTrailer }: any = useSWRWithAxios(urlSwr + `/trailer`);
   if (ErrTrailer) {
     return <MessageErr />
   }

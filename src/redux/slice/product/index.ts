@@ -1,15 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getProducts, deleteProduct, addProduct, editProduct,
-   getAllProductDataByCategorySlice, getProduct, importDataFile } from "./ThunkProduct/product";
+import {
+  getProducts, deleteProduct, addProduct, editProduct,
+  getAllProductDataByCategorySlice, getProduct, importDataFile
+} from "./ThunkProduct/product";
 
+const state: any = {
+  value: [],
+  isLoading: false,
+  getOneProduct: [],
+  getAllProductByCategory: [],
+  status: null,
+}
 const productSlice = createSlice({
   name: "product",
-  initialState: {
-    value: [],
-    isLoading: false,
-    getOneProduct: [],
-    getAllProductByCategory: [],
-  },
+  initialState: state,
 
   reducers: {
 
@@ -24,11 +28,12 @@ const productSlice = createSlice({
     });
 
     builder.addCase(deleteProduct.fulfilled, (state, action) => {
-      state.value = state.value.filter(item => item._id !== action.payload._id);
+      state.value.product = state.value.product.filter(item => item._id !== action.payload.data._id);
     });
 
     builder.addCase(addProduct.fulfilled, (state, action) => {
       state.value.unshift(action.payload);
+      state.status = action.payload.status;
     });
 
     builder.addCase(editProduct.fulfilled, (state, action) => {

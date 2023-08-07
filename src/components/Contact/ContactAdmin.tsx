@@ -1,12 +1,11 @@
 import { FacebookOutlined, SafetyCertificateFilled, YoutubeOutlined } from '@ant-design/icons';
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
 const ContactAdmin = () => {
-
   return (
     <div className='admin_contact'>
-      <div className="network d-flex justify-center " style={{ color: "#fff" }}>
-        <div className="w-7/12">
+      <div className="mt-5 lg:flex hidden justify-center " style={{ color: "#fff" }}>
+        <div className="lg:w-7/12 ">
           <div className="card p-3">
             <div className="card-body">
               <div className="img_contact ">

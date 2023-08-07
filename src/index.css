@@ -19,8 +19,7 @@ a:hover {
 }
 
 .activeServer {
-  color: #999;
-  padding: 6px 14px;
+  color: #999 !important;
   background: #99999959;
 }
 
@@ -40,4 +39,25 @@ a:hover {
 
 .hiddenn {
   display: none !important;
+}
+
+:where(.css-dev-only-do-not-override-1s3dcof).ant-rate .ant-rate-star-zero .ant-rate-star-second{
+  color: #ffffffa2 !important;
+}
+
+:where(.css-dev-only-do-not-override-1s3dcof).ant-float-btn-default .ant-float-btn-body:hover {
+  background-color: #b6b6b6 !important;
+}
+
+:where(.css-dev-only-do-not-override-1s3dcof).ant-btn-primary {
+  background-color: #1677ff !important;
+}
+
+:where(.css-dev-only-do-not-override-1s3dcof).ant-btn-default:disabled {
+  color: rgba(255, 255, 255, 0.632) !important;
+  border-color: rgba(0, 0, 0, 0.25) !important;
+}
+
+.ant-progress-text {
+  color: #fff !important;
 }

@@ -60,7 +60,7 @@ const CommentProductsIndex = ({ getOne }) => {
               </Divstyled>
             </Divstyled>
           </Divstyled>
-        )) : <Divstyled className='mt-5 mb-5 text-muted text-center'>Hãy là người comment đầu tiên...</Divstyled>
+        )) : <Divstyled className='mt-5 mb-5 text-muted text-center text-[#999]'>Hãy là người comment đầu tiên...</Divstyled>
       }
     </Divstyled>
   </Divstyled>

@@ -58,13 +58,8 @@ const cartSlice = createSlice({
         state.value = [];
       }
       state.isLoading = false;
-      state.value.push(action.payload);
+      state.value.push(action.payload.cart);
     });
-
-    builder.addCase(deleteCartSlice.fulfilled, (state, action:any) => {
-      state.value = state.value.filter(value => value._id !== action.payload._id);
-      state.code = action.code;
-    })
   }
 });
 

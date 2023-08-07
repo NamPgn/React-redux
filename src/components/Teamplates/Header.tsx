@@ -1,43 +1,36 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { isAuthentication } from '../../auth/getToken';
+import { Link, useNavigate } from 'react-router-dom';
 import { routerNavBar } from '../../router';
 import AuthLogged from '../OptionsAuth/AuthLogged';
 import AuthUnLogger from '../OptionsAuth/AuthUnLogger';
-import styled from 'styled-components';
-import { toast } from 'react-toastify'
-import { ChangeContext } from '../../context';
-import { Waypoint } from 'react-waypoint';
-const Divstyled = styled.div``;
-const DivstyledMkt = styled.div`
-color:#999;
-font-weight:500;
-`;
-const DivLink = styled.div`
-color: rgb(255, 214, 99);
-font-weight:500;
-`;
-const Imagetyled = styled.img``;
-const Buttontyled = styled.button``;
-const DivContentMkt = styled.div`
-display: flex;
-align-items: center;
-justify-content: center;
-gap:0 5px;
- 
-&>a{
-    color: rgb(255, 214, 99) !important;
-    font-weight:500;
-}
-`;
+import { ChangeContext, MyContext } from '../../context';
+import Error from '../Message/Error';
+import { DivContentMkt, DivLink, DivstyledMkt, Imagetyled } from './styles';
+import { HomeOutlined, LikeOutlined, LoginOutlined, LogoutOutlined, MenuOutlined, SettingOutlined } from '@ant-design/icons';
+import { Drawer } from 'antd';
+import MenuItem from '../Menu';
+
+const icon = [
+    <HomeOutlined />,
+    <LoginOutlined />,
+    <LogoutOutlined />,
+    <SettingOutlined />
+]
 const Header = () => {
-    const Auth = isAuthentication();
+    const { Auth, user, isLoggedInState } = useContext(MyContext) ?? {};
     const [state, setState] = useState(false);
-    const [stateNav, setStateNav] = useState(false);
     const [scrollUp, setScrollUp] = useState(false);
     const [prevScrollPos, setPrevScrollPos] = useState(0);
-    const { state: change } = useContext(ChangeContext);
+    const { state: change } = useContext(ChangeContext) ?? {};
     const [navSize, setnavSize] = useState("20px 0");
+    const [open, setOpen] = useState(false);
+    const [placement, setPlacement] = useState('left');
+    const showDrawer = () => {
+        setOpen(true);
+    };
+    const onClose = () => {
+        setOpen(false);
+    };
     window.addEventListener('scroll', () => {
         const currentScrollPos = window.pageYOffset;
         setScrollUp(prevScrollPos > currentScrollPos);
@@ -47,138 +40,128 @@ const Header = () => {
     const handleClick = () => {
         setState(value => !value);
     }
-    const handleClickNav = () => {
-        setStateNav(value => !value);
-    }
     const naviagate = useNavigate();
     const handleCheckCart = () => {
         if (!Auth) {
-            toast.error('Bạn cần đăng nhập!')
+            Error('Bạn cần đăng nhập!')
         } else {
             naviagate('/cart/user');
         }
     }
     useEffect(() => {
-        setScrollUp(true);
-    }, [])
-    // const { user, logOut } = UserAuth();
+        setScrollUp(!false);
+    }, []);
     return (
         <>
             <header className="masthead mb-auto">
-                <Divstyled
+                <div
                     className={change ? 'inner fixed right-0 w-11/12' : 'inner fixed right-0 w-10/12'}
                     style={{
                         top: scrollUp ? '0' : "-25%",
                         padding: navSize
                     }}>
-                    {/* <Divstyled className="masthead-brand-img">
-                        <Link to="/" style={{ textDecoration: "none" }}>
-                            <Imagetyled src="/img/logo.png" alt="logo" />
-                        </Link>
-                    </Divstyled> */}
-                    <Divstyled className="nav nav-masthead justify-content-center d-flex">
-                        {routerNavBar.map((item: any, index: any) => (
-                            <li key={index} className="nav-item"><Link style={{ color: "#fff", textDecoration: "none", margin: "0 20px" }} to={item.Path}>{item.name}</Link></li>
-                        ))}
 
+                    <div className="nav nav-masthead justify-center items-center d-flex">
+                        {routerNavBar.map((item: any, index: any) => (
+                            <li key={index} className="nav-item"><Link style={{ color: "#fff", textDecoration: "none", margin: "0 20px" }} to={item.path}>{item.name}</Link></li>
+                        ))}
                         <DivContentMkt>
                             <DivstyledMkt>Liên hệ qc tele: </DivstyledMkt>
                             <a href={'https://web.telegram.org/k/#@nampg'}>
                                 <DivLink />@nampg
                             </a>
                         </DivContentMkt>
-                        <Divstyled className='ml-5' style={{ marginLeft: "50px" }} onClick={handleCheckCart}>
-                            <i className="fa-solid fa-bookmark text-yellow-500 __"></i>
-                        </Divstyled>
-                    </Divstyled>
-                    <Divstyled className='acountUser'>
+                        <div className='ml-5' style={{ marginLeft: "50px" }} onClick={handleCheckCart}>
+                            <LikeOutlined className='__ text-yellow-500' />
+                        </div>
+                    </div>
+                    <div className='acountUser'>
                         {
                             (() => {
-                                if (Auth) {
-                                    return <Divstyled className="relative" onClick={handleClick}>
-                                        <Divstyled className='acountImage'>
-                                            <Imagetyled src={''} alt="" />
-                                        </Divstyled>
+                                if (Auth && isLoggedInState) {
+                                    return <div className="relative" onClick={handleClick}>
+                                        <div className='acountImage'>
+                                            <Imagetyled src={user ? user.image : ''} className="h-full" alt="" />
+                                        </div>
                                         {
                                             state ? (
                                                 <>
-                                                    <AuthLogged token={Auth} />
+                                                    <AuthLogged user={user} />
                                                 </>
                                             ) : (<></>)
                                         }
-                                    </Divstyled>
-                                } else return <Divstyled className="relative" onClick={handleClick}>
-                                    <Divstyled className="acountImage" >
-                                        <img />
-                                    </Divstyled>
-                                    {state ? (
-                                        <><AuthUnLogger /></>
-                                    ) : (<></>)}
-                                </Divstyled>
+                                    </div>
+                                } else {
+                                    return <div className="relative" onClick={handleClick}>
+                                        <div className="acountImage" >
+                                            <img className="h-full" />
+                                        </div>
+                                        {state ? (
+                                            <><AuthUnLogger /></>
+                                        ) : (<></>)}
+                                    </div>
+                                }
                             })()
                         }
-                    </Divstyled>
-                </Divstyled>
-
-                <Divstyled className='navbar_mb w-10/12 absolute right-0'>
-                    <Divstyled className="navbar bgNav mb ">
-                        <Divstyled className="container-fluid">
-                            <Buttontyled onClick={() => handleClickNav()}
-                                className="navbar-toggler"
-                                type="button"
-                                data-mdb-toggle="collapse"
-                                data-mdb-target="#navbarToggleExternalContent2"
-                                aria-controls="navbarToggleExternalContent1"
-                                aria-expanded="false"
-                                aria-label="Toggle navigation"
-                            >
-                                <i className="fas fa-bars text-white fsicon"></i>
-                            </Buttontyled>
+                    </div>
+                </div>
+                {/* mobile */}
+                <div className='navbar_mb w-10/12 absolute right-0 z-10'>
+                    <div className="navbar bgNav mb">
+                        <div className="container-fluid items-center">
+                            <button className='text-white' onClick={showDrawer}>
+                                <MenuOutlined />
+                            </button>
                             {/* user */}
-                            <Divstyled className='acountUser'>
+                            <div className='ml-5 relative' onClick={handleCheckCart}>
+                                <LikeOutlined className='__ text-yellow-500' />
+                            </div>
+                            <div className='acountUser'>
                                 {
                                     (() => {
-                                        if (Auth) {
-                                           return <Divstyled className="relative z-10 " onClick={handleClick}>
-                                                <Divstyled className='acountImage'>
-                                                    <Imagetyled src={''} alt="" />
-                                                </Divstyled>
+                                        if (Auth && isLoggedInState) {
+                                            return <div className="relative z-10 " onClick={handleClick}>
+                                                <div className='acountImage'>
+                                                    <Imagetyled src={user ? user.image : ''} className="h-full" alt="" />
+                                                </div>
                                                 {
                                                     state ? (
                                                         <>
-                                                            <AuthLogged token={Auth} />
+                                                            <AuthLogged user={user} />
                                                         </>
                                                     ) : (<></>)
                                                 }
-                                            </Divstyled>
-                                        } else return <Divstyled className="relative" onClick={handleClick}>
-                                            <Divstyled className="acountImage" >
-                                                <img src=''/>
-                                            </Divstyled>
+                                            </div>
+                                        } else return <div className="relative" onClick={handleClick}>
+                                            <div className="acountImage" >
+                                                <img src='' className="h-full" />
+                                            </div>
                                             {state ? (
                                                 <><AuthUnLogger /></>
                                             ) : (<></>)}
-                                        </Divstyled>
+                                        </div>
                                     })()
                                 }
-                            </Divstyled>
-                        </Divstyled>
-                    </Divstyled>
+                            </div>
+                        </div>
+                    </div>
                     {
-                        stateNav ? (<Divstyled className="bgNav relative z-10">
-                            <Divstyled className="shadow-3 py-2 " >
-                                {routerNavBar.map((item, index) => (
-                                    <li key={index} className="nav-item mb-4 text-dark"><Link style={{ color: "#fff", textDecoration: "none", margin: "0 20px" }} to={item.Path}>{item.name}</Link></li>
-                                ))}
-                            </Divstyled>
-                        </Divstyled>) : (<></>)
+                        (<Drawer
+                            width={200}
+                            title="Basic Drawer"
+                            key={placement}
+                            placement={'left'}
+                            closable={false}
+                            onClose={onClose}
+                            open={open}
+                            closeIcon={true}
+                            className="relative z-10"
+                        >
+                            <MenuItem icons={icon} data={routerNavBar} />
+                        </Drawer>)
                     }
-                </Divstyled>
+                </div>
             </header>
-            <Waypoint
-                onEnter={() => setScrollUp(false)}
-                onLeave={() => setScrollUp(true)}
-            />
         </>
     );
 }

@@ -12,7 +12,7 @@ export const store = configureStore({
     category: categoryReducer,
     post: postReducer,
     comment: commentReducer,
-    cart: cartReducer
+    cart: cartReducer,
   },
   // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(cartApi.middleware),
 });

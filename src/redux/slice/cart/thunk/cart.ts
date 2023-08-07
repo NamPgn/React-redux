@@ -12,23 +12,15 @@ export const getAllCartSlice = createAsyncThunk(
 export const addCartSlice = createAsyncThunk(
   'addCartSlice',
   async (cart: any) => {
-    const { data: { data, message }, status }: any = await addCart(cart);
-    return {
-      data: data,
-      code: status,
-      message: message
-    }
+    const { data }: any = await addCart(cart);
+    return data
   }
 )
 
 export const deleteCartSlice = createAsyncThunk(
   'deleteCartSlice',
   async (state: any) => {
-    const { data: { data, message }, status }: any = await deleteCart(state.id, state);
-    return {
-      data: data,
-      message: message,
-      code: status
-    }
+    const { data, status }: any = await deleteCart(state.id, state);
+    return data.data
   }
 )

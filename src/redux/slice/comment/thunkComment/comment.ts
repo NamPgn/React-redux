@@ -14,7 +14,6 @@ export const addCommentSlice = createAsyncThunk(
   'addCommentSlice',
   async (dataCm: any) => {
     const { data }: any = await addComment(dataCm.product, dataCm);
-    console.log(data);
     return data
   }
 )

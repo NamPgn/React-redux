@@ -30,7 +30,7 @@ export const deleteProduct = createAsyncThunk(
 export const addProduct = createAsyncThunk(
   'product/addProduct',
   async (dataProduct: any) => {
-    const { data }: any = await addProductData(dataProduct);
+    const { data, status }: any = await addProductData(dataProduct);
     return data;
   }
 )

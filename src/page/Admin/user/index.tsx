@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Space, Table, Tag, Button, Image } from 'antd';
+import { Table, Button, Image, Tag } from 'antd';
 import { getAlluser, deteleUser } from '../../../redux/slice/userSlice';
 import { DownloadOutlined } from "@ant-design/icons";
 import { toast } from 'react-toastify';
@@ -11,17 +11,7 @@ const columns = [
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
-    render: (text:any) => <a>{text}</a>,
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
+    render: (text: any) => <a>{text}</a>,
   },
   {
     title: 'Image',
@@ -29,17 +19,21 @@ const columns = [
     key: 'image',
   },
   {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+  },
+  {
+    title: 'Role',
+    dataIndex: 'role',
+    key: 'role',
+  },
+  {
     title: 'Action',
     key: 'action',
-  },
-  {
-    title: "Edit",
-    dataIndex: "edit",
-  },
-  {
-    title: "Remove",
-    dataIndex: "remove",
-  },
+    dataIndex: 'action',
+    with: 150
+  }
 ];
 const GetUser = () => {
   const states = useAppSelector(user$);
@@ -47,39 +41,36 @@ const GetUser = () => {
   useEffect(() => {
     dispath(getAlluser());
   }, []);
-  const data = states ? states.map((item:any) => {
+  const handleDelete = async (id) => {
+    const responese = await dispath(deteleUser(id));
+    if (responese.payload && responese.payload.success) {
+      toast.success('Successfully deleted')
+    } else {
+      toast.error('Error deleting');
+    }
+  }
+  const data = states ? states.map((item: any) => {
     return {
       key: item._id,
       name: item.username,
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
       image: <Image width={150} height={200} style={{ objectFit: "cover" }} src={item.image} />,
-      edit: (
-        <NavLink to={`${item._id}/edit`}>
-          <Button type="primary" danger shape="round" icon={<DownloadOutlined />}>
-            {" "}
-            Edit{" "}
-          </Button>
-        </NavLink>
-      ),
-      remove: (
-        <Button
-          style={{ background: "#1677ff" }}
-          type="primary"
-          onClick={() =>
-            toast.success(`Xóa user ${item.username} thành công`, {
-              position: "bottom-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            }, dispath(deteleUser(item._id)))
-          }
-        >Delete</Button>
+      status: item.isActive == 0 ? <Tag color="success">Active</Tag> : <Tag color="error">No Active</Tag>,
+      role: item.role,
+      action: (
+        <>
+          <NavLink to={`${item._id}/edit`}>
+            <Button type="primary" danger shape="round" icon={<DownloadOutlined />}>
+              Edit
+            </Button>
+          </NavLink>
+          <Button
+            style={{ background: "#1677ff" }}
+            type="primary"
+            onClick={() =>
+              handleDelete(item._id)
+            }
+          >Delete</Button>
+        </>
       )
     }
   }) : ""

@@ -42,7 +42,6 @@ const CategoryAdmin = () => {
   const { seri } = useContext(MyContext);
   const [typeId, setId] = useState(null);
   const { register, handleSubmit } = useForm();
-
   const onsubmit = (data: any) => {
     const formdata = new FormData();
     formdata.append('name', data.name);
@@ -75,8 +74,7 @@ const CategoryAdmin = () => {
     }
     await pushCateTotype(typeId, body);
   }
-
-  const data = category ? category.map((item, index) => {
+  const data = category.data ? category.data.map((item, index) => {
     return {
       key: item._id,
       stt: index + 1,
@@ -105,9 +103,9 @@ const CategoryAdmin = () => {
       <div className="p-2" style={{ display: 'flex', gap: '0 10px', justifyContent: 'center' }} >
         {seri ? seri.map((item: any, index: any) => {
           return <div key={index}>
-            <Radio.Group value={typeId}>
+            {item.path == '/' ? '' : <Radio.Group value={typeId}>
               <Radio name='aa' onChange={() => handleGetid(item._id)}>{item.name}</Radio>
-            </Radio.Group>
+            </Radio.Group>}
           </div>
         }) : ''}
       </div>

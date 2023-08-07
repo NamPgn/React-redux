@@ -1,12 +1,10 @@
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense } from 'react'
+import { Loading } from '../Message/Loading';
 
-const LazyComponent = (importFunc, { fallback = null } = { fallback: null }) => {
-  const LazyComponent = lazy(importFunc);
-  return (props: any) => (
-    <Suspense fallback={fallback}>
-      <LazyComponent {...props} />
-    </Suspense>
-  );
-};
+const LazyComponent = ({ children }) => (
+  <Suspense fallback={<Loading />}>
+    {children}
+  </Suspense>
+);
 
 export default LazyComponent

@@ -28,8 +28,15 @@
     "./src/**/*.ts",
     "src/router/index.tsx",
     "src/components/Router-Security/PrivateRouter.tsx",
-    "src/@types/.d.ts"
-, "src/components/Lazy/LazyComponent.tsx", "src/components/Message/Warning.tsx", "src/components/Message/Error.tsx", "src/hook/form/index.tsx"  ],
+    "src/@types/.d.ts",
+    "src/components/Lazy/LazyComponent.tsx",
+    "src/components/Message/Warning.tsx",
+    "src/components/Message/Error.tsx",
+    "src/hook/form/index.tsx",
+    "src/components/Form/index.tsx",
+    "src/components/Particles/index.tsx",
+    "src/auth/getUser.tsx"
+, "src/components/Button/index.tsx", "src/components/Divider/index.tsx", "src/components/Icon/index.tsx"  ],
   "references": [
     {
       "path": "./tsconfig.node.json"

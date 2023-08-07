@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { getCategory } from '../../../api/category';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../../hook';
-import { Button } from 'antd';
+import { MyButton } from '../../../components/Button';
 const Divstyled = styled.div``;
 const InputStyled = styled.input``;
 declare var Promise: any;
@@ -46,7 +46,6 @@ const EditCategory = () => {
       reader.onerror = error => reject(error);
     });
   }
-  console.log(state);
   return (
     <Divstyled>
       <form onSubmit={handleSubmit(onsubmit)}>
@@ -59,7 +58,7 @@ const EditCategory = () => {
           <InputStyled type="text" {...register('des')} className="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
         </Divstyled>
         <Divstyled className='mb-2' style={{ width: "150px", height: "150px" }}>
-          <img src={getCategoryOne ? getCategoryOne.linkImg : ""} alt="" />
+          <img className='h-full' src={getCategoryOne ? getCategoryOne.linkImg : ""} alt="" />
         </Divstyled>
         <Divstyled className="mb-3">
           <label className="form-label">Image</label>
@@ -67,7 +66,7 @@ const EditCategory = () => {
         </Divstyled>
         <InputStyled type="file" onChange={(e) => onchange(e)} placeholder='Imgae Edit' />
         <div className='mt-2'>
-          <Button htmlType='submit' className="btn btn-primary">Click</Button>
+          <MyButton htmlType='submit' className="btn btn-primary">Click</MyButton>
         </div>
       </form>
     </Divstyled>

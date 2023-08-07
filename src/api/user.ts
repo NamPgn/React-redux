@@ -2,6 +2,7 @@ import { isAuthentication } from "../auth/getToken";
 import { Iusers } from "../interfaces/user";
 import intances from "./instances";
 declare var Promise: any;
+const Auth = isAuthentication();
 export const resgister = async (data: any) => {
     return await intances.post('/signup', data);
 }
@@ -19,15 +20,29 @@ export const getAuth = async (id: string): Promise<Iusers> => {
 }
 
 export const deleteAuth = async (id: string): Promise<Iusers> => {
-    return await intances.delete("removeUser/" + id);
+    return await intances.delete("removeUser/" + id + `/${Auth.user._id}`, {
+        headers: {
+            "Authorization": `Bearer ${Auth.token}`
+        }
+    });
 }
 
-export const editAuth = async (data: Iusers): Promise<Iusers> => {
-    return await intances.put(`user/${data._id}`, data);
+export const editAuth = async (data: any,): Promise<Iusers> => {
+    return await intances.put(`user/${data._id}/${Auth.user._id}`, data, {
+        headers: {
+            "Authorization": `Bearer ${Auth.token}`
+        }
+    });
 }
 
 export const importExcel = async (data: Iusers): Promise<Iusers> => {
     return await intances.post('user/creating', data)
 }
 
-export const findCartByUser = async (id: string): Promise<Iusers> => await intances.get(`user/cart/${id}`)
+export const findCartByUser = async (id: string): Promise<Iusers> => await intances.get(`user/cart/${id}`);
+
+export const editImageUser = async (id: any, data: any) => await intances.post(`/user/upload/${id}`, data, {
+    headers: {
+        "Authorization": `Bearer ${Auth.token}`
+    }
+});

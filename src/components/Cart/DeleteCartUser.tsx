@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { message, Popconfirm, Button } from 'antd';
+import { Button, message, Popconfirm } from 'antd';
 import styled from 'styled-components';
 import { deleteCartSlice } from '../../redux/slice/cart/thunk/cart';
 import { useAppDispatch } from '../../hook';
@@ -11,31 +11,25 @@ cursor:pointer;
 }
 `;
 
-export const StyledBtnClickDeleteCartById = ({ id, userId, setReset }: any) => {
+export const StyledBtnClickDeleteCartById = ({ id, userId, setReset, setCount }: any) => {
   const text = "Bạn có muốn xóa không?";
-  const description = "Bạn sẽ không được hoàn tác?";
-  const [state, setState] = useState({
+  const state = {
     id: id,
     userId: userId
-  });
+  };
   const dispatch = useAppDispatch();
-  const confirm = (id:string) => {
+  const confirm = (id: string) => {
     message.success({
       type: 'error',
       content: "Đã xóa!",
     });
     dispatch(deleteCartSlice(state))
-    setReset((reset: boolean) => !reset)
+    setReset((reset) => !reset)
   };
   const cancel = () => {
     message.error({
       type: 'error',
-      content: "Lỗi rồi",
-      style: {
-        position: "absolute",
-        marginTop: "100px",
-        right: "50px",
-      }
+      content: "Khum xóa",
     });
   };
   return <BtnClickDeleteCartById>
@@ -46,7 +40,7 @@ export const StyledBtnClickDeleteCartById = ({ id, userId, setReset }: any) => {
       okText="Có"
       cancelText="Khum!"
     >
-      <Button style={{ color: "#fff" }}>Xóa</Button>
+      <Button icon={undefined}  disabled={undefined} className='text-[#fff]' onClick={undefined}>Xóa</Button>
     </Popconfirm>
   </BtnClickDeleteCartById>
 }

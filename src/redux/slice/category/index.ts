@@ -21,7 +21,6 @@ const categorySlice = createSlice({
       state.isLoading = true;
     });
 
-
     builder.addCase(getAllCategoryNotReqSlice.fulfilled, (state, action) => {
       state.isLoading = false;
       state.categoryNotReqId = action.payload;

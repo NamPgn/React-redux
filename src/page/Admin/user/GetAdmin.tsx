@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Space, Table, Tag, Button, Image } from 'antd';
+import { Table, Tag, Image } from 'antd';
 import { getAdmin } from '../../../redux/slice/userSlice';
 import { admin$ } from '../../../redux/selectors';
 import { useAppDispatch, useAppSelector } from '../../../hook';
@@ -11,14 +11,14 @@ const columns = [
     render: (text) => <a>{text}</a>,
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
+    title: 'Role',
+    dataIndex: 'role',
+    key: 'role',
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
   },
   {
     title: 'Image',
@@ -36,8 +36,8 @@ const GetAdmin = () => {
     return {
       key: item._id,
       name: item.username,
-      age: 32,
-      address: 'New York No. 1 Lake Park',
+      role: item.role == 1 ? 'Admin' : 'Super Admin',
+      status: <Tag color='success'>Active</Tag>,
       tags: ['nice', 'developer'],
       image: <Image width={150} height={200} style={{ objectFit: "cover" }} src={item.image} />,
     }

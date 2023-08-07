@@ -4,7 +4,6 @@ import { useSWRWithAxios } from '../../../hook/Swr';
 import { urlSwr } from '../../../function';
 import { DivStyled, DivStyledText, DivStyledTitle } from '../../../components/Styled/Type';
 import { Loader, MessageErr } from '../../../components/Message/Loading';
-import { motion } from "framer-motion";
 import PaginationCustoms from '../../../components/Pagination';
 import CategoryContents from '../../../components/Content/Category';
 import { ChangeContext } from '../../../context';
@@ -60,7 +59,7 @@ const backgrounds = [
 
 const SidebarApi = () => {
   const [page, setPage] = useState(1);
-  const { state } = useContext(ChangeContext);
+  const { state } = useContext(ChangeContext) || {};
   const { id } = useParams();
   const { data: { data, length }, isLoading, isError } = useSWRWithAxios(urlSwr + `/type/${id}?page=${page}`);
   if (isLoading) {
@@ -70,12 +69,7 @@ const SidebarApi = () => {
     return <MessageErr />
   }
   return (
-    <motion.div
-      className={state ? "w-11/12" : "w-10/12"}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
+    <div className={state ? "w-11/12" : "w-10/12"}>
       <div className='p-2'>
         <div>
           <DivStyledText><Link to={'/'}>Trang chủ</Link> - {data ? data.name : ""}</DivStyledText>
@@ -119,7 +113,7 @@ const SidebarApi = () => {
           onChange={(value) => setPage(value)}
         />
       </div>
-    </motion.div >
+    </div >
   )
 }
 

@@ -1,23 +1,25 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { AccountStyle } from './styles'
+import { LoginOutlined, SmileOutlined } from '@ant-design/icons'
 
 const AuthUnLogger = () => {
   return (
-    <div className="authUnLoggerToggle acountImageContent absolute ">
+    <AccountStyle className="authUnLoggerToggle acountImageContent absolute z-9">
       <div className="signleAs d-flex justify-center">
-        <div> <i className="fa-regular fa-face-laugh"></i> <b>
+        <div> <SmileOutlined /> <b>
         </b></div>
       </div>
       <hr />
       <Link to={'/auth/signin'}>
-        <div className='d-flex items-center hv_ text-center'>
-          <i className="fa-regular fa-user"></i>
+        <div className='d-flex items-center hv_ justify-center text-center'>
+        <LoginOutlined />
           <div className='auth'>
             Signin
           </div>
         </div>
       </Link>
-    </div>
+    </AccountStyle>
   )
 }
 

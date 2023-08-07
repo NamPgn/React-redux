@@ -70,7 +70,7 @@ const TypesCateAdmin = () => {
     await pushListData(id, push)
   }
 
-  const { seri, loadingSeri }: any = useContext(MyContext);
+  const { seri, loadingSeri }: any = useContext(MyContext) || {};
   const data = seri ? seri.map((item: any, index: any) => ({
     key: index,
     stt: index + 1,

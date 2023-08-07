@@ -1,16 +1,27 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import { Button, Result } from 'antd';
+import { SmileOutlined } from '@ant-design/icons';
 const Page404 = () => {
   return (
-    <div className='page404' style={{ height: "100vh" }}>
-      <div className='text-light text-center' >
-        404 not found page!
-      </div>
-      <div className='text-primary'>
-        <Link to={'/'}>Go Home</Link>
-      </div>
-    </div>
+    <Result
+      style={{
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        background: "#fff",
+        zIndex:9,
+        height: "100vh",
+      }}
+      icon={<SmileOutlined />}
+      title="Page Not found"
+      extra={
+        <Link to={'/'}>
+          <Button>Back to home</Button>
+        </Link>
+      }
+    />
   )
 }
 

@@ -7,7 +7,6 @@ import SeriNumberMovie from '../Seri/SeriNumberMovie';
 const Divstyled = styled.div``;
 const Psyled = styled.p``;
 const DivstyledTitle = styled.div`
-  font-size:20px;
   margin-bottom:10px;
 `;
 
@@ -26,19 +25,19 @@ const CategoryProductComponent = () => {
   }
   return (
     <Divstyled>
-      {category ? category.map((item, index) => (
+      {category ? category.data.map((item, index) => (
         // cách 3
-        item._id == id ? <Divstyled style={{ margin: "20px" }} key={index}>
+        item._id == id ? <Divstyled key={index}>
           <Divstyled style={{ color: "#fff" }}>
-            <Divstyled className='d-flex detail_video'>
-              <Divstyled className="data_img mb-5">
+            <Divstyled className='md:flex lg:flex block gap-2 '>
+              <Divstyled className="data_img mb-5 lg:w-3/12 md:w-3/12 md:h-full h-52 ">
                 <ImageStyled src={item.linkImg} alt="" />
               </Divstyled>
-              <Divstyled>
+              <Divstyled className="lg:w-9/12 md:w-9/12">
                 <Divstyled className="category">
-                  <DivstyledTitle style={{textTransform: 'capitalize'}}>{item.name}</DivstyledTitle>
+                  <DivstyledTitle className="md:text-[14px] " style={{ textTransform: 'capitalize' }}>{item.name}</DivstyledTitle>
                 </Divstyled>
-                <Divstyled className="loai des">
+                <Divstyled className="loai des text-[12px] md:text-[13px] lg:text-[14px]" >
                   <Psyled>Thể loại : Kiếm hiệp, truyện</Psyled>
                   <Psyled>Tổng Số tập: {item._id == id ? item.sumSeri : ""}</Psyled>
                   <Psyled>Thời gian: 15-20 phút </Psyled>
@@ -49,9 +48,9 @@ const CategoryProductComponent = () => {
                 <SeriNumberMovie />
               </Divstyled>
             </Divstyled>
-            <Divstyled className='des'>
-              <Divstyled className='h6'>Nội dung Phim: </Divstyled>
-              <Psyled>{item.des}</Psyled>
+            <Divstyled className='des mt-4'>
+              <Divstyled className='lg:text-[15px] md:text-[14px] text-[13px]'>Nội dung phim: </Divstyled>
+              <Psyled className="lg:text-[14px] md:text-[13px] text-[12px] text-[#999] mt-4 p-2 rounded bg-[#99999924]">{item.des ? item.des : 'Trống!'}</Psyled>
             </Divstyled>
           </Divstyled>
         </Divstyled> : ""

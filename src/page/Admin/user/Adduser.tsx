@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { useAppDispatch } from '../../../hook';
 import renderInput from '../../../hook/form';
-import { Button } from 'antd';
+import { MyButton } from '../../../components/Button';
 const Divstyled = styled.div``;
 const InputStyled = styled.input``;
 const Adduser = () => {
@@ -48,7 +48,7 @@ const Adduser = () => {
           <label className="form-label">Image</label>
           <InputStyled type="file"  {...register("image")} className="form-control" required />
         </Divstyled>
-        <Button className="btn btn-primary">Submit</Button>
+        <MyButton className="btn btn-primary">Submit</MyButton>
       </form>
     </Divstyled>
   )

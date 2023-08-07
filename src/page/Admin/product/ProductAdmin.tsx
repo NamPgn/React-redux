@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Table, Image, Button } from 'antd';
 import { getProducts, deleteProduct } from '../../../redux/slice/product/ThunkProduct/product';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Cate } from '../../../function';
 import { deleteMultipleProduct } from '../../../api/product';
 import styled from 'styled-components';
 import { useAppDispatch } from '../../../hook';
 import type { ColumnsType } from 'antd/es/table';
+import { MyContext } from '../../../context';
 declare var Promise: any;
 const Divstyled = styled.div``;
 const BtnStyled = styled.button``;
@@ -80,7 +80,7 @@ const columns: ColumnsType<any> = [
 ];
 
 const ProductAdmin = ({ product, length }) => {
-    const [state, setCate] = useState([]);
+    const { category }: any = useContext(MyContext);
     const [search, searchState] = useState("");
     const [filter, setFilter] = useState("");
     const [checkedId, setCheckedId]: any = useState([]);
@@ -89,10 +89,6 @@ const ProductAdmin = ({ product, length }) => {
     const [page, setPage] = useState(1);
     const dispath = useAppDispatch();
     useEffect(() => {
-        const dataCate = async (): Promise<any> => {
-            setCate(await Cate());
-        }
-        dataCate();
         dispath(getProducts(page));
         document.title = "Admin Page";
     }, [init, page])
@@ -133,6 +129,16 @@ const ProductAdmin = ({ product, length }) => {
         }
     }
 
+
+    const handleDelete = async (id) => {
+        const response = await dispath(deleteProduct(id));
+        if (response.payload.success) {
+            toast.success('Delete product successfully');
+        } else {
+            toast.error('Error deleting product');
+        }
+    }
+
     const data = dataS ? dataS.map((value: any, index: any) => {
         return {
             key: value._id,
@@ -146,9 +152,8 @@ const ProductAdmin = ({ product, length }) => {
             // _id: value._id,
             name: value.name,
             options: value.options,
-            category: state.map((item: any) => {
-                if (item._id === value.category)
-                    return item.name
+            category: category.data.map((item: any) => {
+                if (item._id === value.category) return item.name
             }),
             image: <Image width={150} height={200} style={{ objectFit: "cover" }}
                 src={
@@ -168,10 +173,7 @@ const ProductAdmin = ({ product, length }) => {
                     </Link>
                     <Button style={{ background: "#1677ff" }}
                         type="primary"
-                        onClick={() => {
-                            dispath(deleteProduct(value._id));
-                            toast.success('delete product successfully');
-                        }}
+                        onClick={() => handleDelete(value._id)}
                     >Delete</Button>
                 </>
             )
@@ -184,8 +186,8 @@ const ProductAdmin = ({ product, length }) => {
                 onChange={() => handleCheckAll()}
                 id=""
             />
-            <BtnStyled onClick={() => { handleDeleteData() }} className='btn_remove'>
-                <i className="fa-solid fa-trash text-light"></i>
+            <BtnStyled onClick={() => { handleDeleteData() }} className='btn_remove text-white'>
+                Xóa
             </BtnStyled>
             <Link to={'/admin/product/add'}  >
                 <Button type="primary" shape="round" style={{ display: "inline-block", margin: "10px 10px", background: "#1677ff" }}>Add Product</Button>
@@ -198,9 +200,9 @@ const ProductAdmin = ({ product, length }) => {
             </Link>
             <select className="form-select-sm" onChange={e => setFilter(e.target.value)} style={{ border: "none", padding: "10px", outline: "none", width: "250px" }} aria-label=".form-select-sm example">
                 <option value={"all"}>Open this select menu</option>
-                {state.map((item, index) => {
+                {category ? category.data.map((item, index) => {
                     return <option value={item._id} key={index} >{item.name}</option>
-                })}
+                }) : ''}
             </select>
             <Link to={'/admin/product/add'} >
                 <Button type="primary" danger shape="round" style={{ display: "inline-block  ", margin: "10px 10px" }}>Export Excel</Button>
@@ -208,7 +210,7 @@ const ProductAdmin = ({ product, length }) => {
             <Divstyled style={{ display: "inline-block" }}>
                 <Divstyled className="input-group">
                     <Divstyled className="form-outline">
-                        <InputStyled type="search" id="form1" placeholder='search...' className="form-control" onChange={e => {
+                        <InputStyled type="search" id="form1" placeholder='search...' className="form-control p-3 rounded" onChange={e => {
                             searchState(e.target.value);
                         }} />
                     </Divstyled>

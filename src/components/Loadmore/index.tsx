@@ -7,8 +7,8 @@ import PaginationCustoms from '../Pagination/'
 import CategoryContents from '../Content/Category';
 export default function Index() {
   const [page, setPage] = useState(1);
-  const { data: category, isLoading } = useSWRWithAxios(urlSwr + `/categorys?page=${page}`);
-  const { state } = useContext(ChangeContext);
+  const { data:category, isLoading } = useSWRWithAxios(urlSwr + `/categorys?page=${page}`);
+  const { state } = useContext(ChangeContext) || {};
   if (isLoading) return <Loader />
   return (
     <>
@@ -21,7 +21,7 @@ export default function Index() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 md:gap-4 md:gap-8">
                 {
-                  category ? category.map((item: any, index: number) => (
+                  category ? category.data.map((item: any, index: number) => (
                     <CategoryContents
                       title={item.name}
                       link={'/q/' + item._id + `?n=${item.name}`}
@@ -39,11 +39,11 @@ export default function Index() {
           className='text-center'
           currentPage={page}
           defaultCurrent={1}
-          totalItems={20}
+          totalItems={category.length}
           pageSize={10}
           onChange={(value) => setPage(value)}
         />
-      </div>
+      </div>  
     </>
   );
 }

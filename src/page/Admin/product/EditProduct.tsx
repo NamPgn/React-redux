@@ -3,24 +3,22 @@ import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { editProduct, getProduct } from '../../../redux/slice/product/ThunkProduct/product';
 import { toast } from 'react-toastify';
-import { Cate } from '../../../function';
 import styled from 'styled-components';
 import { useAppDispatch } from '../../../hook';
 import { MyContext } from '../../../context';
-import { Button } from 'antd';
 import renderInput from '../../../hook/form';
 import { UploadAssby } from '../../../api/product';
+import { MyButton } from '../../../components/Button';
 declare var Promise: any;
 const Divstyled = styled.div``;
 const SelectStyled = styled.select``;
 const EditProduct = () => {
-  const { categorymain, LoadingCateMain, seri, loadingSeri, isError }: any = useContext(MyContext);
+  const { categorymain, category, seri }: any = useContext(MyContext);
   const navigate = useNavigate();
   const { id } = useParams();
   const { handleSubmit, reset, register, control } = useForm();
   const dispatch = useAppDispatch();
   const [state, setState]: any = useState({});
-  const [category, setCategory] = useState([]);
   useEffect(() => {
     const getFormProduct = async (): Promise<any> => {
       const { payload }: any = await dispatch(getProduct(id));
@@ -28,10 +26,6 @@ const EditProduct = () => {
       setState(payload);
     }
     getFormProduct();
-    const dataCate = async (): Promise<any> => {
-      setCategory(await Cate());
-    }
-    dataCate();
   }, []);
   const onsubmit = (data: any) => {
     const formdata = new FormData();
@@ -96,6 +90,9 @@ const EditProduct = () => {
           {renderInput('dailyMotionServer', 'DailyMotionServer', control)}
         </div>
         <Divstyled className="mb-3">
+          {renderInput('server2', 'Assb server', control)}
+        </Divstyled>
+        <Divstyled className="mb-3">
           {renderInput('trailer', 'Trailer Video', control)}
         </Divstyled>
         <Divstyled className="mb-3">
@@ -126,7 +123,7 @@ const EditProduct = () => {
         <Divstyled className="form-label">Category</Divstyled>
         <SelectStyled className="form-select-sm mb-4" {...register('category')} style={{ border: "none", padding: "10px", outline: "none" }} aria-label=".form-select-sm example">
           <option value={''}  >Thể loại của phim tập</option>
-          {category ? category.map((item: any, index: any) =>
+          {category ? category.data.map((item: any, index: any) =>
             <option value={item._id} key={index} selected={state.category?._id == item._id}>{
               item.name
             }</option>
@@ -151,7 +148,7 @@ const EditProduct = () => {
           ) : ""}
         </SelectStyled>
         <br />
-        <Button htmlType='submit' className="btn btn-primary">Submit</Button>
+        <MyButton htmlType='submit' className="btn btn-primary">Submit</MyButton>
       </form>
 
       <form onSubmit={handleSubmit(handleSubmitServerAssb)}>
@@ -160,7 +157,7 @@ const EditProduct = () => {
           <input type="file" name='file' {...register('fileupload')} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
         </div>
         <div className='mt-2'>
-          <Button htmlType='submit' className="btn btn-primary">Submit</Button>
+          <MyButton htmlType='submit' className="btn btn-primary">Submit</MyButton>
         </div>
       </form>
     </Divstyled>

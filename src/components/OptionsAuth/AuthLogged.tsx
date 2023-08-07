@@ -1,49 +1,45 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom'
 import { logout } from '../../redux/slice/userSlice';
 import { useAppDispatch } from '../../hook';
-import { message } from 'antd';
+import { AccountStyle } from './styles';
+import { LogoutOutlined, UserOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 
-const AuthLogged = ({ token }) => {
+const AuthLogged = ({ user }) => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const success = () => {
-    message.success('Logout successful')
-  };
   const handleLogout = async () => {
     dispatch(logout());
   }
   return (
     <>
-      <div className="acountImageContent absolute ">
+      <AccountStyle className="acountImageContent absolute ">
         <div className="signleAs d-flex justify-content-center">
-          <div>  Signed in as <b>
-            {token.user.username}
+          <div>Signed in as <b>
+            {user ? user.username : ''}
           </b></div>
         </div>
         <hr />
         <Link to={'/auth/profile'}>
           <div className='d-flex items-center hv_ text-center'>
-            <i className="fa-solid fa-users"></i>
+            <UsergroupAddOutlined />
             <div className='auth'>
               Your profile
             </div>
           </div>
         </Link>
-        {token.user ? token.user.role === 1 ? <Link to={'/admin'}>
+        {user ? user.role >= 1 ? <Link to={'/admin'}>
           <div className='d-flex items-center hv_ text-center'>
-            <i className="fa-regular fa-user"></i>
+            <UserOutlined />
             <div className='auth'>
               Admin
             </div>
           </div>
         </Link> : "" : ''}
         <div className='d-flex items-center hv_ text-center'>
-          <i className="fa-solid fa-right-from-bracket"></i>
+          <LogoutOutlined />
           <div className='' onClick={() => { handleLogout() }}>Logout</div>
         </div>
-      </div>
+      </AccountStyle>
     </>
   )
 }

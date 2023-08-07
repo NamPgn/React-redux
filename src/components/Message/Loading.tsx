@@ -25,7 +25,7 @@ export const Loading = () => {
 }
 
 export const Loader = () => {
-  const { state } = useContext(MyContext);
+  const { state } = useContext(MyContext) ?? {};
   return (
     <Skeleton
       className={state ? 'w-11/12' : 'w-10/12'}
@@ -49,6 +49,10 @@ export const MessageErr = () => {
   </LoadingErr>
 }
 
-export const Spiner = () => (
-  <Spin />
+
+
+export const Spiner = ({size, spinning, delay}) => (
+  <LoadingErr className="w-full">
+    <Spin spinning={spinning} delay={delay} size={size} />
+  </LoadingErr>
 )

@@ -1,13 +1,13 @@
 
 import ContactAdmin from '../../../components/Contact/ContactAdmin';
-import CategoryHomePage from '../../../components/CategoryComponent/CategoryHomePage';
+import CategoryHomePage from '../../../components/Category/CategoryHomePage';
 import React, { Suspense, useContext } from 'react';
 import { Loader } from '../../../components/Message/Loading';
 import { ChangeContext, MyContext } from '../../../context';
 import DetailComponent from '../../../components/Main/DetailComponent';
 const DetailProduct = () => {
   const { category, isLoading }: any = useContext(MyContext);
-  const { state } = useContext(ChangeContext);
+  const { state } = useContext(ChangeContext) || {};
   return (
     <>
       <div
@@ -16,7 +16,10 @@ const DetailProduct = () => {
         <Suspense fallback={<Loader />}>
           <DetailComponent />
         </Suspense>
-        <CategoryHomePage category={category} isLoading={isLoading} isError={undefined} />
+        <CategoryHomePage category={category.data}
+          isLoading={isLoading}
+          isError={undefined}
+        />
       </div>
     </>
   )

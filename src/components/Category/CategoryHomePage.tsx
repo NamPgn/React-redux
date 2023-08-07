@@ -1,33 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import SidebarApi from '../../page/Type/SidebarData'
 import { Loader, MessageErr } from '../Message/Loading';
 import CategoryContents from '../Content/Category';
 import { PlusOutlined } from '@ant-design/icons';
+import { NotUpdate } from '../Message/Warning';
+import { useSWRWithAxios } from '../../hook/Swr';
+import { urlSwr } from '../../function';
+import { CategoryHomepage, Div, DivstyledAllTitle } from './styles';
 const Divstyled = styled.div``;
 const DivstyOllMovie = styled.div``;
 const DivstyledContainer = styled.div`
 `;
-const Div = styled.div`
-color: rgb(153, 153, 153);
-padding: 118px 0;
-text-align: center;
-border-radius: 5px;
-border: 2px solid;
-`
 
-const DivstyledAllTitle = styled.div`
-  margin: 40px 0px;
-`
 type CategoryProp = {
   category: any,
   isLoading: boolean,
-  isError: any
+  isError: any,
+  phim?: any,
+  loading?: boolean
 }
 
 const CategoryHomePage = ({ category, isLoading, isError }: CategoryProp) => {
-  if (isLoading) {
+  const { data: phim, isLoading: loading } = useSWRWithAxios(urlSwr + '/type/movie');
+  if (isLoading && loading) {
     return <Loader />;
   }
   if (isError) {
@@ -38,7 +34,7 @@ const CategoryHomePage = ({ category, isLoading, isError }: CategoryProp) => {
       <div className='d-flex justify-between items-center'>
         <DivstyledAllTitle className=' text-white all_movie underline text-3xl font-extrabold dark:text-white'>Hh 3d</DivstyledAllTitle>
       </div>
-      <Divstyled className="categoryMovie">
+      <CategoryHomepage className="categoryMovie">
         {category ? category.map((item: any, index: any) => {
           return <Divstyled className='movie_css' key={index}>
             <CategoryContents
@@ -56,10 +52,22 @@ const CategoryHomePage = ({ category, isLoading, isError }: CategoryProp) => {
             <div style={{ color: '#999' }}>Load more</div>
           </Div>
         </Link>
-      </Divstyled>
-      <DivstyOllMovie className="pl">
-        <DivstyledAllTitle style={{ color: "#fff" }} className='text-light all_movie underline text-3xl font-extrabold dark:text-white '>Phim lẻ</DivstyledAllTitle>
-        {/* <SidebarApi  /> */}
+      </CategoryHomepage>
+      <DivstyOllMovie >
+        <DivstyledAllTitle className='text-light  all_movie underline text-3xl font-extrabold text-white '>{phim ? phim.name : ''}</DivstyledAllTitle>
+        <CategoryHomepage className="categoryMovie">
+          {phim && phim.products.length ? phim.products.map((item: any, index: any) => {
+            return <Divstyled className='movie_css' key={index}>
+              <CategoryContents
+                title={item.name}
+                link={'/d/' + item._id + `?c=${item.typeId}`}
+                image={item.image}
+                time='Thời gian 20/12 phút'
+                sumSeri={item.sumSeri}
+              />
+            </Divstyled>
+          }) : <NotUpdate />}
+        </CategoryHomepage>
       </DivstyOllMovie>
     </DivstyledContainer>
   )

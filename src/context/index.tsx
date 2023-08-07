@@ -1,66 +1,27 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { urlSwr } from '../function';
 import { useSWRWithAxios } from '../hook/Swr';
-// import {
-//   GoogleAuthProvider,
-//   signInWithPopup,
-//   signOut,
-//   onAuthStateChanged,
-//   getAuth,
-//   FacebookAuthProvider
-// } from "firebase/auth";
-// import { auth } from '../firebase'
-// const AuthContext = createContext(null);
-// export const AuthContextProvider = ({ children }) => {
-//   const [user, setUser]: any = useState(null);
-//   const [showLoginSuccess, setShowLoginSuccess] = useState(false);
-//   const googleSignin = () => {
-//     const provider = new GoogleAuthProvider();
-//     signInWithPopup(auth, provider)
-//   }
-//   const facebookSignin = () => {
-//     const provider = new FacebookAuthProvider();
-//     signInWithPopup(auth, provider)
-//   }
-//   const logOut = () => {
-//     signOut(auth);
-//     localStorage.removeItem('token');
-//     setShowLoginSuccess(false);
-//     setUser(null);
-//   }
-//   useEffect(() => {
-//     const ussubscribe = onAuthStateChanged(auth, async (currentUser) => {
-//       setUser(currentUser);
-//       if (currentUser !== null && !showLoginSuccess) {
-//         message.success('Login successfully');
-//         setShowLoginSuccess(true);
-//       }
-//       // const { token }: any = currentUser.getIdTokenResult();
-//       // const customClaims = {
-//       //   ...user,
-//       //   displayName: token.displayName,
-//       //   photoURL: user.photoURL,
-//       //   cart: [],
-//       //   role: 0
-//       // };
-//       // await currentUser.getIdToken(true);
-//     });
-//     return () => {
-//       ussubscribe();
-//     };
-//   }, [user]);
+import { isAuthentication } from '../auth/getToken';
+import { useAppDispatch, useAppSelector } from '../hook';
+import { getUser_id } from '../redux/slice/userSlice';
 
-//   return <AuthContext.Provider value={{ googleSignin, user, logOut, facebookSignin }}>
-//     {/* //cung cấp cho mấy thằng router thì gọi thằng childrent */}
-//     {children}
-//   </AuthContext.Provider>
-// }
-// export const UserAuth = () => {
-//   return useContext(AuthContext)
-// }
+
+const Auth: any = isAuthentication();
 
 export const MyContext = createContext(null);
 export const MyContextProvider = (props) => {
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector(state => state.user);
+  const isLoggedIn = localStorage.getItem('isLogin');
+  const isLoggedInState = useAppSelector(state => state.user.isLogin);
+  const loandingCart = useAppSelector(state => state.user.isLoading);
+  const [reset, setReset] = useState(false);
+  const [rerender, setRerender] = useState(false);
+  useEffect(() => {
+    if (Auth) {
+      dispatch(getUser_id(Auth.user._id));
+    }
+  }, [isLoggedInState, dispatch, reset, rerender]);
   const { data: category, isLoading } = useSWRWithAxios(urlSwr + `/categorys`);
   const { data: seri, isLoading: loadingSeri } = useSWRWithAxios(urlSwr + `/types`);
   const { data: categorymain, isLoading: LoadingCateMain, isError } = useSWRWithAxios(urlSwr + `/categorymain`);
@@ -75,6 +36,15 @@ export const MyContextProvider = (props) => {
     categorymain,
     LoadingCateMain,
     isError,
+
+    //user
+    Auth: Auth ? Auth : "",
+    user,
+    isLoggedIn,
+    isLoggedInState,
+    loandingCart,
+    setReset,
+    setRerender
   }
   return (
     <MyContext.Provider value={value}>{props.children}</MyContext.Provider>
@@ -85,7 +55,6 @@ export const MyContextProvider = (props) => {
 
 
 export const ChangeContext = createContext(null);
-
 export const ChangeContextProvider = (props) => {
   const [state, setState] = useState(false);
   const handleClick = () => {
@@ -100,3 +69,5 @@ export const ChangeContextProvider = (props) => {
     {props.children}
   </ChangeContext.Provider>
 }
+
+

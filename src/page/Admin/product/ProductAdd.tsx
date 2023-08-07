@@ -1,29 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { toast } from 'react-toastify';
-import { Cate } from '../../../function';
 import { useForm } from "react-hook-form";
 import { addProduct } from '../../../redux/slice/product/ThunkProduct/product';
-import styled from 'styled-components';
 import { MyContext } from '../../../context';
-import { useAppDispatch } from '../../../hook';
-import { Button } from 'antd';
+import { useAppDispatch, useAppSelector } from '../../../hook';
 import renderInput from '../../../hook/form';
-declare var Promise: any;
+import { statusAddProduct } from '../../../redux/selectors/product';
+import { MyButton } from '../../../components/Button';
 const ProductAdd = () => {
-  const { categorymain, LoadingCateMain, seri, loadingSeri, isError }: any = useContext(MyContext);
-  const [state, setCate] = useState([]);
-  useEffect(() => {
-    const dataCate = async (): Promise<any> => {
-      setCate(await Cate());
-    }
-    dataCate();
-  }, []);
-
+  const { categorymain,category, seri,isError }: any = useContext(MyContext);
   const dispatch = useAppDispatch();
   const { register, handleSubmit, control } = useForm();
-
+  const status = useAppSelector(statusAddProduct);
   const onsubmit = (data: any) => {
-
     const formdata = new FormData();
     formdata.append('name', data.name);
     formdata.append('options', data.options);
@@ -41,14 +30,13 @@ const ProductAdd = () => {
     formdata.append('categorymain', data.categorymain);
     formdata.append('dailyMotionServer', data.dailyMotionServer);
     dispatch(addProduct(formdata));
-    console.log(data);
     if (isError) {
       toast.error('thất bại');
     }
     toast.success('thành công');
   }
 
- 
+
   return (
     <div>
       <form onSubmit={handleSubmit(onsubmit)}>
@@ -97,7 +85,7 @@ const ProductAdd = () => {
         <div className="form-label">Category</div>
         <select className="form-select-sm mb-4" {...register('category')} style={{ border: "none", padding: "10px", outline: "none" }} aria-label=".form-select-sm example">
           <option value={''} >Thể loại của phim tập</option>
-          {state.map((item, index) => {
+          {category.data.map((item, index) => {
             return <option value={item._id} key={index}>{item.name}</option>
           })}
         </select>
@@ -121,11 +109,11 @@ const ProductAdd = () => {
         </select>
         <br />
         <div className='mt-2'>
-          <Button htmlType='submit' className="btn btn-primary">Submit</Button>
+          <MyButton htmlType='submit' className="btn btn-primary">Submit</MyButton>
         </div>
       </form>
 
-      
+
     </div>
   )
 }

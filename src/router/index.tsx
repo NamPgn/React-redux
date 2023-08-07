@@ -7,16 +7,19 @@ import {
   UserOutlined,
   LaptopOutlined,
   ControlOutlined,
-  StarOutlined,
   CompassOutlined,
   CarryOutOutlined,
   PicRightOutlined,
 } from "@ant-design/icons";
-const AuthComponent = lazy(() => import('../page/Layout/AuthLayout'));
-
 import CatemainProduct from '../page/Admin/TypesCategory/CatemainProduct';
 import DetailProductPage from '../page/Home/Libs/DetailProduct';
 import CategoryProduct from '../page/Home/Libs/CategoryPage'; //danh mục
+import AuthComponent from '../Layout/AuthLayout';
+import LayoutAdmin from '../Layout/LayoutAdmin';
+import PrivateRouter from '../components/Router-Security/PrivateRouter';
+import LayoutWebsite from '../Layout/LayoutWebsite';
+import Page404 from '../components/404/Page404';
+import LazyComponent from '../components/Lazy/LazyComponent';
 //type component
 const ListType = lazy(() => import('../page/Type/Theloai'));
 const OllMovie = lazy(() => import('../page/Type/SidebarData'));
@@ -31,7 +34,7 @@ const Signup = lazy(() => import('../page/Auth-Page/Sign-up')); //signup
 //router admin
 const AdminPage = lazy(() => import('../page/Admin')); //admin
 const DataProduct = lazy(() => import('../page/Admin/product/DataProduct'));
-const GetUser = lazy(() => import('../page/Admin/user/getUser'));
+const GetUser = lazy(() => import('../page/Admin/user'));
 const Adduser = lazy(() => import('../page/Admin/user/Adduser'));
 const EditUser = lazy(() => import('../page/Admin/user/EditUser'));
 const GetAdmin = lazy(() => import('../page/Admin/user/GetAdmin'));
@@ -52,218 +55,228 @@ const Loadmore = lazy(() => import('../page/Home/Loadmore'));
 
 export const routerNavBar = [
   {
-    Path: '/',
-    name: "Trang chủ"
-  },
-  // {
-  //   Path: '/postList',
-  //   name: "Post"
-  // },
-  {
-    Path: '/auth/signin',
-    name: "Đăng nhập"
+    path: '/',
+    name: "Trang chủ",
+    title: "Trang chủ",
   },
   {
-    Path: '/auth/signup',
-    name: "Đăng kí"
+    path: '/auth/signin',
+    name: "Đăng nhập",
+    title: "Đăng nhập",
   },
   {
-    Path: '/auth/profile',
-    name: "Hồ sơ"
+    path: '/auth/signup',
+    name: "Đăng kí",
+    title: "Đăng kí",
+  },
+  {
+    path: '/auth/profile',
+    name: "Hồ sơ",
+    title: "Hồ sơ",
   },
 ]
 
-export const RouterLayoutWebsite = [
+export const router = [
   {
     path: '/',
-    element: <HomePage />,
-    index: true
-  },
-
-  {
-    path: "d/:id",
-    element: <DetailProductPage />,
-  },
-
-  {
-    path: "logout",
-    element: <Logout />,
-  },
-
-  {
-    path: "q/:id",
-    element: <CategoryProduct />
-  },
-
-  {
-    path: 'search/category',
-    element: <SearchResults />
-  },
-
-  {
-    path: "cart/user",
-    element: <CartUser />,
-  },
-
-  {
-    path: "movie-content/:id",
-    element: <OllMovie />,
-  },
-
-  {
-    path: "types/h/:id",
-    element: <ListType />
-  },
-  {
-    path: "loadmore",
-    element: <Loadmore />
-  },
-];
-
-
-export const AuthComponents = [
-  {
-    Path: "auth",
-    component: <AuthComponent />,
-    chidrent: [
+    element: <LayoutWebsite />,
+    children: [
       {
-        Path: "signin",
-        component: <Signin />
+        path: '/',
+        element: <HomePage />,
+        index: true,
+      },
+
+      {
+        path: "d/:id",
+        element: <LazyComponent><DetailProductPage /></LazyComponent>,
+      },
+
+      {
+        path: "logout",
+        element: <LazyComponent><Logout /></LazyComponent>,
+      },
+
+      {
+        path: "q/:id",
+        element: <LazyComponent><CategoryProduct /></LazyComponent>
+      },
+
+      {
+        path: 'search/category',
+        element: <LazyComponent><SearchResults /></LazyComponent>
+      },
+
+      {
+        path: "cart/user",
+        element: <LazyComponent><CartUser /></LazyComponent>
+      },
+
+      {
+        path: "movie-content/:id",
+        element: <LazyComponent><OllMovie /></LazyComponent>,
+      },
+
+      {
+        path: "types/h/:id",
+        element: <LazyComponent><ListType /></LazyComponent>
       },
       {
-        Path: "signup",
-        component: <Signup />
-      },
-      {
-        Path: "profile",
-        component: <ProfilePage />
+        path: "loadmore",
+        element: <LazyComponent><Loadmore /></LazyComponent>
       },
     ]
+  },
+  {
+    path: "auth",
+    element: <AuthComponent />,
+    children: [
+      {
+        path: "signup",
+        element: <LazyComponent><Signup /></LazyComponent>
+      },
+      {
+        path: "signin",
+        element: <LazyComponent><Signin /></LazyComponent>
+      },
+      {
+        path: "profile",
+        element: <LazyComponent><ProfilePage /></LazyComponent>
+      }
+    ]
+  },
+  {
+    path: 'admin',
+    element: <PrivateRouter><LayoutAdmin /></PrivateRouter>,
+    children: [
+      {
+        path: "",
+        element: <LazyComponent><AdminPage /></LazyComponent>,
+        index: true
+      },
+      {
+        path: "products",
+        element: <LazyComponent><DataProduct /></LazyComponent>,
+      },
+      {
+        path: "users",
+        element: <LazyComponent><GetUser /></LazyComponent>,
+      },
+      {
+        path: "adminUer",
+        element: <LazyComponent><GetAdmin /></LazyComponent>,
+      },
+      {
+        path: "users/:id/edit",
+        element: <LazyComponent><EditUser /></LazyComponent>,
+      },
+      {
+        path: "user/add",
+        element: <LazyComponent><Adduser /></LazyComponent>,
+      },
+      {
+        path: "user/creatingUser",
+        element: <LazyComponent><CreatingUser /></LazyComponent>,
+      },
+      {
+        path: "product/add",
+        element: <LazyComponent><ProductAdd /></LazyComponent>,
+      },
+      {
+        path: "product/edit/:id",
+        element: <LazyComponent><EditProduct /></LazyComponent>,
+      },
+      {
+        path: "product/creacting",
+        element: <LazyComponent><CreatingProducts /></LazyComponent>,
+      },
+      {
+        path: "category",
+        element: <LazyComponent><CategoryAdmin /></LazyComponent>,
+      },
+      {
+        path: "category/edit/:id",
+        element: <LazyComponent><EditCategoryAdmin /></LazyComponent>
+      },
+      {
+        path: "trailing",
+        element: <LazyComponent><Trailer /></LazyComponent>
+      },
+      {
+        path: "/admin/trailerUrl/:id",
+        element: <LazyComponent><EditTrailerUrl /></LazyComponent>,
+      },
+      {
+        path: "/admin/comments",
+        element: <LazyComponent><CommentAdmin /></LazyComponent>,
+      },
+      {
+        path: "cart",
+        element: <LazyComponent><CartAdmin /></LazyComponent>,
+      },
+      {
+        path: "types",
+        element: <LazyComponent><TypesCateAdmin /></LazyComponent>,
+      },
+      {
+        path: "/admin/types/CateMainProduct/:id",
+        element: <LazyComponent><CatemainProduct /></LazyComponent>
+      },
+    ]
+  },
+  {
+    path: "/*",
+    element: <Page404 />
   }
 ];
 
-export const RoutersAdminUser = [
-  {
-    path: "",
-    element: <AdminPage />,
-    index: true
-  },
-  {
-    path: "products",
-    element: <DataProduct />,
-  },
-  {
-    path: "users",
-    element: <GetUser />,
-  },
-  {
-    path: "adminUer",
-    element: <GetAdmin />,
-  },
-  {
-    path: "users/:id/edit",
-    element: <EditUser />,
-  },
-  {
-    path: "user/add",
-    element: <Adduser />,
-  },
-  {
-    path: "user/creatingUser",
-    element: <CreatingUser />,
-  },
-  {
-    path: "product/add",
-    element: <ProductAdd />,
-  },
-  {
-    path: "product/edit/:id",
-    element: <EditProduct />,
-  },
-  {
-    path: "product/creacting",
-    element: <CreatingProducts />,
-  },
-  {
-    path: "category",
-    element: <CategoryAdmin />,
-  },
-  {
-    path: "category/edit/:id",
-    element: <EditCategoryAdmin />
-  },
-  {
-    path: "trailing",
-    element: <Trailer />,
-  },
-  {
-    path: "/admin/trailerUrl/:id",
-    element: <EditTrailerUrl />,
-  },
-  {
-    path: "/admin/comments",
-    element: <CommentAdmin />,
-  },
-  {
-    path: "cart",
-    element: <CartAdmin />,
-  },
-  {
-    path: "types",
-    element: <TypesCateAdmin />,
-  },
-  {
-    path: "/admin/types/CateMainProduct/:id",
-    element: <CatemainProduct />
-  },
-];
 
 export const TableRouterAdminPage = [
   {
-    Path: "/admin",
+    path: "/admin",
     name: "Thống kê",
-    iconComponent: <DashboardOutlined />
+    icon: <DashboardOutlined />
   },
 
   {
-    Path: "/admin/products",
+    path: "/admin/products",
     name: " Products",
-    iconComponent: <NotificationOutlined />
+    icon: <NotificationOutlined />
   },
   {
-    Path: "/admin/users",
+    path: "/admin/users",
     name: "Users",
-    iconComponent: <UserOutlined />
+    icon: <UserOutlined />
   },
   {
-    Path: "/admin/adminUer",
+    path: "/admin/adminUer",
     name: "Admin",
-    iconComponent: <LaptopOutlined />
+    icon: <LaptopOutlined />
   },
   {
-    Path: "/admin/category",
+    path: "/admin/category",
     name: "Category",
-    iconComponent: <ControlOutlined />
+    icon: <ControlOutlined />
   },
   {
-    Path: "/admin/trailing",
+    path: "/admin/trailing",
     name: "Trailer",
-    iconComponent: <LaptopOutlined />
+    icon: <LaptopOutlined />
   },
   {
-    Path: "/admin/comments",
+    path: "/admin/comments",
     name: "Comments",
-    iconComponent: <CarryOutOutlined />
+    icon: <CarryOutOutlined />
   },
   {
-    Path: "/admin/cart",
+    path: "/admin/cart",
     name: "Cart",
-    iconComponent: <CompassOutlined />
+    icon: <CompassOutlined />
   },
   {
-    Path: "/admin/types",
+    path: "/admin/types",
     name: "Types",
-    iconComponent: <PicRightOutlined />
+    icon: <PicRightOutlined />
   },
 ];
 
