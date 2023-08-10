@@ -1,14 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
-import ImageHomePage from '/img/FB_IMG_1674382115803.jpg';
-const I = 'https://firebasestorage.googleapis.com/v0/b/mystorage-265d8.appspot.com/o/background%2F344349264_1189664538382178_6361259618366921556_n.jpg?alt=media&token=b4695431-6769-4d62-9fce-0f952e599de8';
-
 export const GlobalStyle = createGlobalStyle`
 :root{
   textarea {
     outline: none;
   }
-
-  
 
   img {
     width: 100%;
@@ -34,14 +29,13 @@ export const GlobalStyle = createGlobalStyle`
   }
   
   .containers {
-    padding-top: 6.5% !important;
+    padding-top: 10.5%;
   }
   
   .d-flex {
     display: block !important;
   }
   
-  .searchHeader,
   .network {
     display: none;
   }
@@ -65,22 +59,9 @@ export const GlobalStyle = createGlobalStyle`
     display: block;
   }
   
-  .menu_mobile {
-    display: block !important;
-  }
-  
   .admin_contact {
     display: none;
   }
-  
-  .group {
-    display: flex;
-    line-height: 28px;
-    align-items: center;
-    position: relative;
-    width: 100%;
-  }
-  
   
   .icon {
     position: absolute;
@@ -160,18 +141,20 @@ export const GlobalStyle = createGlobalStyle`
     border-bottom: 15px solid #fff;
   }
 
-  
-
   @media(min-width:768px){
     font-size:14px;
+
     .pl{
       display: block;
+    }
+
+    .containers {
+      padding-top: 7.5%;
     }
   }
 
 
   @media(min-width:1024px) {
-
     .acountImageContent::before {
       content: "";
       left: 43% ;
@@ -183,47 +166,12 @@ export const GlobalStyle = createGlobalStyle`
       display: none;
     }
   
-    #navbarToggleExternalContent2 {
-      display: none;
-    }
-  
-    main::before {
-      content: " ";
-      background: url(${I ? I : ImageHomePage});
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      opacity: .2;
-      /* background-repeat: no-repeat; */
-      background-position: center;
-      -ms-background-size: cover;
-      -o-background-size: cover;
-      -moz-background-size: cover;
-      -webkit-background-size: cover;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-    }
-  
-    .page404 {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  
     .d-flex {
       display: flex !important;
     }
   
     .navbar {
       display: none;
-    }
-  
-    .searchHeader {
-      display: block;
     }
   
     .inner {
@@ -249,15 +197,6 @@ export const GlobalStyle = createGlobalStyle`
       font-weight: 500;
     }
   
-    .des h5 {
-      margin: 10px 0;
-    }
-  
-    .des p {
-      font-size: 14px;
-      color: #999 !important;
-    }
-    
     .cateTitle p {
       margin-top: 7px;
       font-size: 14px;
@@ -376,33 +315,6 @@ export const GlobalStyle = createGlobalStyle`
       cursor: pointer;
     }
   
-    .group {
-      display: flex;
-      line-height: 28px;
-      align-items: center;
-      position: relative;
-      margin: 15px 0;
-    }
-  
-    .input2 {
-      width: 100%;
-      height: 45px;
-      line-height: 28px;
-      padding: 0 1rem;
-      padding-left: 2.5rem;
-      border: 2px solid transparent;
-      border-radius: 8px;
-      outline: none;
-      background-color: #fff;
-      color: #0d0c22;
-      transition: .3s ease;
-    }
-  
-    .input2::placeholder {
-      color: #9e9ea7;
-    }
-  
-  
     .icon {
       position: absolute;
       left: 1rem;
@@ -411,10 +323,6 @@ export const GlobalStyle = createGlobalStyle`
       height: 1rem;
     }
   
-    .containers {
-      padding-top: 6.5% !important;
-    }
-
     .nav-masthead {
       padding: 10px;
     }
@@ -428,16 +336,8 @@ export const GlobalStyle = createGlobalStyle`
       height: 70px;
     }
   
-    .menu_mobile {
-      display: none;
-    }
-  
     .admin_contact {
       display: block;
-    }
-  
-    .searchContent {
-      overflow-y: scroll;
     }
   
     .searhValue {
@@ -461,11 +361,6 @@ export const GlobalStyle = createGlobalStyle`
       height: 100%;
     }
   
-    .searchContent {
-      background-color: #fff;
-      border-radius: 1px;
-    }
-  
     .acountImage {
       width: 40px;
       height: 40px;
@@ -481,7 +376,6 @@ export const GlobalStyle = createGlobalStyle`
       border-radius: 100%;
     }
   
-
     .acountImageContent div {
       font-weight: 500;
       padding: 5px 15px;
@@ -502,8 +396,6 @@ export const GlobalStyle = createGlobalStyle`
       color: #000;
     }
   
-  
-  
     .comment {
       height: 100%;
       white-space: nowrap;
@@ -522,12 +414,10 @@ export const GlobalStyle = createGlobalStyle`
       border-radius: 5px;
       margin: 10px 0;
     }
-  }
-  @media(min-width:1280px){
+
     .containers{
-      padding-top: 6.5% !important;
+      padding-top: 6.5%;
     }
   }
-}
 
 `

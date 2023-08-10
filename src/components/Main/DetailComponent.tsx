@@ -81,7 +81,7 @@ const DetailComponent = () => {
                   seriProduct={productByCategory}
                 />
 
-                <DivStyledDescription className='des mt-2 mb-2'>
+                <DivStyledDescription className='text-[#999] lg:text-md sm:text-sm mt-2 mb-2'>
                   <Dividers orientation="left">Mô tả: </Dividers>
                   <p>{getOneProductDetail.descriptions}</p>
                 </DivStyledDescription>

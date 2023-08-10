@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { getTrailerUrl } from '../../../api/trailer';
-import { Table, Button } from 'antd';
+import { Table } from 'antd';
 import { Link } from 'react-router-dom';
+import { MyButton } from '../../../components/Button';
 declare var Promise;
 const indexTrailer = () => {
   const columns = [
@@ -22,7 +23,7 @@ const indexTrailer = () => {
     },
   ];
 
-  const [trailer, setTrailer]: any = useState([]);
+  const [trailer, setTrailer]: any = useState({});
   useEffect(() => {
     const getAlldata = async (): Promise<any> => {
       const { data } = await getTrailerUrl();
@@ -36,9 +37,9 @@ const indexTrailer = () => {
     action: (
       <span>
         <Link to={`/admin/trailerUrl/${trailer._id}`}>
-          <Button type="primary" style={{ background: "#1677ff" }}>
+          <MyButton type="primary" style={{ background: "#1677ff" }}>
             Edit
-          </Button>
+          </MyButton>
         </Link>
       </span>
     )

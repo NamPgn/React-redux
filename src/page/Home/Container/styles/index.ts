@@ -33,7 +33,7 @@ export const InputStyled = styled.input`
   height: 30px;
   line-height: 28px;
   padding: 0 1rem;
-  padding-left: 2.5rem;
+  padding-left: 1rem;
   border: 2px solid transparent;
   outline: none;
   border-bottom-left-radius: 5px;

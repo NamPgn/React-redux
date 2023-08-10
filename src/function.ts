@@ -3,4 +3,4 @@ export const filterCate = (states: any, id: any) => {
   return data
 }
 
-export const urlSwr = 'http://localhost:8000/api';
+export const urlSwr = import.meta.env.VITE_DATABASE;

@@ -1,10 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { editTrailer } from "../../api/trailer";
-import { Itraier } from "../../interfaces/trailer";
 
 export const editTrailerSlice = createAsyncThunk(
   'trailer/Trailing',
-  async (dataEdit:Itraier) => {
+  async (dataEdit:any) => {
     const { data } = await editTrailer(dataEdit);
     return data
   }

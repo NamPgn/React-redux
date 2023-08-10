@@ -22,6 +22,7 @@ export const MyContextProvider = (props) => {
       dispatch(getUser_id(Auth.user._id));
     }
   }, [isLoggedInState, dispatch, reset, rerender]);
+  const { data: background } = useSWRWithAxios(urlSwr + '/background');
   const { data: category, isLoading } = useSWRWithAxios(urlSwr + `/categorys`);
   const { data: seri, isLoading: loadingSeri } = useSWRWithAxios(urlSwr + `/types`);
   const { data: categorymain, isLoading: LoadingCateMain, isError } = useSWRWithAxios(urlSwr + `/categorymain`);
@@ -44,7 +45,10 @@ export const MyContextProvider = (props) => {
     isLoggedInState,
     loandingCart,
     setReset,
-    setRerender
+    setRerender,
+
+    //background
+    background
   }
   return (
     <MyContext.Provider value={value}>{props.children}</MyContext.Provider>

@@ -53,6 +53,9 @@ const TypesCateAdmin = lazy(() => import('../page/Admin/TypesCategory'));
 
 const Loadmore = lazy(() => import('../page/Home/Loadmore'));
 
+//background
+const Background = lazy(() => import('../page/Admin/background'));
+const EditBackground = lazy(() => import('../page/Admin/background/edit'));
 export const routerNavBar = [
   {
     path: '/',
@@ -203,11 +206,11 @@ export const router = [
         element: <LazyComponent><Trailer /></LazyComponent>
       },
       {
-        path: "/admin/trailerUrl/:id",
+        path: "trailerUrl/:id",
         element: <LazyComponent><EditTrailerUrl /></LazyComponent>,
       },
       {
-        path: "/admin/comments",
+        path: "comments",
         element: <LazyComponent><CommentAdmin /></LazyComponent>,
       },
       {
@@ -219,8 +222,16 @@ export const router = [
         element: <LazyComponent><TypesCateAdmin /></LazyComponent>,
       },
       {
-        path: "/admin/types/CateMainProduct/:id",
+        path: "types/CateMainProduct/:id",
         element: <LazyComponent><CatemainProduct /></LazyComponent>
+      },
+      {
+        path: "background",
+        element: <LazyComponent><Background /></LazyComponent>
+      },
+      {
+        path: "background/edit/:id",
+        element: <LazyComponent><EditBackground /></LazyComponent>
       },
     ]
   },
@@ -276,6 +287,11 @@ export const TableRouterAdminPage = [
   {
     path: "/admin/types",
     name: "Types",
+    icon: <PicRightOutlined />
+  },
+  {
+    path: "/admin/background",
+    name: "Background",
     icon: <PicRightOutlined />
   },
 ];
