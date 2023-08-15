@@ -4,7 +4,7 @@ import CategoryHomePage from '../../../components/Category/CategoryHomePage';
 import React, { Suspense, useContext } from 'react';
 import { Loader } from '../../../components/Message/Loading';
 import { ChangeContext, MyContext } from '../../../context';
-import DetailComponent from '../../../components/Main/DetailComponent';
+import DetailComponent from '../../../components/Main';
 const DetailProduct = () => {
   const { category, isLoading }: any = useContext(MyContext);
   const { state } = useContext(ChangeContext) || {};

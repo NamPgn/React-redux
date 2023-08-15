@@ -4,7 +4,7 @@ import jwtDecode from "jwt-decode";
 import CryptoJS from 'crypto-js';
 import { Warning } from "../components/Message/Warning";
 const intances = axios.create({
-    baseURL: "http://localhost:8000/api"
+    baseURL: import.meta.env.VITE_DATABASE
 })
 
 intances.interceptors.response.use(

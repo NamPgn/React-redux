@@ -42,8 +42,8 @@ const Profile = () => {
   }
 
 
-  if (Auth && isLoggedInState) {
-    return <Container className="h-screen containers p-5 w-10/12">
+  return (
+    <Container className="h-screen containers p-5 w-10/12">
       <div className='text-lg text-white underline'>
         User Info
       </div>
@@ -82,11 +82,7 @@ const Profile = () => {
       </div>
       <MyButton icon={<EditOutlined />} loading={isLoading} className='text-white mt-7' onClick={handleEditImage}>Update Profile</MyButton>
     </Container>
-  } else {
-    return <Navigate to={'/auth/signin'} />
-  }
-
-
+  )
 }
 
 export default Profile

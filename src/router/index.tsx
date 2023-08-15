@@ -1,5 +1,5 @@
 import React, { lazy } from 'react';
-import HomePage from '../page/Home/Container/HomePage';
+import HomePage from '../page/Home/Container';
 import Logout from '../page/Auth-Page/Logout';
 import {
   DashboardOutlined,
@@ -12,14 +12,16 @@ import {
   PicRightOutlined,
 } from "@ant-design/icons";
 import CatemainProduct from '../page/Admin/TypesCategory/CatemainProduct';
-import DetailProductPage from '../page/Home/Libs/DetailProduct';
-import CategoryProduct from '../page/Home/Libs/CategoryPage'; //danh mục
+import DetailProductPage from '../page/Home/Detail';
+import CategoryProduct from '../page/Home/Category'; //danh mục
 import AuthComponent from '../Layout/AuthLayout';
 import LayoutAdmin from '../Layout/LayoutAdmin';
 import PrivateRouter from '../components/Router-Security/PrivateRouter';
 import LayoutWebsite from '../Layout/LayoutWebsite';
 import Page404 from '../components/404/Page404';
 import LazyComponent from '../components/Lazy/LazyComponent';
+import { useAppDispatch } from '../hook';
+import { logout } from '../redux/slice/userSlice';
 //type component
 const ListType = lazy(() => import('../page/Type/Theloai'));
 const OllMovie = lazy(() => import('../page/Type/SidebarData'));
@@ -29,7 +31,6 @@ const SearchResults = lazy(() => import('../components/Search/SearchResults')); 
 const ProfilePage = lazy(() => import('../page/Auth-Page/Profile')); //profile
 const Signin = lazy(() => import('../page/Auth-Page/Sign-in')); //signin
 const Signup = lazy(() => import('../page/Auth-Page/Sign-up')); //signup
-
 
 //router admin
 const AdminPage = lazy(() => import('../page/Admin')); //admin
@@ -50,12 +51,16 @@ const CommentAdmin = lazy(() => import('../page/Admin/comment/CommentAdmin'));
 const CartUser = lazy(() => import('../components/Cart/CartUser'));
 const CartAdmin = lazy(() => import('../page/Admin/Cart/CartAdmin'));
 const TypesCateAdmin = lazy(() => import('../page/Admin/TypesCategory'));
-
-const Loadmore = lazy(() => import('../page/Home/Loadmore'));
+const Loadmore = lazy(() => import('../page/Home/Category/Loadmore'));
 
 //background
 const Background = lazy(() => import('../page/Admin/background'));
 const EditBackground = lazy(() => import('../page/Admin/background/edit'));
+
+const handleLogout = () => {
+  const dispath = useAppDispatch();
+  dispath(logout())
+}
 export const routerNavBar = [
   {
     path: '/',
@@ -72,12 +77,20 @@ export const routerNavBar = [
     name: "Đăng kí",
     title: "Đăng kí",
   },
+
+]
+
+export const loggedInRoutes = [
+  {
+    path: '/',
+    name: 'Home'
+  },
   {
     path: '/auth/profile',
     name: "Hồ sơ",
     title: "Hồ sơ",
   },
-]
+];
 
 export const router = [
   {
@@ -295,5 +308,3 @@ export const TableRouterAdminPage = [
     icon: <PicRightOutlined />
   },
 ];
-
-

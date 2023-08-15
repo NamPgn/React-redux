@@ -1,7 +1,7 @@
 
 import React, { useContext, useState } from 'react'
 import SearchResults from '../../../components/Search/SearchResults';
-import ConfigHomePage from '../Libs/ConfigHomePage';
+import ConfigHomePage from './ConfigHomePage';
 import styled from 'styled-components';
 import { ChangeContext, MyContext } from '../../../context';
 import { useSWRWithAxios } from '../../../hook/Swr';
@@ -40,7 +40,6 @@ const HomePage = () => {
         state={state}
       />
       }
-      
     </div>
   )
 }

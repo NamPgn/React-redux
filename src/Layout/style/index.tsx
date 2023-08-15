@@ -12,12 +12,18 @@ export const MainContent = styled.div`
     width: 100%;
     height: 100%;
     z-index: -1;
-    background-image: url(${(props) => props.background});
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
     opacity: .2;
+  }
+
+  @media (min-width: 768px) {
+    &:before{
+      content: '';
+      background-image: url(${(props) => props.background});
+    }
   }
 }
 `

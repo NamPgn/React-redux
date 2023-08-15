@@ -17,7 +17,7 @@ const DetailComponent = () => {
   const productByCategory = useAppSelector(getAllProductsByCategory$);
   const getOneProductDetail = useAppSelector(getOneProduct$);
   const [commentAdded, setCommentAdded] = useState(false); // tạo state
-  const [link, setLink] = useState(getOneProductDetail.link);
+  const [link, setLink] = useState(getOneProductDetail.link ? getOneProductDetail.link : getOneProductDetail.server2);
   const { id } = useParams();
   const { c } = queryString.parse(window.location.href.split('?')[1]);//lấy data url
   const [activeLink, setActiveLink] = useState('link1');

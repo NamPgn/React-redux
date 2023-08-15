@@ -34,7 +34,6 @@ const EditProduct = () => {
     formdata.append('seri', data.seri);
     formdata.append('category', data.category);
     formdata.append('_id', id);
-    formdata.append('linkVideo', data.linkVideo);
     formdata.append('seri', data.seri);
     formdata.append('LinkCopyright', data.LinkCopyright);
     formdata.append('copyright', data.copyright)
@@ -47,9 +46,10 @@ const EditProduct = () => {
     formdata.append('typeId', data.typeId);
     formdata.append('categorymain', data.categorymain);
     formdata.append('dailyMotionServer', data.dailyMotionServer);
+    formdata.append('image2',data.image2);
+    formdata.append('video2',data.video2);
     dispatch(editProduct(formdata));
     // navigate('/admin/products');
-
     toast.success(`Sửa ${data.name}} công`, {
       position: "bottom-right",
       autoClose: 5000,
@@ -119,6 +119,12 @@ const EditProduct = () => {
         <Divstyled className="mb-3">
           {renderInput('options', 'Options', control)}
         </Divstyled>
+        <div className="mb-3">
+          {renderInput('video2', 'Video Link', control)}
+        </div>
+        <div className="mb-3">
+          {renderInput('image2', 'Image Link', control)}
+        </div>
         {/** Thể loại của phim tập*/}
         <Divstyled className="form-label">Category</Divstyled>
         <SelectStyled className="form-select-sm mb-4" {...register('category')} style={{ border: "none", padding: "10px", outline: "none" }} aria-label=".form-select-sm example">

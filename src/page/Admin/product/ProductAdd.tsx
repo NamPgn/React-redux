@@ -3,15 +3,13 @@ import { toast } from 'react-toastify';
 import { useForm } from "react-hook-form";
 import { addProduct } from '../../../redux/slice/product/ThunkProduct/product';
 import { MyContext } from '../../../context';
-import { useAppDispatch, useAppSelector } from '../../../hook';
+import { useAppDispatch } from '../../../hook';
 import renderInput from '../../../hook/form';
-import { statusAddProduct } from '../../../redux/selectors/product';
 import { MyButton } from '../../../components/Button';
 const ProductAdd = () => {
   const { categorymain,category, seri,isError }: any = useContext(MyContext);
   const dispatch = useAppDispatch();
   const { register, handleSubmit, control } = useForm();
-  const status = useAppSelector(statusAddProduct);
   const onsubmit = (data: any) => {
     const formdata = new FormData();
     formdata.append('name', data.name);
@@ -29,14 +27,14 @@ const ProductAdd = () => {
     formdata.append('typeId', data.typeId);
     formdata.append('categorymain', data.categorymain);
     formdata.append('dailyMotionServer', data.dailyMotionServer);
+    formdata.append('image2', data.image);
+    formdata.append('video2', data.link);
     dispatch(addProduct(formdata));
     if (isError) {
       toast.error('thất bại');
     }
     toast.success('thành công');
   }
-
-
   return (
     <div>
       <form onSubmit={handleSubmit(onsubmit)}>
@@ -80,6 +78,12 @@ const ProductAdd = () => {
         </div>
         <div className="mb-3">
           {renderInput('options', 'Options', control)}
+        </div>
+        <div className="mb-3">
+          {renderInput('video2', 'Video Link', control)}
+        </div>
+        <div className="mb-3">
+          {renderInput('image2', 'Image Link', control)}
         </div>
         {/** Thể loại của phim tập*/}
         <div className="form-label">Category</div>

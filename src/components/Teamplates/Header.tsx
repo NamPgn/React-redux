@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { routerNavBar } from '../../router';
+import { loggedInRoutes, routerNavBar } from '../../router';
 import AuthLogged from '../OptionsAuth/AuthLogged';
 import AuthUnLogger from '../OptionsAuth/AuthUnLogger';
 import { ChangeContext, MyContext } from '../../context';
@@ -51,6 +51,9 @@ const Header = () => {
     useEffect(() => {
         setScrollUp(!false);
     }, []);
+
+    const routerLoggedIn = isLoggedInState ? loggedInRoutes : routerNavBar;
+
     return (
         <>
             <header className="masthead mb-auto">
@@ -62,7 +65,7 @@ const Header = () => {
                     }}>
 
                     <div className="nav nav-masthead justify-center items-center d-flex">
-                        {routerNavBar.map((item: any, index: any) => (
+                        {routerLoggedIn.map((item: any, index: any) => (
                             <li key={index} className="nav-item"><Link style={{ color: "#fff", textDecoration: "none", margin: "0 20px" }} to={item.path}>{item.name}</Link></li>
                         ))}
                         <DivContentMkt>

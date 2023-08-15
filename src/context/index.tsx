@@ -1,10 +1,9 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import { urlSwr } from '../function';
 import { useSWRWithAxios } from '../hook/Swr';
 import { isAuthentication } from '../auth/getToken';
 import { useAppDispatch, useAppSelector } from '../hook';
 import { getUser_id } from '../redux/slice/userSlice';
-
 
 const Auth: any = isAuthentication();
 

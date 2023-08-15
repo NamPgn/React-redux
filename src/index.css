@@ -41,7 +41,7 @@ a:hover {
   display: none !important;
 }
 
-:where(.css-dev-only-do-not-override-1s3dcof).ant-rate .ant-rate-star-zero .ant-rate-star-second{
+.ant-rate .ant-rate-star-zero .ant-rate-star-second {
   color: #ffffffa2 !important;
 }
 
