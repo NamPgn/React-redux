@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { AreaChartOutlined, BarChartOutlined, BlockOutlined, DoubleLeftOutlined, DoubleRightOutlined, FundOutlined, HomeOutlined, RiseOutlined, SearchOutlined } from '@ant-design/icons';
 import { ChangeContext, MyContext } from '../../context';
-import { Skeleton } from 'antd';
 import { DivStyled, DivStyledRouter, DivStyledSearchBarStyle, DivStyledTitle, DivstySideBar, DivstyledContent, Icon, RouterIcon, RouterLink, RouterText, SibarImage, SideBarText, Text, Title } from './styles';
+import { Spiner } from '../Message/Loading';
 const Icons = [
   <HomeOutlined />,
   <BlockOutlined />,
@@ -15,15 +15,6 @@ const Icons = [
 const SideBar = () => {
   const { seri, loadingSeri }: any = useContext(MyContext) || {};
   const { state, handleClick } = useContext(ChangeContext) || {};
-  if (loadingSeri) {
-    return <Skeleton style={{ padding: "20px", width: '0' }}
-      active
-      loading
-      title={{ width: 200 }}
-      paragraph={{ rows: 6, width: [50, 60, 30, 20, 10, 70] }}
-    />
-  }
-
   return (
     <DivstySideBar className={state ? 'w-1/12' : 'w-2/12'} >
       <DivstyledContent className={state ? 'w-1/12' : 'w-2/12'} >
@@ -53,8 +44,9 @@ const SideBar = () => {
             padding: "10px 15px",
             margin: "25px 0 0 0"
           }} /> : <DivStyledSearchBarStyle placeholder='Search...' />}
-          <RouterLink className='sideBarActive'>
-            {seri ? seri.map((item: any, index: any) => (
+
+          {!loadingSeri ? <RouterLink className='sideBarActive'>
+            {seri && (seri.map((item: any, index: any) => (
               <NavLink
                 to={item.path == '/' ? item.path : item.path + '/' + `${item._id}`}
                 key={index}
@@ -64,8 +56,8 @@ const SideBar = () => {
                   <RouterText className={state ? 'hiddenn' : 'block'}>{item.name}</RouterText>
                 </DivStyledRouter>
               </NavLink>
-            )) : ""}
-          </RouterLink>
+            )))}
+          </RouterLink> : <Spiner delay={0.5} size='large' spinning={undefined} />}
         </DivStyled>
 
       </DivstyledContent>

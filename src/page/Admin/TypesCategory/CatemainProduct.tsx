@@ -1,7 +1,5 @@
 import React from 'react'
 import { Table, Button, Image } from 'antd';
-import { useContext } from 'react';
-import { MyContext } from '../../../context';
 import { Link, useParams } from 'react-router-dom';
 import { urlSwr } from '../../../function';
 import { useSWRWithAxios } from '../../../hook/Swr';

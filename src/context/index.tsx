@@ -54,9 +54,6 @@ export const MyContextProvider = (props) => {
   )
 }
 
-
-
-
 export const ChangeContext = createContext(null);
 export const ChangeContextProvider = (props) => {
   const [state, setState] = useState(false);

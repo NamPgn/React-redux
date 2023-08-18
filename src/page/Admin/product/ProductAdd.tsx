@@ -4,12 +4,27 @@ import { useForm } from "react-hook-form";
 import { addProduct } from '../../../redux/slice/product/ThunkProduct/product';
 import { MyContext } from '../../../context';
 import { useAppDispatch } from '../../../hook';
-import renderInput from '../../../hook/form';
+import renderInput, { MySelectWrapper } from '../../../hook/form';
 import { MyButton } from '../../../components/Button';
+import MySelect from '../../../components/Select';
 const ProductAdd = () => {
-  const { categorymain,category, seri,isError }: any = useContext(MyContext);
+  const { categorymain, category, seri, isError }: any = useContext(MyContext);
   const dispatch = useAppDispatch();
   const { register, handleSubmit, control } = useForm();
+  const categoryOptions = category && (category?.data.map((item, index) => ({
+    label: item.name,
+    value: item._id
+  })));
+
+  const categorymainOptions = categorymain && (categorymain?.map((item, index) => ({
+    label: item.name,
+    value: item._id
+  })));
+
+  const typeOptions = seri && (seri?.map((item, index) => ({
+    label: item.name,
+    value: item._id
+  })));
   const onsubmit = (data: any) => {
     const formdata = new FormData();
     formdata.append('name', data.name);
@@ -38,86 +53,72 @@ const ProductAdd = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(onsubmit)}>
-        <div className="mb-3">
-          {renderInput('name', 'Product name', control)}
-        </div>
-        <div className="mb-3">
-          {renderInput('view', 'View', control)}
-        </div>
-        <div className="mb-3">
-          {renderInput('seri', 'Seri', control)}
-        </div>
-        <div className="mb-3">
-          {renderInput('descriptions', 'Desciption', control)}
-        </div>
-        <div className="mb-3">
-          {renderInput('copyright', 'Copyright', control)}
-        </div>
-        <div className="mb-3">
-          {renderInput('LinkCopyright', 'LinkCopyright', control)}
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Video Url</label>
-          <input type="file" name='file' {...register('file')} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Image</label>
-          <input type="file" name='image' {...register('image')} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
-        </div>
-        <div className="mb-3">
-          {renderInput('dailyMotionServer', 'DailyMotionServer', control)}
-        </div>
-        <div className="mb-3">
-          {renderInput('trailer', 'Trailer Video', control)}
-        </div>
-        <div className="mb-3">
-          {renderInput('year', 'Year', control)}
-        </div>
-        <div className="mb-3">
-          {renderInput('country', 'Country', control)}
-        </div>
-        <div className="mb-3">
-          {renderInput('options', 'Options', control)}
-        </div>
-        <div className="mb-3">
-          {renderInput('video2', 'Video Link', control)}
-        </div>
-        <div className="mb-3">
-          {renderInput('image2', 'Image Link', control)}
-        </div>
+        {renderInput('name', 'Product name', control)}
+
+        {renderInput('view', 'View', control)}
+
+        {renderInput('seri', 'Seri', control)}
+
+        {renderInput('descriptions', 'Desciption', control)}
+
+        {renderInput('copyright', 'Copyright', control)}
+
+        {renderInput('LinkCopyright', 'LinkCopyright', control)}
+
+        <label className="form-label">Video Url</label>
+        <input type="file" name='file' {...register('file')} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
+
+        <label className="form-label">Image</label>
+        <input type="file" name='image' {...register('image')} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
+
+        {renderInput('dailyMotionServer', 'DailyMotionServer', control)}
+
+        {renderInput('trailer', 'Trailer Video', control)}
+
+        {renderInput('year', 'Year', control)}
+        {renderInput('country', 'Country', control)}
+        {renderInput('options', 'Options', control)}
+
+        {renderInput('video2', 'Video Link', control)}
+
+        {renderInput('image2', 'Image Link', control)}
         {/** Thể loại của phim tập*/}
-        <div className="form-label">Category</div>
-        <select className="form-select-sm mb-4" {...register('category')} style={{ border: "none", padding: "10px", outline: "none" }} aria-label=".form-select-sm example">
-          <option value={''} >Thể loại của phim tập</option>
-          {category.data.map((item, index) => {
-            return <option value={item._id} key={index}>{item.name}</option>
-          })}
-        </select>
+        <MySelectWrapper
+          control={control}
+          name='category'
+          label={'Category'}
+          placeholder={'category'}
+          defaultValue={'category'}
+          style={{ width: 300 }}
+          options={categoryOptions}
+        />
         <br />
         {/** Thể loại của phim lẻ phim bộ 1 tập */}
-        <div className="form-label">Thể loại của phim lẻ</div>
-        <select className="form-select-sm mb-4" {...register('typeId')} style={{ border: "none", padding: "10px", outline: "none" }} aria-label=".form-select-sm example">
-          <option value={''} >Thể loại của phim lẻ phim bộ 1 tập</option>
-          {seri.map((item, index) => {
-            return <option value={item._id} key={index}>{item.name}</option>
-          })}
-        </select>
+        <MySelectWrapper
+          name={'typeId'}
+          label={'Thể loại của phim lẻ'}
+          control={control}
+          placeholder={'typeId'}
+          defaultValue={'typeId'}
+          style={{ width: 300 }}
+          options={typeOptions}
+        />
         <br />
         {/** Thể loại của danh mục thể loại gồm các danh mục con */}
-        <div className="form-label">Thể loại của danh mục thể loại gồm các danh mục con</div>
-        <select className="form-select-sm mb-4" {...register('categorymain')} style={{ border: "none", padding: "10px", outline: "none" }} aria-label=".form-select-sm example">
-          <option value={''} >Thể loại của danh mục thể loại gồm các danh mục con</option>
-          {categorymain.map((item, index) => {
-            return <option value={item._id} key={index}>{item.name}</option>
-          })}
-        </select>
+        <MySelectWrapper
+          name={'categorymain'}
+          label={'Thể loại của danh mục thể loại gồm các danh mục con'}
+          control={control}
+          placeholder={'categorymain'}
+          defaultValue={'categorymain'}
+          style={{ width: 300 }}
+          options={categorymainOptions}
+        />
         <br />
         <div className='mt-2'>
           <MyButton htmlType='submit' className="btn btn-primary">Submit</MyButton>
         </div>
       </form>
-
-
     </div>
   )
 }

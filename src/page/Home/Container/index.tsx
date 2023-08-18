@@ -7,7 +7,7 @@ import { ChangeContext, MyContext } from '../../../context';
 import { useSWRWithAxios } from '../../../hook/Swr';
 import { urlSwr } from '../../../function';
 import { BtnStyled, InputStyled } from './styles';
-
+import { Spiner } from '../../../components/Message/Loading';
 const Divstyled = styled.div``;
 
 const HomePage = () => {
@@ -21,25 +21,26 @@ const HomePage = () => {
   }
   return (
     <div className={`w-10/12  p-2 @screen md:${state ? "w-11/12" : "w-10/12"}`}>
-      <Divstyled className={state ? "form-outline p-2" : "form-outline"}>
-        <Divstyled className='d-flex items-center'>
-          <div className=' w-full flex items-center'>
-            <Divstyled className="group w-full">
-              <InputStyled placeholder="Search" onChange={(e) => setSearchValue(e.target.value)} type="search" />
-            </Divstyled>
-            <Divstyled>
-              <BtnStyled className='btnSearch' onClick={handleSearch}>Tìm</BtnStyled>
-            </Divstyled>
-          </div>
+      {!isLoading ? <>
+        <Divstyled className={state ? "form-outline p-2" : "form-outline"}>
+          <Divstyled className='d-flex items-center'>
+            <div className=' w-full flex items-center'>
+              <Divstyled className="group w-full">
+                <InputStyled placeholder="Search" onChange={(e) => setSearchValue(e.target.value)} type="search" />
+              </Divstyled>
+              <Divstyled>
+                <BtnStyled className='btnSearch' onClick={handleSearch}>Tìm</BtnStyled>
+              </Divstyled>
+            </div>
+          </Divstyled>
         </Divstyled>
-      </Divstyled>
-      {searchValue ? <SearchResults data={results} /> : <ConfigHomePage
-        category={category?.data}
-        isLoading={isLoading}
-        isError={isError}
-        state={state}
-      />
-      }
+        {searchValue ? <SearchResults data={results} /> : <ConfigHomePage
+          category={category?.data}
+          isLoading={isLoading}
+          isError={isError}
+          state={state}
+        />}
+      </> : <Spiner delay={0.5} size='large' spinning={undefined} />}
     </div>
   )
 }

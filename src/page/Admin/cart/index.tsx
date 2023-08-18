@@ -46,7 +46,7 @@ const index = () => {
       key: 'action',
     }
   ];
-  const data = cart ? cart.map((item: any, index: any) => {
+  const data = cart ? cart.filter(item => item.user !== null).map((item: any, index: any) => {
     return {
       key: item._id,
       stt: item._id,

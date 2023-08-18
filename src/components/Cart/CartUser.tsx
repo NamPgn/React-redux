@@ -58,7 +58,7 @@ const CartUser = () => {
                   <div className='lg:w-9/12 lg:text-[14px] md:text-[13px] text-[12px]'>
                     {item.product ?
                       (<Link to={'/d/' + item.product._id + `?c=${item.product.category} `}>
-                        <Divstyled className='des '>
+                        <Divstyled className='text-white mt-3 lg:text-[15px] md:text-[14px] text-[13px]'>
                           {item.product && (
                             <div>
                               {item.product.name + " " + item.product.seri}

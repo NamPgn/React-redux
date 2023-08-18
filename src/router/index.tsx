@@ -11,7 +11,6 @@ import {
   CarryOutOutlined,
   PicRightOutlined,
 } from "@ant-design/icons";
-import CatemainProduct from '../page/Admin/TypesCategory/CatemainProduct';
 import DetailProductPage from '../page/Home/Detail';
 import CategoryProduct from '../page/Home/Category'; //danh mục
 import AuthComponent from '../Layout/AuthLayout';
@@ -20,8 +19,7 @@ import PrivateRouter from '../components/Router-Security/PrivateRouter';
 import LayoutWebsite from '../Layout/LayoutWebsite';
 import Page404 from '../components/404/Page404';
 import LazyComponent from '../components/Lazy/LazyComponent';
-import { useAppDispatch } from '../hook';
-import { logout } from '../redux/slice/userSlice';
+import CatemainProduct from '../page/Admin/typesCategory/CatemainProduct';
 //type component
 const ListType = lazy(() => import('../page/Type/Theloai'));
 const OllMovie = lazy(() => import('../page/Type/SidebarData'));
@@ -49,18 +47,14 @@ const Trailer = lazy(() => import('../page/Admin/trailer'));
 const EditTrailerUrl = lazy(() => import('../page/Admin/trailer/EditTrailerUrl'));
 const CommentAdmin = lazy(() => import('../page/Admin/comment/CommentAdmin'));
 const CartUser = lazy(() => import('../components/Cart/CartUser'));
-const CartAdmin = lazy(() => import('../page/Admin/Cart/CartAdmin'));
-const TypesCateAdmin = lazy(() => import('../page/Admin/TypesCategory'));
+const CartAdmin = lazy(() => import('../page/Admin/cart'));
+const TypesCateAdmin = lazy(() => import('../page/Admin/'));
 const Loadmore = lazy(() => import('../page/Home/Category/Loadmore'));
 
 //background
 const Background = lazy(() => import('../page/Admin/background'));
 const EditBackground = lazy(() => import('../page/Admin/background/edit'));
 
-const handleLogout = () => {
-  const dispath = useAppDispatch();
-  dispath(logout())
-}
 export const routerNavBar = [
   {
     path: '/',

@@ -203,27 +203,6 @@ export const GlobalStyle = createGlobalStyle`
       font-weight: 500;
     }
   
-    .btn_remove {
-      margin: 0 10px;
-      border: 2px solid #24b4fb;
-      background-color: #24b4fb;
-      border-radius: 30px;
-      padding: 0.2em 0.8em 0.2em 0.8em;
-      transition: all ease-in-out 0.2s;
-      font-size: 14px;
-    }
-  
-    .btn_remove span {
-      justify-content: center;
-      align-items: center;
-      color: #fff;
-      font-weight: 600;
-    }
-  
-    .btn_remove:hover {
-      background-color: #0071e2;
-    }
-  
     .network {
       margin: 20px 10px;
       display: block;

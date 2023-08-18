@@ -9,6 +9,7 @@ import { DivContentMkt, DivLink, DivstyledMkt, Imagetyled } from './styles';
 import { HomeOutlined, LikeOutlined, LoginOutlined, LogoutOutlined, MenuOutlined, SettingOutlined } from '@ant-design/icons';
 import { Drawer } from 'antd';
 import MenuItem from '../Menu';
+import Footer from './Footer';
 
 const icon = [
     <HomeOutlined />,
@@ -151,7 +152,7 @@ const Header = () => {
                     {
                         (<Drawer
                             width={200}
-                            title="Basic Drawer"
+                            title="Drawer"
                             key={placement}
                             placement={'left'}
                             closable={false}
@@ -160,7 +161,7 @@ const Header = () => {
                             closeIcon={true}
                             className="relative z-10"
                         >
-                            <MenuItem icons={icon} data={routerNavBar} />
+                            <MenuItem icons={icon} data={routerLoggedIn} />
                         </Drawer>)
                     }
                 </div>

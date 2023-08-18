@@ -1,5 +1,5 @@
 import React from 'react'
-import ProductAdmin from './ProductAdmin'
+import ProductAdmin from '.'
 import { useAppSelector } from '../../../hook';
 
 const DataProduct = () => {
