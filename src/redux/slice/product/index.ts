@@ -7,18 +7,15 @@ import {
 const state: any = {
   value: [],
   isLoading: false,
-  getOneProduct: [],
+  getOneProduct: {},
   getAllProductByCategory: [],
   status: null,
 }
 const productSlice = createSlice({
   name: "product",
   initialState: state,
-
   reducers: {
-
   },
-
   extraReducers: (builder) => {
     builder.addCase(getProducts.pending, (state, action) => {
       state.isLoading = true

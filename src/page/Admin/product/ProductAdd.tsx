@@ -42,7 +42,7 @@ const ProductAdd = () => {
     formdata.append('typeId', data.typeId);
     formdata.append('categorymain', data.categorymain);
     formdata.append('dailyMotionServer', data.dailyMotionServer);
-    formdata.append('image2', data.image);
+    formdata.append('imageLink', data.imageLink);
     formdata.append('video2', data.link);
     dispatch(addProduct(formdata));
     if (isError) {
@@ -81,7 +81,7 @@ const ProductAdd = () => {
 
         {renderInput('video2', 'Video Link', control)}
 
-        {renderInput('image2', 'Image Link', control)}
+        {renderInput('imageLink', 'Image Link', control)}
         {/** Thể loại của phim tập*/}
         <MySelectWrapper
           control={control}

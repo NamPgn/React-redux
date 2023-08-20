@@ -345,10 +345,6 @@ export const GlobalStyle = createGlobalStyle`
       height: 40px;
     }
   
-    .detailProduct {
-      border-radius: 5px;
-    }
-  
     .acountImage img {
       cursor: pointer;
       border: 2px solid #fff;

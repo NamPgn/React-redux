@@ -12,10 +12,13 @@ import Content from './Content';
 import { DivContainer, DivStyledContent, DivStyledContentImage, DivStyledContentText, DivStyledDescription, DivStyledItem, Movie, Server } from './styles';
 import Dividers from '../Divider';
 import { MyButton } from '../Button';
+import { Spiner } from '../Message/Loading';
+import { ProductsPending$ } from '../../redux/selectors/product';
 
 const DetailComponent = () => {
   const productByCategory = useAppSelector(getAllProductsByCategory$);
   const getOneProductDetail = useAppSelector(getOneProduct$);
+  const isLoadingDetail = useAppSelector(ProductsPending$);
   const [commentAdded, setCommentAdded] = useState(false); // tạo state
   const [link, setLink] = useState(getOneProductDetail.link ? getOneProductDetail.link : getOneProductDetail.server2);
   const { id } = useParams();
@@ -28,10 +31,10 @@ const DetailComponent = () => {
     setLink(getOneProductDetail.link)
   }, [id, c, commentAdded, getOneProductDetail.link]); //nếu mà 2 thằng này có thay đổi thì rereder
   return (
-    <div>
-      <div className='d-flex justify-content-center col-span-2 mt-4' style={{ gap: "10px", }}>
-        <DivContainer className='detailProduct col-md-12'>
-          {getOneProductDetail ? <div className=''>
+    <div className='flex justify-center col-span-2 mt-4' style={{ gap: "10px" }}>
+      <DivContainer className='col-md-12'>
+        {getOneProductDetail && (
+          !isLoadingDetail ? <React.Fragment>
             <Movie className='d-flex justify-content-center relative' >
               {getOneProductDetail.link ?
                 <iframe title="vimeo-player" className='absolute' src={link} style={{ width: "100%", height: "100%" }} />
@@ -66,35 +69,40 @@ const DetailComponent = () => {
               <DivStyledItem className='w-3/12'>
                 {
                   getOneProductDetail.category ?
-                    <DivStyledContentImage src={getOneProductDetail.category ? getOneProductDetail.category.linkImg : ""} /> :
-                    <DivStyledContentImage src={getOneProductDetail.image ? getOneProductDetail.image : ""}
+                    <DivStyledContentImage
+                      src={getOneProductDetail.category ? getOneProductDetail.category.linkImg : ""}
+                    /> :
+                    <DivStyledContentImage
+                      src={getOneProductDetail.image ? getOneProductDetail.image : ""}
                     />
                 }
               </DivStyledItem>
               <DivStyledContentText className='lg:w-9/12 md:w-full text-center lg:text-start'>
                 {/* content */}
-                <CartAddContent item={getOneProductDetail} id={id} categoryId={c} />
-                <Content getOneProductDetail={getOneProductDetail} />
-
-                {/* tập */}
+                <CartAddContent
+                  item={getOneProductDetail}
+                  id={id}
+                  categoryId={c}
+                />
+                <Content
+                  getOneProductDetail={getOneProductDetail}
+                />
                 <SeriDetailProducts
                   seriProduct={productByCategory}
                 />
-
                 <DivStyledDescription className='text-[#999] lg:text-md sm:text-sm mt-2 mb-2'>
                   <Dividers orientation="left">Mô tả: </Dividers>
                   <p>{getOneProductDetail.descriptions}</p>
                 </DivStyledDescription>
               </DivStyledContentText>
             </DivStyledContent>
-
             {/* comment */}
             <Dividers orientation="left" className='h6 text-white mt-4 text:sm lg:text-lg md:text-md'>Bình luận:</Dividers>
             <CommentProductsIndex getOne={getOneProductDetail} />
             <ComentProductsLayout setCommentAdded={setCommentAdded} />
-          </div> : ""}
-        </DivContainer>
-      </div>
+          </React.Fragment> : <Spiner delay={0.5} size={undefined} spinning={isLoadingDetail} />
+        )}
+      </DivContainer>
     </div>
   )
 }

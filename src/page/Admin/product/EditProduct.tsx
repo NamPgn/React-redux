@@ -47,13 +47,11 @@ const EditProduct = () => {
     formdata.append('typeId', data.typeId);
     formdata.append('categorymain', data.categorymain);
     formdata.append('dailyMotionServer', data.dailyMotionServer);
-    formdata.append('image', data.image);
     formdata.append('link', data.link);
+    formdata.append('imageLink', data.imageLink);
     dispatch(editProduct(formdata));
-    // navigate('/admin/products');
-    toast.success(`Sửa ${data.name}} công`, {
+    toast.success(`Sửa ${data.name} công`, {
       position: "bottom-right",
-      autoClose: 5000,
       theme: "light",
     });
   }
@@ -92,8 +90,7 @@ const EditProduct = () => {
         {renderInput('year', 'Year', control)}
         {renderInput('country', 'country', control)}
         {renderInput('options', 'Options', control)}
-        {renderInput('link', 'Video Link', control)}
-        {renderInput('image', 'Image Link', control)}
+        {renderInput('imageLink', 'Image Link', control)}
         {/** Thể loại của phim tập*/}
         <MySelectWrapper
           label={'Category'}
