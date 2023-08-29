@@ -81,7 +81,7 @@ const TypesCateAdmin = () => {
         <Divstyled className='mr-2'>
           {product.name}
         </Divstyled>
-        <Link to={`/admin/product/edit/${product._id}`}>
+        <Link to={`/dashboard/product/edit/${product._id}`}>
           <Button type="primary" style={{ background: "#1677ff" }}>
             Edit
           </Button>
@@ -95,14 +95,14 @@ const TypesCateAdmin = () => {
       </DivstyledContent>
     )) : "Trống!",
     categorymain: item.categorymain ? item.categorymain.map((item, index) => (
-      <Link key={index} to={'/admin/types/CatemainProduct/' + item.cates._id}><div>
+      <Link key={index} to={'/dashboard/types/CatemainProduct/' + item.cates._id}><div>
         {item.cates.name}
       </div></Link>
     )) : "Trống!",
     createdAt: item.createdAt,
     action: (
       <span>
-        <Link to={`/admin/trailerUrl/${item._id}`}>
+        <Link to={`/dashboard/trailerUrl/${item._id}`}>
           <Button type="primary" >
             Edit
           </Button>

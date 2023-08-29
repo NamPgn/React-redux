@@ -26,7 +26,7 @@ const CreatingUser = () => {
     const formData = new FormData();
     formData.append('xlsx', data.xlsx[0]);
     dispath(importXlsx(formData));
-    navigate('/admin/users');
+    navigate('/dashboard/users');
     toast.success(`Thêm user thành công`, {
       position: "bottom-right",
     });

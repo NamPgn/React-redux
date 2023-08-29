@@ -20,7 +20,7 @@ const Adduser = () => {
     formData.append('email', data.email);
     formData.append('password', data.password);
     dispath(resgisterLogin(formData));
-    navigate("/admin/users");
+    navigate("/dashboard/users");
     toast.success(`Thêm user thành công`, {
       position: "bottom-right",
       autoClose: 5000,

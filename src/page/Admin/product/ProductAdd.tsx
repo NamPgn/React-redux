@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { toast } from 'react-toastify';
 import { useForm } from "react-hook-form";
-import { addProduct } from '../../../redux/slice/product/ThunkProduct/product';
+import { addProduct } from '../../../redux/slice/product/thunkProduct/product';
 import { MyContext } from '../../../context';
 import { useAppDispatch } from '../../../hook';
 import renderInput, { MySelectWrapper } from '../../../hook/form';
@@ -43,7 +43,7 @@ const ProductAdd = () => {
     formdata.append('categorymain', data.categorymain);
     formdata.append('dailyMotionServer', data.dailyMotionServer);
     formdata.append('imageLink', data.imageLink);
-    formdata.append('video2', data.link);
+    formdata.append('video2', data.video2);
     dispatch(addProduct(formdata));
     if (isError) {
       toast.error('thất bại');

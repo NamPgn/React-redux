@@ -57,7 +57,7 @@ const SideBar = () => {
                 </DivStyledRouter>
               </NavLink>
             )))}
-          </RouterLink> : <Spiner delay={0.5} size='large' spinning={undefined} />}
+          </RouterLink> : <Spiner delay={0.5} size='large' children={undefined} spinning={undefined} />}
         </DivStyled>
 
       </DivstyledContent>

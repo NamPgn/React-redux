@@ -27,7 +27,7 @@ const AuthLogged = ({ user }) => {
             </div>
           </div>
         </Link>
-        {user ? user.role >= 1 ? <Link to={'/admin'}>
+        {user ? user.role >= 1 ? <Link to={'/dashboard'}>
           <div className='d-flex items-center hv_ text-center'>
             <UserOutlined />
             <div className='auth'>

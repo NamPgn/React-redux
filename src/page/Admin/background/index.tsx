@@ -23,7 +23,7 @@ const Background = () => {
     url: background ? background.data.url : '',
     action: (
       <span>
-        <Link to={`/admin/background/edit/${background ? background.data._id : ''}`}>
+        <Link to={`/dashboard/background/edit/${background ? background.data._id : ''}`}>
           <MyButton type="primary" style={{ background: "#1677ff" }}>
             Edit
           </MyButton>

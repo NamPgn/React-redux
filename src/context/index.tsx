@@ -21,6 +21,8 @@ export const MyContextProvider = (props) => {
       dispatch(getUser_id(Auth.user._id));
     }
   }, [isLoggedInState, dispatch, reset, rerender]);
+  const { data: weeks } = useSWRWithAxios(urlSwr + '/weeks');
+
   const { data: background } = useSWRWithAxios(urlSwr + '/background');
   const { data: category, isLoading } = useSWRWithAxios(urlSwr + `/categorys`);
   const { data: seri, isLoading: loadingSeri } = useSWRWithAxios(urlSwr + `/types`);
@@ -47,7 +49,10 @@ export const MyContextProvider = (props) => {
     setRerender,
 
     //background
-    background
+    background,
+
+    //weekCategory
+    weeks
   }
   return (
     <MyContext.Provider value={value}>{props.children}</MyContext.Provider>

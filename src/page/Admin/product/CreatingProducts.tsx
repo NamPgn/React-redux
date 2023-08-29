@@ -1,6 +1,6 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
-import { importDataFile } from '../../../redux/slice/product/ThunkProduct/product';
+import { importDataFile } from '../../../redux/slice/product/thunkProduct/product';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -26,7 +26,7 @@ const CreatingProducts = () => {
       progress: undefined,
       theme: "light",
     });
-    navigate('/admin/products');
+    navigate('/dashboard/products');
   }
   return (
     <Divstyled>

@@ -1,30 +1,29 @@
 import axios from "axios"
 import { isAuthentication } from "../auth/getToken"
 import jwtDecode from "jwt-decode";
-import CryptoJS from 'crypto-js';
 import { Warning } from "../components/Message/Warning";
 const intances = axios.create({
     baseURL: import.meta.env.VITE_DATABASE
 })
 
-intances.interceptors.response.use(
-    (response) => {
-        // Kiểm tra nếu phản hồi có response
-        if (response.data && response.config.method === 'get') {
-            const encryptedData = response.data;
+// intances.interceptors.response.use(
+//     (response) => {
+//         // Kiểm tra nếu phản hồi có response
+//         if (response.data && response.config.method === 'get') {
+//             const encryptedData = response.data;
 
-            // Giải mã dữ liệu bằng AES với cùng một khóa
-            const decryptedData = CryptoJS.AES.decrypt(encryptedData, import.meta.env.VITE_SECERT_CRYPTO_KEY);
-            // Gán dữ liệu đã giải mã vào phản hồi
-            const data = JSON.parse(decryptedData.toString(CryptoJS.enc.Utf8))
-            response.data = data;
-        }
-        return response;
-    },
-    (error) => {
-        return Promise.reject(error);
-    }
-);
+//             // Giải mã dữ liệu bằng AES với cùng một khóa
+//             const decryptedData = CryptoJS.AES.decrypt(encryptedData, import.meta.env.VITE_SECERT_CRYPTO_KEY);
+//             // Gán dữ liệu đã giải mã vào phản hồi
+//             const data = JSON.parse(decryptedData.toString(CryptoJS.enc.Utf8))
+//             response.data = data;
+//         }
+//         return response;
+//     },
+//     (error) => {
+//         return Promise.reject(error);
+//     }
+// );
 
 intances.interceptors.request.use((config) => {
     const Auth = isAuthentication();

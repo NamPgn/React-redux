@@ -65,7 +65,7 @@ const CommentAdmin = () => {
       Time: moment(item.createdAt).format('LTS DD-MM-YYYY'),
       action: (
         <span>
-          <Link to={`/admin/trailerUrl/${item._id}`}>
+          <Link to={`/dashboard/trailerUrl/${item._id}`}>
             <Button style={{ background: "#1677ff" }} type="primary">
               Edit
             </Button>

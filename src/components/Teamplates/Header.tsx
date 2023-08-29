@@ -9,8 +9,6 @@ import { DivContentMkt, DivLink, DivstyledMkt, Imagetyled } from './styles';
 import { HomeOutlined, LikeOutlined, LoginOutlined, LogoutOutlined, MenuOutlined, SettingOutlined } from '@ant-design/icons';
 import { Drawer } from 'antd';
 import MenuItem from '../Menu';
-import Footer from './Footer';
-
 const icon = [
     <HomeOutlined />,
     <LoginOutlined />,
@@ -59,7 +57,7 @@ const Header = () => {
         <>
             <header className="masthead mb-auto">
                 <div
-                    className={change ? 'inner fixed right-0 w-11/12' : 'inner fixed right-0 w-10/12'}
+                    className={`${change ? 'w-11/12' : 'w-10/12'} inner fixed right-0`}
                     style={{
                         top: scrollUp ? '0' : "-25%",
                         padding: navSize

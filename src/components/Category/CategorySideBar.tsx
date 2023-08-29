@@ -34,7 +34,7 @@ const CategoryProductSidebar = ({ category, isLoading }) => {
             <div style={{ maxWidth: "50px", height: "55px" }} className='w-3/12'>
               <Link
                 key={index}
-                to={'/q/' + item._id + `?n=${item.name}`}>
+                to={'/q/' + item._id}>
                 <img
                   style={{ width: "100%", objectFit: "cover", height: '100%', borderRadius: "8px", boxShadow: "0 0 3px #000" }}
                   src={item.linkImg} alt=""
@@ -43,7 +43,7 @@ const CategoryProductSidebar = ({ category, isLoading }) => {
             </div>
             <div className='w-9/12'>
               <Link key={index}
-                style={{ textDecoration: "none", color: "#999", fontSize: "13px" }} to={'/q/' + item._id + `?n=${item.name}`}>{item.name}
+                style={{ textDecoration: "none", color: "#999", fontSize: "13px" }} to={'/q/' + item._id}>{item.name}
               </Link>
               <div className='text-[12px] text-[#999] mt-2'>
                 {item.sumSeri + ' Tập'}

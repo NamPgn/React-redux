@@ -20,7 +20,7 @@ const Psyled = styled.p``;
 const CartUser = () => {
   const { Auth, user, isLoading, setReset, setRerender } = useContext(MyContext) || {};
   if (isLoading) {
-    return <Spiner spinning={undefined} delay={undefined} size={'large'} />
+    return <Spiner spinning={undefined} children={undefined} delay={undefined} size={'large'} />
   }
   if (!Auth) {
     return <Navigate to={'/auth/signin'} />

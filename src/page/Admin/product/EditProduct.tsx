@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import { editProduct, getProduct } from '../../../redux/slice/product/ThunkProduct/product';
+import { editProduct, getProduct } from '../../../redux/slice/product/thunkProduct/product';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { useAppDispatch } from '../../../hook';

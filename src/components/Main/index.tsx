@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getAllProductDataByCategorySlice, getProduct } from '../../redux/slice/product/ThunkProduct/product';
+import { getAllProductDataByCategorySlice, getProduct } from '../../redux/slice/product/thunkProduct/product';
 import { getAllProductsByCategory$, getOneProduct$ } from '../../redux/selectors';
 import queryString from 'query-string';
 import CommentProductsIndex from '../Comment/CommentProductsIndex';
@@ -37,23 +37,29 @@ const DetailComponent = () => {
           !isLoadingDetail ? <React.Fragment>
             <Movie className='d-flex justify-content-center relative' >
               {getOneProductDetail.link ?
-                <iframe title="vimeo-player" className='absolute' src={link} style={{ width: "100%", height: "100%" }} />
-                : <iframe src={getOneProductDetail.trailer}
+                <iframe 
+                  title="vimeo-player" 
+                  className='absolute' 
+                  src={link} 
+                  style={{ width: "100%", height: "100%" }} 
+                />
+                : <iframe 
+                  src={getOneProductDetail.trailer}
                 />
               }
             </Movie>
-            <Server className=' mt-4 rounded'>
+            <Server className='mt-4 rounded'>
               <Dividers orientation={'center'} className='text-white md:text-sm lg:text-base text-sm underline'>Chọn server:</Dividers>
               <div className='md:text-sm lg:text-base text-sm flex items-center justify-center gap-4 px-4 py-3'>
                 <MyButton onClick={() => { setActiveLink('link1'); setLink(getOneProductDetail.link); }}
                   className={` text-white cursor-pointer ${activeLink === 'link1' ? 'activeServer' : ''}`}
                   aria-current="page"
-                >#FireBase</MyButton>
+                >#S1</MyButton>
 
                 <MyButton onClick={() => { setActiveLink('server2'); setLink(getOneProductDetail.server2); }}
                   disabled={getOneProductDetail.server2 ? false : true}
                   className={`${getOneProductDetail.server2 ? ' text-white cursor-pointer' : ''} ${activeLink === 'server2' ? 'activeServer' : ''}`}
-                >#Drive</MyButton>
+                >#S2</MyButton>
 
                 <MyButton onClick={() => {
                   setActiveLink('dailyMotion');
@@ -61,7 +67,7 @@ const DetailComponent = () => {
                 }}
                   disabled={getOneProductDetail.server2 ? false : true}
                   className={`${getOneProductDetail.dailyMotionServer ? 'text-white cursor-pointer' : ''} ${activeLink === 'dailyMotion' ? 'activeServer' : ''}`}
-                >#Daillymotion</MyButton>
+                >#FullHđ</MyButton>
               </div>
             </Server>
             {/* chi tiết */}
@@ -100,7 +106,7 @@ const DetailComponent = () => {
             <Dividers orientation="left" className='h6 text-white mt-4 text:sm lg:text-lg md:text-md'>Bình luận:</Dividers>
             <CommentProductsIndex getOne={getOneProductDetail} />
             <ComentProductsLayout setCommentAdded={setCommentAdded} />
-          </React.Fragment> : <Spiner delay={0.5} size={undefined} spinning={isLoadingDetail} />
+          </React.Fragment> : <Spiner delay={0.5} size={'large'} spinning={isLoadingDetail} children={undefined} />
         )}
       </DivContainer>
     </div>

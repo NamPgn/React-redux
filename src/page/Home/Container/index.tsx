@@ -20,9 +20,9 @@ const HomePage = () => {
     setResults({ doc: data, isError: e, isLoading: l });
   }
   return (
-    <div className={`w-10/12  p-2 @screen md:${state ? "w-11/12" : "w-10/12"}`}>
+    <React.Fragment>
       {!isLoading ? <>
-        <Divstyled className={state ? "form-outline p-2" : "form-outline"}>
+        <Divstyled className="">
           <Divstyled className='d-flex items-center'>
             <div className=' w-full flex items-center'>
               <Divstyled className="group w-full">
@@ -40,8 +40,8 @@ const HomePage = () => {
           isError={isError}
           state={state}
         />}
-      </> : <Spiner delay={0.5} size='large' spinning={undefined} />}
-    </div>
+      </> : <Spiner delay={0.5} size='large' children={undefined} spinning={undefined} />}
+    </React.Fragment>
   )
 }
 

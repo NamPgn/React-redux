@@ -51,8 +51,8 @@ export const MessageErr = () => {
 
 
 
-export const Spiner = ({size, spinning, delay}) => (
+export const Spiner = ({ size, spinning, delay, children }) => (
   <LoadingErr className="w-full">
-    <Spin spinning={spinning} delay={delay} size={size} />
+    <Spin spinning={spinning} delay={delay} size={size} >{children}</Spin>
   </LoadingErr>
 )

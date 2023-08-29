@@ -78,13 +78,13 @@ const GetUser = () => {
 
   return (
     <>
-      <NavLink to={'/admin/user/add'}>
+      <NavLink to={'/dashboard/user/add'}>
         <Button style={{ background: "#1677ff" }} type="primary" shape="round">Add User</Button>
       </NavLink>
-      <NavLink to={'/admin/user/creatingUser'} >
+      <NavLink to={'/dashboard/user/creatingUser'} >
         <Button type="primary" shape="round" style={{ display: "inline-block", margin: "10px 10px", background: "#28a745" }}>Import Excel</Button>
       </NavLink>
-      <NavLink to={'/admin/product/add'} >
+      <NavLink to={'/dashboard/product/add'} >
         <Button type="primary" shape="round" style={{ display: "inline-block  ", margin: "10px 10px", background: "#eca52b" }}>Export PDF</Button>
       </NavLink>
       <Table columns={columns} dataSource={data} pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '20', '30'] }} />

@@ -22,9 +22,7 @@ const SeriNumberMovie = () => {
         {
           data.length > 0 && data ? data.map((item, index) => {
             return <Divstyled style={{ textAlign: "center", }} key={index}>
-              <Link to={
-                '/d/' + item._id + `?c=${item.category}` + "?n=" + `${item.name + " " + item.seri} `
-              }>
+              <Link to={'/d/' + item._id + `?c=${item.category}`}>
                 {
                   item.trailer ? <BtnStyledNumber type="button" className="d-flex btn-dark" >
                     <span>

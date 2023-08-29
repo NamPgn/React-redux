@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   getProducts, deleteProduct, addProduct, editProduct,
   getAllProductDataByCategorySlice, getProduct, importDataFile
-} from "./ThunkProduct/product";
+} from "./thunkProduct/product";
 
 const state: any = {
   value: [],

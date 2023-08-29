@@ -27,7 +27,7 @@ const ListType = () => {
           {data.products && data.products.length ? data.products.map((item: any, index: number) => (
             <DivStyledContent key={index}>
               <DivStyledItem>
-                <Link to={'/d/' + item._id + `?c=${item.categorymain}` + "?n=" + `${item.name + " " + item.seri} `}>
+                <Link to={'/d/' + item._id + `?c=${item.categorymain}`}>
                   <Div>
                     <DivStyledImage src={item.image}></DivStyledImage>
                   </Div>

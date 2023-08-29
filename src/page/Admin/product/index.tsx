@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Table, Image } from 'antd';
-import { getProducts, deleteProduct } from '../../../redux/slice/product/ThunkProduct/product';
+import { Table, Image, Popconfirm, Spin } from 'antd';
+import { getProducts, deleteProduct } from '../../../redux/slice/product/thunkProduct/product';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { deleteMultipleProduct } from '../../../api/product';
@@ -10,6 +10,9 @@ import type { ColumnsType } from 'antd/es/table';
 import { MyContext } from '../../../context';
 import { MyButton } from '../../../components/Button';
 import MySelect from '../../../components/Select';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import Error from '../../../components/Message/Error';
+import { Spiner } from '../../../components/Message/Loading';
 const Divstyled = styled.div``;
 const InputStyled = styled.input``;
 const columns: ColumnsType<any> = [
@@ -74,19 +77,19 @@ const columns: ColumnsType<any> = [
         title: 'Action',
         key: 'action',
         dataIndex: 'action',
-        width: 180,
+        width: 120,
         fixed: 'right',
     },
 ];
 
-const ProductAdmin = ({ product, length }) => {
+const ProductAdmin = ({ product, length,isLoading }) => {
     const { category }: any = useContext(MyContext);
     const [search, searchState] = useState("");
     const [filter, setFilter] = useState("");
     const [checkedId, setCheckedId]: any = useState([]);
     const [checkAllid, setCheckAllid] = useState(false);
     const [init, setInit] = useState(false);
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(3);
     const dispath = useAppDispatch();
     useEffect(() => {
         dispath(getProducts(page));
@@ -128,15 +131,20 @@ const ProductAdmin = ({ product, length }) => {
         }
     }
 
-
-    const handleDelete = async (id) => {
+    const confirm = async (id) => {
         const response = await dispath(deleteProduct(id));
         if (response.payload.success) {
             toast.success('Delete product successfully');
         } else {
             toast.error('Error deleting product');
         }
-    }
+    };
+
+    const cancel = (e: React.MouseEvent<HTMLElement>) => {
+        console.log(e);
+        Error('Click on No');
+    };
+
 
     const handleChangeSelect = (value: any) => {
         setFilter(value); //lọc
@@ -168,11 +176,20 @@ const ProductAdmin = ({ product, length }) => {
             year: value.year ? value.year : "null",
             action: (
                 <>
-                    <Link to={`/admin/product/edit/${value._id}`}>
-                        <MyButton danger >Edit</MyButton>
+                    <Link to={`/dashboard/product/edit/${value._id}`}>
+                        <MyButton danger shape="circle" ><EditOutlined /></MyButton>
                     </Link>
-                    <MyButton type="primary" onClick={() => handleDelete(value._id)}
-                    >Delete</MyButton>
+                    <Popconfirm
+                        title="Delete the product"
+                        onConfirm={() => confirm(value._id)}
+                        onCancel={cancel}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <MyButton shape="circle" className="ml-2">
+                            <DeleteOutlined />
+                        </MyButton>
+                    </Popconfirm>
                 </>
             )
         }
@@ -189,16 +206,16 @@ const ProductAdmin = ({ product, length }) => {
                 onClick={() => { handleDeleteData() }}
             >Xóa
             </MyButton>
-            <Link to={'/admin/product/add'}  >
+            <Link to={'/dashboard/product/add'}  >
                 <MyButton style={{ display: "inline-block", margin: "10px 10px", background: "#1677ff" }}>Add Product</MyButton>
             </Link>
-            <Link to={'/admin/product/creacting'} >
+            <Link to={'/dashboard/product/creacting'} >
                 <MyButton style={{ display: "inline-block", margin: "10px 10px", background: "#28a745" }}>Add Multiple</MyButton>
             </Link>
-            <Link to={'/admin/product/add'} >
+            <Link to={'/dashboard/product/add'} >
                 <MyButton style={{ display: "inline-block  ", margin: "10px 10px", background: "#eca52b" }}>Export PDF</MyButton>
             </Link>
-            <Link to={'/admin/product/add'} >
+            <Link to={'/dashboard/product/add'} >
                 <MyButton danger shape="round" style={{ display: "inline-block  ", margin: "10px 10px" }}>Export Excel</MyButton>
             </Link>
             <MySelect
@@ -221,19 +238,21 @@ const ProductAdmin = ({ product, length }) => {
                     </Divstyled>
                 </Divstyled>
             </Divstyled>
-            <Table
-                columns={columns}
-                dataSource={data}
-                scroll={{ x: 1500, y: 1000 }}
-                pagination={{
-                    defaultPageSize: 40,
-                    showSizeChanger: true,
-                    pageSizeOptions: ['40', '80', '120'],
-                    current: page,
-                    onChange: (value) => { setPage(value) },
-                    total: length
-                }}
-            />
+            <Spin spinning={isLoading} delay={undefined}>
+                <Table
+                    columns={columns}
+                    dataSource={data}
+                    scroll={{ x: 1500, y: 1000 }}
+                    pagination={{
+                        defaultPageSize: 40,
+                        showSizeChanger: true,
+                        pageSizeOptions: ['40', '80', '120'],
+                        current: page,
+                        onChange: (value) => { setPage(value) },
+                        total: length
+                    }}
+                />
+            </Spin>
         </>
     )
 }

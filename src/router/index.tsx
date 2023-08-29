@@ -41,7 +41,7 @@ const ProductAdd = lazy(() => import('../page/Admin/product/ProductAdd'));
 const EditProduct = lazy(() => import('../page/Admin/product/EditProduct'));
 const CreatingUser = lazy(() => import('../page/Admin/user/CreatingUser'));
 const CreatingProducts = lazy(() => import('../page/Admin/product/CreatingProducts'));
-const CategoryAdmin = lazy(() => import('../page/Admin/category/CategoryAdmin'));
+const CategoryAdmin = lazy(() => import('../page/Admin/category'));
 const EditCategoryAdmin = lazy(() => import('../page/Admin/category/EditCategory'));
 const Trailer = lazy(() => import('../page/Admin/trailer'));
 const EditTrailerUrl = lazy(() => import('../page/Admin/trailer/EditTrailerUrl'));
@@ -156,7 +156,7 @@ export const router = [
     ]
   },
   {
-    path: 'admin',
+    path: 'dashboard',
     element: <PrivateRouter><LayoutAdmin /></PrivateRouter>,
     children: [
       {
@@ -251,53 +251,53 @@ export const router = [
 
 export const TableRouterAdminPage = [
   {
-    path: "/admin",
+    path: "/dashboard",
     name: "Thống kê",
     icon: <DashboardOutlined />
   },
 
   {
-    path: "/admin/products",
+    path: "/dashboard/products",
     name: " Products",
     icon: <NotificationOutlined />
   },
   {
-    path: "/admin/users",
+    path: "/dashboard/users",
     name: "Users",
     icon: <UserOutlined />
   },
   {
-    path: "/admin/adminUer",
+    path: "/dashboard/adminUer",
     name: "Admin",
     icon: <LaptopOutlined />
   },
   {
-    path: "/admin/category",
+    path: "/dashboard/category",
     name: "Category",
     icon: <ControlOutlined />
   },
   {
-    path: "/admin/trailing",
+    path: "/dashboard/trailing",
     name: "Trailer",
     icon: <LaptopOutlined />
   },
   {
-    path: "/admin/comments",
+    path: "/dashboard/comments",
     name: "Comments",
     icon: <CarryOutOutlined />
   },
   {
-    path: "/admin/cart",
+    path: "/dashboard/cart",
     name: "Cart",
     icon: <CompassOutlined />
   },
   {
-    path: "/admin/types",
+    path: "/dashboard/types",
     name: "Types",
     icon: <PicRightOutlined />
   },
   {
-    path: "/admin/background",
+    path: "/dashboard/background",
     name: "Background",
     icon: <PicRightOutlined />
   },

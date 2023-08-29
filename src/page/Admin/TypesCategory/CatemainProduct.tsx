@@ -50,7 +50,7 @@ const CatemainProduct = () => {
     createdAt: item.createdAt,
     action: (
       <span>
-        <Link to={`/admin/trailerUrl/${item._id}`} >
+        <Link to={`/dashboard/trailerUrl/${item._id}`} >
           <Button type="primary" style={{ background: 'rgb(22, 119, 255)' }}>
             Edit
           </Button>

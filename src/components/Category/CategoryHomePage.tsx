@@ -39,7 +39,7 @@ const CategoryHomePage = ({ category, isLoading, isError }: CategoryProp) => {
           return <Divstyled className='movie_css' key={index}>
             <CategoryContents
               title={item.name}
-              link={'/q/' + item._id + `?n=${item.name}`}
+              link={'/q/' + item._id }
               image={item.linkImg}
               time='Thời gian 20/12 phút'
               sumSeri={item.sumSeri}

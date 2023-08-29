@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useSWRWithAxios } from "../../hook/Swr";
 import { urlSwr } from "../../function";
 import { Tabs } from 'antd';
 import CategoryContents from "../Content/Category";
 import SliderComponent from "../Slider";
+import { MyContext } from "../../context";
 const style = {
   color: "#fff",
   margin: "20px 0"
 }
 
 export default function WeekComponent() {
-  const { data: weeks } = useSWRWithAxios(urlSwr + '/weeks');
+  const { weeks } = useContext(MyContext) || {};
   const settings = {
     dots: true,
     infinite: true,
@@ -73,7 +74,7 @@ export default function WeekComponent() {
                   <div key={index} className="pl-2 pr-2">
                     <CategoryContents
                       title={item.name}
-                      link={'/q/' + item._id + `?n=${item.name}`}
+                      link={'/q/' + item._id}
                       image={item.linkImg}
                       time='Thời gian 20/12 phút'
                       sumSeri={item.sumSeri}
@@ -83,7 +84,7 @@ export default function WeekComponent() {
                   <div key={index} className="pl-2 pr-2">
                     <CategoryContents
                       title={item.name}
-                      link={'/d/' + item._id + `?c=${item.typeId}` + "?n=" + `${item.name + " " + item.seri} `}
+                      link={'/d/' + item._id + `?c=${item.typeId}`}
                       image={item.image}
                       time='Thời gian 1/2 h'
                     />

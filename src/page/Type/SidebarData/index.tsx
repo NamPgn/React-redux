@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useSWRWithAxios } from '../../../hook/Swr';
 import { urlSwr } from '../../../function';
@@ -6,7 +6,6 @@ import { DivStyled, DivStyledText, DivStyledTitle } from '../../../components/St
 import { Loader, MessageErr } from '../../../components/Message/Loading';
 import PaginationCustoms from '../../../components/Pagination';
 import CategoryContents from '../../../components/Content/Category';
-import { ChangeContext } from '../../../context';
 import styled from 'styled-components';
 import { NotUpdate } from '../../../components/Message/Warning';
 
@@ -59,7 +58,6 @@ const backgrounds = [
 
 const SidebarApi = () => {
   const [page, setPage] = useState(1);
-  const { state } = useContext(ChangeContext) || {};
   const { id } = useParams();
   const { data: { data, length }, isLoading, isError } = useSWRWithAxios(urlSwr + `/type/${id}?page=${page}`);
   if (isLoading) {
@@ -69,7 +67,7 @@ const SidebarApi = () => {
     return <MessageErr />
   }
   return (
-    <div className={state ? "w-11/12" : "w-10/12"}>
+    <React.Fragment>
       <div className='p-2'>
         <div>
           <DivStyledText><Link to={'/'}>Trang chủ</Link> - {data ? data.name : ""}</DivStyledText>
@@ -81,7 +79,7 @@ const SidebarApi = () => {
             <div key={index}>
               <CategoryContents
                 title={item.name}
-                link={'/q/' + item._id + `?n=${item.name}`}
+                link={'/q/' + item._id}
                 image={item.linkImg}
                 time={'Thời gian 15/20 phút'}
                 typecm={data.name}
@@ -91,7 +89,7 @@ const SidebarApi = () => {
             <div key={index}>
               <CategoryContents
                 title={item.name}
-                link={'/d/' + item._id + `?c=${item.typeId}` + "?n=" + `${item.name + " " + item.seri} `}
+                link={'/d/' + item._id + `?c=${item.typeId}`}
                 image={item.image}
                 time={'Thời gian 1h/2h'}
                 typecm={data.name}
@@ -113,7 +111,7 @@ const SidebarApi = () => {
           onChange={(value) => setPage(value)}
         />
       </div>
-    </div >
+    </React.Fragment>
   )
 }
 

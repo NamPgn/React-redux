@@ -36,7 +36,7 @@ const indexTrailer = () => {
     url: trailer.url,
     action: (
       <span>
-        <Link to={`/admin/trailerUrl/${trailer._id}`}>
+        <Link to={`/dashboard/trailerUrl/${trailer._id}`}>
           <MyButton type="primary" style={{ background: "#1677ff" }}>
             Edit
           </MyButton>

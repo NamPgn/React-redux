@@ -9,7 +9,7 @@ const SeriDetailProducts = ({ seriProduct }) => {
       {
         seriProduct.map((item: any, index: any) => {
           return <Divstyled key={index} className='mt-2 activeSeriNumber'>
-            <NavLink to={'/d/' + item._id + `?c=${item.category}` + `?n=${item.name}/tập/${item.seri}`} >
+            <NavLink to={'/d/' + item._id + `?c=${item.category}`} >
               <BtnStyled className={item.seri ? 'btnMovieSeri d-flex text-dark bg-light w-full justify-center' : ""} >
                 <span> {item.seri ? 'Tập ' + item.seri : ""}</span>
               </BtnStyled>
