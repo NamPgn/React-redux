@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Table, Image, Radio } from 'antd';
+import { Image, Radio } from 'antd';
 import { addCateGorySlice, deleteCategorySlice, getAllcate } from '../../../redux/slice/category/ThunkCategory/category';
 import { category$ } from '../../../redux/selectors';
 import { toast } from 'react-toastify';
@@ -11,40 +11,15 @@ import { useForm } from 'react-hook-form';
 import renderInput, { MySelectWrapper, MyUploadWrapper } from '../../../hook/form';
 import { MyButton } from '../../../components/Button';
 import { Col, Row } from 'antd';
-const columns = [
-  {
-    title: 'Stt',
-    dataIndex: 'stt',
-    key: 'stt',
-  },
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: 'Image',
-    dataIndex: 'image',
-    key: 'Image',
-  },
-  {
-    title: 'CreateAt',
-    dataIndex: 'createAt',
-    key: 'createAt',
-  },
-  {
-    title: 'Action',
-    dataIndex: 'action',
-    key: 'action',
+import { columnsCategory } from '../../../constant';
+import MVTable from '../../../components/Table';
 
-  }
-];
 const CategoryAdmin = () => {
   const dispatch = useAppDispatch();
   const category = useAppSelector(category$);
   const { seri, weeks } = useContext(MyContext);
   const [typeId, setId] = useState(null);
-  const { register, handleSubmit, control } = useForm();
+  const { handleSubmit, control, register } = useForm();
   const onsubmit = async (data: any) => {
     const formdata = new FormData();
     formdata.append('name', data.name);
@@ -52,7 +27,7 @@ const CategoryAdmin = () => {
     formdata.append('sumSeri', data.sumSeri);
     formdata.append('week', data.week);
     formdata.append('type', data.type);
-    formdata.append('file', data.file[0]);
+    formdata.append('file', data.file);
     const res = await dispatch(addCateGorySlice(formdata));
     if (res.payload.success) {
       toast.success('Thành công');
@@ -69,12 +44,14 @@ const CategoryAdmin = () => {
       toast.error('Delete Fail');
     }
   }
+  
   useEffect(() => {
     dispatch(getAllcate());
   }, []);
   const handleGetid = (id) => {
     setId(id);
   }
+  
   const hanedlePushCategoryToType = async (categoryId) => {
     const body = {
       categoryId: categoryId
@@ -82,35 +59,36 @@ const CategoryAdmin = () => {
     await pushCateTotype(typeId, body);
   }
 
-
   const weeekOptions = weeks && (weeks?.map((item, index) => ({
     label: item.name,
     value: item._id
   })));
-  const data = category.data ? category.data.map((item, index) => {
-    return {
-      key: item._id,
-      stt: index + 1,
-      name: item.name,
-      image: <Image width={150} height={200} style={{ objectFit: "cover" }} src={item.linkImg} />,
-      createAt: item.createdAt,
-      action: (
-        <div className='flex gap-1'>
-          <Link to={`/dashboard/category/edit/${item._id}`}>
-            <MyButton style={{ background: "#1677ff" }} type="primary">
-              Edit
+  const data = category.data && (
+    category.data.map((item, index) => {
+      return {
+        key: item._id,
+        stt: index + 1,
+        name: item.name,
+        image: <Image width={150} height={200} style={{ objectFit: "cover" }} src={item.linkImg} />,
+        createAt: item.createdAt,
+        action: (
+          <div className='flex gap-1'>
+            <Link to={`/dashboard/category/edit/${item._id}`}>
+              <MyButton style={{ background: "#1677ff" }} type="primary">
+                Edit
+              </MyButton>
+            </Link>
+            <MyButton danger className='text-light ml-2' onClick={() => handleDelete(item._id)}>
+              Delete
             </MyButton>
-          </Link>
-          <MyButton danger className='text-light ml-2' onClick={() => handleDelete(item._id)}>
-            Delete
-          </MyButton>
-          <MyButton className='text-light ml-2' onClick={() => hanedlePushCategoryToType(item._id)}>
-            Push
-          </MyButton>
-        </div>
-      )
-    }
-  }) : ""
+            <MyButton className='text-light ml-2' onClick={() => hanedlePushCategoryToType(item._id)}>
+              Push
+            </MyButton>
+          </div>
+        )
+      }
+    })
+  )
   return (
     <React.Fragment>
       <div className="p-2" style={{ display: 'flex', gap: '0 10px', justifyContent: 'center' }} >
@@ -126,11 +104,11 @@ const CategoryAdmin = () => {
       </div>
       <Row gutter={10}>
         <Col span={18}>
-          <Table
-            columns={columns}
+          <MVTable
+            columns={columnsCategory}
             dataSource={data}
             pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '20', '30'] }}>
-          </Table>
+          </MVTable>
         </Col>
         <Col span={6}>
           <form onSubmit={handleSubmit(onsubmit)}>

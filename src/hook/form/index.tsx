@@ -1,15 +1,13 @@
 import { Controller } from 'react-hook-form';
 import { Input, Select, Upload } from 'antd';
 import React from 'react';
-import Success from '../../components/Message/Success';
-import Error from '../../components/Message/Error';
 import { UploadOutlined } from '@ant-design/icons';
 import { MyButton } from '../../components/Button';
 
 const renderInput = (name, label, control, rules?, ...rest) => {
   return (
     <div className='mb-3'>
-      <label htmlFor={name}>{label + ": "}</label>
+      <label htmlFor={name}>{label}</label>
       <Controller
         name={name}
         control={control}
@@ -64,13 +62,16 @@ export const MyUploadWrapper = ({ label, name, control, ...rest }) => {
             name={name}
             beforeUpload={() => false}
             onChange={(info) => {
-              field.onChange(info.fileList);
+              const fileList = info.fileList.slice(-1); // Chỉ lấy file cuối cùng trong danh sách
+              field.onChange(fileList[0]?.originFileObj); // Truyền dữ liệu file thực tế vào field
             }}
           >
             <MyButton
               icon={<UploadOutlined />}
               className='mt-2'
-            >Click to Upload</MyButton>
+            >
+              Click to Upload
+            </MyButton>
           </Upload>
         )}
       />

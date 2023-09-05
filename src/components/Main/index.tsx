@@ -28,7 +28,10 @@ const DetailComponent = () => {
   useEffect(() => {
     dispatch(getProduct(id));
     dispatch(getAllProductDataByCategorySlice(c));
-    setLink(getOneProductDetail.link)
+    setLink(getOneProductDetail.link);
+    window.scrollTo({
+      top: 0,
+    })
   }, [id, c, commentAdded, getOneProductDetail.link]); //nếu mà 2 thằng này có thay đổi thì rereder
   return (
     <div className='flex justify-center col-span-2 mt-4' style={{ gap: "10px" }}>
@@ -37,14 +40,17 @@ const DetailComponent = () => {
           !isLoadingDetail ? <React.Fragment>
             <Movie className='d-flex justify-content-center relative' >
               {getOneProductDetail.link ?
-                <iframe 
-                  title="vimeo-player" 
-                  className='absolute' 
-                  src={link} 
-                  style={{ width: "100%", height: "100%" }} 
+                <iframe
+                  title="vimeo-player"
+                  className='absolute'
+                  src={link}
+                  style={{ width: "100%", height: "100%" }}
                 />
-                : <iframe 
-                  src={getOneProductDetail.trailer}
+                : <iframe
+                  title="vimeo-player"
+                  className='absolute'
+                  style={{ width: "100%", height: "100%" }}
+                  src={getOneProductDetail.trailer + '?autoplay=1&mute=1'}
                 />
               }
             </Movie>

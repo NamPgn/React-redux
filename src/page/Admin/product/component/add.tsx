@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
 import { toast } from 'react-toastify';
 import { useForm } from "react-hook-form";
-import { addProduct } from '../../../redux/slice/product/thunkProduct/product';
-import { MyContext } from '../../../context';
-import { useAppDispatch } from '../../../hook';
-import renderInput, { MySelectWrapper } from '../../../hook/form';
-import { MyButton } from '../../../components/Button';
-import MySelect from '../../../components/Select';
+import { addProduct } from '../../../../redux/slice/product/thunkProduct/product';
+import { MyContext } from '../../../../context';
+import { useAppDispatch } from '../../../../hook';
+import renderInput, { MySelectWrapper, MyUploadWrapper } from '../../../../hook/form';
+import { MyButton } from '../../../../components/Button';
+import MySelect from '../../../../components/Select';
 const ProductAdd = () => {
   const { categorymain, category, seri, isError }: any = useContext(MyContext);
   const dispatch = useAppDispatch();
@@ -54,33 +54,31 @@ const ProductAdd = () => {
     <div>
       <form onSubmit={handleSubmit(onsubmit)}>
         {renderInput('name', 'Product name', control)}
-
         {renderInput('view', 'View', control)}
-
         {renderInput('seri', 'Seri', control)}
-
         {renderInput('descriptions', 'Desciption', control)}
-
         {renderInput('copyright', 'Copyright', control)}
-
         {renderInput('LinkCopyright', 'LinkCopyright', control)}
-
-        <label className="form-label">Video Url</label>
+        <MyUploadWrapper
+          name={'file'}
+          label={'New Video Upload'}
+          control={control}
+        />
+        <MyUploadWrapper
+          name={'image'}
+          label={'New Image Upload'}
+          control={control}
+        />
+        {/* <label className="form-label">Video Url</label>
         <input type="file" name='file' {...register('file')} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
-
         <label className="form-label">Image</label>
-        <input type="file" name='image' {...register('image')} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
-
+        <input type="file" name='image' {...register('image')} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" /> */}
         {renderInput('dailyMotionServer', 'DailyMotionServer', control)}
-
         {renderInput('trailer', 'Trailer Video', control)}
-
         {renderInput('year', 'Year', control)}
         {renderInput('country', 'Country', control)}
         {renderInput('options', 'Options', control)}
-
         {renderInput('video2', 'Video Link', control)}
-
         {renderInput('imageLink', 'Image Link', control)}
         {/** Thể loại của phim tập*/}
         <MySelectWrapper

@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-import { resgisterLogin } from '../../../redux/slice/userSlice';
+import { resgisterLogin } from '../../../../redux/slice/userSlice';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
-import { useAppDispatch } from '../../../hook';
-import renderInput from '../../../hook/form';
-import { MyButton } from '../../../components/Button';
+import { useAppDispatch } from '../../../../hook';
+import renderInput from '../../../../hook/form';
+import { MyButton } from '../../../../components/Button';
 const Divstyled = styled.div``;
 const InputStyled = styled.input``;
 const Adduser = () => {

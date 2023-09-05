@@ -1,10 +1,10 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
-import { importDataFile } from '../../../redux/slice/product/thunkProduct/product';
+import { importDataFile } from '../../../../redux/slice/product/thunkProduct/product';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { useAppDispatch } from '../../../hook';
+import { useAppDispatch } from '../../../../hook';
 const Divstyled = styled.div``;
 const BtnStyled = styled.button``;
 const InputStyled = styled.input``;

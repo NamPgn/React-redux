@@ -1,21 +1,10 @@
-import { Table } from 'antd';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { MyButton } from '../../../components/Button';
 import { Link } from 'react-router-dom';
 import { MyContext } from '../../../context';
+import MVTable from '../../../components/Table';
+import { columnsBackground } from '../../../constant';
 
-const columns = [
-  {
-    title: 'Url',
-    dataIndex: 'url',
-    key: 'url',
-  },
-  {
-    title: 'Action',
-    dataIndex: 'action',
-    key: 'action',
-  },
-];
 const Background = () => {
   const { background } = useContext(MyContext);
   const data = {
@@ -33,7 +22,10 @@ const Background = () => {
   }
   return (
     <>
-      <Table columns={columns} dataSource={[data]} ></Table>
+      <MVTable 
+        columns={columnsBackground} 
+        dataSource={[data]} 
+      />
     </>
   )
 }

@@ -16,6 +16,7 @@ export const MyContextProvider = (props) => {
   const loandingCart = useAppSelector(state => state.user.isLoading);
   const [reset, setReset] = useState(false);
   const [rerender, setRerender] = useState(false);
+  const [page, setPage] = useState(1);
   useEffect(() => {
     if (Auth) {
       dispatch(getUser_id(Auth.user._id));
@@ -24,7 +25,7 @@ export const MyContextProvider = (props) => {
   const { data: weeks } = useSWRWithAxios(urlSwr + '/weeks');
 
   const { data: background } = useSWRWithAxios(urlSwr + '/background');
-  const { data: category, isLoading } = useSWRWithAxios(urlSwr + `/categorys`);
+  const { data: category, isLoading } = useSWRWithAxios(urlSwr + `/categorys?page=${page}`);
   const { data: seri, isLoading: loadingSeri } = useSWRWithAxios(urlSwr + `/types`);
   const { data: categorymain, isLoading: LoadingCateMain, isError } = useSWRWithAxios(urlSwr + `/categorymain`);
   const value = {
@@ -52,7 +53,9 @@ export const MyContextProvider = (props) => {
     background,
 
     //weekCategory
-    weeks
+    weeks,
+    setPage,
+    page
   }
   return (
     <MyContext.Provider value={value}>{props.children}</MyContext.Provider>

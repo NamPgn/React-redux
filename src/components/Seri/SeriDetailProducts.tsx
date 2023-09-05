@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { NavLink } from 'react-router-dom'
 import { BtnStyled, DivContainerSeriDetail, Divstyled } from './styles'
 
-const SeriDetailProducts = ({ seriProduct }) => {
+const SeriDetailProducts = memo(({ seriProduct }:any) => {
   //chi tiết tập phìm khi vào trăng xem phim
   return (
     <DivContainerSeriDetail className='md:gap-2 lg:gap-3 gap-1' >
@@ -19,6 +19,6 @@ const SeriDetailProducts = ({ seriProduct }) => {
       }
     </DivContainerSeriDetail>
   )
-}
+})
 
 export default SeriDetailProducts

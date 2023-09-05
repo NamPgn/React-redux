@@ -40,7 +40,7 @@ border-radius: 2px;
 export const DivstyledItem = styled.div < { $lengthData?: any } > `
 
 display: ${props => props.data ? 'grid' : 'block'};
-grid-template-columns: repeat(6, 1fr);
+grid-template-columns: repeat(5, 1fr);
 gap: 10px;
 @media(min-width:768px){
   display: ${props => props.data ? 'grid' : 'block'};

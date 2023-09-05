@@ -8,9 +8,9 @@ display: block;
 }
 @media(min-width:1024px){
   color:#fff;
-display:flex;
-justify-content:center;
-position: relative;
+  display:flex;
+  justify-content:center;
+  position: relative;
 }
 `;
 
@@ -145,31 +145,9 @@ margin-top:4px;
 `
 export const Icon = styled.div`
 display: block;
+cursor: pointer;
+color:#fff;
 @media(max-width:768px){
   display: none;
 }
 `
-
-// const LogoutStyled = styled.div`
-// margin-top:20px;
-// display:flex;
-// align-items: center;
-// gap:10px;
-// margin:10px;
-// font-size:14px;
-// @media(min-width:768px){
-//   display:none;
-// }
-
-// @media(min-width:1024px){
-//   display:flex ;
-// }
-// @media(max-width:768px){
-//   display:none;
-// }
-
-// &:hover {
-//   cursor:pointer;
-//   color:#999;
-// }
-// `

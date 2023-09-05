@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-export const DivStyled = styled.div`
+export const DivStyledGrid = styled.div`
 display: grid;
 grid-template-columns: repeat(5, 1fr);
 gap: 10px;
@@ -67,3 +67,18 @@ margin:10px 0;
 font-weight:500;
 `
 
+export const DivStyledBtnItem = styled.div`
+padding:20px;
+border-radius:5px;
+font-size:13px;
+font-weight:500;
+&:hover{
+  cursor:pointer;
+}
+@media (min-width: 768px){
+  font-size:16px;
+}
+@media (min-width: 1024px){
+  font-size:17px;
+}
+`;

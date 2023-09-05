@@ -10,8 +10,8 @@ margin-top: 30%;
 
 @media(min-width: 1024px){
   width: 150px;
-  left: 51%;
+  left: 22%;
   transform: translateX(-50%);
-  margin-top: 30%;
+  margin-top: 16%;
 }
 `

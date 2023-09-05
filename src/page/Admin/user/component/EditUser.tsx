@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from 'react-router-dom';
-import { editUser, getUser_id } from '../../../redux/slice/userSlice';
+import { editUser, getUser_id } from '../../../../redux/slice/userSlice';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
-import { useAppDispatch } from '../../../hook';
-import renderInput from '../../../hook/form';
-import Error from '../../../components/Message/Error';
+import { useAppDispatch } from '../../../../hook';
+import renderInput from '../../../../hook/form';
+import Error from '../../../../components/Message/Error';
 import { Select, Space } from 'antd';
-import { MyButton } from '../../../components/Button';
+import { MyButton } from '../../../../components/Button';
 declare var Promise: any;
 const ImageStyledEditAuth = styled.img`
 width: 200px; height: 200px; objectFit: cover ;

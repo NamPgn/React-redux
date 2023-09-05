@@ -1,22 +1,18 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { useParams } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
-import { editTrailerSlice } from '../../../redux/slice/postSlice';
-import { useAppDispatch } from '../../../hook';
-import { MyButton } from '../../../components/Button';
-import { useParams } from 'react-router-dom';
-declare var Promise: any;
-
-const editTrailerUrl = () => {
+import { MyButton } from '../../../../components/Button';
+import { setBackground } from '../../../../api/trailer';
+const EditBackground = () => {
   const { handleSubmit, register, reset, control } = useForm();
-  const dispath = useAppDispatch();
   const { id } = useParams();
   const onsubmit = async (data: any) => {
     const formData = new FormData();
-    formData.append('url', data.url[0]);
+    formData.append('file', data.file[0]);
     formData.append('_id', id);
-    const res = await dispath(editTrailerSlice(formData));
-    if (res.payload.success) {
+    const res = await setBackground(formData)
+    if (res.data.success) {
       toast.success('edit successfully');
     } else {
       toast.error('edit failed');
@@ -26,7 +22,7 @@ const editTrailerUrl = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(onsubmit)}>
-        <input {...register('url')} type="file" className="text-[#000] underline text-sm text-grey-500
+        <input {...register('file')} type="file" className="text-[#000] underline text-sm text-grey-500
             file:mr-5 file:py-2 file:px-6
             file:rounded-full file:border-0
             file:text-sm file:font-medium
@@ -41,4 +37,4 @@ const editTrailerUrl = () => {
   )
 }
 
-export default editTrailerUrl
+export default EditBackground

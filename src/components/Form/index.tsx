@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form';
-import React from 'react';
+import React, { memo } from 'react';
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link } from 'react-router-dom';
 import { BtnStyled, DivContainer, FormBorder, FormHeader, FormIntro, FormStyled, FormTitle, Formdescription, GoogleLogin, InputStyled } from './styles';
-const AuthForm = ({
+const AuthForm = memo(({
   onSubmit,
   formTitle,
   formDescription,
@@ -64,19 +64,21 @@ const AuthForm = ({
               </div>
             </div> */}
             {
-              array ? array.map((item: any, index: any) => (
-                <div key={index} className="relative lg:mb-6 md:mb-4 mb-2" data-te-input-wrapper-init>
-                  <div>
-                    <InputStyled
-                      disabled={item.disable}
-                      style={{ background: `${item.disable ? '#99979742' : ''}` }}
-                      type={item.type} {...register(`${item.field}`)}
-                      placeholder={item.field}
-                      className="placeholder:capitalize" />
-                    {errors.field && <p>{errors.field.message}</p>}
+              array && (
+                array.map((item: any, index: any) => (
+                  <div key={index} className="relative lg:mb-6 md:mb-4 mb-2" data-te-input-wrapper-init>
+                    <div>
+                      <InputStyled
+                        disabled={item.disable}
+                        style={{ background: `${item.disable ? '#99979742' : ''}` }}
+                        type={item.type} {...register(`${item.field}`)}
+                        placeholder={item.field}
+                        className="placeholder:capitalize" />
+                      {errors.field && <p>{errors.field.message}</p>}
+                    </div>
                   </div>
-                </div>
-              )) : ""
+                ))
+              )
             }
             <div className="lg:mb-6 md:mb-5 mb-4">
               <div className="text-center text-white text-sm font-medium text-primary-600 hover:underline text-primary-500">Forgot password? </div>
@@ -103,6 +105,6 @@ const AuthForm = ({
       </DivContainer>
     </div>
   )
-}
+})
 
 export default AuthForm

@@ -21,6 +21,7 @@ export const GlobalStyle = createGlobalStyle`
   
   body {
     background-color: #23232a;
+    height: 100%;
   }
   
   
@@ -30,6 +31,7 @@ export const GlobalStyle = createGlobalStyle`
   
   .containers {
     padding-top: 10.5%;
+    min-height:100vh;
   }
   
   .d-flex {
@@ -57,6 +59,7 @@ export const GlobalStyle = createGlobalStyle`
   .ft {
     background: #00000063;
     display: block;
+    margin-top:auto;
   }
   
   .admin_contact {
@@ -176,7 +179,6 @@ export const GlobalStyle = createGlobalStyle`
   
     .inner {
       display: flex;
-      justify-content: space-around;
       align-items: center;
       background: #00000038;
     }
@@ -185,7 +187,9 @@ export const GlobalStyle = createGlobalStyle`
       background: #00000063;
       display: block;
     }
-  
+
+
+
     .navCate {
       background-color: #000000;
       box-shadow: 0px 2px 2px #23232a;
@@ -392,6 +396,7 @@ export const GlobalStyle = createGlobalStyle`
 
     .containers{
       padding-top: 6.5%;
+
     }
   }
 

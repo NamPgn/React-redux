@@ -3,8 +3,9 @@ import { Link, useParams } from 'react-router-dom';
 import { useSWRWithAxios } from '../../../hook/Swr';
 import { urlSwr } from '../../../function';
 import { Loader, MessageErr } from '../../../components/Message/Loading';
-import { Div, DivStyled, DivStyledContent, DivStyledImage, DivStyledItem, DivStyledText, DivStyledTitle, DivStyledTitleItem } from '../../../components/Styled/Type';
+import { Div, DivStyledGrid, DivStyledContent, DivStyledImage, DivStyledItem, DivStyledText, DivStyledTitleItem } from '../style';
 import { NotUpdate } from '../../../components/Message/Warning';
+import MVTypeDisplay from '../conponent';
 
 const ListType = () => {
   const { id } = useParams();
@@ -18,12 +19,10 @@ const ListType = () => {
   }
 
   return (
-    <div className='col-md-10'>
-      <div className="p-3">
-        <DivStyledText>Trang chủ - {data.name}</DivStyledText>
-        <DivStyledTitle className="text-white">{data.name}</DivStyledTitle>
-        <DivStyledText className='mt-3'>Tuyển chọn Phim hay nhất chất lượng cao, Phim Chiếu Rạp 2022 chọn lọc có thuyết minh và việt sub.</DivStyledText>
-        <DivStyled className='mt-4'>
+    <MVTypeDisplay
+      data={data}
+      children={
+        <DivStyledGrid className='mt-4'>
           {data.products && data.products.length ? data.products.map((item: any, index: number) => (
             <DivStyledContent key={index}>
               <DivStyledItem>
@@ -36,10 +35,10 @@ const ListType = () => {
                 <DivStyledText>{data.name}</DivStyledText>
               </DivStyledItem>
             </DivStyledContent>
-          )) : <NotUpdate/>}
-        </DivStyled>
-      </div>
-    </div>
+          )) : <NotUpdate />}
+        </DivStyledGrid>
+      }
+    />
   )
 }
 

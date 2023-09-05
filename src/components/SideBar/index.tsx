@@ -1,20 +1,14 @@
 import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { AreaChartOutlined, BarChartOutlined, BlockOutlined, DoubleLeftOutlined, DoubleRightOutlined, FundOutlined, HomeOutlined, RiseOutlined, SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 import { ChangeContext, MyContext } from '../../context';
-import { DivStyled, DivStyledRouter, DivStyledSearchBarStyle, DivStyledTitle, DivstySideBar, DivstyledContent, Icon, RouterIcon, RouterLink, RouterText, SibarImage, SideBarText, Text, Title } from './styles';
+import { DivStyled, DivStyledRouter, DivStyledSearchBarStyle, DivStyledTitle, DivstySideBar, DivstyledContent, RouterIcon, RouterLink, RouterText, SibarImage, SideBarText, Text, Title } from './styles';
 import { Spiner } from '../Message/Loading';
-const Icons = [
-  <HomeOutlined />,
-  <BlockOutlined />,
-  <AreaChartOutlined />,
-  <RiseOutlined />,
-  <BarChartOutlined />,
-  <FundOutlined />,
-]
+import { Icons } from '../../constant';
+
 const SideBar = () => {
   const { seri, loadingSeri }: any = useContext(MyContext) || {};
-  const { state, handleClick } = useContext(ChangeContext) || {};
+  const { state } = useContext(ChangeContext) || {};
   return (
     <DivstySideBar className={state ? 'w-1/12' : 'w-2/12'} >
       <DivstyledContent className={state ? 'w-1/12' : 'w-2/12'} >
@@ -34,9 +28,6 @@ const SideBar = () => {
               </Text>
             </Link>
           </SideBarText>
-          <Icon onClick={handleClick} style={{ cursor: "pointer " }}>
-            {state ? <DoubleRightOutlined /> : <DoubleLeftOutlined className='ml-4 text-white' />}
-          </Icon>
         </DivStyledTitle>
         <DivStyled>
           {state ? <SearchOutlined className='w-full' style={{

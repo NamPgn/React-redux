@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Link } from 'react-router-dom'
 
 interface CategoryContent {
@@ -10,9 +10,9 @@ interface CategoryContent {
   time: string,
   typecm?: string
 }
-const CategoryContents = ({ text, title, link, image, sumSeri, time, typecm }: CategoryContent) => {
+const CategoryContents = memo(({ text, title, link, image, sumSeri, time, typecm }: CategoryContent) => {
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <Link to={link}>
         <img src={image} alt="" className='h-[200px] rounded md:h-[300px] lg:h-[400px] ' />
       </Link>
@@ -35,6 +35,6 @@ const CategoryContents = ({ text, title, link, image, sumSeri, time, typecm }: C
       </div>
     </div>
   )
-}
+})
 
 export default CategoryContents

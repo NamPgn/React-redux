@@ -10,6 +10,8 @@ import {
   CompassOutlined,
   CarryOutOutlined,
   PicRightOutlined,
+  ClockCircleOutlined,
+  FormOutlined,
 } from "@ant-design/icons";
 import DetailProductPage from '../page/Home/Detail';
 import CategoryProduct from '../page/Home/Category'; //danh mục
@@ -19,7 +21,8 @@ import PrivateRouter from '../components/Router-Security/PrivateRouter';
 import LayoutWebsite from '../Layout/LayoutWebsite';
 import Page404 from '../components/404/Page404';
 import LazyComponent from '../components/Lazy/LazyComponent';
-import CatemainProduct from '../page/Admin/typesCategory/CatemainProduct';
+import CatemainProduct from '../page/Admin/typesCategory/component/CatemainProduct';
+import Weeks from '../page/Admin/week';
 //type component
 const ListType = lazy(() => import('../page/Type/Theloai'));
 const OllMovie = lazy(() => import('../page/Type/SidebarData'));
@@ -32,28 +35,28 @@ const Signup = lazy(() => import('../page/Auth-Page/Sign-up')); //signup
 
 //router admin
 const AdminPage = lazy(() => import('../page/Admin')); //admin
-const DataProduct = lazy(() => import('../page/Admin/product/DataProduct'));
+const DataProduct = lazy(() => import('../page/Admin/product/component/list'));
 const GetUser = lazy(() => import('../page/Admin/user'));
-const Adduser = lazy(() => import('../page/Admin/user/Adduser'));
-const EditUser = lazy(() => import('../page/Admin/user/EditUser'));
-const GetAdmin = lazy(() => import('../page/Admin/user/GetAdmin'));
-const ProductAdd = lazy(() => import('../page/Admin/product/ProductAdd'));
-const EditProduct = lazy(() => import('../page/Admin/product/EditProduct'));
-const CreatingUser = lazy(() => import('../page/Admin/user/CreatingUser'));
-const CreatingProducts = lazy(() => import('../page/Admin/product/CreatingProducts'));
+const Adduser = lazy(() => import('../page/Admin/user/component/Adduser'));
+const EditUser = lazy(() => import('../page/Admin/user/component/EditUser'));
+const GetAdmin = lazy(() => import('../page/Admin/user/component/GetAdmin'));
+const ProductAdd = lazy(() => import('../page/Admin/product/component/add'));
+const EditProduct = lazy(() => import('../page/Admin/product/component/edit'));
+const CreatingUser = lazy(() => import('../page/Admin/user/component/CreatingUser'));
+const CreatingProducts = lazy(() => import('../page/Admin/product/component/CreatingProducts'));
 const CategoryAdmin = lazy(() => import('../page/Admin/category'));
-const EditCategoryAdmin = lazy(() => import('../page/Admin/category/EditCategory'));
+const EditCategoryAdmin = lazy(() => import('../page/Admin/category/component/edit'));
 const Trailer = lazy(() => import('../page/Admin/trailer'));
-const EditTrailerUrl = lazy(() => import('../page/Admin/trailer/EditTrailerUrl'));
-const CommentAdmin = lazy(() => import('../page/Admin/comment/CommentAdmin'));
-const CartUser = lazy(() => import('../components/Cart/CartUser'));
+const EditTrailerUrl = lazy(() => import('../page/Admin/trailer/component/edit'));
+const CommentAdmin = lazy(() => import('../page/Admin/comment'));
+const CartUser = lazy(() => import('../components/Cart'));
 const CartAdmin = lazy(() => import('../page/Admin/cart'));
-const TypesCateAdmin = lazy(() => import('../page/Admin/'));
+const TypesCateAdmin = lazy(() => import('../page/Admin/typesCategory/'));
 const Loadmore = lazy(() => import('../page/Home/Category/Loadmore'));
 
 //background
 const Background = lazy(() => import('../page/Admin/background'));
-const EditBackground = lazy(() => import('../page/Admin/background/edit'));
+const EditBackground = lazy(() => import('../page/Admin/background/component/edit'));
 
 export const routerNavBar = [
   {
@@ -96,7 +99,6 @@ export const router = [
         element: <HomePage />,
         index: true,
       },
-
       {
         path: "d/:id",
         element: <LazyComponent><DetailProductPage /></LazyComponent>,
@@ -240,6 +242,10 @@ export const router = [
         path: "background/edit/:id",
         element: <LazyComponent><EditBackground /></LazyComponent>
       },
+      {
+        path: "weeks",
+        element: <LazyComponent><Weeks /></LazyComponent>
+      }
     ]
   },
   {
@@ -299,6 +305,11 @@ export const TableRouterAdminPage = [
   {
     path: "/dashboard/background",
     name: "Background",
-    icon: <PicRightOutlined />
+    icon: <FormOutlined />
   },
+  {
+    path: "/dashboard/weeks",
+    icon: <ClockCircleOutlined />,
+    name: "Week",
+  }
 ];

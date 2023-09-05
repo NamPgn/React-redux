@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { logout, uploadImage } from '../../redux/slice/userSlice';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../hook';
@@ -7,25 +7,22 @@ import { MyContext } from '../../context';
 import Success from '../../components/Message/Success';
 import Error from '../../components/Message/Error';
 import { InputStyled } from '../../components/Form/styles';
-import { EditOutlined, UploadOutlined } from '@ant-design/icons';
+import { EditOutlined } from '@ant-design/icons';
 import { MyButton } from '../../components/Button';
 
 const Container = styled.div`
-
 `;
-
 
 const Profile = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [state, setState] = useState(null);
-  const { Auth, user, isLoggedInState } = useContext(MyContext);
+  const { user } = useContext(MyContext);
   const handleLogOut = async () => {
     dispatch(logout());
     navigate('/');
   }
   const isLoading = useAppSelector(state => state.user.isLoading);
-
   const handleEditImage = async () => {
     const formData = new FormData();
     formData.append('file', state[0]);
@@ -40,10 +37,8 @@ const Profile = () => {
       Error('Image saved failed');
     }
   }
-
-
   return (
-    <Container className="h-screen containers p-5 w-10/12">
+    <Container className="h-screen containers p-5">
       <div className='text-lg text-white underline'>
         User Info
       </div>

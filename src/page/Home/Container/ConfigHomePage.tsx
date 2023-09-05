@@ -1,12 +1,12 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import ContactAdmin from '../../../components/Contact/ContactAdmin';
 import { MessageErr } from '../../../components/Message/Loading';
 import { useSWRWithAxios } from '../../../hook/Swr';
 import { urlSwr } from '../../../function';
-import CategoryProductSidebar from '../../../components/Category/CategorySideBar';
+import CategoryProductSidebar from '../../../components/Category/component/CategorySideBar';
 import WeekComponent from '../../../components/Week';
-import CategoryHomePage from '../../../components/Category/CategoryHomePage';
+import CategoryHomePage from '../../../components/Category/component/CategoryHomePage';
 import styled from 'styled-components';
 
 const Video = styled.video`
@@ -20,7 +20,7 @@ padding-bottom:60%;
   padding-bottom:45%;
 }
 `
-const ConfigHomePage = ({ category, isLoading, isError, state }) => {
+const ConfigHomePage = memo(({ category, isLoading, isError, state }: any) => {
   useEffect(() => {
     document.title = "Home Page";
   }, []);
@@ -52,6 +52,6 @@ const ConfigHomePage = ({ category, isLoading, isError, state }) => {
       />
     </div>
   )
-}
+})
 
 export default ConfigHomePage

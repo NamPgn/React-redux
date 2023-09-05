@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useForm } from "react-hook-form";
-import { getCategoryOne$ } from '../../../redux/selectors';
-import { getCateSlice, updateCatgorySlice } from '../../../redux/slice/category/ThunkCategory/category';
+import { getCategoryOne$ } from '../../../../redux/selectors';
+import { getCateSlice, updateCatgorySlice } from '../../../../redux/slice/category/ThunkCategory/category';
 import { toast } from 'react-toastify';
-import { getCategory } from '../../../api/category';
+import { getCategory } from '../../../../api/category';
 import styled from 'styled-components';
-import { useAppDispatch, useAppSelector } from '../../../hook';
-import { MyButton } from '../../../components/Button';
+import { useAppDispatch, useAppSelector } from '../../../../hook';
+import { MyButton } from '../../../../components/Button';
 const Divstyled = styled.div``;
 const InputStyled = styled.input``;
 declare var Promise: any;

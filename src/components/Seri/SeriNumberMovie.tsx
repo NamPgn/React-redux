@@ -18,13 +18,13 @@ const SeriNumberMovie = () => {
 
   return (
     <DivstyledContent className="md:p-[16px] lg:p-[20px] p-[13px]">
-      <DivstyledItem data={data.length} className='product_seri_item'>
+      <DivstyledItem data={data.length} >
         {
           data.length > 0 && data ? data.map((item, index) => {
             return <Divstyled style={{ textAlign: "center", }} key={index}>
               <Link to={'/d/' + item._id + `?c=${item.category}`}>
                 {
-                  item.trailer ? <BtnStyledNumber type="button" className="d-flex btn-dark" >
+                  item.trailer ? <BtnStyledNumber type="button" className="d-flex btn-dark">
                     <span>
                       {item.seri}
                     </span>

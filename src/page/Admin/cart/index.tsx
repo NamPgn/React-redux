@@ -1,45 +1,17 @@
 import React, { useEffect } from 'react';
-import { Table, Button, Image } from 'antd';
+import { Image } from 'antd';
 import { Link } from 'react-router-dom';
 import { cart$ } from '../../../redux/selectors/Cart';
 import { getAllCartSlice } from '../../../redux/slice/cart/thunk/cart';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../../hook';
 import { deleteCommentSlice } from '../../../redux/slice/comment/thunkComment/comment';
+import MVTable from '../../../components/Table';
+import { MyButton } from '../../../components/Button';
+import { columsCart } from '../../../constant';
 const Divstyled = styled.div``;
 const SpanStyled = styled.span``;
-const columns = [
-  {
-    title: 'Stt',
-    dataIndex: 'stt',
-    key: 'stt',
-  },
-  {
-    title: 'ProductName',
-    dataIndex: 'ProductName',
-    key: 'ProductName',
-  },
-  {
-    title: 'User',
-    dataIndex: 'user',
-    key: 'user',
-  },
-  {
-    title: 'Image',
-    dataIndex: 'image',
-    key: 'Image',
-  },
-  {
-    title: 'Permission',
-    dataIndex: 'permission',
-    key: 'permission',
-  },
-  {
-    title: 'Action',
-    dataIndex: 'action',
-    key: 'action',
-  }
-];
+
 const index = () => {
   const cart = useAppSelector(cart$);
   const dispatch = useAppDispatch();
@@ -58,13 +30,13 @@ const index = () => {
         action: (
           <SpanStyled>
             <Link to={`/dashboard/trailerUrl/${item._id}`}>
-              <Button style={{ background: "#1677ff" }} type="primary">
+              <MyButton danger>
                 Edit
-              </Button>
+              </MyButton>
             </Link>
-            <Button onClick={() => dispatch(deleteCommentSlice(item._id))} style={{ background: "#dc3545" }} type="primary" className='ml-2'>
+            <MyButton onClick={() => dispatch(deleteCommentSlice(item._id))} className='ml-2'>
               Cút
-            </Button>
+            </MyButton>
           </SpanStyled>
         )
       }
@@ -72,7 +44,11 @@ const index = () => {
   );
   return (
     <Divstyled>
-      <Table columns={columns} dataSource={data} pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '10', '15'] }}></Table>
+      <MVTable
+        columns={columsCart}
+        dataSource={data}
+        pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '10', '15'] }}
+      />
     </Divstyled>
   )
 }
