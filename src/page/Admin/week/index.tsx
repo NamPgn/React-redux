@@ -1,13 +1,14 @@
 import React, { useContext } from 'react'
-import { MyButton } from '../../../components/Button';
+import { MyButton } from '../../../components/MV/Button';
 import { Link } from 'react-router-dom';
 import { MyContext } from '../../../context';
-import MVTable from '../../../components/Table';
+import MVTable from '../../../components/MV/Table';
 import { columnsWeeks } from '../../../constant';
-import { Col, Row } from 'antd';
-import renderInput from '../../../hook/form';
+import RenderInput from '../../../components/Form/component';
 import { useForm } from 'react-hook-form';
 import { addWeeks, removeWeeks } from '../../../api/week';
+import MVRow from '../../../components/MV/Grid';
+import MVCol from '../../../components/MV/Grid/Col';
 const Weeks = () => {
   const { weeks } = useContext(MyContext);
   const { handleSubmit, control } = useForm();
@@ -38,16 +39,21 @@ const Weeks = () => {
   return (
     <React.Fragment>
       <form onSubmit={handleSubmit(onAdd)}>
-        <Row gutter={4} align={'middle'} justify={'center'}>
-          <Col span={22}>
-            {renderInput('name', 'Theo tuần', control)}
-          </Col>
-          <Col span={2}>
+        <MVRow gutter={4} align={'middle'} justify={'center'}>
+          <MVCol span={22}>
+            <RenderInput
+              name={'name'}
+              label={'Theo tuần'}
+              control={control}
+              rules={undefined}
+            />
+          </MVCol>
+          <MVCol span={2}>
             <MyButton htmlType='submit' className="mt-3" type="primary">
               Thêm
             </MyButton>
-          </Col>
-        </Row>
+          </MVCol>
+        </MVRow>
       </form>
       <MVTable
         columns={columnsWeeks}

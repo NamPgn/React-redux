@@ -8,11 +8,12 @@ import { useAppDispatch, useAppSelector } from '../../../hook';
 import { MyContext } from '../../../context';
 import { pushCateTotype } from '../../../api/type';
 import { useForm } from 'react-hook-form';
-import renderInput, { MySelectWrapper, MyUploadWrapper } from '../../../hook/form';
-import { MyButton } from '../../../components/Button';
-import { Col, Row } from 'antd';
+import RenderInput, { MySelectWrapper, MyUploadWrapper } from '../../../components/Form/component';
+import { MyButton } from '../../../components/MV/Button';
 import { columnsCategory } from '../../../constant';
-import MVTable from '../../../components/Table';
+import MVTable from '../../../components/MV/Table';
+import MVRow from '../../../components/MV/Grid';
+import MVCol from '../../../components/MV/Grid/Col';
 
 const CategoryAdmin = () => {
   const dispatch = useAppDispatch();
@@ -28,6 +29,7 @@ const CategoryAdmin = () => {
     formdata.append('week', data.week);
     formdata.append('type', data.type);
     formdata.append('file', data.file);
+    formdata.append('up', data.up);
     const res = await dispatch(addCateGorySlice(formdata));
     if (res.payload.success) {
       toast.success('Thành công');
@@ -44,14 +46,14 @@ const CategoryAdmin = () => {
       toast.error('Delete Fail');
     }
   }
-  
+
   useEffect(() => {
     dispatch(getAllcate());
   }, []);
   const handleGetid = (id) => {
     setId(id);
   }
-  
+
   const hanedlePushCategoryToType = async (categoryId) => {
     const body = {
       categoryId: categoryId
@@ -102,21 +104,52 @@ const CategoryAdmin = () => {
           ))
         )}
       </div>
-      <Row gutter={10}>
-        <Col span={18}>
+      <MVRow gutter={10}>
+        <MVCol span={18}>
           <MVTable
             columns={columnsCategory}
             dataSource={data}
             pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '20', '30'] }}>
           </MVTable>
-        </Col>
-        <Col span={6}>
+        </MVCol>
+        <MVCol span={6}>
           <form onSubmit={handleSubmit(onsubmit)}>
-            {renderInput('name', "Name", control)}
-            {renderInput('des', "Description", control)}
-            {renderInput('sumSeri', "Tổng số tập", control)}
-            {renderInput('type', "Kiểu", control)}
-            {renderInput('week', "Theo tuần", control)}
+            <RenderInput
+              name={'name'}
+              label={'Name'}
+              control={control}
+              rules={undefined}
+            />
+            <RenderInput
+              name={'des'}
+              label={'Description'}
+              control={control}
+              rules={undefined}
+            />
+            <RenderInput
+              name={'sumSeri'}
+              label={'Sum seri'}
+              control={control}
+              rules={undefined}
+            />
+            <RenderInput
+              name={'type'}
+              label={'Type'}
+              control={control}
+              rules={undefined}
+            />
+            <RenderInput
+              name={'week'}
+              label={'Week'}
+              control={control}
+              rules={undefined}
+            />
+            <RenderInput
+              name={'up'}
+              label={'Set'}
+              control={control}
+              rules={undefined}
+            />
             <MySelectWrapper
               name={'week'}
               label={'Theo tuần'}
@@ -131,11 +164,10 @@ const CategoryAdmin = () => {
               label={'Upload'}
               control={control}
             />
-            {/* <input type="file" name='file' {...register('file')} className="mt-2" /> */}
             <MyButton htmlType='submit' className='mt-2'>Create</MyButton>
           </form>
-        </Col>
-      </Row>
+        </MVCol>
+      </MVRow>
     </React.Fragment>
   )
 }

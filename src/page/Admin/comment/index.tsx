@@ -5,9 +5,12 @@ import { deleteCommentSlice, getAllCommentSlice } from '../../../redux/slice/com
 import { comment$ } from '../../../redux/selectors/comment';
 import moment from 'moment';
 import { useAppDispatch, useAppSelector } from '../../../hook';
-import MVTable from '../../../components/Table';
+import MVTable from '../../../components/MV/Table';
 import { columnsComment } from '../../../constant';
-import { MyButton } from '../../../components/Button';
+import { MyButton } from '../../../components/MV/Button';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import MVConfirm from '../../../components/MV/Confirm';
+import { toast } from 'react-toastify';
 
 const CommentAdmin = () => {
   const comment = useAppSelector(comment$);
@@ -15,31 +18,45 @@ const CommentAdmin = () => {
   useEffect(() => {
     dispatch(getAllCommentSlice());
   }, []);
-  const data = comment && (
-    comment.map((item: any, index: any) => {
-      return {
-        key: item._id,
-        stt: index + 1,
-        name: item.commentContent,
-        user: item.user.username + " Tập: ",
-        image: <Image width={60} height={80} style={{ objectFit: "cover" }} src={item.user.image} />,
-        product: "product",
-        permission: item.role == 0 ? "User" : "Admin",
-        Time: moment(item.createdAt).format('LTS DD-MM-YYYY'),
-        action: (
-          <span>
-            <Link to={`/dashboard/trailerUrl/${item._id}`}>
-              <MyButton style={{ background: "#1677ff" }}>
-                Edit
-              </MyButton>
-            </Link>
-            <MyButton onClick={() => dispatch(deleteCommentSlice(item._id))} style={{ background: "#dc3545" }} className='ml-2'>
-              Cút
+  
+  const confirm = async (id) => {
+    const response = await dispatch(deleteCommentSlice(id));
+    if (response.payload.success) {
+      toast.success('Delete product successfully');
+    } else {
+      toast.error('Error deleting product');
+    }
+  };
+
+  const data = comment && (comment.filter((item) => item.user !== null).map((item: any, index: any) => {
+    return {
+      key: item._id,
+      stt: index + 1,
+      name: item.commentContent,
+      user: item.user.username + " Tập: ",
+      image: <Image width={60} height={80} style={{ objectFit: "cover" }} src={item.user.image} />,
+      product: "product",
+      permission: item.role == 0 ? "User" : "Admin",
+      Time: moment(item.createdAt).format('LTS DD-MM-YYYY'),
+      action: (
+        <span>
+          <Link to={`/dashboard/comment/${item._id}`}>
+            <MyButton danger shape="circle"><EditOutlined /></MyButton>
+          </Link>
+          <MVConfirm
+            title="Delete the product"
+            onConfirm={() => confirm(item._id)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <MyButton shape="circle" className="ml-2">
+              <DeleteOutlined />
             </MyButton>
-          </span>
-        )
-      }
-    })
+          </MVConfirm>
+        </span>
+      )
+    }
+  })
   );
   return (
     <>

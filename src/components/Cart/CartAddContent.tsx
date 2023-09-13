@@ -7,7 +7,7 @@ import Success from '../Message/Success';
 import { Warning } from '../Message/Warning';
 import { MyContext } from '../../context';
 import { LikeOutlined } from '@ant-design/icons';
-import { MyButton } from '../Button';
+import { MyButton } from '../MV/Button';
 
 const CartAddItem = styled.div`
   color: #fff;
@@ -61,7 +61,7 @@ const CartAddContent = ({ item, id, categoryId }) => {
   return (
     <div className='lg:flex md:flex-row items-center @screen md:justify-between flex flex-col'>
       <DivStyled style={{ color: "#fff", margin: "10px 0px" }}>{item.name}</DivStyled>
-      <MyButton style={{color:"#fff"}} icon={<LikeOutlined />}
+      <MyButton style={{ color: "#fff" }} icon={<LikeOutlined />}
         disabled={isFavorited}
         className="flex items-center justify-center"
         onClick={() => handleAddCart()}>

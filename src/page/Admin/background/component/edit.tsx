@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
-import { MyButton } from '../../../../components/Button';
+import { MyButton } from '../../../../components/MV/Button';
 import { setBackground } from '../../../../api/trailer';
 const EditBackground = () => {
   const { handleSubmit, register, reset, control } = useForm();

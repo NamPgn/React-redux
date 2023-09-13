@@ -8,7 +8,6 @@ export const DivLink = styled.div`
 color: rgb(255, 214, 99);
 font-weight:500;
 `;
-export const Imagetyled = styled.img``;
 export const DivContentMkt = styled.div`
 display: flex;
 align-items: center;

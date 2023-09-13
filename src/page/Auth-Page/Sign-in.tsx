@@ -5,8 +5,6 @@ import { useAppDispatch } from '../../hook';
 import { message } from 'antd';
 import AuthForm from '../../components/Form';
 import Success from '../../components/Message/Success';
-import Error from '../../components/Message/Error';
-
 
 const array = [
   {
@@ -24,10 +22,11 @@ const Signin = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const onsubmit = async (data: any) => {
-    const responese:any = await dispatch(loginForm(data));
+    const responese: any = await dispatch(loginForm(data));
     if (responese.payload && responese.payload.success) {
       Success(responese.payload.message);
       navigate('/');
+      location.reload();
     } else {
       Error(responese.error.message);
     }

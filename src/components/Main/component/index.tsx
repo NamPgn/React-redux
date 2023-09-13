@@ -2,7 +2,7 @@ import { EyeOutlined } from '@ant-design/icons'
 import moment from 'moment'
 import React, { useState } from 'react'
 import { Rate } from 'antd';
-import MyProgress from '../Progress';
+import MyProgress from '../../MV/Progress';
 const Content = ({ getOneProductDetail }) => {
   const desc = ['Terrible', 'Bad', 'Normal', 'Good', 'Very good'];
   const [value, setValue] = useState(3);

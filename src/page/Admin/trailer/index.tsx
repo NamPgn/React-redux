@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { getTrailerUrl } from '../../../api/trailer';
 import { Link } from 'react-router-dom';
-import { MyButton } from '../../../components/Button';
+import { MyButton } from '../../../components/MV/Button';
 import { columnsTrailer } from '../../../constant';
-import MVTable from '../../../components/Table';
+import MVTable from '../../../components/MV/Table';
 declare var Promise;
 const indexTrailer = () => {
   const [trailer, setTrailer]: any = useState({});

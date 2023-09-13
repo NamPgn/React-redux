@@ -1,10 +1,10 @@
 import { Controller } from 'react-hook-form';
 import { Input, Select, Upload } from 'antd';
-import React from 'react';
+import React, { memo } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
-import { MyButton } from '../../components/Button';
+import { MyButton } from '../../MV/Button';
 
-const renderInput = (name, label, control, rules?, ...rest) => {
+const RenderInput = ({ name, label, control, rules, ...rest }) => {
   return (
     <div className='mb-3'>
       <label htmlFor={name}>{label}</label>
@@ -22,7 +22,7 @@ const renderInput = (name, label, control, rules?, ...rest) => {
 };
 
 
-export const MySelectWrapper = ({ placeholder, label, name, defaultValue, control, ...rest }) => {
+export const MySelectWrapper = memo(({ placeholder, label, name, defaultValue, control, ...rest }: any) => {
   return (
     <div>
       <div>
@@ -45,10 +45,10 @@ export const MySelectWrapper = ({ placeholder, label, name, defaultValue, contro
       />
     </div>
   );
-}
+})
 
 
-export const MyUploadWrapper = ({ label, name, control, ...rest }) => {
+export const MyUploadWrapper = memo(({ label, name, control, ...rest }: any) => {
   return (
     <div className="mt-2">
       <div>
@@ -68,7 +68,7 @@ export const MyUploadWrapper = ({ label, name, control, ...rest }) => {
           >
             <MyButton
               icon={<UploadOutlined />}
-              className='mt-2'
+              className='m-2'
             >
               Click to Upload
             </MyButton>
@@ -77,6 +77,6 @@ export const MyUploadWrapper = ({ label, name, control, ...rest }) => {
       />
     </div>
   );
-};
+});
 
-export default renderInput
+export default memo(RenderInput);

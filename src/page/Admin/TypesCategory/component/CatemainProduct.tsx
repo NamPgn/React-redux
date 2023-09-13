@@ -1,12 +1,14 @@
 import React from 'react'
-import { Table, Button, Image } from 'antd';
+import { Button, Image } from 'antd';
 import { Link, useParams } from 'react-router-dom';
 import { urlSwr } from '../../../../function';
 import { useSWRWithAxios } from '../../../../hook/Swr';
 import { deleteCatemainByProduct } from '../../../../api/catemain';
 import { columnsCatemainProduct } from '../../../../constant';
-import MVTable from '../../../../components/Table';
+import MVTable from '../../../../components/MV/Table';
+import { Typography } from 'antd';
 
+const { Title } = Typography;
 const CatemainProduct = () => {
 
   const { id } = useParams();
@@ -41,7 +43,7 @@ const CatemainProduct = () => {
   )
   return (
     <>
-      <div className='mt-2 mb-2'>{datas.name}</div>
+      <Title level={5}>{datas.name}</Title>
       <MVTable
         columns={columnsCatemainProduct}
         dataSource={data}

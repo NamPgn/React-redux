@@ -1,8 +1,12 @@
-import React, { useState } from 'react'
-import { Button, message, Popconfirm } from 'antd';
+import React from 'react';
+import { message } from 'antd';
 import styled from 'styled-components';
 import { deleteCartSlice } from '../../redux/slice/cart/thunk/cart';
 import { useAppDispatch } from '../../hook';
+import MVConfirm from '../MV/Confirm';
+import { MyButton } from '../MV/Button';
+import Error from '../Message/Error';
+import Success from '../Message/Success';
 
 const BtnClickDeleteCartById = styled.div`
 font-size: 14px;
@@ -18,29 +22,22 @@ export const StyledBtnClickDeleteCartById = ({ id, userId, setReset, setCount }:
     userId: userId
   };
   const dispatch = useAppDispatch();
-  const confirm = (id: string) => {
-    message.success({
-      type: 'error',
-      content: "Đã xóa!",
-    });
-    dispatch(deleteCartSlice(state))
-    setReset((reset) => !reset)
+  const confirm = async (id: string) => {
+    const response = await dispatch(deleteCartSlice(state));
+    if (response.payload.success) {
+      Success("Đã xóa!");
+      setReset((reset) => !reset)
+    }
   };
-  const cancel = () => {
-    message.error({
-      type: 'error',
-      content: "Khum xóa",
-    });
-  };
+
   return <BtnClickDeleteCartById>
-    <Popconfirm
+    <MVConfirm
       title={text}
       onConfirm={() => confirm(id)}
-      onCancel={cancel}
       okText="Có"
       cancelText="Khum!"
     >
-      <Button icon={undefined}  disabled={undefined} className='text-[#fff]' onClick={undefined}>Xóa</Button>
-    </Popconfirm>
+      <MyButton className='text-[#fff]'>Xóa</MyButton>
+    </MVConfirm>
   </BtnClickDeleteCartById>
 }

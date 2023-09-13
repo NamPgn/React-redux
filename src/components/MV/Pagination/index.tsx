@@ -1,5 +1,5 @@
-import { Pagination } from 'antd'
-import React from 'react'
+import { Pagination } from 'antd';
+import React, { memo } from 'react';
 interface Pagination {
   totalItems: number;
   pageSize: number;
@@ -8,7 +8,7 @@ interface Pagination {
   className: any;
   defaultCurrent: number;
 }
-const index = ({ totalItems, pageSize, currentPage, onChange, className, defaultCurrent }: Pagination) => {
+const index = memo(({ totalItems, pageSize, currentPage, onChange, className, defaultCurrent }: Pagination) => {
   return (
     <Pagination
       simple
@@ -20,6 +20,6 @@ const index = ({ totalItems, pageSize, currentPage, onChange, className, default
       defaultCurrent={defaultCurrent}
     />
   )
-}
+})
 
 export default index

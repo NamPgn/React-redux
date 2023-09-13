@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { isAuthentication } from '../../auth/getToken';
 import { addCommentSlice } from '../../redux/slice/comment/thunkComment/comment';
-import styled from 'styled-components';
 import { useAppDispatch } from '../../hook/index'
 import Success from '../Message/Success';
 import Error from '../Message/Error';

@@ -5,10 +5,10 @@ import { editUser, getUser_id } from '../../../../redux/slice/userSlice';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { useAppDispatch } from '../../../../hook';
-import renderInput from '../../../../hook/form';
+import RenderInput from '../../../../components/Form/component';
 import Error from '../../../../components/Message/Error';
 import { Select, Space } from 'antd';
-import { MyButton } from '../../../../components/Button';
+import { MyButton } from '../../../../components/MV/Button';
 declare var Promise: any;
 const ImageStyledEditAuth = styled.img`
 width: 200px; height: 200px; objectFit: cover ;
@@ -53,12 +53,18 @@ const EditUser = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-3 ">
-          {renderInput('username', 'User name', control)}
-        </div>
-        <div className="mb-3 ">
-          {renderInput('role', 'Role', control)}
-        </div>
+        <RenderInput
+          name={'username'}
+          label={'User name'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'role'}
+          label={'Role'}
+          control={control}
+          rules={undefined}
+        />
         {/* <Space wrap>
           <Select
             defaultValue="user"

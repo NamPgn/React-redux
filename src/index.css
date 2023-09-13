@@ -6,26 +6,21 @@
   text-decoration: none;
 }
 
-.sideBarActive .active {
-  display: block;
-  background: #40404894;
-  border-radius: 5px;
-  font-weight: 500;
-  border-left: 2px solid;
-}
-
 a:hover {
   color: #ffffffa5;
-}
-
-.activeServer {
-  color: #999 !important;
-  background: #99999959;
 }
 
 .activeSeriNumber .active button {
   background-color: #999;
 
+}
+
+:where(.css-1s3dcof).ant-btn-primary{
+  background-color: #1677ff!important;
+}
+
+.activeServer{
+  background-color: #f0f0f052;
 }
 
 /* .ant-skeleton-element {

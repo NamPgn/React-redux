@@ -2,8 +2,9 @@ import React from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { urlSwr } from '../../function';
 import { useSWRWithAxios } from '../../hook/Swr';
-import { Loader } from '../Message/Loading';
+import { Loader, MessageErr } from '../Message/Loading';
 import { BtnStyledNumber, Divstyled, DivstyledContent, DivstyledItem } from './styles';
+import { NotUpdate } from '../Message/Warning';
 
 const SeriNumberMovie = () => {
   //còn đây là khi vào danh mục để list tâp phim
@@ -13,7 +14,7 @@ const SeriNumberMovie = () => {
     return <Loader />
   }
   if (error) {
-    return <div>Lỗi rồi</div>
+    return <MessageErr/>
   }
 
   return (
@@ -35,9 +36,7 @@ const SeriNumberMovie = () => {
                 }
               </Link>
             </Divstyled>
-          }) : <Divstyled className='des'>
-            <Divstyled style={{ padding: "5px", border: "1px solid #999", fontSize: "12px" }}>Chưa cập nhật!</Divstyled>
-          </Divstyled>
+          }) : <NotUpdate />
         }
       </DivstyledItem>
     </DivstyledContent>

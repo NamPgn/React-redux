@@ -25,7 +25,7 @@ export const Loading = () => {
 }
 
 export const Loader = () => {
-  const { state } = useContext(MyContext) ?? {};
+  const { state }: any = useContext(MyContext) ?? {};
   return (
     <Skeleton
       className={state ? 'w-11/12' : 'w-10/12'}

@@ -1,6 +1,6 @@
 
 import React, { useContext, useState } from 'react'
-import SearchResults from '../../../components/Search/SearchResults';
+import SearchResults from '../../../components/Search';
 import ConfigHomePage from './ConfigHomePage';
 import styled from 'styled-components';
 import { ChangeContext, MyContext } from '../../../context';

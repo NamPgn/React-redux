@@ -5,8 +5,8 @@ import { resgisterLogin } from '../../../../redux/slice/userSlice';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { useAppDispatch } from '../../../../hook';
-import renderInput from '../../../../hook/form';
-import { MyButton } from '../../../../components/Button';
+import RenderInput from '../../../../components/Form/component';
+import { MyButton } from '../../../../components/MV/Button';
 const Divstyled = styled.div``;
 const InputStyled = styled.input``;
 const Adduser = () => {
@@ -36,13 +36,28 @@ const Adduser = () => {
     <Divstyled>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Divstyled className="mb-3">
-          {renderInput('username', 'User name', control, { required: true })}
+          <RenderInput
+            name={'username'}
+            label={'User name'}
+            control={control}
+            rules={undefined}
+          />
         </Divstyled>
         <Divstyled className="mb-3">
-          {renderInput('email', 'Email', control, { required: true })}
+          <RenderInput
+            name={'email'}
+            label={'Email'}
+            control={control}
+            rules={undefined}
+          />
         </Divstyled>
         <Divstyled className="mb-3">
-          {renderInput('password', 'Password', control, { required: true })}
+          <RenderInput
+            name={'password'}
+            label={'Password'}
+            control={control}
+            rules={undefined}
+          />
         </Divstyled>
         <Divstyled className="mb-3">
           <label className="form-label">Image</label>

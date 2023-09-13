@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Loader } from '../../Message/Loading';
 import { urlSwr } from '../../../function';
 import { useSWRWithAxios } from '../../../hook/Swr';
-import MVGrid from '../../Grid/component';
+import MVGridCategory from '../../Grid/component';
 const DivstyledTitle = styled.div`
   color:#fff;
 `
@@ -20,7 +20,7 @@ const GetAllCategoryNotRequest = ({ id }) => {
   return (
     <React.Fragment>
       <DivstyledTitle className='underline my-2'>Liên quan</DivstyledTitle>
-      <MVGrid
+      <MVGridCategory
         type="category"
         gutter={[16, 16]}
         child={categorys}

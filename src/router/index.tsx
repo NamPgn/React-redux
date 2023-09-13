@@ -17,7 +17,7 @@ import DetailProductPage from '../page/Home/Detail';
 import CategoryProduct from '../page/Home/Category'; //danh mục
 import AuthComponent from '../Layout/AuthLayout';
 import LayoutAdmin from '../Layout/LayoutAdmin';
-import PrivateRouter from '../components/Router-Security/PrivateRouter';
+import PrivateRouter from '../components/Router-Security';
 import LayoutWebsite from '../Layout/LayoutWebsite';
 import Page404 from '../components/404/Page404';
 import LazyComponent from '../components/Lazy/LazyComponent';
@@ -26,7 +26,7 @@ import Weeks from '../page/Admin/week';
 //type component
 const ListType = lazy(() => import('../page/Type/Theloai'));
 const OllMovie = lazy(() => import('../page/Type/SidebarData'));
-const SearchResults = lazy(() => import('../components/Search/SearchResults')); //search
+const SearchResults = lazy(() => import('../components/Search')); //search
 
 //AUTH
 const ProfilePage = lazy(() => import('../page/Auth-Page/Profile')); //profile

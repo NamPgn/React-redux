@@ -3,15 +3,15 @@ import { useParams } from 'react-router-dom';
 import { getAllProductDataByCategorySlice, getProduct } from '../../redux/slice/product/thunkProduct/product';
 import { getAllProductsByCategory$, getOneProduct$ } from '../../redux/selectors';
 import queryString from 'query-string';
-import CommentProductsIndex from '../Comment/CommentProductsIndex';
+import CommentProductsIndex from '../Comment';
 import ComentProductsLayout from '../Comment/ComentProductsLayout';
 import SeriDetailProducts from '../Seri/SeriDetailProducts';
 import CartAddContent from '../Cart/CartAddContent';
 import { useAppDispatch, useAppSelector } from '../../hook';
-import Content from './Content';
+import Content from './component';
 import { DivContainer, DivStyledContent, DivStyledContentImage, DivStyledContentText, DivStyledDescription, DivStyledItem, Movie, Server } from './styles';
-import Dividers from '../Divider';
-import { MyButton } from '../Button';
+import Dividers from '../MV/Divider';
+import { MyButton } from '../MV/Button';
 import { Spiner } from '../Message/Loading';
 import { ProductsPending$ } from '../../redux/selectors/product';
 
@@ -34,7 +34,7 @@ const DetailComponent = () => {
     })
   }, [id, c, commentAdded, getOneProductDetail.link]); //nếu mà 2 thằng này có thay đổi thì rereder
   return (
-    <div className='flex justify-center col-span-2 mt-4' style={{ gap: "10px" }}>
+    <div className='flex justify-center mt-4' style={{ gap: "10px" }}>
       <DivContainer className='col-md-12'>
         {getOneProductDetail && (
           !isLoadingDetail ? <React.Fragment>
@@ -55,7 +55,11 @@ const DetailComponent = () => {
               }
             </Movie>
             <Server className='mt-4 rounded'>
-              <Dividers orientation={'center'} className='text-white md:text-sm lg:text-base text-sm underline'>Chọn server:</Dividers>
+              <Dividers
+                textColor={'#fff'}
+                orientation={'center'}
+                className='text-white md:text-sm lg:text-base text-sm underline'>Chọn server:
+              </Dividers>
               <div className='md:text-sm lg:text-base text-sm flex items-center justify-center gap-4 px-4 py-3'>
                 <MyButton onClick={() => { setActiveLink('link1'); setLink(getOneProductDetail.link); }}
                   className={` text-white cursor-pointer ${activeLink === 'link1' ? 'activeServer' : ''}`}
@@ -71,7 +75,7 @@ const DetailComponent = () => {
                   setActiveLink('dailyMotion');
                   setLink(getOneProductDetail.dailyMotionServer);
                 }}
-                  disabled={getOneProductDetail.server2 ? false : true}
+                  disabled={getOneProductDetail.dailyMotionServer ? false : true}
                   className={`${getOneProductDetail.dailyMotionServer ? 'text-white cursor-pointer' : ''} ${activeLink === 'dailyMotion' ? 'activeServer' : ''}`}
                 >#FullHđ</MyButton>
               </div>
@@ -80,13 +84,9 @@ const DetailComponent = () => {
             <DivStyledContent className='mt-2'>
               <DivStyledItem className='w-3/12'>
                 {
-                  getOneProductDetail.category ?
-                    <DivStyledContentImage
-                      src={getOneProductDetail.category ? getOneProductDetail.category.linkImg : ""}
-                    /> :
-                    <DivStyledContentImage
-                      src={getOneProductDetail.image ? getOneProductDetail.image : ""}
-                    />
+                  <DivStyledContentImage
+                    src={getOneProductDetail && (getOneProductDetail.category?.linkImg || getOneProductDetail.image)}
+                  />
                 }
               </DivStyledItem>
               <DivStyledContentText className='lg:w-9/12 md:w-full text-center lg:text-start'>
@@ -103,13 +103,17 @@ const DetailComponent = () => {
                   seriProduct={productByCategory}
                 />
                 <DivStyledDescription className='text-[#999] lg:text-md sm:text-sm mt-2 mb-2'>
-                  <Dividers orientation="left">Mô tả: </Dividers>
+                  <Dividers textColor={'#fff'} orientation="left">Mô tả: </Dividers>
                   <p>{getOneProductDetail.descriptions}</p>
                 </DivStyledDescription>
               </DivStyledContentText>
             </DivStyledContent>
             {/* comment */}
-            <Dividers orientation="left" className='h6 text-white mt-4 text:sm lg:text-lg md:text-md'>Bình luận:</Dividers>
+            <Dividers
+              textColor={'#fff'}
+              orientation="left"
+              className='h6 text-white mt-4 text:sm lg:text-lg md:text-md'>Bình luận:
+            </Dividers>
             <CommentProductsIndex getOne={getOneProductDetail} />
             <ComentProductsLayout setCommentAdded={setCommentAdded} />
           </React.Fragment> : <Spiner delay={0.5} size={'large'} spinning={isLoadingDetail} children={undefined} />

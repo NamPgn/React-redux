@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { Loader, MessageErr } from '../Message/Loading';
-const SearchResults = ({ data: { doc, isError, isLoading } }:any) => {
+const SearchResults = ({ data: { doc, isError, isLoading } }: any) => {
   if (isLoading) {
     return <Loader />
   }
@@ -29,7 +29,7 @@ const SearchResults = ({ data: { doc, isError, isLoading } }:any) => {
               </Link>
             </div>
           </div>
-        )) : <div style={{ color: "#fff", textAlign: "center",height:'100vh' }}>Not Found</div>
+        )) : <div style={{ color: "#fff", textAlign: "center", height: '100vh' }}>Not Found</div>
         }
       </div>
     </div>

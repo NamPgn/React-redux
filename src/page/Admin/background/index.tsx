@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
-import { MyButton } from '../../../components/Button';
+import { MyButton } from '../../../components/MV/Button';
 import { Link } from 'react-router-dom';
 import { MyContext } from '../../../context';
-import MVTable from '../../../components/Table';
+import MVTable from '../../../components/MV/Table';
 import { columnsBackground } from '../../../constant';
 
 const Background = () => {
@@ -22,9 +22,9 @@ const Background = () => {
   }
   return (
     <>
-      <MVTable 
-        columns={columnsBackground} 
-        dataSource={[data]} 
+      <MVTable
+        columns={columnsBackground}
+        dataSource={[data]}
       />
     </>
   )

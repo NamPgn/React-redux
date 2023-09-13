@@ -1,9 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Loader } from '../Message/Loading';
-import { useSWRWithAxios } from '../../hook/Swr';
-import { urlSwr } from '../../function';
-import PaginationCustoms from '../Pagination/'
-import MVGrid from '../Grid/component';
+import PaginationCustoms from '../MV/Pagination'
+import MVGridCategory from '../Grid/component';
 import { MyContext } from '../../context';
 export default function Index() {
   const { category, isLoading, setPage, page } = useContext(MyContext);
@@ -18,7 +16,7 @@ export default function Index() {
                 <h1 className="text-3xl xl:text-4xl font-semibold leading-7 xl:leading-9 text-gray-800 lg:mb-[40px] md:mb-[30px] mb-[10px]">Danh mục</h1>
               </div>
               {
-                <MVGrid
+                <MVGridCategory
                   type="category"
                   gutter={[16, 16]}
                   child={category && (category.data)}

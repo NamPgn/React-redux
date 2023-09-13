@@ -4,9 +4,9 @@ import { useSWRWithAxios } from '../../../hook/Swr';
 import { urlSwr } from '../../../function';
 import { DivStyledBtnItem, DivStyledGrid, } from '../style';
 import { Loader, MessageErr } from '../../../components/Message/Loading';
-import PaginationCustoms from '../../../components/Pagination';
+import PaginationCustoms from '../../../components/MV/Pagination';
 import { NotUpdate } from '../../../components/Message/Warning';
-import MVGrid from '../../../components/Grid/component';
+import MVGridCategory from '../../../components/Grid/component';
 import { backgrounds } from '../../../constant';
 import MVTypeDisplay from '../conponent';
 
@@ -26,7 +26,7 @@ const SidebarApi = () => {
       <MVTypeDisplay
         data={data}
         children={data.products.length == 0 && data.category.length == 0 && data.categorymain.length == 0 ? <NotUpdate /> : data.products.length && data.categorymain.length <= 0 ?
-          <MVGrid
+          <MVGridCategory
             type="category"
             gutter={[16, 16]}
             child={dt}

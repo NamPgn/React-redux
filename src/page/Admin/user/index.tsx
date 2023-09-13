@@ -7,8 +7,8 @@ import { user$ } from '../../../redux/selectors';
 import { NavLink } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hook';
 import { columnsUser } from '../../../constant';
-import MVTable from '../../../components/Table';
-import { MyButton } from '../../../components/Button';
+import MVTable from '../../../components/MV/Table';
+import { MyButton } from '../../../components/MV/Button';
 
 const GetUser = () => {
   const states = useAppSelector(user$);

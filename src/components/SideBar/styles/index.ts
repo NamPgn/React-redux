@@ -71,7 +71,6 @@ top: 0;
 background-color: rgba(0, 0, 0, 0.37);
 bottom: 0;
 z-index: 9;
-
   @media(min-width:768px){
     padding:15px;
   }
@@ -80,15 +79,13 @@ z-index: 9;
   }
 `
 export const DivStyledTitle = styled.div`
-width:50px;
 display:flex;
 gap:0 5px;
 align-items: center;
-justify-content: space-between;
+justify-content: ${prop => prop.justify};
 `;
 
 export const RouterLink = styled.div`
-  
 `
 //props styled
 export const DivStyledRouter = styled.div`

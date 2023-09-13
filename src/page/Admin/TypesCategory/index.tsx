@@ -6,14 +6,19 @@ import styled from 'styled-components';
 import { pushListData } from '../../../api/product';
 import { deleteTypeByProducts } from '../../../api/type';
 import { columnsType } from '../../../constant';
-import MVTable from '../../../components/Table';
-import { MyButton } from '../../../components/Button';
+import MVTable from '../../../components/MV/Table';
+import { MyButton } from '../../../components/MV/Button';
+import MVRow from '../../../components/MV/Grid';
+import MVCol from '../../../components/MV/Grid/Col';
+import RenderInput from '../../../components/Form/component';
+import { useForm } from 'react-hook-form';
 const Divstyled = styled.div``;
 const DivstyledContent = styled.div`
 align-items: center;
 `
 const TypesCateAdmin = () => {
   const [state, setState] = useState('');
+  const { handleSubmit, control } = useForm();
   const handleDeleTypeProduct = async (id: any, typeId: any) => {
     const body = {
       typeId: typeId
@@ -36,7 +41,7 @@ const TypesCateAdmin = () => {
     stt: index + 1,
     name: item.name,
     path: item.path,
-    product: item.products ? item.products.map((product: any, index: any) => (
+    product: item.products.length ? item.products.map((product: any, index: any) => (
       <DivstyledContent className='d-flex' key={index}>
         <Divstyled className='mr-2'>
           {product.name}
@@ -46,10 +51,10 @@ const TypesCateAdmin = () => {
             Edit
           </MyButton>
         </Link>
-        <MyButton onClick={() => handleDeleTypeProduct(product._id, item._id)} type="primary" danger className='ml-2'>
+        <MyButton onClick={() => handleDeleTypeProduct(product._id, item._id)} className='ml-2'>
           Cút
         </MyButton>
-        <MyButton type="primary" onClick={() => handlePushItem(product._id)} className='ml-2'>
+        <MyButton onClick={() => handlePushItem(product._id)} className='ml-2'>
           Push
         </MyButton>
       </DivstyledContent>
@@ -62,7 +67,7 @@ const TypesCateAdmin = () => {
     createdAt: item.createdAt,
     action: (
       <span>
-        <Link to={`/dashboard/trailerUrl/${item._id}`}>
+        <Link to={`/dashboard/type/${item._id}`}>
           <MyButton>
             Edit
           </MyButton>
@@ -79,11 +84,27 @@ const TypesCateAdmin = () => {
   }
   )) : ""
   return (
-    <MVTable
-      columns={columnsType}
-      dataSource={data}
-      pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '20', '30'] }}
-    />
+    <React.Fragment>
+      <MVRow gutter={4} align={'middle'} justify={'center'}>
+        <MVCol span={22}>
+          <RenderInput
+            name={'name'}
+            label={'Thêm'}
+            control={control}
+            rules={undefined}
+          />
+        </MVCol>
+        <MVCol span={2}>
+          <MyButton htmlType='submit' className="mt-3" type="primary">
+            Thêm
+          </MyButton>
+        </MVCol>
+      </MVRow>
+      <MVTable
+        columns={columnsType}
+        dataSource={data}
+      />
+    </React.Fragment>
   )
 }
 

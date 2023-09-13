@@ -1,12 +1,13 @@
 import React, { memo } from 'react'
-import { Col, Row } from 'antd';
 import CategoryContents from '../../Content/Category';
 import { NotUpdate } from '../../Message/Warning';
-const MVGrid = memo(({ type, gutter, child, ...rest }: any) => {
+import MVRow from '../../MV/Grid';
+import MVCol from '../../MV/Grid/Col';
+const MVGridCategory = memo(({ type, gutter, child, ...rest }: any) => {
   return (
-    <Row gutter={gutter}>
+    <MVRow gutter={gutter}>
       {type === 'category' ? child && child.length && (child.map((item, index) => (
-        <Col key={item._id} xs={12} sm={10} md={8} lg={6} xl={4}>
+        <MVCol key={item._id} xs={12} sm={10} md={8} lg={6} xl={4}>
           <CategoryContents
             title={item.name}
             link={item.image ? '/d/' + item._id : '/q/' + item._id}
@@ -14,9 +15,9 @@ const MVGrid = memo(({ type, gutter, child, ...rest }: any) => {
             time='Thời gian 20/12 phút'
             sumSeri={item.sumSeri}
           />
-        </Col>
+        </MVCol>
       ))) : child && child.length ? (child.map((item, index) => (
-        <Col key={item._id} xs={12} sm={10} md={8} lg={6} xl={4}>
+        <MVCol key={item._id} xs={12} sm={10} md={8} lg={6} xl={4}>
           <CategoryContents
             title={item.name}
             link={item.image ? '/d/' + item._id : '/q/' + item._id}
@@ -24,10 +25,10 @@ const MVGrid = memo(({ type, gutter, child, ...rest }: any) => {
             time='Thời gian 20/12 phút'
             sumSeri={item.sumSeri}
           />
-        </Col>
+        </MVCol>
       ))) : <NotUpdate />}
-    </Row>
+    </MVRow>
   )
 })
 
-export default MVGrid
+export default MVGridCategory

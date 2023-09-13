@@ -5,7 +5,7 @@ import { Loader, MessageErr } from '../../Message/Loading';
 import { useSWRWithAxios } from '../../../hook/Swr';
 import { urlSwr } from '../../../function';
 import { DivstyledAllTitle } from '../styles';
-import MVGrid from '../../Grid/component';
+import MVGridCategory from '../../Grid/component';
 const DivstyOllMovie = styled.div``;
 const DivstyledContainer = styled.div`
 `;
@@ -34,14 +34,14 @@ const CategoryHomePage = ({ category, isLoading, isError }: CategoryProp) => {
           <div className='underline lg:text-[15px] md:text[14px] text-[13px] text-[#999]'>Xem tất cả</div>
         </Link>
       </div>
-      <MVGrid
+      <MVGridCategory
         type="category"
         gutter={[16, 16]}
         child={category}
       />
       <DivstyOllMovie >
         <DivstyledAllTitle className='text-light all_movie underline text-3xl font-extrabold text-white '>{phim ? phim.name : ''}</DivstyledAllTitle>
-        <MVGrid
+        <MVGridCategory
           type="types"
           gutter={phim && phim.products.length ? [16, 16] : 0}
           child={phim.products}

@@ -2,7 +2,6 @@ import React from 'react'
 import moment from 'moment';
 import styled from 'styled-components';
 const Divstyled = styled.div``;
-const SpanStyled = styled.span``;
 const Psyled = styled.p``;
 const BtnStyled = styled.button``;
 const CommentProductsIndex = ({ getOne }) => {

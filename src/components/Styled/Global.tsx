@@ -10,15 +10,6 @@ export const GlobalStyle = createGlobalStyle`
     object-fit: cover;
   }
   
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    color: #fff;
-  }
-  
   body {
     background-color: #23232a;
     height: 100%;
@@ -85,17 +76,6 @@ export const GlobalStyle = createGlobalStyle`
   .inner {
     display: none;
     z-index:1 !important;
-  }
-  
-  .acountImage {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .acountImage img {
-    cursor: pointer;
-    border: 2px solid #fff;
-    border-radius: 100%;
   }
   
   .index{
@@ -342,17 +322,6 @@ export const GlobalStyle = createGlobalStyle`
       overflow: hidden;
       width: 100%;
       height: 100%;
-    }
-  
-    .acountImage {
-      width: 40px;
-      height: 40px;
-    }
-  
-    .acountImage img {
-      cursor: pointer;
-      border: 2px solid #fff;
-      border-radius: 100%;
     }
   
     .acountImageContent div {

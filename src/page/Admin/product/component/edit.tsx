@@ -6,9 +6,10 @@ import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { useAppDispatch } from '../../../../hook';
 import { MyContext } from '../../../../context';
-import renderInput, { MySelectWrapper, MyUploadWrapper } from '../../../../hook/form';
+import RenderInput, { MySelectWrapper, MyUploadWrapper } from '../../../../components/Form/component';
 import { UploadAssby } from '../../../../api/product';
-import { MyButton } from '../../../../components/Button';
+import { MyButton } from '../../../../components/MV/Button';
+import Dividers from '../../../../components/MV/Divider';
 declare var Promise: any;
 const Divstyled = styled.div``;
 const EditProduct = () => {
@@ -37,7 +38,7 @@ const EditProduct = () => {
     formdata.append('copyright', data.copyright)
     formdata.append('descriptions', data.descriptions);
     formdata.append('trailer', data.trailer);
-    formdata.append('image', data.image[0]);
+    formdata.append('image', data.image);
     // formdata.append('file', data.file[0]);
     formdata.append('year', data.year);
     formdata.append('country', data.country);
@@ -53,7 +54,7 @@ const EditProduct = () => {
   }
   const handleSubmitServerAssb = async (data: any) => {
     const formdata = new FormData();
-    formdata.append('fileupload', data.fileupload[0]);
+    formdata.append('fileupload', data.fileupload);
     const res = await UploadAssby(id, formdata);
     if (res) {
       toast.success(`Sửa ${data.name} công`);
@@ -62,43 +63,99 @@ const EditProduct = () => {
   return (
     <Divstyled>
       <form onSubmit={handleSubmit(onsubmit)}>
-        {renderInput('name', 'Product name', control)}
-        {renderInput('seri', 'Seri', control)}
-        {renderInput('view', 'View', control)}
-        {renderInput('descriptions', 'Desciption', control)}
-        {renderInput('copyright', 'Copyright', control)}
-        {renderInput('LinkCopyright', 'LinkCopyright', control)}
-        {renderInput('link', 'Video Url', control)}
-        {renderInput('dailyMotionServer', 'DailyMotionServer', control)}
-        {renderInput('server2', 'Assb server', control)}
-        {renderInput('trailer', 'Trailer Video', control)}
+        <RenderInput
+          name={'name'}
+          label={'Product name'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'seri'}
+          label={'Seri'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'view'}
+          label={'View'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'descriptions'}
+          label={'Desciption'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'LinkCopyright'}
+          label={'LinkCopyright'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'link'}
+          label={'Video Url'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'dailyMotionServer'}
+          label={'DailyMotionServer'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'server2'}
+          label={'Assb server'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'trailer'}
+          label={'Trailer Video'}
+          control={control}
+          rules={undefined}
+        />
         <Divstyled style={{ width: "150px", height: "200px" }}>
           <img style={{ height: "100%", width: "100%" }}
             src={state.image == undefined || null ? "https://firebasestorage.googleapis.com/v0/b/mystorage-265d8.appspot.com/o/image%2Fdau-pha-thuong-khung-ova-3-hen-uoc-3-nam-856.jpg?alt=media&token=dca80d37-bb85-41a0-9fd5-c6e949e1db54" : state.image} alt="" />
         </Divstyled>
         <br />
-        <MyUploadWrapper
+        {/* <MyUploadWrapper
           name={'file'}
           label={'New Video Upload'}
           control={control}
-        />
+        /> */}
         <MyUploadWrapper
           name={'image'}
           label={'New Image Upload'}
           control={control}
         />
-        {/* <div className="mb-3">
-          <label className="form-label">New Video Url</label>
-          <input type="file" name='file' {...register('file')} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">New Image</label>
-          <input type="file" name='image' {...register('image')} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
-        </div> */}
-        {renderInput('year', 'Year', control)}
-        {renderInput('country', 'country', control)}
-        {renderInput('options', 'Options', control)}
-        {renderInput('imageLink', 'Image Link', control)}
+        <RenderInput
+          name={'year'}
+          label={'Year'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'country'}
+          label={'country'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'options'}
+          label={'Options'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'imageLink'}
+          label={'Image Link'}
+          control={control}
+          rules={undefined}
+        />
         {/** Thể loại của phim tập*/}
         <MySelectWrapper
           label={'Category'}
@@ -143,11 +200,16 @@ const EditProduct = () => {
         <br />
         <MyButton htmlType='submit' className="btn btn-primary mt-2">Submit</MyButton>
       </form>
+      <Dividers
+        textColor={'#000'}
+        orientation={'center'}
+      >Abyss Server</Dividers>
       <form onSubmit={handleSubmit(handleSubmitServerAssb)}>
-        <div className="mb-3 mt-5">
-          <label className="form-label">Video Url</label>
-          <input type="file" name='file' {...register('fileupload')} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
-        </div>
+        <MyUploadWrapper
+          name={'fileupload'}
+          label={'New Image Upload'}
+          control={control}
+        />
         <div className='mt-2'>
           <MyButton htmlType='submit' className="btn btn-primary">Submit</MyButton>
         </div>

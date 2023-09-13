@@ -23,11 +23,10 @@ const AuthForm = memo(({
     password: yup.string().required().max(15, 'Password value must be at most 10 characters long')
   })
   const { register, handleSubmit, formState: { errors } }: any = useForm({
-
     resolver: yupResolver(schema)
   });
   return (
-    <div className="h-screen relative w-10/12 z-0" >
+    <div className="h-screen relative z-0" >
       <DivContainer
         className="containers g-6 flex flex-wrap justify-center w-full items-center absolute top-1/2 left-1/2 translate-x-2/4 translate-y-2/4"
         style={{ transform: 'translate(-50%,-50%)' }}>
@@ -47,7 +46,6 @@ const AuthForm = memo(({
             background: 'rgba(248, 248, 248, 0.04)',
             borderRadius: ' 5px'
           }}>
-
           <div>
             <FormTitle>
               {formTitle}
@@ -57,12 +55,6 @@ const AuthForm = memo(({
             </Formdescription>
           </div>
           <FormStyled onSubmit={handleSubmit(onSubmit)}>
-            {/* <div className="relative lg:mb-6 md:mb-5 mb-4" data-te-input-wrapper-init>
-              <div>
-                <InputStyled style={{ width: '100%' }} type="text" className="" {...register('username')} placeholder='Username' autoComplete="off" />
-                {errors.username && <p>{errors.username.message}</p>}
-              </div>
-            </div> */}
             {
               array && (
                 array.map((item: any, index: any) => (

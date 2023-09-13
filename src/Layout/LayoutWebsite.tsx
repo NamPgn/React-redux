@@ -14,7 +14,7 @@ const Divstyled = styled.div``;
 const LayoutWebsite = () => {
   const { state } = useContext(ChangeContext) || {};
   return (
-    <Main className='text-start'> 
+    <Main className='text-start'>
       <Divstyled>
         <Header />
       </Divstyled>

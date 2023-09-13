@@ -4,9 +4,8 @@ import { useForm } from "react-hook-form";
 import { addProduct } from '../../../../redux/slice/product/thunkProduct/product';
 import { MyContext } from '../../../../context';
 import { useAppDispatch } from '../../../../hook';
-import renderInput, { MySelectWrapper, MyUploadWrapper } from '../../../../hook/form';
-import { MyButton } from '../../../../components/Button';
-import MySelect from '../../../../components/Select';
+import RenderInput, { MySelectWrapper, MyUploadWrapper } from '../../../../components/Form/component';
+import { MyButton } from '../../../../components/MV/Button';
 const ProductAdd = () => {
   const { categorymain, category, seri, isError }: any = useContext(MyContext);
   const dispatch = useAppDispatch();
@@ -25,18 +24,18 @@ const ProductAdd = () => {
     label: item.name,
     value: item._id
   })));
-  const onsubmit = (data: any) => {
+  const onsubmit = async (data: any) => {
     const formdata = new FormData();
     formdata.append('name', data.name);
     formdata.append('options', data.options);
     formdata.append('category', data.category);
-    formdata.append('file', data.file[0]);
+    // formdata.append('file', data.file[0]);
     formdata.append('seri', data.seri);
     formdata.append('LinkCopyright', data.LinkCopyright);
     formdata.append('copyright', data.copyright)
     formdata.append('descriptions', data.descriptions);
     formdata.append('trailer', data.trailer);
-    formdata.append('image', data.image[0]);
+    formdata.append('image', data.image);
     formdata.append('year', data.year);
     formdata.append('country', data.country);
     formdata.append('typeId', data.typeId);
@@ -44,26 +43,57 @@ const ProductAdd = () => {
     formdata.append('dailyMotionServer', data.dailyMotionServer);
     formdata.append('imageLink', data.imageLink);
     formdata.append('video2', data.video2);
-    dispatch(addProduct(formdata));
-    if (isError) {
+    const res = await dispatch(addProduct(formdata));
+    if (res) {
+      toast.success('thành công');
+    } else {
       toast.error('thất bại');
     }
-    toast.success('thành công');
   }
   return (
     <div>
       <form onSubmit={handleSubmit(onsubmit)}>
-        {renderInput('name', 'Product name', control)}
-        {renderInput('view', 'View', control)}
-        {renderInput('seri', 'Seri', control)}
-        {renderInput('descriptions', 'Desciption', control)}
-        {renderInput('copyright', 'Copyright', control)}
-        {renderInput('LinkCopyright', 'LinkCopyright', control)}
-        <MyUploadWrapper
+        <RenderInput
+          name={'name'}
+          label={'Product name'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'view'}
+          label={'View'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'seri'}
+          label={'Seri'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'descriptions'}
+          label={'Desciption'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'copyright'}
+          label={'Copyright'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'LinkCopyright'}
+          label={'LinkCopyright'}
+          control={control}
+          rules={undefined}
+        />
+        {/* <MyUploadWrapper
           name={'file'}
           label={'New Video Upload'}
           control={control}
-        />
+        /> */}
         <MyUploadWrapper
           name={'image'}
           label={'New Image Upload'}
@@ -73,13 +103,48 @@ const ProductAdd = () => {
         <input type="file" name='file' {...register('file')} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
         <label className="form-label">Image</label>
         <input type="file" name='image' {...register('image')} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" /> */}
-        {renderInput('dailyMotionServer', 'DailyMotionServer', control)}
-        {renderInput('trailer', 'Trailer Video', control)}
-        {renderInput('year', 'Year', control)}
-        {renderInput('country', 'Country', control)}
-        {renderInput('options', 'Options', control)}
-        {renderInput('video2', 'Video Link', control)}
-        {renderInput('imageLink', 'Image Link', control)}
+        <RenderInput
+          name={'dailyMotionServer'}
+          label={'DailyMotionServer'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'trailer'}
+          label={'Trailer Video'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'year'}
+          label={'Year'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'country'}
+          label={'Country'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'options'}
+          label={'Options'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'video2'}
+          label={'Video Link'}
+          control={control}
+          rules={undefined}
+        />
+        <RenderInput
+          name={'imageLink'}
+          label={'Image Link'}
+          control={control}
+          rules={undefined}
+        />
         {/** Thể loại của phim tập*/}
         <MySelectWrapper
           control={control}
