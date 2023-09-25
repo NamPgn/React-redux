@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Image } from 'antd';
-import { Link } from 'react-router-dom';
 import { cart$ } from '../../../redux/selectors/Cart';
 import { getAllCartSlice } from '../../../redux/slice/cart/thunk/cart';
 import styled from 'styled-components';
@@ -9,6 +8,7 @@ import { deleteCommentSlice } from '../../../redux/slice/comment/thunkComment/co
 import MVTable from '../../../components/MV/Table';
 import { MyButton } from '../../../components/MV/Button';
 import { columsCart } from '../../../constant';
+import MVLink from '../../../components/Location/Link';
 const Divstyled = styled.div``;
 const SpanStyled = styled.span``;
 
@@ -29,11 +29,11 @@ const index = () => {
         permission: item.user.role == 0 ? "User" : "Admin",
         action: (
           <SpanStyled>
-            <Link to={`/dashboard/trailerUrl/${item._id}`}>
+            <MVLink to={`/dashboard/trailerUrl/${item._id}`}>
               <MyButton danger>
                 Edit
               </MyButton>
-            </Link>
+            </MVLink>
             <MyButton onClick={() => dispatch(deleteCommentSlice(item._id))} className='ml-2'>
               Cút
             </MyButton>

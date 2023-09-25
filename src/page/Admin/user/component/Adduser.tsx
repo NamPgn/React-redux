@@ -5,8 +5,8 @@ import { resgisterLogin } from '../../../../redux/slice/userSlice';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { useAppDispatch } from '../../../../hook';
-import RenderInput from '../../../../components/Form/component';
 import { MyButton } from '../../../../components/MV/Button';
+import MVInput from '../../../../components/MV/Input';
 const Divstyled = styled.div``;
 const InputStyled = styled.input``;
 const Adduser = () => {
@@ -36,7 +36,7 @@ const Adduser = () => {
     <Divstyled>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Divstyled className="mb-3">
-          <RenderInput
+          <MVInput
             name={'username'}
             label={'User name'}
             control={control}
@@ -44,7 +44,7 @@ const Adduser = () => {
           />
         </Divstyled>
         <Divstyled className="mb-3">
-          <RenderInput
+          <MVInput
             name={'email'}
             label={'Email'}
             control={control}
@@ -52,7 +52,7 @@ const Adduser = () => {
           />
         </Divstyled>
         <Divstyled className="mb-3">
-          <RenderInput
+          <MVInput
             name={'password'}
             label={'Password'}
             control={control}

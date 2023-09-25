@@ -3,7 +3,7 @@ import { message } from 'antd'
 
 export const NotUpdate = () => {
   return (
-    <div className="h-screen text-white">
+    <div className="text-white">
       Chưa cập nhật
     </div>
   )

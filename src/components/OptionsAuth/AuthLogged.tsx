@@ -1,16 +1,13 @@
-import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { logout } from '../../redux/slice/userSlice';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hook';
 import { AccountStyle } from './styles';
 import { LikeOutlined, LogoutOutlined, UserOutlined, UsergroupAddOutlined } from '@ant-design/icons';
-
+import { handleLogout } from '../../function';
+import MVLink from '../Location/Link';
 const AuthLogged = ({ user }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const handleLogout = async () => {
-    dispatch(logout());
-  }
   const handleCheckCart = () => {
     if (!user) {
       Error('Bạn cần đăng nhập!')
@@ -27,31 +24,31 @@ const AuthLogged = ({ user }) => {
           </b></div>
         </div>
         <hr />
-        <Link to={'/auth/profile'}>
+        <MVLink to={'/auth/profile'}>
           <div className='d-flex items-center hv_ text-center'>
             <UsergroupAddOutlined />
             <div className='auth'>
               Your profile
             </div>
           </div>
-        </Link>
+        </MVLink>
         <div className='d-flex items-center hv_ text-center'>
           <LikeOutlined />
           <div onClick={handleCheckCart} className='auth'>
             Saved
           </div>
         </div>
-        {user ? user.role >= 1 ? <Link to={'/dashboard'}>
+        {user && user.role >= 1 && <MVLink to={'/dashboard'}>
           <div className='d-flex items-center hv_ text-center'>
             <UserOutlined />
             <div className='auth'>
               Admin
             </div>
           </div>
-        </Link> : "" : ''}
+        </MVLink>}
         <div className='d-flex items-center hv_ text-center'>
           <LogoutOutlined />
-          <div className='' onClick={() => { handleLogout() }}>Logout</div>
+          <div onClick={() => handleLogout(dispatch, navigate)}>Logout</div>
         </div>
       </AccountStyle>
     </>

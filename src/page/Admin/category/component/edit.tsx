@@ -6,18 +6,19 @@ import { toast } from 'react-toastify';
 import { getCategory } from '../../../../api/category';
 import { useAppDispatch } from '../../../../hook';
 import { MyButton } from '../../../../components/MV/Button';
-import RenderInput, { MyUploadWrapper } from '../../../../components/Form/component';
 import MVImage from '../../../../components/MV/Image';
+import MVUpload from '../../../../components/MV/Upload';
+import MVInput from '../../../../components/MV/Input';
 declare var Promise: any;
 const EditCategory = () => {
   const dispatch = useAppDispatch();
   const [state, setState]: any = useState({});
   const { reset, handleSubmit, control } = useForm();
   const { id } = useParams();
-  const onsubmit = (data: any) => {
-    if (data) {
+  const onsubmit = async (data: any) => {
+    const res = await dispatch(updateCatgorySlice(data))
+    if (res.payload.success) {
       toast.success('Edit successfully')
-      dispatch(updateCatgorySlice(data))
     } else {
       toast.error('Edit failure')
     }
@@ -33,32 +34,32 @@ const EditCategory = () => {
   }, []);
   return (
     <form onSubmit={handleSubmit(onsubmit)}>
-      <RenderInput
+      <MVInput
         name={'name'}
         label={'Category name'}
         control={control}
         rules={undefined}
       />
-      <RenderInput
+      <MVInput
         name={'des'}
         label={'Category des'}
         control={control}
         rules={undefined}
       />
-      <RenderInput
+      <MVInput
         name={'up'}
         label={'Set'}
         control={control}
         rules={undefined}
       />
       <MVImage width={200} src={state && (state.linkImg)} alt="" />
-      <RenderInput
+      <MVInput
         name={'linkImg'}
         label={'Image'}
         control={control}
         rules={undefined}
       />
-      <MyUploadWrapper
+      <MVUpload
         name={'file'}
         label={'Image'}
         control={control}

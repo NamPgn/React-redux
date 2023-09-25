@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { SearchOutlined } from '@ant-design/icons';
 import { ChangeContext, MyContext } from '../../context';
 import { DivStyled, DivStyledRouter, DivStyledSearchBarStyle, DivStyledTitle, DivstySideBar, DivstyledContent, RouterIcon, RouterLink, RouterText, SibarImage, SideBarText, Text, Title } from './styles';
 import { Spiner } from '../Message/Loading';
 import { Icons } from '../../constant';
+import MVLink from '../Location/Link';
 const SideBar = () => {
   const { seri, loadingSeri }: any = useContext(MyContext) || {};
   const { state } = useContext(ChangeContext) || {};
@@ -12,23 +13,23 @@ const SideBar = () => {
       <DivstySideBar className={state ? 'w-1/12' : 'w-2/12'} >
         <DivstyledContent className={state ? 'w-1/12' : 'w-2/12'}>
           <DivStyledTitle justify={state ? 'center' : 'start'}>
-            <Link to={'/'} style={{
+            <MVLink to={'/'} style={{
               display: 'block',
               width: '50px',
             }}>
               <SibarImage src='/img/zyro-image.png' />
-            </Link>
+            </MVLink>
             <SideBarText className={state ? 'hiddenn' : 'block text-white'}>
-              <Link to={'/'}>
+              <MVLink to={'/'}>
                 <Title>
                   Hhtrungquoc.tv
                 </Title>
-              </Link>
-              <Link to={'/'}>
+              </MVLink>
+              <MVLink to={'/'}>
                 <Text>
                   tromphim.netify.app
                 </Text>
-              </Link>
+              </MVLink>
             </SideBarText>
           </DivStyledTitle>
           <DivStyled>

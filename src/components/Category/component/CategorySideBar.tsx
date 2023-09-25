@@ -1,7 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
 import { Loader } from '../../Message/Loading';
 import stylded from 'styled-components';
+import MVLink from '../../Location/Link';
 
 const Container = stylded.div`
 ::-webkit-scrollbar-thumb {
@@ -33,19 +33,19 @@ const CategoryProductSidebar = ({ category, isLoading }) => {
           catedata && (
             catedata.map((item: any, index: any) => <CategorySideBarStyles className='d-flex col-md-12  my-2' key={index}>
               <div style={{ maxWidth: "50px", height: "55px" }} className='w-3/12'>
-                <Link
+                <MVLink
                   key={index}
                   to={'/q/' + item._id}>
                   <img
                     style={{ width: "100%", objectFit: "cover", height: '100%', borderRadius: "8px", boxShadow: "0 0 3px #000" }}
                     src={item.linkImg} alt=""
                   />
-                </Link>
+                </MVLink>
               </div>
               <div className='w-9/12'>
-                <Link key={index}
+                <MVLink key={index}
                   style={{ textDecoration: "none", color: "#999", fontSize: "13px" }} to={'/q/' + item._id}>{item.name}
-                </Link>
+                </MVLink>
                 <div className='text-[12px] text-[#999] mt-2'>
                   {item.sumSeri + ' Tập'}
                 </div>

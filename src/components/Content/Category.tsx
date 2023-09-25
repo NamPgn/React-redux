@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import { Link } from 'react-router-dom'
+import MVLink from '../Location/Link'
 
 interface CategoryContent {
   text?: string,
@@ -13,13 +13,13 @@ interface CategoryContent {
 const CategoryContents = memo(({ text, title, link, image, sumSeri, time, typecm }: CategoryContent) => {
   return (
     <div className="w-full">
-      <Link to={link}>
+      <MVLink to={link}>
         <img src={image} alt="" className='h-[200px] rounded md:h-[300px] lg:h-[400px] ' />
-      </Link>
+      </MVLink>
       <div className="cateTitle text-white mt-1" >
-        <Link to={link} >
+        <MVLink to={link} >
           <p className='lg:text-[16px] md:text-[14px] text-[13px]'>{title}</p>
-        </Link>
+        </MVLink>
       </div>
       <div className='text-[11px] lg:text-[12px] md:text-[13px] text-[#999]'>
         <div className='release_date mt-2 mb-2'>

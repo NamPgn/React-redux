@@ -5,6 +5,7 @@ import { useAppDispatch } from '../../hook';
 import { message } from 'antd';
 import AuthForm from '../../components/Form';
 import Success from '../../components/Message/Success';
+import Error from '../../components/Message/Error';
 
 const array = [
   {
@@ -17,7 +18,8 @@ const array = [
     field: 'password',
     disable: false
   }
-]
+];
+
 const Signin = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -25,12 +27,11 @@ const Signin = () => {
     const responese: any = await dispatch(loginForm(data));
     if (responese.payload && responese.payload.success) {
       Success(responese.payload.message);
-      navigate('/');
       location.reload();
+      navigate('/');
     } else {
       Error(responese.error.message);
     }
-    //if error then return login error
   }
 
   const handleMessage = () => {

@@ -90,8 +90,7 @@ export const RouterLink = styled.div`
 //props styled
 export const DivStyledRouter = styled.div`
 display:flex;
-align-items: center;
-padding: 10px  15px ;
+padding: 10px  15px;
 margin:10px 0;
 justify-content: ${props => props.state ? 'center' : 'start'};
 gap:0 10px;

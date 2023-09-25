@@ -10,17 +10,23 @@ a:hover {
   color: #ffffffa5;
 }
 
-.activeSeriNumber .active button {
+.activeSeri button {
   background-color: #999;
-
 }
 
-:where(.css-1s3dcof).ant-btn-primary{
-  background-color: #1677ff!important;
+:where(.css-1s3dcof).ant-btn-primary {
+  background-color: #1677ff !important;
 }
 
-.activeServer{
-  background-color: #f0f0f052;
+.activeServer {
+  background-color: #f0f0f052 !important;
+}
+
+.active {
+  border-left: 2px solid #fff;
+  background-color: #fffdfd17;
+  display: block;
+  border-radius: 5px;
 }
 
 /* .ant-skeleton-element {

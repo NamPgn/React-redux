@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Col, Row, Spin } from 'antd';
+import { Spin, Tag } from 'antd';
 import { getProducts, deleteProduct } from '../../../redux/slice/product/thunkProduct/product';
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { deleteMultipleProduct } from '../../../api/product';
 import styled from 'styled-components';
@@ -10,12 +9,12 @@ import { MyContext } from '../../../context';
 import { MyButton } from '../../../components/MV/Button';
 import MySelect from '../../../components/MV/Select';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import Error from '../../../components/Message/Error';
 import { columnsProduct } from '../../../constant';
 import MVTable from '../../../components/MV/Table';
 import MVConfirm from '../../../components/MV/Confirm';
 import MVRow from '../../../components/MV/Grid';
 import MVCol from '../../../components/MV/Grid/Col';
+import MVLink from '../../../components/Location/Link';
 const Divstyled = styled.div``;
 const InputStyled = styled.input``;
 
@@ -23,8 +22,8 @@ const ProductAdmin = ({ product, length, isLoading }) => {
 	const { category, seri }: any = useContext(MyContext);
 	const [search, searchState] = useState("");
 	const [filter, setFilter] = useState("");
-	const [checkedId, setCheckedId]: any = useState([]);
-	const [checkAllid, setCheckAllid] = useState(false);
+	// const [checkedId, setCheckedId]: any = useState([]);
+	// const [checkAllid, setCheckAllid] = useState(false);
 	const [init, setInit] = useState(false);
 	const [selectedRowKeys, setSelectedRowKeys]: any = useState<React.Key[]>([]);
 	const [page, setPage] = useState(3);
@@ -107,14 +106,15 @@ const ProductAdmin = ({ product, length, isLoading }) => {
 			sidebar: seri && (seri.map((i, v) => i._id === value.typeId && (i.name))),
 			Seri: value.seri,
 			copyright: value.copyright,
+			isActive: value.server2 || value.dailymotion ? <Tag color="success">Video active</Tag> : <Tag color="error">No video</Tag>,
 			options: value.options,
 			country: value.country ? value.country : "null",
 			year: value.year ? value.year : "null",
 			action: (
 				<>
-					<Link to={`/dashboard/product/edit/${value._id}`}>
+					<MVLink to={`/dashboard/product/edit/${value._id}`}>
 						<MyButton danger shape="circle" ><EditOutlined /></MyButton>
-					</Link >
+					</MVLink>
 					<MVConfirm
 						title="Delete the product"
 						onConfirm={() => confirm(value._id)}
@@ -155,24 +155,24 @@ const ProductAdmin = ({ product, length, isLoading }) => {
 					</MVConfirm>
 				</MVCol>
 				<MVCol>
-					<Link to={'/dashboard/product/add'}  >
+					<MVLink to={'/dashboard/product/add'}  >
 						<MyButton>Add Product</MyButton>
-					</Link>
+					</MVLink>
 				</MVCol>
 				<MVCol>
-					<Link to={'/dashboard/product/creacting'} >
+					<MVLink to={'/dashboard/product/creacting'} >
 						<MyButton>Add Multiple</MyButton>
-					</Link>
+					</MVLink>
 				</MVCol>
 				<MVCol>
-					<Link to={'/dashboard/product/add'} >
+					<MVLink to={'/dashboard/product/add'} >
 						<MyButton>Export PDF</MyButton>
-					</Link>
+					</MVLink>
 				</MVCol>
 				<MVCol>
-					<Link to={'/dashboard/product/add'} >
+					<MVLink to={'/dashboard/product/add'} >
 						<MyButton danger shape="round" >Export Excel</MyButton>
-					</Link>
+					</MVLink>
 				</MVCol>
 				<MVCol>
 					<MySelect

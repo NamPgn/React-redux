@@ -4,6 +4,10 @@ import jwtDecode from "jwt-decode";
 import { Warning } from "../components/Message/Warning";
 const intances = axios.create({
     baseURL: import.meta.env.VITE_DATABASE
+});
+
+export const URL_SERVER_RENDER = axios.create({
+    baseURL: import.meta.env.VITE_DATABASE_RENDER
 })
 
 // intances.interceptors.response.use(

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import {  Layout } from "antd";
 import '../index.css'
 import { TableRouterAdminPage } from '../router';
@@ -11,6 +11,7 @@ import { MyContext } from '../context';
 import { handelChangeAuthOptions } from '../components/Dom';
 import MVRow from '../components/MV/Grid';
 import MVCol from '../components/MV/Grid/Col';
+import MVLink from '../components/Location/Link';
 const { Content, Sider, Header, Footer } = Layout;
 
 const LayoutAdmin = () => {
@@ -53,7 +54,7 @@ const LayoutAdmin = () => {
 							/>
 						</MVCol>
 						<MVCol>
-							<Link to={'/'}>Trang chủ</Link>
+							<MVLink to={'/'}>Trang chủ</MVLink>
 						</MVCol>
 						<MVCol span={2}>
 							<AuthHeader

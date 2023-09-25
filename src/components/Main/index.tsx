@@ -4,7 +4,7 @@ import { getAllProductDataByCategorySlice, getProduct } from '../../redux/slice/
 import { getAllProductsByCategory$, getOneProduct$ } from '../../redux/selectors';
 import queryString from 'query-string';
 import CommentProductsIndex from '../Comment';
-import ComentProductsLayout from '../Comment/ComentProductsLayout';
+import ComentProductsLayout from '../Comment/Layout';
 import SeriDetailProducts from '../Seri/SeriDetailProducts';
 import CartAddContent from '../Cart/CartAddContent';
 import { useAppDispatch, useAppSelector } from '../../hook';
@@ -23,16 +23,16 @@ const DetailComponent = () => {
   const [link, setLink] = useState(getOneProductDetail.link ? getOneProductDetail.link : getOneProductDetail.server2);
   const { id } = useParams();
   const { c } = queryString.parse(window.location.href.split('?')[1]);//lấy data url
-  const [activeLink, setActiveLink] = useState('link1');
+  const [activeLink, setActiveLink] = useState('dailyMotion');
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getProduct(id));
     dispatch(getAllProductDataByCategorySlice(c));
-    setLink(getOneProductDetail.link);
+    setLink(getOneProductDetail.dailyMotionServer);
     window.scrollTo({
       top: 0,
     })
-  }, [id, c, commentAdded, getOneProductDetail.link]); //nếu mà 2 thằng này có thay đổi thì rereder
+  }, [id, c, commentAdded, getOneProductDetail.dailyMotionServer]); //nếu mà 2 thằng này có thay đổi thì rereder
   return (
     <div className='flex justify-center mt-4' style={{ gap: "10px" }}>
       <DivContainer className='col-md-12'>

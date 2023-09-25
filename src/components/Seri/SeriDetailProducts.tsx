@@ -1,17 +1,24 @@
-import React, { memo } from 'react'
-import { NavLink } from 'react-router-dom'
-import { BtnStyled, DivContainerSeriDetail, Divstyled } from './styles'
+import React, { memo } from 'react';
+import { NavLink } from 'react-router-dom';
+import { BtnStyled, DivContainerSeriDetail, Divstyled } from './styles';
 
-const SeriDetailProducts = memo(({ seriProduct }:any) => {
+const SeriDetailProducts = memo(({ seriProduct }: any) => {
   //chi tiết tập phìm khi vào trăng xem phim
   return (
-    <DivContainerSeriDetail className='md:gap-2 lg:gap-3 gap-1' >
+    <DivContainerSeriDetail className='md:gap-2 lg:gap-3 gap-1'>
       {
         seriProduct.map((item: any, index: any) => {
-          return <Divstyled key={index} className='mt-2 activeSeriNumber'>
-            <NavLink to={'/d/' + item._id + `?c=${item.category}`} >
-              <BtnStyled className={item.seri ? 'btnMovieSeri d-flex text-dark bg-light w-full justify-center' : ""} >
-                <span> {item.seri ? 'Tập ' + item.seri : ""}</span>
+          return <Divstyled
+            key={index}
+            className='mt-2'
+          >
+            <NavLink
+              className={({ isActive, isPending }) =>
+                isActive ? "activeSeri" : ""
+              } to={'/d/' + item._id + `?c=${item.category}`}
+            >
+              <BtnStyled className={item.seri && 'd-flex text-dark bg-light w-full justify-center'}>
+                {item.seri && 'Tập ' + item.seri}
               </BtnStyled>
             </NavLink>
           </Divstyled>

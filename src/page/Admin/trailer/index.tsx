@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { MyButton } from '../../../components/MV/Button';
 import { columnsTrailer } from '../../../constant';
 import MVTable from '../../../components/MV/Table';
+import MVLink from '../../../components/Location/Link';
 declare var Promise;
 const indexTrailer = () => {
   const [trailer, setTrailer]: any = useState({});
@@ -19,11 +20,11 @@ const indexTrailer = () => {
     url: trailer.url,
     action: (
       <span>
-        <Link to={`/dashboard/trailerUrl/${trailer._id}`}>
+        <MVLink to={`/dashboard/trailerUrl/${trailer._id}`}>
           <MyButton type="primary" style={{ background: "#1677ff" }}>
             Edit
           </MyButton>
-        </Link>
+        </MVLink>
       </span>
     )
   }

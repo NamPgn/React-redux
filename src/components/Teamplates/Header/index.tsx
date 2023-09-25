@@ -11,6 +11,7 @@ import { Icon } from '../../SideBar/styles';
 import AuthHeader from './component/auth';
 import MVRow from '../../MV/Grid';
 import MVCol from '../../MV/Grid/Col';
+import MVLink from '../../Location/Link';
 const icon = [
 	<HomeOutlined />,
 	<LoginOutlined />,
@@ -73,10 +74,10 @@ const Header = () => {
 						<MVRow>
 							{routerLoggedIn.map((item: any, index: any) => (
 								<MVCol key={index} className='text-[15px] lg:text-[17px] md:text[16px]'>
-									<Link
+									<MVLink
 										style={{ color: "#fff", textDecoration: "none", margin: "0 20px" }}
 										to={item.path}
-									>{item.name}</Link>
+									>{item.name}</MVLink>
 								</MVCol>
 							))}
 						</MVRow>

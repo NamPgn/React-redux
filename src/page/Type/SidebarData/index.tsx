@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useSWRWithAxios } from '../../../hook/Swr';
 import { urlSwr } from '../../../function';
 import { DivStyledBtnItem, DivStyledGrid, } from '../style';
@@ -9,6 +9,7 @@ import { NotUpdate } from '../../../components/Message/Warning';
 import MVGridCategory from '../../../components/Grid/component';
 import { backgrounds } from '../../../constant';
 import MVTypeDisplay from '../conponent';
+import MVLink from '../../../components/Location/Link';
 
 const SidebarApi = () => {
   const [page, setPage] = useState(1);
@@ -34,9 +35,9 @@ const SidebarApi = () => {
           (
             <DivStyledGrid>
               {data.categorymain.map((item: any, index: any) => (
-                <Link to={`/types/h/${item.cates._id}`} key={index}>
+                <MVLink to={`/types/h/${item.cates._id}`} key={index}>
                   <DivStyledBtnItem className="text-center text-gray text-[#fff]" style={backgrounds[index]}>{item.cates.name}</DivStyledBtnItem>
-                </Link>
+                </MVLink>
               ))}
             </DivStyledGrid>
           )

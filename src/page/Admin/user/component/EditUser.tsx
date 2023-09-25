@@ -5,10 +5,9 @@ import { editUser, getUser_id } from '../../../../redux/slice/userSlice';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { useAppDispatch } from '../../../../hook';
-import RenderInput from '../../../../components/Form/component';
 import Error from '../../../../components/Message/Error';
-import { Select, Space } from 'antd';
 import { MyButton } from '../../../../components/MV/Button';
+import MVInput from '../../../../components/MV/Input';
 declare var Promise: any;
 const ImageStyledEditAuth = styled.img`
 width: 200px; height: 200px; objectFit: cover ;
@@ -53,13 +52,13 @@ const EditUser = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <RenderInput
+        <MVInput
           name={'username'}
           label={'User name'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'role'}
           label={'Role'}
           control={control}

@@ -3,17 +3,19 @@ import { Image, Radio } from 'antd';
 import { addCateGorySlice, deleteCategorySlice, getAllcate } from '../../../redux/slice/category/ThunkCategory/category';
 import { category$ } from '../../../redux/selectors';
 import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hook';
 import { MyContext } from '../../../context';
 import { pushCateTotype } from '../../../api/type';
 import { useForm } from 'react-hook-form';
-import RenderInput, { MySelectWrapper, MyUploadWrapper } from '../../../components/Form/component';
+import { MySelectWrapper } from '../../../components/Form/component';
 import { MyButton } from '../../../components/MV/Button';
 import { columnsCategory } from '../../../constant';
 import MVTable from '../../../components/MV/Table';
 import MVRow from '../../../components/MV/Grid';
 import MVCol from '../../../components/MV/Grid/Col';
+import MVUpload from '../../../components/MV/Upload';
+import MVInput from '../../../components/MV/Input';
+import MVLink from '../../../components/Location/Link';
 
 const CategoryAdmin = () => {
   const dispatch = useAppDispatch();
@@ -75,11 +77,11 @@ const CategoryAdmin = () => {
         createAt: item.createdAt,
         action: (
           <div className='flex gap-1'>
-            <Link to={`/dashboard/category/edit/${item._id}`}>
+            <MVLink to={`/dashboard/category/edit/${item._id}`}>
               <MyButton style={{ background: "#1677ff" }} type="primary">
                 Edit
               </MyButton>
-            </Link>
+            </MVLink>
             <MyButton danger className='text-light ml-2' onClick={() => handleDelete(item._id)}>
               Delete
             </MyButton>
@@ -98,7 +100,7 @@ const CategoryAdmin = () => {
           seri.map((item: any, index: any) => (
             <div key={index}>
               {item.path == '/' ? '' : <Radio.Group value={typeId}>
-                <Radio name='aa' onChange={() => handleGetid(item._id)}>{item.name}</Radio>
+                <Radio onChange={() => handleGetid(item._id)}>{item.name}</Radio>
               </Radio.Group>}
             </div>
           ))
@@ -109,42 +111,46 @@ const CategoryAdmin = () => {
           <MVTable
             columns={columnsCategory}
             dataSource={data}
-            pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '20', '30'] }}>
+            pagination={{
+              defaultPageSize: 5,
+              showSizeChanger: true,
+              pageSizeOptions: ['5', '20', '30']
+            }}>
           </MVTable>
         </MVCol>
         <MVCol span={6}>
           <form onSubmit={handleSubmit(onsubmit)}>
-            <RenderInput
+            <MVInput
               name={'name'}
               label={'Name'}
               control={control}
               rules={undefined}
             />
-            <RenderInput
+            <MVInput
               name={'des'}
               label={'Description'}
               control={control}
               rules={undefined}
             />
-            <RenderInput
+            <MVInput
               name={'sumSeri'}
               label={'Sum seri'}
               control={control}
               rules={undefined}
             />
-            <RenderInput
+            <MVInput
               name={'type'}
               label={'Type'}
               control={control}
               rules={undefined}
             />
-            <RenderInput
+            <MVInput
               name={'week'}
               label={'Week'}
               control={control}
               rules={undefined}
             />
-            <RenderInput
+            <MVInput
               name={'up'}
               label={'Set'}
               control={control}
@@ -159,7 +165,7 @@ const CategoryAdmin = () => {
               style={{ width: 200 }}
               options={weeekOptions}
             />
-            <MyUploadWrapper
+            <MVUpload
               name={'file'}
               label={'Upload'}
               control={control}

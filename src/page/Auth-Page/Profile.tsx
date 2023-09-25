@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { logout, uploadImage } from '../../redux/slice/userSlice';
+import { uploadImage } from '../../redux/slice/userSlice';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../hook';
 import { MyContext } from '../../context';
@@ -13,6 +13,7 @@ import MVAvatar from '../../components/MV/Avatar';
 import { useForm } from 'react-hook-form';
 import MVRow from '../../components/MV/Grid';
 import MVCol from '../../components/MV/Grid/Col';
+import { handleLogout } from '../../function';
 const Container = styled.div`
 `;
 
@@ -20,12 +21,9 @@ const Profile = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [state, setState] = useState(null);
-  const { user } = useContext(MyContext);
-  const { handleSubmit, control, register } = useForm();
-  const handleLogOut = async () => {
-    dispatch(logout());
-    navigate('/');
-  }
+  const { user } = useContext(MyContext) || {};
+  const { handleSubmit } = useForm();
+
   const isLoading = useAppSelector(state => state.user.isLoading);
   const handleEditImage = async () => {
     const formData = new FormData();
@@ -53,7 +51,7 @@ const Profile = () => {
             title={'Hồ sơ'}
             size={150}
             src={user.image}
-          /> : <div>Upload ảnh</div>
+          /> : <div>Upload ảnh</div>  
         }
       </MVRow>
       <div className='text-[20px] text-white text-center mb-3 capitalize'>{user.username}</div>
@@ -80,7 +78,7 @@ const Profile = () => {
         </MVCol>
       </MVRow>
       <div className='text-center mt-5'>
-        <MyButton onClick={() => handleLogOut()} danger className="text-white btn-rounded btn-lg">
+        <MyButton onClick={() => handleLogout(dispatch, navigate)} danger className="text-white btn-rounded btn-lg">
           Logout
         </MyButton>
       </div>

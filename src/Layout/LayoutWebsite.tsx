@@ -18,8 +18,8 @@ const LayoutWebsite = () => {
       <Divstyled>
         <Header />
       </Divstyled>
-      <DivstyledConfigLayout className="containers" >
-        <div className={state ? 'w-1/12' : 'w-2/12'} >
+      <DivstyledConfigLayout className="containers">
+        <div className={state ? 'w-1/12' : 'w-2/12'}>
           <SideBar />
         </div>
         <div className={`${state ? "w-11/12" : "w-10/12"} p-2`}>

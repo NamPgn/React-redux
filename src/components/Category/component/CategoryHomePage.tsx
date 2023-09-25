@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Loader, MessageErr } from '../../Message/Loading';
 import { useSWRWithAxios } from '../../../hook/Swr';
 import { urlSwr } from '../../../function';
 import { DivstyledAllTitle } from '../styles';
 import MVGridCategory from '../../Grid/component';
+import MVLink from '../../Location/Link';
 const DivstyOllMovie = styled.div``;
 const DivstyledContainer = styled.div`
 `;
@@ -30,9 +30,9 @@ const CategoryHomePage = ({ category, isLoading, isError }: CategoryProp) => {
     <DivstyledContainer >
       <div className='flex justify-between items-center'>
         <DivstyledAllTitle className='text-white all_movie underline text-3xl font-extrabold dark:text-white'>Hh 3d</DivstyledAllTitle>\
-        <Link to={'/loadmore'}>
+        <MVLink to={'/loadmore'}>
           <div className='underline lg:text-[15px] md:text[14px] text-[13px] text-[#999]'>Xem tất cả</div>
-        </Link>
+        </MVLink>
       </div>
       <MVGridCategory
         type="category"

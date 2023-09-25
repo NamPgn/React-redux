@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { isAuthentication } from '../../auth/getToken';
 import { addCommentSlice } from '../../redux/slice/comment/thunkComment/comment';
 import { useAppDispatch } from '../../hook/index'
 import Success from '../Message/Success';
 import Error from '../Message/Error';
+import MVLink from '../Location/Link';
 const ComentProductsLayout = ({ setCommentAdded }) => {
   const rows: any = "5"
   const dispatch = useAppDispatch();
@@ -86,11 +87,11 @@ const ComentProductsLayout = ({ setCommentAdded }) => {
     <button onClick={() => handleAddComment()} className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
       Publish comment
     </button>
-  </div> : <Link to={'/auth/signin'}>
+  </div> : <MVLink to={'/auth/signin'}>
     <div className='text-center mt-4 text-[#999] text-primary'>
       Đăng nhập để bình luận
     </div>
-  </Link>
+  </MVLink>
 
 }
 

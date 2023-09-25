@@ -6,10 +6,12 @@ import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { useAppDispatch } from '../../../../hook';
 import { MyContext } from '../../../../context';
-import RenderInput, { MySelectWrapper, MyUploadWrapper } from '../../../../components/Form/component';
+import { MySelectWrapper } from '../../../../components/Form/component';
 import { UploadAssby } from '../../../../api/product';
 import { MyButton } from '../../../../components/MV/Button';
 import Dividers from '../../../../components/MV/Divider';
+import MVUpload from '../../../../components/MV/Upload';
+import MVInput from '../../../../components/MV/Input';
 declare var Promise: any;
 const Divstyled = styled.div``;
 const EditProduct = () => {
@@ -63,55 +65,55 @@ const EditProduct = () => {
   return (
     <Divstyled>
       <form onSubmit={handleSubmit(onsubmit)}>
-        <RenderInput
+        <MVInput
           name={'name'}
           label={'Product name'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'seri'}
           label={'Seri'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'view'}
           label={'View'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'descriptions'}
           label={'Desciption'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'LinkCopyright'}
           label={'LinkCopyright'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'link'}
           label={'Video Url'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'dailyMotionServer'}
           label={'DailyMotionServer'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'server2'}
           label={'Assb server'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'trailer'}
           label={'Trailer Video'}
           control={control}
@@ -127,30 +129,30 @@ const EditProduct = () => {
           label={'New Video Upload'}
           control={control}
         /> */}
-        <MyUploadWrapper
+        <MVUpload
           name={'image'}
           label={'New Image Upload'}
           control={control}
         />
-        <RenderInput
+        <MVInput
           name={'year'}
           label={'Year'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'country'}
           label={'country'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'options'}
           label={'Options'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'imageLink'}
           label={'Image Link'}
           control={control}
@@ -205,7 +207,7 @@ const EditProduct = () => {
         orientation={'center'}
       >Abyss Server</Dividers>
       <form onSubmit={handleSubmit(handleSubmitServerAssb)}>
-        <MyUploadWrapper
+        <MVUpload
           name={'fileupload'}
           label={'New Image Upload'}
           control={control}

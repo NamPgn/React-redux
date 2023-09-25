@@ -1,22 +1,22 @@
 import React, { useContext } from 'react'
 import { MyButton } from '../../../components/MV/Button';
-import { Link } from 'react-router-dom';
 import { MyContext } from '../../../context';
 import MVTable from '../../../components/MV/Table';
 import { columnsBackground } from '../../../constant';
+import MVLink from '../../../components/Location/Link';
 
 const Background = () => {
-  const { background } = useContext(MyContext);
+  const { background } = useContext(MyContext) || {};
   const data = {
     key: background.data._id,
     url: background ? background.data.url : '',
     action: (
       <span>
-        <Link to={`/dashboard/background/edit/${background ? background.data._id : ''}`}>
+        <MVLink to={`/dashboard/background/edit/${background ? background.data._id : ''}`}>
           <MyButton type="primary" style={{ background: "#1677ff" }}>
             Edit
           </MyButton>
-        </Link>
+        </MVLink>
       </span>
     )
   }

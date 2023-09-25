@@ -1,14 +1,14 @@
 import React, { useContext } from 'react'
 import { MyButton } from '../../../components/MV/Button';
-import { Link } from 'react-router-dom';
 import { MyContext } from '../../../context';
 import MVTable from '../../../components/MV/Table';
 import { columnsWeeks } from '../../../constant';
-import RenderInput from '../../../components/Form/component';
 import { useForm } from 'react-hook-form';
 import { addWeeks, removeWeeks } from '../../../api/week';
 import MVRow from '../../../components/MV/Grid';
 import MVCol from '../../../components/MV/Grid/Col';
+import MVInput from '../../../components/MV/Input';
+import MVLink from '../../../components/Location/Link';
 const Weeks = () => {
   const { weeks } = useContext(MyContext);
   const { handleSubmit, control } = useForm();
@@ -24,11 +24,11 @@ const Weeks = () => {
       name: v.name,
       action: (
         <React.Fragment>
-          <Link to={`/dashboard/week/edit/${v._id}`}>
+          <MVLink to={`/dashboard/week/edit/${v._id}`}>
             <MyButton type="primary">
               Edit
             </MyButton>
-          </Link>
+          </MVLink>
           <MyButton onClick={() => handledelete(v._id)} handleDelete className="ml-1">
             Xóa
           </MyButton>
@@ -41,7 +41,7 @@ const Weeks = () => {
       <form onSubmit={handleSubmit(onAdd)}>
         <MVRow gutter={4} align={'middle'} justify={'center'}>
           <MVCol span={22}>
-            <RenderInput
+            <MVInput
               name={'name'}
               label={'Theo tuần'}
               control={control}

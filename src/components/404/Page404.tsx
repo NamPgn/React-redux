@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Result } from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
+import MVLink from '../Location/Link';
 const Page404 = () => {
   return (
     <Result
@@ -17,9 +18,9 @@ const Page404 = () => {
       icon={<SmileOutlined />}
       title="Page Not found"
       extra={
-        <Link to={'/'}>
+        <MVLink to={'/'}>
           <Button>Back to home</Button>
-        </Link>
+        </MVLink>
       }
     />
   )

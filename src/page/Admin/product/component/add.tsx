@@ -4,8 +4,10 @@ import { useForm } from "react-hook-form";
 import { addProduct } from '../../../../redux/slice/product/thunkProduct/product';
 import { MyContext } from '../../../../context';
 import { useAppDispatch } from '../../../../hook';
-import RenderInput, { MySelectWrapper, MyUploadWrapper } from '../../../../components/Form/component';
+import  { MySelectWrapper } from '../../../../components/Form/component';
 import { MyButton } from '../../../../components/MV/Button';
+import MVUpload from '../../../../components/MV/Upload';
+import MVInput from '../../../../components/MV/Input';
 const ProductAdd = () => {
   const { categorymain, category, seri, isError }: any = useContext(MyContext);
   const dispatch = useAppDispatch();
@@ -53,37 +55,37 @@ const ProductAdd = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(onsubmit)}>
-        <RenderInput
+        <MVInput
           name={'name'}
           label={'Product name'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'view'}
           label={'View'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'seri'}
           label={'Seri'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'descriptions'}
           label={'Desciption'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'copyright'}
           label={'Copyright'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'LinkCopyright'}
           label={'LinkCopyright'}
           control={control}
@@ -94,7 +96,7 @@ const ProductAdd = () => {
           label={'New Video Upload'}
           control={control}
         /> */}
-        <MyUploadWrapper
+        <MVUpload
           name={'image'}
           label={'New Image Upload'}
           control={control}
@@ -103,43 +105,43 @@ const ProductAdd = () => {
         <input type="file" name='file' {...register('file')} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
         <label className="form-label">Image</label>
         <input type="file" name='image' {...register('image')} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" /> */}
-        <RenderInput
+        <MVInput
           name={'dailyMotionServer'}
           label={'DailyMotionServer'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'trailer'}
           label={'Trailer Video'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'year'}
           label={'Year'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'country'}
           label={'Country'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'options'}
           label={'Options'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'video2'}
           label={'Video Link'}
           control={control}
           rules={undefined}
         />
-        <RenderInput
+        <MVInput
           name={'imageLink'}
           label={'Image Link'}
           control={control}

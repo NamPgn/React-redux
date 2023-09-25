@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { Image } from 'antd';
-import { Link } from 'react-router-dom';
 import { deleteCommentSlice, getAllCommentSlice } from '../../../redux/slice/comment/thunkComment/comment';
 import { comment$ } from '../../../redux/selectors/comment';
 import moment from 'moment';
@@ -11,6 +10,7 @@ import { MyButton } from '../../../components/MV/Button';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import MVConfirm from '../../../components/MV/Confirm';
 import { toast } from 'react-toastify';
+import MVLink from '../../../components/Location/Link';
 
 const CommentAdmin = () => {
   const comment = useAppSelector(comment$);
@@ -18,7 +18,7 @@ const CommentAdmin = () => {
   useEffect(() => {
     dispatch(getAllCommentSlice());
   }, []);
-  
+
   const confirm = async (id) => {
     const response = await dispatch(deleteCommentSlice(id));
     if (response.payload.success) {
@@ -40,9 +40,9 @@ const CommentAdmin = () => {
       Time: moment(item.createdAt).format('LTS DD-MM-YYYY'),
       action: (
         <span>
-          <Link to={`/dashboard/comment/${item._id}`}>
+          <MVLink to={`/dashboard/comment/${item._id}`}>
             <MyButton danger shape="circle"><EditOutlined /></MyButton>
-          </Link>
+          </MVLink>
           <MVConfirm
             title="Delete the product"
             onConfirm={() => confirm(item._id)}

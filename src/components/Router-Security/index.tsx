@@ -1,7 +1,7 @@
 import { isAuthentication } from "../../auth/getToken";
 import React from 'react';
-import { Link } from "react-router-dom";
 import { Navigate } from 'react-router-dom';
+import MVLink from "../Location/Link";
 const PrivateRouter = (props) => {
   const data = isAuthentication();
   try {
@@ -15,7 +15,7 @@ const PrivateRouter = (props) => {
       return <Navigate to={'/'} />
     }
   } catch (error) {
-    return <div className='text-light container text-center' ><Link to={"/auth/signin"}>Đăng nhập</Link></div>
+    return <div className='text-light container text-center' ><MVLink to={"/auth/signin"}>Đăng nhập</MVLink></div>
   }
 }
 

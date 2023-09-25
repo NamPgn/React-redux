@@ -1,12 +1,13 @@
 import React from 'react'
 import { Button, Image } from 'antd';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { urlSwr } from '../../../../function';
 import { useSWRWithAxios } from '../../../../hook/Swr';
 import { deleteCatemainByProduct } from '../../../../api/catemain';
 import { columnsCatemainProduct } from '../../../../constant';
 import MVTable from '../../../../components/MV/Table';
 import { Typography } from 'antd';
+import MVLink from '../../../../components/Location/Link';
 
 const { Title } = Typography;
 const CatemainProduct = () => {
@@ -29,11 +30,11 @@ const CatemainProduct = () => {
       createdAt: item.createdAt,
       action: (
         <span>
-          <Link to={`/dashboard/trailerUrl/${item._id}`} >
+          <MVLink to={`/dashboard/trailerUrl/${item._id}`} >
             <Button style={{ background: 'rgb(22, 119, 255)' }}>
               Edit
             </Button>
-          </Link>
+          </MVLink>
           <Button danger className='ml-2' onClick={() => handleclick(item._id, item.categorymain)}>
             Cút
           </Button>

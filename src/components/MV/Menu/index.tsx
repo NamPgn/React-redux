@@ -1,6 +1,7 @@
 import React, { memo } from 'react'
 import { Menu } from "antd";
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import MVLink from '../../Location/Link';
 const MVMenuItem = memo(({ data, icons, id, background, ...rest }:any) => {
   return (
     <Menu className='h-full'
@@ -20,7 +21,7 @@ const MVMenuItem = memo(({ data, icons, id, background, ...rest }:any) => {
               key={index}
             >
               {item.name}
-            </NavLink> : <Link to={item.path}>{item.name}</Link>
+            </NavLink> : <MVLink to={item.path}>{item.name}</MVLink>
           }
         </Menu.Item>
       )))}

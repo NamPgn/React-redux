@@ -8,6 +8,8 @@ import { useSWRWithAxios } from '../../../hook/Swr';
 import { urlSwr } from '../../../function';
 import { BtnStyled, InputStyled } from './styles';
 import { Spiner } from '../../../components/Message/Loading';
+import MVRow from '../../../components/MV/Grid';
+import MVCol from '../../../components/MV/Grid/Col';
 const Divstyled = styled.div``;
 
 const HomePage = () => {
@@ -21,26 +23,56 @@ const HomePage = () => {
   }
   return (
     <React.Fragment>
-      {!isLoading ? <>
-        <Divstyled className="">
-          <Divstyled className='d-flex items-center'>
-            <div className=' w-full flex items-center'>
-              <Divstyled className="group w-full">
-                <InputStyled placeholder="Search" onChange={(e) => setSearchValue(e.target.value)} type="search" />
-              </Divstyled>
-              <Divstyled>
-                <BtnStyled className='btnSearch' onClick={handleSearch}>Tìm</BtnStyled>
-              </Divstyled>
-            </div>
-          </Divstyled>
-        </Divstyled>
-        {searchValue ? <SearchResults data={results} /> : <ConfigHomePage
-          category={category?.data}
-          isLoading={isLoading}
-          isError={isError}
-          state={state}
-        />}
-      </> : <Spiner delay={0.5} size='large' children={undefined} spinning={undefined} />}
+      {!isLoading ? <React.Fragment>
+        <MVRow
+          align="middle"
+        >
+          <MVCol
+            xl={22}
+            lg={21}
+            md={20}
+            sm={19}
+            xs={18}
+          >
+            <InputStyled
+              placeholder="Search"
+              onChange={(e) => setSearchValue(e.target.value)}
+              type="search"
+            />
+          </MVCol>
+          <MVCol
+            xl={2}
+            lg={3}
+            md={4}
+            sm={5}
+            xs={6}
+          >
+            <BtnStyled
+              className='btnSearch'
+              style={{
+                width: '100%'
+              }}
+              onClick={handleSearch}
+            >Tìm</BtnStyled>
+          </MVCol>
+        </MVRow>
+        {
+          searchValue
+            ?
+            <SearchResults data={results} />
+            : <ConfigHomePage
+              category={category?.data}
+              isLoading={isLoading}
+              isError={isError}
+              state={state}
+            />
+        }
+      </React.Fragment> : <Spiner
+        delay={0.5}
+        size='large'
+        children={undefined}
+        spinning={undefined}
+      />}
     </React.Fragment>
   )
 }

@@ -239,9 +239,21 @@ const columnsProduct: ColumnsType<any> = [
     width: 100,
   },
   {
+    title: 'Active',
+    dataIndex: 'isActive',
+    key: 'isActive',
+    width: 90,
+  },
+  {
     title: 'Trailer',
     dataIndex: 'trailer',
     key: 'trailer',
+    width: 100,
+  },
+  {
+    title: 'Country',
+    dataIndex: 'country',
+    key: 'country',
     width: 100,
   },
   {
@@ -254,12 +266,6 @@ const columnsProduct: ColumnsType<any> = [
     title: 'Options',
     dataIndex: 'options',
     key: 'options',
-  },
-  {
-    title: 'Country',
-    dataIndex: 'country',
-    key: 'country',
-    width: 100,
   },
   {
     title: 'Action',

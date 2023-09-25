@@ -1,6 +1,5 @@
 import React, { lazy } from 'react';
 import HomePage from '../page/Home/Container';
-import Logout from '../page/Auth-Page/Logout';
 import {
   DashboardOutlined,
   NotificationOutlined,
@@ -74,7 +73,6 @@ export const routerNavBar = [
     name: "Đăng kí",
     title: "Đăng kí",
   },
-
 ]
 
 export const loggedInRoutes = [
@@ -103,22 +101,14 @@ export const router = [
         path: "d/:id",
         element: <LazyComponent><DetailProductPage /></LazyComponent>,
       },
-
-      {
-        path: "logout",
-        element: <LazyComponent><Logout /></LazyComponent>,
-      },
-
       {
         path: "q/:id",
         element: <LazyComponent><CategoryProduct /></LazyComponent>
       },
-
       {
         path: 'search/category',
         element: <LazyComponent><SearchResults /></LazyComponent>
       },
-
       {
         path: "cart/user",
         element: <LazyComponent><CartUser /></LazyComponent>

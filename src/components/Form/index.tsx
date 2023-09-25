@@ -2,8 +2,15 @@ import { useForm } from 'react-hook-form';
 import React, { memo } from 'react';
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Link } from 'react-router-dom';
-import { BtnStyled, DivContainer, FormBorder, FormHeader, FormIntro, FormStyled, FormTitle, Formdescription, GoogleLogin, InputStyled } from './styles';
+import {
+  BtnStyled,
+  DivContainer,
+  FormBorder, FormHeader,
+  FormIntro, FormStyled, FormTitle,
+  Formdescription, GoogleLogin,
+  InputStyled
+} from './styles';
+import MVLink from '../Location/Link';
 const AuthForm = memo(({
   onSubmit,
   formTitle,
@@ -90,7 +97,7 @@ const AuthForm = memo(({
               }} src="https://www.svgrepo.com/show/475656/google-color.svg" alt="" />
             </GoogleLogin>
             <div className="lg:mb-6 md:mb-4 mb-2 text-center lg:mt-5 md:mt-3 mt-2">
-              <Link to={redirect} className="text-white text-sm text-primary-600 hover:underline text-primary-500">{checkedAccount}</Link>
+              <MVLink to={redirect} className="text-white text-sm text-primary-600 hover:underline text-primary-500">{checkedAccount}</MVLink>
             </div>
           </FormStyled>
         </div>

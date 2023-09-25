@@ -1,6 +1,6 @@
 import { isAuthentication } from "../auth/getToken";
 import { IProduct } from "../interfaces/product";
-import intances from "./instances"
+import intances, { URL_SERVER_RENDER } from "./instances"
 declare var Promise: any;
 const dataToken = isAuthentication();
 export const getAllProduct = async (page): Promise<IProduct> => {
@@ -52,14 +52,14 @@ export const deleteMultipleProduct = async (id: string): Promise<IProduct> => aw
 export const getAllProductsByCategory = async (id: string): Promise<IProduct> => await intances.get(`/category/products/${id}`);
 
 
-export const pushListData = async (id: string, typeId: string | any): Promise<IProduct> => await intances.post(`/product/pushlist/${id}/${dataToken.user._id}`, typeId,{
+export const pushListData = async (id: string, typeId: string | any): Promise<IProduct> => await intances.post(`/product/pushlist/${id}/${dataToken.user._id}`, typeId, {
   headers: {
     "Authorization": `Bearer ${dataToken.token}`
   }
 });
 
 
-export const UploadAssby = async (id: any, body: any): Promise<IProduct> => await intances.post(`/product/abyss/${id}/${dataToken.user._id}`, body,{
+export const UploadAssby = async (id: any, body: any): Promise<IProduct> => await URL_SERVER_RENDER.post(`/product/abyss/${id}/${dataToken.user._id}`, body, {
   headers: {
     "Authorization": `Bearer ${dataToken.token}`
   }

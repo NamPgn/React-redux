@@ -13,7 +13,7 @@ const AuthHeader = ({ Auth, isLoggedInState, user, style, ...rest }) => {
         Auth && isLoggedInState ? (
           <div className="relative">
             <MVAvatar
-              title={user.name}
+              title={user?.name}
               src={user && (user.image)}
               onClick={handleClick}
               size={40}
@@ -23,7 +23,7 @@ const AuthHeader = ({ Auth, isLoggedInState, user, style, ...rest }) => {
         ) : (
           <div className="relative">
             <MVAvatar
-              title={user.name}
+              title={user?.name}
               src={undefined}
               style={style}
               onClick={handleClick}
