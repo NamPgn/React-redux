@@ -1,10 +1,10 @@
 import { Popconfirm } from 'antd'
 import React, { memo } from 'react'
-import Error from '../../Message/Error';
+import { MVError } from '../../Message';
 
 const MVConfirm = memo(({ title, cancelText, okText, onConfirm, children, ...rest }: any) => {
   const cancel = () => {
-    Error('Hủy');
+    MVError('Hủy');
   }
   return (
     <Popconfirm

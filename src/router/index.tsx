@@ -36,12 +36,12 @@ const Signup = lazy(() => import('../page/Auth-Page/Sign-up')); //signup
 const AdminPage = lazy(() => import('../page/Admin')); //admin
 const DataProduct = lazy(() => import('../page/Admin/product/component/list'));
 const GetUser = lazy(() => import('../page/Admin/user'));
-const Adduser = lazy(() => import('../page/Admin/user/component/Adduser'));
-const EditUser = lazy(() => import('../page/Admin/user/component/EditUser'));
-const GetAdmin = lazy(() => import('../page/Admin/user/component/GetAdmin'));
+const Adduser = lazy(() => import('../page/Admin/user/component/add'));
+const EditUser = lazy(() => import('../page/Admin/user/component/edit'));
+const GetAdmin = lazy(() => import('../page/Admin/user/component/admin'));
 const ProductAdd = lazy(() => import('../page/Admin/product/component/add'));
 const EditProduct = lazy(() => import('../page/Admin/product/component/edit'));
-const CreatingUser = lazy(() => import('../page/Admin/user/component/CreatingUser'));
+const CreatingUser = lazy(() => import('../page/Admin/user/component/adds'));
 const CreatingProducts = lazy(() => import('../page/Admin/product/component/CreatingProducts'));
 const CategoryAdmin = lazy(() => import('../page/Admin/category'));
 const EditCategoryAdmin = lazy(() => import('../page/Admin/category/component/edit'));

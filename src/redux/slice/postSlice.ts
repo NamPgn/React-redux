@@ -1,27 +1,25 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { editTrailer } from "../../api/trailer";
+import { editTrailer } from "../../sevices/trailer";
 
 export const editTrailerSlice = createAsyncThunk(
-  'trailer/Trailing',
-  async (dataEdit:any) => {
+  "trailer/Trailing",
+  async (dataEdit: any) => {
     const { data } = await editTrailer(dataEdit);
-    return data
+    return data;
   }
-)
+);
 const postSlice = createSlice({
   name: "post",
   initialState: {
     value: [],
     trailerValues: [],
   },
-  reducers:{
-    
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(editTrailerSlice.fulfilled, (state, action) => {
       state.trailerValues.push(action.payload);
-    })
-  }
-})
+    });
+  },
+});
 
-export default postSlice.reducer
+export default postSlice.reducer;

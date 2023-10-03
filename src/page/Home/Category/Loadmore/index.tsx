@@ -1,9 +1,7 @@
-import React from 'react'
-import Loadmore from '../../../../components/Loadmore'
+import React from "react";
+import Loadmore from "../../../../components/Loadmore";
 const index = () => {
-  return (
-    <Loadmore />
-  )
-}
+  return <Loadmore />;
+};
 
-export default index
+export default index;

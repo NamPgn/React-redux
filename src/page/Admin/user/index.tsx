@@ -4,11 +4,11 @@ import { getAlluser, deteleUser } from '../../../redux/slice/userSlice';
 import { DownloadOutlined } from "@ant-design/icons";
 import { toast } from 'react-toastify';
 import { user$ } from '../../../redux/selectors';
-import { NavLink } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hook';
 import { columnsUser } from '../../../constant';
 import MVTable from '../../../components/MV/Table';
 import { MyButton } from '../../../components/MV/Button';
+import MVLink from '../../../components/Location/Link';
 
 const GetUser = () => {
   const states = useAppSelector(user$);
@@ -33,13 +33,12 @@ const GetUser = () => {
       role: item.role,
       action: (
         <>
-          <NavLink to={`${item._id}/edit`}>
-            <MyButton danger shape="round" icon={<DownloadOutlined />}>
+          <MVLink to={`${item._id}/edit`}>
+            <MyButton className='mr-2' danger icon={<DownloadOutlined />}>
               Edit
             </MyButton>
-          </NavLink>
+          </MVLink>
           <MyButton
-            style={{ background: "#1677ff" }}
             onClick={() =>
               handleDelete(item._id)
             }
@@ -51,19 +50,23 @@ const GetUser = () => {
 
   return (
     <>
-      <NavLink to={'/dashboard/user/add'}>
-        <MyButton style={{ background: "#1677ff" }} shape="round">Add User</MyButton>
-      </NavLink>
-      <NavLink to={'/dashboard/user/creatingUser'} >
-        <MyButton shape="round" style={{ display: "inline-block", margin: "10px 10px", background: "#28a745" }}>Import Excel</MyButton>
-      </NavLink>
-      <NavLink to={'/dashboard/product/add'} >
-        <MyButton shape="round" style={{ display: "inline-block  ", margin: "10px 10px", background: "#eca52b" }}>Export PDF</MyButton>
-      </NavLink>
+      <MVLink to={'/dashboard/user/add'}>
+        <MyButton>Add User</MyButton>
+      </MVLink>
+      <MVLink to={'/dashboard/user/creatingUser'} >
+        <MyButton style={{ margin: '10px 10px' }}>Import Excel</MyButton>
+      </MVLink>
+      <MVLink to={'/dashboard/product/add'} >
+        <MyButton>Export PDF</MyButton>
+      </MVLink>
       <MVTable
         columns={columnsUser}
         dataSource={data}
-        pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '20', '30'] }}
+        pagination={{
+          defaultPageSize: 5,
+          showSizeChanger: true,
+          pageSizeOptions: ['5', '20', '30']
+        }}
       />
     </>
   )

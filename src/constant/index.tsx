@@ -191,9 +191,9 @@ const columnsComment = [
     key: 'permission',
   },
   {
-    title: 'Time',
-    dataIndex: 'time',
-    key: 'time',
+    title: 'Day',
+    dataIndex: 'day',
+    key: 'day',
   },
   {
     title: 'Action',

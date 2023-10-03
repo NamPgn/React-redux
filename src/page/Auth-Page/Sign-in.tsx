@@ -4,8 +4,7 @@ import { loginForm } from '../../redux/slice/userSlice';
 import { useAppDispatch } from '../../hook';
 import { message } from 'antd';
 import AuthForm from '../../components/Form';
-import Success from '../../components/Message/Success';
-import Error from '../../components/Message/Error';
+import { MVError, MVSuccess } from '../../components/Message';
 
 const array = [
   {
@@ -26,11 +25,11 @@ const Signin = () => {
   const onsubmit = async (data: any) => {
     const responese: any = await dispatch(loginForm(data));
     if (responese.payload && responese.payload.success) {
-      Success(responese.payload.message);
+      MVSuccess(responese.payload.message);
       location.reload();
       navigate('/');
     } else {
-      Error(responese.error.message);
+      MVError(responese.error.message);
     }
   }
 

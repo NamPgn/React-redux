@@ -1,31 +1,38 @@
-import React, { memo } from 'react';
-import { NavLink } from 'react-router-dom';
-import { BtnStyled, DivContainerSeriDetail, Divstyled } from './styles';
+import React, { memo } from "react";
+import { NavLink } from "react-router-dom";
+import { BtnStyled } from "./styles";
+import MVRow from "../MV/Grid";
+import MVCol from "../MV/Grid/Col";
 
 const SeriDetailProducts = memo(({ seriProduct }: any) => {
-  //chi tiết tập phìm khi vào trăng xem phim
   return (
-    <DivContainerSeriDetail className='md:gap-2 lg:gap-3 gap-1'>
-      {
-        seriProduct.map((item: any, index: any) => {
-          return <Divstyled
+    <MVRow gutter={14} items="center">
+      {seriProduct.map((item: any, index: any) => {
+        return (
+          <MVCol
+            xl={3}
+            lg={3}
+            md={4}
+            sm={4}
+            xs={6}
             key={index}
-            className='mt-2'
+            className="mt-2"
           >
             <NavLink
               className={({ isActive, isPending }) =>
                 isActive ? "activeSeri" : ""
-              } to={'/d/' + item._id + `?c=${item.category}`}
+              }
+              to={"/d/" + item._id + `?c=${item.category}`}
             >
-              <BtnStyled className={item.seri && 'd-flex text-dark bg-light w-full justify-center'}>
-                {item.seri && 'Tập ' + item.seri}
+              <BtnStyled className={item.seri && "w-full"}>
+                {item.seri && "Tập " + item.seri}
               </BtnStyled>
             </NavLink>
-          </Divstyled>
-        })
-      }
-    </DivContainerSeriDetail>
-  )
-})
+          </MVCol>
+        );
+      })}
+    </MVRow>
+  );
+});
 
-export default SeriDetailProducts
+export default SeriDetailProducts;

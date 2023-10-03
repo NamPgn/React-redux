@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Image } from 'antd';
 import { cart$ } from '../../../redux/selectors/Cart';
-import { getAllCartSlice } from '../../../redux/slice/cart/thunk/cart';
+import { deleteCartSlice, getAllCartSlice } from '../../../redux/slice/cart/thunk/cart';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../../hook';
 import { deleteCommentSlice } from '../../../redux/slice/comment/thunkComment/comment';
@@ -34,7 +34,7 @@ const index = () => {
                 Edit
               </MyButton>
             </MVLink>
-            <MyButton onClick={() => dispatch(deleteCommentSlice(item._id))} className='ml-2'>
+            <MyButton onClick={() => dispatch(deleteCartSlice(item._id))} className='ml-2'>
               Cút
             </MyButton>
           </SpanStyled>

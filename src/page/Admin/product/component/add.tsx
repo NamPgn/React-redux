@@ -9,9 +9,9 @@ import { MyButton } from '../../../../components/MV/Button';
 import MVUpload from '../../../../components/MV/Upload';
 import MVInput from '../../../../components/MV/Input';
 const ProductAdd = () => {
-  const { categorymain, category, seri, isError }: any = useContext(MyContext);
+  const { categorymain, category, seri }: any = useContext(MyContext);
   const dispatch = useAppDispatch();
-  const { register, handleSubmit, control } = useForm();
+  const { handleSubmit, control } = useForm();
   const categoryOptions = category && (category?.data.map((item, index) => ({
     label: item.name,
     value: item._id
@@ -47,9 +47,9 @@ const ProductAdd = () => {
     formdata.append('video2', data.video2);
     const res = await dispatch(addProduct(formdata));
     if (res) {
-      toast.success('thành công');
+      toast.success('Add product successfully');
     } else {
-      toast.error('thất bại');
+      toast.error('Add product failed');
     }
   }
   return (

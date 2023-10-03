@@ -15,8 +15,8 @@ export const addComment = async (id: any, data: any): Promise<Icommented> => {
   });
 }
 
-export const deleteComent = async (id: any): Promise<Icommented> => {
-  return await intances.delete(`/comment/${id}/${dataToken.user._id}`, {
+export const deleteComent = async (data: any): Promise<Icommented> => {
+  return await intances.post(`/comment/${dataToken.user._id}`, data, {
     headers: {
       "Authorization": `Bearer ${dataToken.token}`
     }

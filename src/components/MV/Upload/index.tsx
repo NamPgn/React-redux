@@ -1,8 +1,8 @@
-import { Upload } from 'antd';
-import React, { memo } from 'react'
-import { Controller } from 'react-hook-form';
-import { MyButton } from '../Button';
-import { UploadOutlined } from '@ant-design/icons';
+import { Upload } from "antd";
+import React, { memo } from "react";
+import { Controller } from "react-hook-form";
+import { MyButton } from "../Button";
+import { UploadOutlined } from "@ant-design/icons";
 
 export const MVUpload = memo(({ label, name, control, ...rest }: any) => {
   return (
@@ -22,10 +22,7 @@ export const MVUpload = memo(({ label, name, control, ...rest }: any) => {
               field.onChange(fileList[0]?.originFileObj); // Truyền dữ liệu file thực tế vào field
             }}
           >
-            <MyButton
-              icon={<UploadOutlined />}
-              className='m-2'
-            >
+            <MyButton icon={<UploadOutlined />} className="m-2">
               Click to Upload
             </MyButton>
           </Upload>
@@ -35,4 +32,4 @@ export const MVUpload = memo(({ label, name, control, ...rest }: any) => {
   );
 });
 
-export default MVUpload
+export default MVUpload;

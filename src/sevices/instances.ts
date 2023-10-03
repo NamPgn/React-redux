@@ -1,7 +1,7 @@
 import axios from "axios"
 import { isAuthentication } from "../auth/getToken"
 import jwtDecode from "jwt-decode";
-import { Warning } from "../components/Message/Warning";
+import { MVWarning } from "../components/Message";
 const intances = axios.create({
     baseURL: import.meta.env.VITE_DATABASE
 });
@@ -36,7 +36,7 @@ intances.interceptors.request.use((config) => {
             const decodeToken: any = jwtDecode(Auth.token);
             if (decodeToken && decodeToken.exp && Date.now() / 1000 > decodeToken.exp) {
                 // Token đã hết hạn, đăng xuất user và chuyển hướng đến trang đăng nhập
-                Warning('Token expires-relogin');
+                MVWarning('Token expires-relogin');
                 setTimeout(() => {
                     localStorage.clear();
                     window.location.href = '/auth/signin'; // Chuyển hướng đến trang đăng nhập

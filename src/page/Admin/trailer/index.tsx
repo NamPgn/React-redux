@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { getTrailerUrl } from '../../../api/trailer';
-import { Link } from 'react-router-dom';
-import { MyButton } from '../../../components/MV/Button';
-import { columnsTrailer } from '../../../constant';
-import MVTable from '../../../components/MV/Table';
-import MVLink from '../../../components/Location/Link';
+import React, { useEffect, useState } from "react";
+import { getTrailerUrl } from "../../../sevices/trailer";
+import { MyButton } from "../../../components/MV/Button";
+import { columnsTrailer } from "../../../constant";
+import MVTable from "../../../components/MV/Table";
+import MVLink from "../../../components/Location/Link";
 declare var Promise;
 const indexTrailer = () => {
   const [trailer, setTrailer]: any = useState({});
@@ -12,9 +11,9 @@ const indexTrailer = () => {
     const getAlldata = async (): Promise<any> => {
       const { data } = await getTrailerUrl();
       setTrailer(data);
-    }
+    };
     getAlldata();
-  }, [])
+  }, []);
   const data = {
     _id: trailer._id,
     url: trailer.url,
@@ -26,17 +25,13 @@ const indexTrailer = () => {
           </MyButton>
         </MVLink>
       </span>
-    )
-  }
+    ),
+  };
   return (
     <>
-      <MVTable
-        columns={columnsTrailer}
-        dataSource={[data]}
-      />
+      <MVTable columns={columnsTrailer} dataSource={[data]} />
     </>
-  )
-}
+  );
+};
 
-export default indexTrailer
-
+export default indexTrailer;

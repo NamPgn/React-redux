@@ -1,27 +1,30 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { addComment, deleteComent, getAllComment } from "../../../../api/comment";
+import {
+  addComment,
+  deleteComent,
+  getAllComment,
+} from "../../../../sevices/comment";
 
 export const getAllCommentSlice = createAsyncThunk(
-  'getAllCommentSlice',
+  "getAllCommentSlice",
   async () => {
     const { data }: any = await getAllComment();
-    return data
+    return data;
   }
-)
-
+);
 
 export const addCommentSlice = createAsyncThunk(
-  'addCommentSlice',
+  "addCommentSlice",
   async (dataCm: any) => {
     const { data }: any = await addComment(dataCm.product, dataCm);
-    return data
+    return data;
   }
-)
+);
 
 export const deleteCommentSlice = createAsyncThunk(
-  'deleteComment',
-  async (id:any) => {
-    const { data }: any = await deleteComent(id);
-    return data
+  "deleteComment",
+  async (dataId: any) => {
+    const { data }: any = await deleteComent(dataId);
+    return data;
   }
-)
+);

@@ -1,10 +1,8 @@
-import React, { Suspense } from 'react'
-import { Loading } from '../Message/Loading';
+import React, { Suspense } from "react";
+import { Loading } from "../Message/Notification";
 
 const LazyComponent = ({ children }) => (
-  <Suspense fallback={<Loading />}>
-    {children}
-  </Suspense>
+  <Suspense fallback={<Loading />}>{children}</Suspense>
 );
 
-export default LazyComponent
+export default LazyComponent;

@@ -1,10 +1,10 @@
-import { Input } from 'antd';
-import React, { memo } from 'react'
-import { Controller } from 'react-hook-form';
+import { Input } from "antd";
+import React, { memo } from "react";
+import { Controller } from "react-hook-form";
 
 const MVInput = memo(({ name, label, control, rules, ...rest }: any) => {
   return (
-    <div className='mb-3'>
+    <div className="mb-3">
       <label htmlFor={name}>{label}</label>
       <Controller
         name={name}
@@ -12,16 +12,11 @@ const MVInput = memo(({ name, label, control, rules, ...rest }: any) => {
         rules={rules}
         defaultValue=""
         render={({ field }) => (
-          <Input
-            className='mt-2'
-            placeholder={label}
-            {...field}
-            {...rest}
-          />
+          <Input className="mt-2" placeholder={label} {...field} {...rest} />
         )}
       />
     </div>
   );
 });
 
-export default MVInput
+export default MVInput;

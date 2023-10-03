@@ -12,13 +12,19 @@ export const BtnStyled = styled.button`
   text-align: center;
   cursor: pointer;
   color: #fff;
+  font-size: 12px;
   @media (min-width: 768px){
     padding: .6rem .6rem;
-    font-size: .875rem;
+    font-size: .675rem;
+  }
+  @media (min-width: 1024px){
+    padding: .6rem .6rem;
+    font-size: .785rem;
   }
 `;
 
 export const BtnStyledNumber = styled.button`
+width: 100%;
 padding: 6px 16px;
 background: #7a7a7a52;
 font-size: 12px;
@@ -56,15 +62,3 @@ gap: 10px;
 }
 `
 
-export const DivContainerSeriDetail=styled.div`
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-
-  @media(min-width: 768px){
-    grid-template-columns: repeat(8, 1fr);
-  }
-
-  @media(min-width:1024px){
-    grid-template-columns: repeat(11, 1fr);
-  }
-`

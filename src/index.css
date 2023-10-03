@@ -62,3 +62,7 @@ a:hover {
 .ant-progress-text {
   color: #fff !important;
 }
+
+:where(.css-dev-only-do-not-override-1s3dcof).ant-typography strong{
+  font-weight: 700;
+}

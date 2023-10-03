@@ -4,8 +4,6 @@ import { uploadImage } from '../../redux/slice/userSlice';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../hook';
 import { MyContext } from '../../context';
-import Success from '../../components/Message/Success';
-import Error from '../../components/Message/Error';
 import { InputStyled } from '../../components/Form/styles';
 import { EditOutlined } from '@ant-design/icons';
 import { MyButton } from '../../components/MV/Button';
@@ -14,6 +12,7 @@ import { useForm } from 'react-hook-form';
 import MVRow from '../../components/MV/Grid';
 import MVCol from '../../components/MV/Grid/Col';
 import { handleLogout } from '../../function';
+import { MVError, MVSuccess } from '../../components/Message';
 const Container = styled.div`
 `;
 
@@ -34,9 +33,9 @@ const Profile = () => {
     }
     const responese = await dispatch(uploadImage(datas));
     if (responese.payload.success) {
-      Success('Image saved successfully');
+      MVSuccess('Image saved successfully');
     } else {
-      Error('Image saved failed');
+      MVError('Image saved failed');
     }
   }
   return (

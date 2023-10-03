@@ -5,9 +5,9 @@ import { editUser, getUser_id } from '../../../../redux/slice/userSlice';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { useAppDispatch } from '../../../../hook';
-import Error from '../../../../components/Message/Error';
 import { MyButton } from '../../../../components/MV/Button';
 import MVInput from '../../../../components/MV/Input';
+import { MVError } from '../../../../components/Message';
 declare var Promise: any;
 const ImageStyledEditAuth = styled.img`
 width: 200px; height: 200px; objectFit: cover ;
@@ -43,7 +43,7 @@ const EditUser = () => {
         theme: "light",
       });
     } else {
-      Error('Lỗi!')
+      MVError('Lỗi!')
     }
   }
   const handleChange = (value: any) => {

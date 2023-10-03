@@ -30,8 +30,6 @@
     "src/components/Router-Security/index.tsx",
     "src/@types/.d.ts",
     "src/components/Lazy/LazyComponent.tsx",
-    "src/components/Message/Warning.tsx",
-    "src/components/Message/Error.tsx",
     "src/components/Form/component/index.tsx",
     "src/components/Form/index.tsx",
     "src/components/Particles/index.tsx",
