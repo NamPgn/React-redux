@@ -48,7 +48,7 @@ const ComentProductsLayout = ({ setCommentAdded }) => {
         type="primary"
         onClick={() => handleAddComment()}
       >
-        Publish comment
+        Pushlist comment
       </MyButton>
     </>
   );

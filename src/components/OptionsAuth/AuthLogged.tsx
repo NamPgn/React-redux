@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../hook";
-import { AccountStyle } from "./styles";
 import {
   LikeOutlined,
   LogoutOutlined,
@@ -10,50 +9,77 @@ import {
 } from "@ant-design/icons";
 import { handleLogout } from "../../function";
 import MVLink from "../Location/Link";
+import { MVError } from "../Message";
+import MVText from "../MV/Text";
+import MVRow from "../MV/Grid";
+import MVCol from "../MV/Grid/Col";
 const AuthLogged = ({ user }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const handleCheckCart = () => {
     if (!user) {
-      Error("Bạn cần đăng nhập!");
+      MVError("Bạn cần đăng nhập!");
     } else {
       navigate("/cart/user");
     }
   };
   return (
     <>
-      <AccountStyle className="acountImageContent absolute z-10">
-        <div className="signleAs d-flex justify-content-center">
-          <div>
-            Signed in as <b>{user ? user.username : ""}</b>
-          </div>
-        </div>
-        <hr />
-        <MVLink to={"/auth/profile"}>
-          <div className="d-flex items-center hv_ text-center">
+      <MVLink to={"/auth/profile"}>
+        <MVRow style={{ lineHeight: "0" }} align={"middle"} gutter={12}>
+          <MVCol>
             <UsergroupAddOutlined />
-            <div className="auth">Your profile</div>
-          </div>
-        </MVLink>
-        <div className="d-flex items-center hv_ text-center">
+          </MVCol>
+          <MVCol>
+            <MVText level={6} className="auth">
+              Your profile
+            </MVText>
+          </MVCol>
+        </MVRow>
+      </MVLink>
+      <MVRow style={{ lineHeight: "0" }} align={"middle"} gutter={[12, 12]}>
+        <MVCol>
           <LikeOutlined />
-          <div onClick={handleCheckCart} className="auth">
+        </MVCol>
+        <MVCol>
+          <MVText
+            style={{
+              cursor: "pointer",
+            }}
+            onClick={handleCheckCart}
+            className="auth"
+          >
             Saved
-          </div>
-        </div>
-        {user && user.role >= 1 && (
-          <MVLink to={"/dashboard"}>
-            <div className="d-flex items-center hv_ text-center">
+          </MVText>
+        </MVCol>
+      </MVRow>
+      {user && user.role >= 1 && (
+        <MVLink to={"/dashboard"}>
+          <MVRow style={{ lineHeight: "0" }} align={"middle"} gutter={[12, 12]}>
+            <MVCol>
               <UserOutlined />
-              <div className="auth">Admin</div>
-            </div>
-          </MVLink>
-        )}
-        <div className="d-flex items-center hv_ text-center">
+            </MVCol>
+            <MVCol>
+              <MVText className="auth">Admin</MVText>
+            </MVCol>
+          </MVRow>
+        </MVLink>
+      )}
+      <MVRow style={{ lineHeight: "0" }} align={"middle"} gutter={[12, 12]}>
+        <MVCol>
           <LogoutOutlined />
-          <div onClick={() => handleLogout(dispatch, navigate)}>Logout</div>
-        </div>
-      </AccountStyle>
+        </MVCol>
+        <MVCol>
+          <MVText
+            style={{
+              cursor: "pointer",
+            }}
+            onClick={() => handleLogout(dispatch, navigate)}
+          >
+            Logout
+          </MVText>
+        </MVCol>
+      </MVRow>
     </>
   );
 };

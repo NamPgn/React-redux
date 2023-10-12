@@ -2,6 +2,7 @@ import React from "react";
 import { Loader } from "../../Message/Notification";
 import stylded from "styled-components";
 import MVLink from "../../Location/Link";
+import MVTitle from "../../MV/Title";
 
 const Container = stylded.div`
 ::-webkit-scrollbar-thumb {
@@ -27,7 +28,9 @@ const CategoryProductSidebar = ({ category, isLoading }) => {
   }
   return (
     <div className="nav navCate col-sm-3 des w-3/12 relative overflow-hidden lg:block md:hidden hidden">
-      <div className="p-2 text-white text-sm">See more</div>
+      <MVTitle level={5} style={{ color: "#fff", marginLeft: "10px" }}>
+        See more
+      </MVTitle>
       <Container className="absolute h-full w-full px-2 overflow-scroll">
         {catedata &&
           catedata.map((item: any, index: any) => (

@@ -3,34 +3,57 @@ import MVAvatar from "../../../MV/Avatar";
 import AuthLogged from "../../../OptionsAuth/AuthLogged";
 import { UserOutlined } from "@ant-design/icons";
 import AuthUnLogger from "../../../OptionsAuth/AuthUnLogger";
-import { handelChangeAuthOptions } from "../../../Dom";
-
-const AuthHeader = ({ Auth, isLoggedInState, user, style, ...rest }) => {
-  const { state, handleClick } = handelChangeAuthOptions();
+import { Popover } from "antd";
+import MVTitle from "../../../MV/Title";
+const AuthHeader = ({ Auth, isLoggedInState, user, style }) => {
+  const contentAuthLooger = user && <AuthLogged user={user} />;
+  const contentAuthunLooger = user && <AuthUnLogger />;
   return (
     <React.Fragment>
       {Auth && isLoggedInState ? (
-        <div className="relative">
-          <MVAvatar
-            title={user?.name}
-            src={user && user.image}
-            onClick={handleClick}
-            size={40}
-          />
-          {state && <AuthLogged user={user} />}
-        </div>
+        <Popover
+          content={contentAuthLooger}
+          title={
+            <MVTitle
+              style={{
+                textTransform: "uppercase",
+              }}
+              secondary
+              level={5}
+            >
+              {user?.username}
+            </MVTitle>
+          }
+          placement="bottomLeft"
+          trigger="click"
+        >
+          <MVAvatar title={user?.name} src={user && user.image} size={40} />
+        </Popover>
       ) : (
-        <div className="relative">
+        <Popover
+          content={contentAuthunLooger}
+          title={
+            <MVTitle
+              style={{
+                textTransform: "uppercase",
+              }}
+              secondary
+              level={5}
+            >
+              {"Hi"}
+            </MVTitle>
+          }
+          placement="bottom"
+          trigger="click"
+        >
           <MVAvatar
             title={user?.name}
             src={undefined}
             style={style}
-            onClick={handleClick}
             size={40}
             icon={<UserOutlined />}
           />
-          {state && <AuthUnLogger />}
-        </div>
+        </Popover>
       )}
     </React.Fragment>
   );

@@ -121,12 +121,21 @@ const Header = () => {
             </MVCol>
           </MVRow>
         </MVCol>
-        <MVCol span={2}>
+        <MVCol
+          style={{
+            textAlign: "center",
+          }}
+          span={1}
+        >
           <AuthHeader
             user={user}
             isLoggedInState={isLoggedInState}
             Auth={Auth}
-            style={{ backgroundColor: "#fde3cf", color: "#f56a00" }}
+            style={{
+              backgroundColor: "#fde3cf",
+              color: "#f56a00",
+              textAlign: "center",
+            }}
           />
         </MVCol>
       </MVRow>

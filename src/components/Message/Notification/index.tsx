@@ -3,6 +3,7 @@ import styed from "styled-components";
 import { Skeleton } from "antd";
 import { MyContext } from "../../../context";
 import { Spin } from "antd";
+import MyProgress from "../../MV/Progress";
 const LoadingStyled = styed.div`
 height: 100vh;
 `;
@@ -57,4 +58,14 @@ export const Spiner = ({ size, spinning, delay, children }) => (
 
 export const NotUpdate = () => {
   return <div className="text-white">Chưa cập nhật</div>;
+};
+
+export const MVLoadingTopBar = ({ percent }) => {
+  return (
+    <div
+      style={{ position: "fixed", top: 0, left: 0, width: "100%", zIndex: 999 }}
+    >
+      <MyProgress percent={percent} status="active" showInfo={false} />
+    </div>
+  );
 };

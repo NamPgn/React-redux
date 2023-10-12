@@ -232,7 +232,7 @@ const EditProduct = () => {
       <form onSubmit={handleSubmit(handleSubmitServerAssb)}>
         <MVUpload
           name={"fileupload"}
-          label={"New Image Upload"}
+          label={"New Video Upload"}
           control={control}
         />
         <div className="mt-2">

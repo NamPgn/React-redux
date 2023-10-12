@@ -56,12 +56,16 @@ const LayoutAdmin = () => {
             <MVCol>
               <MVLink to={"/"}>Trang chủ</MVLink>
             </MVCol>
-            <MVCol span={2}>
+            <MVCol
+              style={{
+                textAlign: "center",
+              }}
+              span={1}
+            >
               <AuthHeader
                 Auth={Auth}
                 user={user}
                 isLoggedInState={isLoggedInState}
-                state={state}
                 style={undefined}
               />
             </MVCol>
