@@ -1,4 +1,6 @@
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 * {
   box-sizing: border-box;
@@ -85,6 +87,6 @@ a:hover {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
-a:hover{
-  color: #7d7d7db5!important; 
+a:hover {
+  color: #7d7d7db5 !important;
 }

@@ -7,13 +7,12 @@ import { BtnStyledNumber, DivstyledContent } from "./styles";
 import MVLink from "../Location/Link";
 import MVRow from "../MV/Grid";
 import MVCol from "../MV/Grid/Col";
-
 const SeriNumberMovie = () => {
   const { id } = useParams();
   const { data, error, isLoading }: any = useSWRWithAxios(
     urlSwr + `/category/products/${id}`
   );
-  
+
   if (isLoading) {
     return <Loader />;
   }
@@ -38,7 +37,13 @@ const SeriNumberMovie = () => {
                 {item.trailer ? (
                   <BtnStyledNumber>{item.seri + "Raw"}</BtnStyledNumber>
                 ) : (
-                  <BtnStyledNumber>{item.seri}</BtnStyledNumber>
+                  <BtnStyledNumber
+                    className="w-full text-white"
+                    variant="ghost"
+                    size="sm"
+                  >
+                    {item.seri}
+                  </BtnStyledNumber>
                 )}
               </MVLink>
             </MVCol>

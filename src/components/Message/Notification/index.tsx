@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import styed from "styled-components";
 import { Skeleton } from "antd";
 import { MyContext } from "../../../context";
-import { Spin } from "antd";
+import {Spinner} from "@nextui-org/react";
 import MyProgress from "../../MV/Progress";
 const LoadingStyled = styed.div`
 height: 100vh;
@@ -50,9 +50,9 @@ export const MessageErr = () => {
 
 export const Spiner = ({ size, spinning, delay, children }) => (
   <LoadingErr className="w-full">
-    <Spin spinning={spinning} delay={delay} size={size}>
+    <Spinner size="lg">
       {children}
-    </Spin>
+    </Spinner >
   </LoadingErr>
 );
 

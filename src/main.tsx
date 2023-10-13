@@ -7,11 +7,12 @@ import "antd/dist/reset.css";
 import { Provider } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import { store } from "./redux/store/store";
-import { NextUIProvider } from "@nextui-org/react";
 import { ChangeContextProvider, MyContextProvider } from "./context";
+import { ProvidersNext } from "./providers";
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    <NextUIProvider>
+    <ProvidersNext>
       <MyContextProvider>
         <ChangeContextProvider>
           <BrowserRouter>
@@ -19,6 +20,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           </BrowserRouter>
         </ChangeContextProvider>
       </MyContextProvider>
-    </NextUIProvider>
+    </ProvidersNext>
   </Provider>
 );

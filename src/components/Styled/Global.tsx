@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
 :root{
   textarea {
@@ -10,9 +10,15 @@ export const GlobalStyle = createGlobalStyle`
     object-fit: cover;
   }
   
-  body {
-    background-color: #23232a;
-    height: 100%;
+  body{
+    position: relative;
+    z-index: -2;
+  }
+
+  #root {
+    background: #292929;
+    position: relative;
+    z-index: -2;
   }
   
   
@@ -369,4 +375,4 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
 
-`
+`;

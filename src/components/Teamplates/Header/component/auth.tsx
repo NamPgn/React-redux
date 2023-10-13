@@ -27,7 +27,7 @@ const AuthHeader = ({ Auth, isLoggedInState, user, style }) => {
           placement="bottomLeft"
           trigger="click"
         >
-          <MVAvatar title={user?.name} src={user && user.image} size={40} />
+          <MVAvatar title={user?.name} src={user && user.image} size={'sm'} />
         </Popover>
       ) : (
         <Popover
