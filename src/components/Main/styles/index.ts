@@ -16,17 +16,6 @@ gap:0 10px;
 export const DivStyledItem = styled.div`
 `
 
-export const DivStyledContentImage = styled.img`
-border-radius:5px;
-width:100%;
-height:100%;
-@media(max-width: 768px){
-  display:none;
-}
-@media(min-width: 1024px){
-  display:block;
-}
-`
 export const DivStyledContentText = styled.div`
 font-size:13px;
 @media(min-width: 1024px){
@@ -40,12 +29,7 @@ padding:5px;
   padding: 15px;
 }
 `
-export const DivStyledDescription = styled.div`
-display: none;
-@media(min-width: 1024px){
-  display:block;
-}
-`
+
 
 export const Movie = styled.div`
 padding-bottom:62%;

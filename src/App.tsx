@@ -11,12 +11,12 @@ import "tailwindcss/tailwind.css";
 function App() {
   const Routes = useRoutes(router);
   return (
-    <>
+    <div>
       {Routes}
       <GlobalStyle />
       <ToastContainer />
       <FloatButton.BackTop visibilityHeight={200} />
-    </>
+    </div>
   );
 }
 

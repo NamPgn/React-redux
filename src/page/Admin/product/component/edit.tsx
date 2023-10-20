@@ -17,6 +17,7 @@ import MVUpload from "../../../../components/MV/Upload";
 import MVInput from "../../../../components/MV/Input";
 import MVLink from "../../../../components/Location/Link";
 import MVTitle from "../../../../components/MV/Title";
+import MVImage from "../../../../components/MV/Image";
 declare var Promise: any;
 const Divstyled = styled.div``;
 const EditProduct = () => {
@@ -130,14 +131,14 @@ const EditProduct = () => {
           rules={undefined}
         />
         <Divstyled style={{ width: "150px", height: "200px" }}>
-          <img
-            style={{ height: "100%", width: "100%" }}
+          <MVImage
+            
             src={
               state.image == undefined || null
                 ? "https://firebasestorage.googleapis.com/v0/b/mystorage-265d8.appspot.com/o/image%2Fdau-pha-thuong-khung-ova-3-hen-uoc-3-nam-856.jpg?alt=media&token=dca80d37-bb85-41a0-9fd5-c6e949e1db54"
                 : state.image
             }
-            alt=""
+            className="w-full h-full"
           />
         </Divstyled>
         <br />
@@ -176,9 +177,7 @@ const EditProduct = () => {
           label={"Category"}
           control={control}
           name={"category"}
-          placeholder={"category"}
           defaultValue={"category"}
-          style={{ width: 300 }}
           options={
             category &&
             category?.data.map((item, index) => ({
@@ -193,9 +192,7 @@ const EditProduct = () => {
           name={"typeId"}
           label={"Thể loại của phim lẻ"}
           control={control}
-          placeholder={"Thể loại"}
           defaultValue={"Thể loại"}
-          style={{ width: 300 }}
           options={
             seri &&
             seri?.map((item, index) => ({
@@ -212,7 +209,6 @@ const EditProduct = () => {
           label={"Categorymain"}
           placeholder={"categorymain"}
           defaultValue={"categorymain"}
-          style={{ width: 300 }}
           options={
             categorymain &&
             categorymain?.map((item, index) => ({

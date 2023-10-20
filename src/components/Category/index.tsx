@@ -3,18 +3,15 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Loading } from "../Message/Notification";
 import { MyContext } from "../../context";
-import SeriNumberMovie from "../Seri/SeriNumberMovie";
+import SeriNumberMovie from "../Seri/SeriCategory";
 import MVTitle from "../MV/Title";
 import MVLink from "../Location/Link";
-const Divstyled = styled.div``;
-const Psyled = styled.p``;
-const ImageStyled = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 3px;
-`;
+import MVImage from "../MV/Image";
+import MVText from "../MV/Text";
+import { Chip } from "@nextui-org/react";
+import { CheckCircleOutlined, Loading3QuartersOutlined } from "@ant-design/icons";
 
+const Divstyled = styled.div``;
 const CategoryProductComponent = () => {
   const { id } = useParams();
   const { category, isLoading }: any = useContext(MyContext);
@@ -31,8 +28,14 @@ const CategoryProductComponent = () => {
         <Divstyled key={c._id}>
           <Divstyled style={{ color: "#fff" }}>
             <Divstyled className="md:flex lg:flex block gap-2 ">
-              <Divstyled className="data_img mb-5 lg:w-3/12 md:w-3/12 md:h-full h-52 ">
-                <ImageStyled src={c.linkImg} alt="" />
+              <Divstyled className="mb-5 lg:w-3/12 md:w-3/12 md:h-full h-52 ">
+                <div className="h-full w-full flex justify-center">
+                  <MVImage
+                    className="object-contain w-full h-full flex-grow"
+                    src={c.linkImg}
+                    alt={c.name}
+                  />
+                </div>
               </Divstyled>
               <Divstyled className="lg:w-9/12 md:w-9/12">
                 <Divstyled className="category">
@@ -48,11 +51,59 @@ const CategoryProductComponent = () => {
                   </MVLink>
                 </Divstyled>
                 <Divstyled className="loai des text-[12px] md:text-[13px] lg:text-[14px]">
-                  <Psyled>Thể loại : Kiếm hiệp, truyện</Psyled>
-                  <Psyled>Tổng Số tập: {c._id == id ? c.sumSeri : ""}</Psyled>
-                  <Psyled>Thời gian: 15-20 phút </Psyled>
-                  <Psyled>Năm phát hành : 2023</Psyled>
-                  <Psyled>Kiểu: Thuyết minh</Psyled>
+                  <div>
+                    <MVText
+                      style={{
+                        color: "#999",
+                      }}
+                    >
+                      Thể loại : {c.type}
+                    </MVText>
+                  </div>
+                  <div>
+                    <MVText
+                      style={{
+                        color: "#999",
+                      }}
+                    >
+                      Tổng Số tập: {c._id == id ? c.sumSeri : ""}
+                    </MVText>
+                  </div>
+                  <div>
+                    <MVText
+                      style={{
+                        color: "#999",
+                      }}
+                    >
+                      Thời gian: 15-20 phút{" "}
+                    </MVText>
+                  </div>
+                  <div>
+                    <MVText
+                      style={{
+                        color: "#999",
+                      }}
+                    >
+                      Năm phát hành : 2023
+                    </MVText>
+                  </div>
+                  <div>
+                    <MVText
+                      style={{
+                        color: "#999",
+                      }}
+                    >
+                      Kiểu: Thuyết minh
+                    </MVText>
+                  </div>
+                  <Chip
+                    startContent={c.isActive == 0 ? <Loading3QuartersOutlined className="m-1" /> :<CheckCircleOutlined />}
+                    className="mt-2 gap-1"
+                    color={c.isActive == 0 ? "warning" : "success"}
+                    variant="bordered"
+                  >
+                    {c.isActive == 0 ? "Is Comming" : "Commpelete"}
+                  </Chip>
                 </Divstyled>
                 <br />
                 <SeriNumberMovie />
@@ -62,9 +113,9 @@ const CategoryProductComponent = () => {
               <Divstyled className="lg:text-[15px] md:text-[14px] text-[13px]">
                 Nội dung phim:{" "}
               </Divstyled>
-              <Psyled className="lg:text-[14px] md:text-[13px] text-[12px] text-[#999] mt-4 p-2 rounded bg-[#99999924]">
+              <p className="lg:text-[14px] md:text-[13px] text-[12px] text-[#999] mt-4 p-2 rounded bg-[#99999924]">
                 {c.des ? c.des : "Trống!"}
-              </Psyled>
+              </p>
             </Divstyled>
           </Divstyled>
         </Divstyled>

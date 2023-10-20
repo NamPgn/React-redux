@@ -1,16 +1,15 @@
 import React, { useContext, useState } from "react";
-import { Loader } from "../Message/Notification";
+import { Spiner } from "../Message/Notification";
 import PaginationCustoms from "../MV/Pagination";
 import MVGridCategory from "../Grid/component";
 import { MyContext } from "../../context";
 import MVTypeDisplay from "../../page/Type/conponent";
 export default function Index() {
   const { category, isLoading, setPage, page } = useContext(MyContext);
-  if (isLoading) return <Loader />;
+  if (isLoading) return <Spiner />;
   const data = {
     name: "Category",
   };
-  console.log(category);
   return (
     <>
       <MVTypeDisplay data={data}>

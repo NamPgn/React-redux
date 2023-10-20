@@ -11,5 +11,7 @@ export default {
   theme: {
     extend: {},
   },  
-  plugins: [nextui()],
+  plugins: [nextui({
+    defaultTheme:"dark"
+  })],
 }

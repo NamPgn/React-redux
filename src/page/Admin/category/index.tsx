@@ -36,6 +36,9 @@ const CategoryAdmin = () => {
     formdata.append("type", data.type);
     formdata.append("file", data.file);
     formdata.append("up", data.up);
+    formdata.append("time", data.time);
+    formdata.append("isActive", data.isActive);
+    formdata.append("year", data.year);
     const res = await dispatch(addCateGorySlice(formdata));
     if (res.payload.success) {
       toast.success("Thành công");
@@ -179,6 +182,24 @@ const CategoryAdmin = () => {
               rules={undefined}
             />
             <MVInput
+              name={"time"}
+              label={"Time"}
+              control={control}
+              rules={undefined}
+            />
+            <MVInput
+              name={"isActive"}
+              label={"isActive"}
+              control={control}
+              rules={undefined}
+            />
+            <MVInput
+              name={"year"}
+              label={"Year"}
+              control={control}
+              rules={undefined}
+            />
+            <MVInput
               name={"up"}
               label={"Set"}
               control={control}
@@ -190,7 +211,6 @@ const CategoryAdmin = () => {
               control={control}
               placeholder={"Week"}
               defaultValue={undefined}
-              style={{ width: 200 }}
               options={weeekOptions}
             />
             <MVUpload name={"file"} label={"Upload"} control={control} />

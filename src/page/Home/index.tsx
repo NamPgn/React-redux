@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
-import SearchResults from "../../../components/Search";
-import ConfigHomePage from "./ConfigHomePage";
-import { ChangeContext, MyContext } from "../../../context";
-import { useSWRWithAxios } from "../../../hook/Swr";
-import { urlSwr } from "../../../function";
-import { BtnStyled, InputStyled } from "./styles";
-import { Spiner } from "../../../components/Message/Notification";
-import MVRow from "../../../components/MV/Grid";
-import MVCol from "../../../components/MV/Grid/Col";
+import SearchResults from "../../components/Search";
+import ConfigHomePage from "./Container/Config";
+import { ChangeContext, MyContext } from "../../context";
+import { useSWRWithAxios } from "../../hook/Swr";
+import { urlSwr } from "../../function";
+import { BtnStyled, InputStyled } from "./Container/styles";
+import { Spiner } from "../../components/Message/Notification";
+import MVRow from "../../components/MV/Grid";
+import MVCol from "../../components/MV/Grid/Col";
 
 const HomePage = () => {
   const { category, isLoading, isError }: any = useContext(MyContext) ?? {};
@@ -59,10 +59,8 @@ const HomePage = () => {
         </React.Fragment>
       ) : (
         <Spiner
-          delay={0.5}
           size="large"
           children={undefined}
-          spinning={undefined}
         />
       )}
     </React.Fragment>

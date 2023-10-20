@@ -26,7 +26,7 @@ export const BtnStyled = styled.button`
 export const BtnStyledNumber = styled.button`
 width: 100%;
 padding: 6px 16px;
-background: #7a7a7a52;
+background: rgba(122, 122, 122, 0.32);
 font-size: 12px;
 border-radius: 3px;
   @media (min-width: 768px){
@@ -38,10 +38,6 @@ border-radius: 3px;
     padding: 9px 20px;
   }
 `;
-export const DivstyledContent = styled.div`
-background: #00000052;
-border-radius: 2px;
-`
 
 export const DivstyledItem = styled.div < { $lengthData?: any } > `
 

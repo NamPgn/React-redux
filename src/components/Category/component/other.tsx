@@ -1,13 +1,10 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Loader } from "../../Message/Notification";
+import { Spiner } from "../../Message/Notification";
 import { urlSwr } from "../../../function";
 import { useSWRWithAxios } from "../../../hook/Swr";
 import MVGridCategory from "../../Grid/component";
 import MVTitle from "../../MV/Title";
-const DivstyledTitle = styled.div`
-  color: #fff;
-`;
 const GetAllCategoryNotRequest = ({ id }) => {
   const { data: categorys, isLoading } = useSWRWithAxios(
     urlSwr + "/category/getAllCategoryNotRequest/" + id
@@ -18,7 +15,7 @@ const GetAllCategoryNotRequest = ({ id }) => {
     });
   }, [id]);
   if (isLoading) {
-    return <Loader />;
+    return <Spiner size={undefined} children={undefined} />;
   }
   return (
     <React.Fragment>

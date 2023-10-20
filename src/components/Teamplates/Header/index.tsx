@@ -4,6 +4,17 @@ import { loggedInRoutes, routerNavBar } from "../../../router";
 import { ChangeContext, MyContext } from "../../../context";
 import { DivContentMkt, DivLink, DivstyledMkt } from "../styles";
 import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Link,
+  Button,
+  NavbarMenuToggle,
+  NavbarMenuItem,
+  NavbarMenu,
+} from "@nextui-org/react";
+import {
   HomeOutlined,
   LikeOutlined,
   LoginOutlined,
@@ -32,6 +43,7 @@ const Header = () => {
   const { Auth, user, isLoggedInState } = useContext(MyContext) ?? {};
   const [scrollUp, setScrollUp] = useState(false);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const { state: change, handleClick: handleClickChangeSidebar } =
     useContext(ChangeContext) ?? {};
   const [navSize, setnavSize] = useState("20px 10px");
@@ -61,20 +73,35 @@ const Header = () => {
   useEffect(() => {
     setScrollUp(!false);
   }, []);
+  const menuItems = [
+    "Profile",
+    "Dashboard",
+    "Activity",
+    "Analytics",
+    "System",
+    "Deployments",
+    "My Settings",
+    "Team Settings",
+    "Help & Feedback",
+    "Log Out",
+  ];
+
   const routerLoggedIn = isLoggedInState ? loggedInRoutes : routerNavBar;
   return (
     <React.Fragment>
       <MVRow
         align="middle"
         justify="space-between"
-        className={`${change ? "w-11/12" : "w-10/12"} inner fixed right-0`}
+        className={`${
+          change ? "w-11/12" : "w-10/12"
+        } lg:flex hidden z-[100000] fixed right-0`}
         style={{
           top: scrollUp ? "0" : "-25%",
           padding: navSize,
           backgroundColor: "#00000038",
         }}
       >
-        <MVCol>
+        <MVCol span={1}>
           <Icon
             className="text-[21px] md:text-[23px] lg:text-[25px]"
             onClick={handleClickChangeSidebar}
@@ -82,7 +109,7 @@ const Header = () => {
             {change ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
           </Icon>
         </MVCol>
-        <MVCol span={20}>
+        <MVCol span={22}>
           <MVRow justify={"center"} align={"middle"}>
             <MVRow>
               {routerLoggedIn.map((item: any, index: any) => (
@@ -121,12 +148,7 @@ const Header = () => {
             </MVCol>
           </MVRow>
         </MVCol>
-        <MVCol
-          style={{
-            textAlign: "center",
-          }}
-          span={1}
-        >
+        <MVCol span={1}>
           <AuthHeader
             user={user}
             isLoggedInState={isLoggedInState}

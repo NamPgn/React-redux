@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { Tabs } from "antd";
-import CategoryContents from "../Content/Category";
 import SliderComponent from "../Slider";
 import { MyContext } from "../../context";
 import { settingsSlider } from "../../constant";
+import CategoryContents from "../Category/Content/Category";
 const style = {
   color: "#fff",
   margin: "20px 0",

@@ -2,9 +2,10 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { urlSwr } from "../../function";
 import { useSWRWithAxios } from "../../hook/Swr";
-import { Loader, MessageErr, NotUpdate } from "../Message/Notification";
-import { BtnStyledNumber, DivstyledContent } from "./styles";
+import { MessageErr, NotUpdate, Spiner } from "../Message/Notification";
+import { BtnStyledNumber } from "./styles";
 import MVLink from "../Location/Link";
+import { Card } from "@nextui-org/react";
 import MVRow from "../MV/Grid";
 import MVCol from "../MV/Grid/Col";
 const SeriNumberMovie = () => {
@@ -14,14 +15,14 @@ const SeriNumberMovie = () => {
   );
 
   if (isLoading) {
-    return <Loader />;
+    return <Spiner size={undefined} children={undefined} />;
   }
   if (error) {
     return <MessageErr />;
   }
 
   return (
-    <DivstyledContent className="md:p-[16px] lg:p-[20px] p-[13px]">
+    <Card radius="sm" isBlurred className="md:p-[16px] lg:p-[20px] p-[13px] bg-[#00000033]">
       <MVRow gutter={[16, 16]}>
         {data.length > 0 && data ? (
           data.map((item, index) => (
@@ -52,7 +53,7 @@ const SeriNumberMovie = () => {
           <NotUpdate />
         )}
       </MVRow>
-    </DivstyledContent>
+    </Card>
   );
 };
 

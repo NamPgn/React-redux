@@ -3,12 +3,14 @@ import styled from "styled-components";
 import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { StyledBtnClickDeleteCartById } from "./component/delete";
-import { Spiner } from "../Message/Notification";
+import { NotFoundContent, Spiner } from "../Message/Notification";
 import { MyContext } from "../../context";
 import { ReloadOutlined } from "@ant-design/icons";
 import { MyButton } from "../MV/Button";
 import MVLink from "../Location/Link";
 import { MVSuccess } from "../Message";
+import MVImage from "../MV/Image";
+import MVTitle from "../MV/Title";
 
 const CartText = styled.p`
   color: #999;
@@ -39,16 +41,15 @@ const CartUser = () => {
 
   return (
     <Divstyled className="p-3">
-      <h1 className="mb-4 text-3xl font-extrabold  dark:text-white md:text-5xl lg:text-6xl">
-        <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
-          List Movie
-        </span>
-        Favorite.
-      </h1>
-      <CartText className="text-lg font-normal lg:text-[17px] xs:text-xl md:text-md text-[13px]">
-        Tuyển chọn Phim hay nhất chất lượng cao, Phim Chiếu Rạp 2022 chọn lọc có
-        thuyết minh và việt sub.
-      </CartText>
+      <MVTitle
+        style={{
+          color: "#fff",
+        }}
+        strong
+        level={1}
+      >
+        List Movie Favorite
+      </MVTitle>
       <MyButton
         onClick={handleRerender}
         className="flex items-center justify-center text-white mb-5"
@@ -75,7 +76,7 @@ const CartUser = () => {
                               `?c=${item.product.category} `
                             }
                           >
-                            <img
+                            <MVImage
                               className="h-full"
                               src={item.product.image}
                               style={{ borderRadius: "5px" }}
@@ -128,9 +129,7 @@ const CartUser = () => {
               </Divstyled>
             ))
         ) : (
-          <div className="text-white" style={{ height: "100vh" }}>
-            Not Found
-          </div>
+          <NotFoundContent />
         )}
       </Divstyled>
     </Divstyled>

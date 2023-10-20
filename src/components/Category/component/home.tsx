@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Loader, MessageErr } from "../../Message/Notification";
+import {MessageErr, Spiner } from "../../Message/Notification";
 import { useSWRWithAxios } from "../../../hook/Swr";
 import { urlSwr } from "../../../function";
 import MVGridCategory from "../../Grid/component";
@@ -22,7 +22,12 @@ const CategoryHomePage = ({ category, isLoading, isError }: CategoryProp) => {
     urlSwr + "/type/movie?key=Phim lẻ"
   );
   if (isLoading && loading) {
-    return <Loader />;
+    return (
+      <Spiner
+        size={undefined}
+        children={undefined}
+      />
+    );
   }
   if (isError) {
     return <MessageErr />;

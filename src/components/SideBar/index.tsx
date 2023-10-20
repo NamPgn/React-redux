@@ -23,9 +23,10 @@ import MVLink from "../Location/Link";
 const SideBar = () => {
   const { seri, loadingSeri }: any = useContext(MyContext) || {};
   const { state } = useContext(ChangeContext) || {};
+  const sidebarWidth = state ? "w-1/12" : "w-2/12";
   return (
-    <DivstySideBar className={state ? "w-1/12" : "w-2/12"}>
-      <DivstyledContent className={state ? "w-1/12" : "w-2/12"}>
+    <DivstySideBar className={sidebarWidth}>
+      <DivstyledContent className={sidebarWidth}>
         <DivStyledTitle justify={state ? "center" : "start"}>
           <MVLink
             to={"/"}
@@ -48,7 +49,7 @@ const SideBar = () => {
         <DivStyled>
           {state ? (
             <SearchOutlined
-              className="w-full"
+              className="w-full justify-center"
               style={{
                 textAlign: "center",
                 padding: "10px 15px",
@@ -81,10 +82,8 @@ const SideBar = () => {
             </RouterLink>
           ) : (
             <Spiner
-              delay={0.5}
               size="large"
               children={undefined}
-              spinning={undefined}
             />
           )}
         </DivStyled>

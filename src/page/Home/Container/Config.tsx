@@ -3,9 +3,9 @@ import ContactAdmin from "../../../components/Contact";
 import { MessageErr } from "../../../components/Message/Notification";
 import { useSWRWithAxios } from "../../../hook/Swr";
 import { urlSwr } from "../../../function";
-import CategoryProductSidebar from "../../../components/Category/component/CategorySideBar";
+import CategoryProductSidebar from "../../../components/Category/component/sidebar";
 import WeekComponent from "../../../components/Week";
-import CategoryHomePage from "../../../components/Category/component/CategoryHomePage";
+import CategoryHomePage from "../../../components/Category/component/home";
 import styled from "styled-components";
 
 const Video = styled.video``;
@@ -46,7 +46,7 @@ const ConfigHomePage = memo(({ category, isLoading, isError, state }: any) => {
             </VideoContainer>
           </div>
         </div>
-        <CategoryProductSidebar category={category} isLoading={isLoading} />
+        <CategoryProductSidebar />
       </div>
       <ContactAdmin />
       <WeekComponent />

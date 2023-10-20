@@ -15,6 +15,7 @@ import {
   InputStyled,
 } from "./styles";
 import MVLink from "../Location/Link";
+import MVImage from "../MV/Image";
 const AuthForm = memo(
   ({
     onSubmit,
@@ -117,7 +118,7 @@ const AuthForm = memo(
                 className="flex justify-center"
                 onClick={handleMessage}
               >
-                <img
+                <MVImage
                   style={{
                     width: "30px",
                     height: "30px",

@@ -16,7 +16,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   #root {
-    background: #292929;
+    background: rgb(41 41 41 / 83%);
     position: relative;
     z-index: -2;
   }
@@ -47,30 +47,12 @@ export const GlobalStyle = createGlobalStyle`
     text-align: center;
   }
   
-  .img_contact div img {
-    width: 70px;
-    height: 70px;
-  }
-  
-
   .ft {
     background: #00000063;
     display: block;
     margin-top:auto;
   }
   
-  .admin_contact {
-    display: none;
-  }
-  
-  .icon {
-    position: absolute;
-    left: 1rem;
-    fill: #9e9ea7;
-    width: 1rem;
-    height: 1rem;
-  }
-
   .slick-arrow {
     display:none !important;
   }
@@ -79,25 +61,9 @@ export const GlobalStyle = createGlobalStyle`
     display: block;
   }
   
-  .inner {
-    display: none;
-    z-index:1 !important;
-  }
   
   .index{
     width: 83%;
-  }
-
-  .acountImageContent div {
-    font-weight: 500;
-    padding: 5px 15px;
-    font-size: 13px;
-  }
-  
-  .acountImageContent .hv_:hover {
-    color: #fff;
-    cursor: pointer;
-    background-color: #0071e2;
   }
   
   .bgNav {
@@ -117,18 +83,6 @@ export const GlobalStyle = createGlobalStyle`
     display: none;
   }
 
-  .acountImageContent::before {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 0;
-    left: 85%;
-    border-radius: 3px;
-    top: -9px;
-    border-left: 10px solid transparent;
-    border-right: 11px solid transparent;
-    border-bottom: 15px solid #fff;
-  }
 
   @media(min-width:768px){
     font-size:14px;
@@ -144,9 +98,9 @@ export const GlobalStyle = createGlobalStyle`
 
 
   @media(min-width:1024px) {
-    .acountImageContent::before {
-      content: "";
-      left: 43% ;
+
+    #root{
+      background:rgb(41 41 41 / 26%);
     }
 
     font-size:16px;
@@ -163,30 +117,11 @@ export const GlobalStyle = createGlobalStyle`
       display: none;
     }
   
-    .inner {
-      display: flex;
-      align-items: center;
-      background: #00000038;
-    }
-  
     .ft {
       background: #00000063;
       display: block;
     }
 
-
-
-    .navCate {
-      background-color: #000000;
-      box-shadow: 0px 2px 2px #23232a;
-      border-radius: 10px;
-    }
-  
-    .navCate a {
-      font-size: 14px;
-      font-weight: 500;
-    }
-  
     .cateTitle p {
       margin-top: 7px;
       font-size: 14px;
@@ -248,10 +183,6 @@ export const GlobalStyle = createGlobalStyle`
       border-radius: 0.75rem;
     }
   
-    .img_contact img {
-      object-fit: cover;
-    }
-  
     .iconContact p {
       display: flex;
       align-items: center;
@@ -284,29 +215,12 @@ export const GlobalStyle = createGlobalStyle`
       cursor: pointer;
     }
   
-    .icon {
-      position: absolute;
-      left: 1rem;
-      fill: #9e9ea7;
-      width: 1rem;
-      height: 1rem;
-    }
-  
     .nav-masthead {
       padding: 10px;
     }
   
     .card-body {
       text-align: center;
-    }
-  
-    .img_contact div img {
-      width: 70px;
-      height: 70px;
-    }
-  
-    .admin_contact {
-      display: block;
     }
   
     .searhValue {
@@ -328,22 +242,6 @@ export const GlobalStyle = createGlobalStyle`
       overflow: hidden;
       width: 100%;
       height: 100%;
-    }
-  
-    .acountImageContent div {
-      font-weight: 500;
-      padding: 5px 15px;
-      font-size: 13px;
-    }
-  
-    .acountImageContent .hv_:hover {
-      color: #fff;
-      cursor: pointer;
-      background-color: #0071e2;
-    }
-  
-    .signleAs {
-      text-align: center;
     }
   
     .auth a {
@@ -371,7 +269,6 @@ export const GlobalStyle = createGlobalStyle`
 
     .containers{
       padding-top: 6.5%;
-
     }
   }
 

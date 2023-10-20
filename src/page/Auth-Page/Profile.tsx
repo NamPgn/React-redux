@@ -47,7 +47,6 @@ const Profile = () => {
       >
         {user.image ? (
           <MVAvatar
-            title={"Hồ sơ"}
             size={undefined}
             className="w-20 h-20 text-large"
             src={user.image}

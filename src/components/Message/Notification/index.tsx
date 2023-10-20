@@ -2,8 +2,13 @@ import React, { useContext } from "react";
 import styed from "styled-components";
 import { Skeleton } from "antd";
 import { MyContext } from "../../../context";
-import {Spinner} from "@nextui-org/react";
+import { Code, Spinner } from "@nextui-org/react";
 import MyProgress from "../../MV/Progress";
+import MVText from "../../MV/Text";
+interface SpinerLoading {
+  size?: string;
+  children?: React.ReactNode;
+}
 const LoadingStyled = styed.div`
 height: 100vh;
 `;
@@ -43,16 +48,16 @@ export const Loader = () => {
 export const MessageErr = () => {
   return (
     <LoadingErr>
-      <div>Lỗi rồi kiểm tra lại mạng của bạn hoặc tải lại trang...</div>
+      <MVText type="danger">Lỗi rồi kiểm tra lại mạng của bạn hoặc tải lại trang...</MVText>
     </LoadingErr>
   );
 };
 
-export const Spiner = ({ size, spinning, delay, children }) => (
+export const Spiner = ({ size, children }: SpinerLoading) => (
   <LoadingErr className="w-full">
-    <Spinner size="lg">
+    <Spinner color="default" size="lg">
       {children}
-    </Spinner >
+    </Spinner>
   </LoadingErr>
 );
 
@@ -67,5 +72,13 @@ export const MVLoadingTopBar = ({ percent }) => {
     >
       <MyProgress percent={percent} status="active" showInfo={false} />
     </div>
+  );
+};
+
+export const NotFoundContent = () => {
+  return (
+    <Code color="warning" size="lg">
+      <p>Trống!</p>
+    </Code>
   );
 };

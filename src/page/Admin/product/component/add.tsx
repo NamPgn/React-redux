@@ -154,7 +154,6 @@ const ProductAdd = () => {
           label={'Category'}
           placeholder={'category'}
           defaultValue={'category'}
-          style={{ width: 300 }}
           options={categoryOptions}
         />
         <br />
@@ -165,7 +164,6 @@ const ProductAdd = () => {
           control={control}
           placeholder={'typeId'}
           defaultValue={'typeId'}
-          style={{ width: 300 }}
           options={typeOptions}
         />
         <br />
@@ -176,7 +174,6 @@ const ProductAdd = () => {
           control={control}
           placeholder={'categorymain'}
           defaultValue={'categorymain'}
-          style={{ width: 300 }}
           options={categorymainOptions}
         />
         <br />

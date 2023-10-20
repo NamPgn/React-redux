@@ -20,7 +20,7 @@ const EditCategory = () => {
   const { id } = useParams();
   const onsubmit = async (data: any) => {
     const res = await dispatch(updateCatgorySlice(data));
-    if (res.payload.success) {
+    if (res.payload) {
       toast.success("Edit successfully");
     } else {
       toast.error("Edit failure");
@@ -49,11 +49,33 @@ const EditCategory = () => {
         control={control}
         rules={undefined}
       />
+      <MVInput
+        name={"time"}
+        label={"Time"}
+        control={control}
+        rules={undefined}
+      />
+      <MVInput
+        name={"isActive"}
+        label={"isActive"}
+        control={control}
+        rules={undefined}
+      />
+      <MVInput
+        name={"year"}
+        label={"Year"}
+        control={control}
+        rules={undefined}
+      />
       <MVInput name={"up"} label={"Set"} control={control} rules={undefined} />
-      <MVImage width={200} src={state && state.linkImg} alt="" />
+      <MVImage
+        className="h-[200px] md:h-[300px] lg:h-[400px] transition-opacity duration-300 group-hover:opacity-40"
+        src={state && state.linkImg}
+        alt={state.name}
+      />
       <MVInput
         name={"linkImg"}
-        label={"Image"}
+        label={"Link Image"}
         control={control}
         rules={undefined}
       />

@@ -1,9 +1,14 @@
 import React from "react";
-import { Loader, MessageErr } from "../Message/Notification";
+import { MessageErr, NotFoundContent, Spiner } from "../Message/Notification";
 import MVLink from "../Location/Link";
 const SearchResults = ({ data: { doc, isError, isLoading } }: any) => {
   if (isLoading) {
-    return <Loader />;
+    return (
+      <Spiner
+        size={undefined}
+        children={undefined}
+      />
+    );
   }
   if (isError) {
     return <MessageErr />;
@@ -35,9 +40,7 @@ const SearchResults = ({ data: { doc, isError, isLoading } }: any) => {
             </div>
           ))
         ) : (
-          <div style={{ color: "#fff", textAlign: "center", height: "100vh" }}>
-            Not Found
-          </div>
+          <NotFoundContent />
         )}
       </div>
     </div>

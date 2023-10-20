@@ -3,12 +3,13 @@ import React, { memo } from "react";
 import { Controller } from "react-hook-form";
 import { MyButton } from "../Button";
 import { UploadOutlined } from "@ant-design/icons";
+import MVText from "../Text";
 
 export const MVUpload = memo(({ label, name, control, ...rest }: any) => {
   return (
     <div className="mt-2">
       <div>
-        <label htmlFor={name}>{label + ": "}</label>
+        <MVText htmlFor={name}>{label + ": "}</MVText>
       </div>
       <Controller
         control={control}
@@ -22,7 +23,7 @@ export const MVUpload = memo(({ label, name, control, ...rest }: any) => {
               field.onChange(fileList[0]?.originFileObj); // Truyền dữ liệu file thực tế vào field
             }}
           >
-            <MyButton icon={<UploadOutlined />} className="m-2">
+            <MyButton icon={<UploadOutlined />} className="my-2">
               Click to Upload
             </MyButton>
           </Upload>

@@ -1,5 +1,5 @@
 import ContactAdmin from "../../../components/Contact";
-import CategoryHomePage from "../../../components/Category/component/CategoryHomePage";
+import CategoryHomePage from "../../../components/Category/component/home";
 import React, { Suspense, useContext } from "react";
 import { Loader } from "../../../components/Message/Notification";
 import { MyContext } from "../../../context";
