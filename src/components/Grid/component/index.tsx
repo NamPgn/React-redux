@@ -15,7 +15,8 @@ const MVGridCategory = memo(({ type, gutter, child, ...rest }: any) => {
               title={item.name}
               link={item.image ? "/d/" + item._id : "/q/" + item._id}
               image={item.linkImg || item.image}
-              time="Thời gian 20/12 phút"
+              time={item.time}
+              year={item.year}
               sumSeri={item.sumSeri}
             />
           </MVCol>
@@ -27,7 +28,7 @@ const MVGridCategory = memo(({ type, gutter, child, ...rest }: any) => {
               title={item.name}
               link={item.image ? "/d/" + item._id : "/q/" + item._id}
               image={item.image}
-              time="Thời gian 20/12 phút"
+              time={item.time}
               sumSeri={item.sumSeri}
             />
           </MVCol>

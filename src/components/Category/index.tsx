@@ -9,7 +9,10 @@ import MVLink from "../Location/Link";
 import MVImage from "../MV/Image";
 import MVText from "../MV/Text";
 import { Chip } from "@nextui-org/react";
-import { CheckCircleOutlined, Loading3QuartersOutlined } from "@ant-design/icons";
+import {
+  CheckCircleOutlined,
+  Loading3QuartersOutlined,
+} from "@ant-design/icons";
 
 const Divstyled = styled.div``;
 const CategoryProductComponent = () => {
@@ -75,7 +78,7 @@ const CategoryProductComponent = () => {
                         color: "#999",
                       }}
                     >
-                      Thời gian: 15-20 phút{" "}
+                      {c.time + " "}
                     </MVText>
                   </div>
                   <div>
@@ -84,7 +87,7 @@ const CategoryProductComponent = () => {
                         color: "#999",
                       }}
                     >
-                      Năm phát hành : 2023
+                      Năm phát hành : {c.year}
                     </MVText>
                   </div>
                   <div>
@@ -97,7 +100,13 @@ const CategoryProductComponent = () => {
                     </MVText>
                   </div>
                   <Chip
-                    startContent={c.isActive == 0 ? <Loading3QuartersOutlined className="m-1" /> :<CheckCircleOutlined />}
+                    startContent={
+                      c.isActive == 0 ? (
+                        <Loading3QuartersOutlined className="m-1" />
+                      ) : (
+                        <CheckCircleOutlined />
+                      )
+                    }
                     className="mt-2 gap-1"
                     color={c.isActive == 0 ? "warning" : "success"}
                     variant="bordered"

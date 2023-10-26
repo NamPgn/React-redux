@@ -34,7 +34,7 @@ export default function WeekComponent() {
                         title={item.name}
                         link={"/q/" + item._id}
                         image={item.linkImg}
-                        time="Thời gian 20/12 phút"
+                        time={item.time}
                         sumSeri={item.sumSeri}
                       />
                     </div>
@@ -46,7 +46,7 @@ export default function WeekComponent() {
                         title={item.name}
                         link={"/d/" + item._id + `?c=${item.typeId}`}
                         image={item.image}
-                        time="Thời gian 1/2 h"
+                        time={item.time}
                       />
                     </div>
                   ))

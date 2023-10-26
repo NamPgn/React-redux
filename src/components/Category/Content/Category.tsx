@@ -13,9 +13,11 @@ interface CategoryContent {
   sumSeri?: any;
   time: string;
   typecm?: string;
+  year?:string;
 }
 const CategoryContents = memo(
-  ({ text, title, link, image, sumSeri, time, typecm }: CategoryContent) => {
+  ({ text, title, link, image, sumSeri, time, typecm,year }: CategoryContent) => {
+    
     return (
       <div className="w-full">
         <div className="w-full">
