@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { editTrailerSlice } from "../../../../redux/slice/postSlice";
+import { editTrailerSlice } from "../../../../redux/slice/trailerSlice";
 import { useAppDispatch } from "../../../../hook";
 import { MyButton } from "../../../../components/MV/Button";
 import { useParams } from "react-router-dom";

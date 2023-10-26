@@ -42,7 +42,7 @@ const AuthHeader = ({ Auth, isLoggedInState, user, style }) => {
           <Popover
             content={
               <>
-                <MVLink to={"/auth/profile"}>
+                <MVLink to={"/profile"}>
                   <MVRow
                     style={{ lineHeight: "0" }}
                     align={"middle"}
@@ -148,7 +148,7 @@ const AuthHeader = ({ Auth, isLoggedInState, user, style }) => {
         >
           <Popover
             content={
-              <MVLink to={"/auth/signin"}>
+              <MVLink to={"/signin"}>
                 <MVRow align={"middle"} gutter={[12, 12]}>
                   <MVCol>
                     <SmileOutlined />

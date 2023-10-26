@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addCommentSlice, deleteCommentSlice, getAllCommentSlice } from "./thunkComment/comment";
+import { addCommentSlice, deleteCommentSlice, getAllCommentSlice } from "./thunk/comment";
 
 const commment = createSlice({
   name: "comment",

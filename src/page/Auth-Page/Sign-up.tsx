@@ -30,7 +30,7 @@ const Signup = () => {
     const response = await dispatch(resgisterLogin(data));
     if (response.payload.success) {
       MVSuccess(response.payload.message);
-      navigate("/auth/signin");
+      navigate("/signin");
     } else {
       MVError(response.payload.message);
     }
@@ -48,7 +48,7 @@ const Signup = () => {
       formHeader={"Roll the Carpet.!"}
       checkedAccount={"Already Registered? Login"}
       handleMessage={handleMessage}
-      redirect={"/auth/signin"}
+      redirect={"/signin"}
       array={array}
     />
   );

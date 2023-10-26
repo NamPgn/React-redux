@@ -11,7 +11,7 @@ import {
 import PaginationCustoms from "../../../components/MV/Pagination";
 import MVGridCategory from "../../../components/Grid/component";
 import { backgrounds } from "../../../constant";
-import MVTypeDisplay from "../conponent";
+import MVTypeDisplay from "../component";
 import MVLink from "../../../components/Location/Link";
 
 const SidebarApi = () => {

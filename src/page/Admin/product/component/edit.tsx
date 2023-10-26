@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import {
   editProduct,
   getProduct,
-} from "../../../../redux/slice/product/thunkProduct/product";
+} from "../../../../redux/slice/product/thunk/product";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import { useAppDispatch } from "../../../../hook";

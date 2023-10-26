@@ -154,9 +154,29 @@ const columnsCategory = [
     key: "Image",
   },
   {
-    title: "CreateAt",
-    dataIndex: "createAt",
-    key: "createAt",
+    title: "Duration",
+    dataIndex: "duration",
+    key: "duration",
+  },
+  {
+    title: "isActive",
+    dataIndex: "isActive",
+    key: "isActive",
+  },
+  {
+    title: "Year",
+    dataIndex: "year",
+    key: "year",
+  },
+  {
+    title: "Set",
+    dataIndex: "set",
+    key: "set",
+  },
+  {
+    title: "Week",
+    dataIndex: "week",
+    key: "week",
   },
   {
     title: "Action",

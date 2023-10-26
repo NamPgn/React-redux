@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { toast } from 'react-toastify';
 import { useForm } from "react-hook-form";
-import { addProduct } from '../../../../redux/slice/product/thunkProduct/product';
+import { addProduct } from '../../../../redux/slice/product/thunk/product';
 import { MyContext } from '../../../../context';
 import { useAppDispatch } from '../../../../hook';
 import  { MySelectWrapper } from '../../../../components/Form/component';

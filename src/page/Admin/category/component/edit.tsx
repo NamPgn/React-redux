@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import {
   getCateSlice,
   updateCatgorySlice,
-} from "../../../../redux/slice/category/thunkCategory/category";
+} from "../../../../redux/slice/category/thunk/category";
 import { toast } from "react-toastify";
 import { getCategory } from "../../../../sevices/category";
 import { useAppDispatch } from "../../../../hook";
@@ -51,7 +51,7 @@ const EditCategory = () => {
       />
       <MVInput
         name={"time"}
-        label={"Time"}
+        label={"Duration"}
         control={control}
         rules={undefined}
       />

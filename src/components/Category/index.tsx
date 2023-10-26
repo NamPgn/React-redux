@@ -8,11 +8,12 @@ import MVTitle from "../MV/Title";
 import MVLink from "../Location/Link";
 import MVImage from "../MV/Image";
 import MVText from "../MV/Text";
-import { Chip } from "@nextui-org/react";
+import { Accordion, AccordionItem, Chip } from "@nextui-org/react";
 import {
   CheckCircleOutlined,
   Loading3QuartersOutlined,
 } from "@ant-design/icons";
+import Dividers from "../MV/Divider";
 
 const Divstyled = styled.div``;
 const CategoryProductComponent = () => {
@@ -118,13 +119,21 @@ const CategoryProductComponent = () => {
                 <SeriNumberMovie />
               </Divstyled>
             </Divstyled>
-            <Divstyled className="des mt-4">
-              <Divstyled className="lg:text-[15px] md:text-[14px] text-[13px]">
-                Nội dung phim:{" "}
-              </Divstyled>
-              <p className="lg:text-[14px] md:text-[13px] text-[12px] text-[#999] mt-4 p-2 rounded bg-[#99999924]">
-                {c.des ? c.des : "Trống!"}
-              </p>
+            <Divstyled className="text-[#999] lg:text-[15px] md:text[14px] text-[13px]">
+              <Accordion
+                defaultExpandedKeys={["1"]} className="px-0">
+                <AccordionItem
+                  key="1"
+                  aria-label="Description"
+                  title={
+                    <Dividers textColor={"#fff"} orientation="left">
+                      Mô tả:
+                    </Dividers>
+                  }
+                >
+                  {c.des}
+                </AccordionItem>
+              </Accordion>
             </Divstyled>
           </Divstyled>
         </Divstyled>

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import {
   getAllProductDataByCategorySlice,
   getProduct,
-} from "../../redux/slice/product/thunkProduct/product";
+} from "../../redux/slice/product/thunk/product";
 import {
   getAllProductsByCategory$,
   getOneProduct$,
@@ -151,7 +151,7 @@ const DetailComponent = () => {
                   <Content getOneProductDetail={getOneProductDetail} />
                   <SeriDetailProducts seriProduct={productByCategory} />
                   <div className="text-[#999] lg:text-md sm:text-sm mt-2 mb-2">
-                    <Accordion className="px-0">
+                    <Accordion defaultExpandedKeys={["1"]} className="px-0">
                       <AccordionItem
                         key="1"
                         aria-label="Description"

@@ -27,7 +27,7 @@
   "include": [
     "./src/**/*.ts",
     "src/router/index.tsx",
-    "src/components/Router-Security/index.tsx",
+    "src/router/Router-Security/index.tsx",
     "src/@types/.d.ts",
     "src/components/Lazy/LazyComponent.tsx",
     "src/components/Form/component/index.tsx",

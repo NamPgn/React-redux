@@ -11,12 +11,7 @@ import MVLink from "../Location/Link";
 import { MVSuccess } from "../Message";
 import MVImage from "../MV/Image";
 import MVTitle from "../MV/Title";
-
-const CartText = styled.p`
-  color: #999;
-`;
 const Divstyled = styled.div``;
-
 const Psyled = styled.p``;
 const CartUser = () => {
   const { Auth, user, isLoading, setReset, setRerender } =
@@ -24,15 +19,13 @@ const CartUser = () => {
   if (isLoading) {
     return (
       <Spiner
-        spinning={undefined}
         children={undefined}
-        delay={undefined}
         size={"large"}
       />
     );
   }
   if (!Auth) {
-    return <Navigate to={"/auth/signin"} />;
+    return <Navigate to={"/signin"} />;
   }
   const handleRerender = () => {
     setRerender((rerender) => !rerender);

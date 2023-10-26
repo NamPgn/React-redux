@@ -16,7 +16,7 @@ import {
   DivStyledText,
   DivStyledTitleItem,
 } from "../style";
-import MVTypeDisplay from "../conponent";
+import MVTypeDisplay from "../component";
 import MVLink from "../../../components/Location/Link";
 
 const ListType = () => {

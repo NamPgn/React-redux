@@ -7,7 +7,7 @@ import {
   getAllProductDataByCategorySlice,
   getProduct,
   importDataFile,
-} from "./thunkProduct/product";
+} from "./thunk/product";
 
 const state: any = {
   value: [],

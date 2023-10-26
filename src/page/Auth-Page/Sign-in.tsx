@@ -37,20 +37,18 @@ const Signin = () => {
     message.success('Đang cập nhật!');
   }
   return (
-    <>
-      <AuthForm
-        onSubmit={onsubmit}
-        formTitle={'Login'}
-        formHeader={'Welcome Back .!'}
-        formIntro={'Skip the lag ?'}
-        submitButtonText={'Login'}
-        formDescription={'Glad you’re back.!'}
-        checkedAccount={'Don’t have an account ? Signup'}
-        handleMessage={handleMessage}
-        redirect={'/auth/signup'}
-        array={array}
-      />
-    </>
+    <AuthForm
+      onSubmit={onsubmit}
+      formTitle={'Login'}
+      formHeader={'Welcome Back .!'}
+      formIntro={'Skip the lag ?'}
+      submitButtonText={'Login'}
+      formDescription={'Glad you’re back.!'}
+      checkedAccount={'Don’t have an account ? Signup'}
+      handleMessage={handleMessage}
+      redirect={'/signup'}
+      array={array}
+    />
   )
 }
 

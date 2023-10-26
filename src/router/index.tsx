@@ -15,12 +15,13 @@ import {
 import DetailProductPage from "../page/Home/Detail";
 import CategoryProduct from "../page/Home/Category";
 import LayoutAdmin from "../Layout/Admin";
-import PrivateRouter from "../components/Router-Security";
+import PrivateRouter from "./Router-Security";
 import LayoutWebsite from "../Layout/Client";
 import Page404 from "../components/404/Page404";
 import LazyComponent from "../components/Lazy/LazyComponent";
-import CatemainProduct from "../page/Admin/typesCategory/component/CatemainProduct";
 import Weeks from "../page/Admin/week";
+import CatemainProduct from "../page/Admin/TypesCategory/component/CatemainProduct";
+import TypesCateAdmin from "../page/Admin/TypesCategory";
 //type component
 const ListType = lazy(() => import("../page/Type/Theloai"));
 const OllMovie = lazy(() => import("../page/Type/SidebarData"));
@@ -55,7 +56,6 @@ const EditTrailerUrl = lazy(
 const CommentAdmin = lazy(() => import("../page/Admin/comment"));
 const CartUser = lazy(() => import("../components/Cart"));
 const CartAdmin = lazy(() => import("../page/Admin/cart"));
-const TypesCateAdmin = lazy(() => import("../page/Admin/typesCategory/"));
 const Loadmore = lazy(() => import("../page/Home/Category/Loadmore"));
 
 //background

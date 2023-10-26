@@ -3,7 +3,7 @@ import { Image } from "antd";
 import {
   deleteCommentSlice,
   getAllCommentSlice,
-} from "../../../redux/slice/comment/thunkComment/comment";
+} from "../../../redux/slice/comment/thunk/comment";
 import { comment$ } from "../../../redux/selectors/comment";
 import { useAppDispatch, useAppSelector } from "../../../hook";
 import MVTable from "../../../components/MV/Table";

@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Image, Radio } from "antd";
+import { Image, Radio, Tag } from "antd";
 import {
   addCateGorySlice,
   deleteCategorySlice,
   getAllcate,
-} from "../../../redux/slice/category/thunkCategory/category";
+} from "../../../redux/slice/category/thunk/category";
 import { category$ } from "../../../redux/selectors";
 import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../../../hook";
@@ -52,7 +52,7 @@ const CategoryAdmin = () => {
       toast.success("Delete Success");
       dispatch(deleteCategorySlice(id));
     } else {
-      toast.error("Delete Fail");
+      toast.error("Delete Failure");
     }
   };
 
@@ -72,7 +72,7 @@ const CategoryAdmin = () => {
 
   const weeekOptions =
     weeks &&
-    weeks?.map((item, index) => ({
+    weeks?.map((item) => ({
       label: item.name,
       value: item._id,
     }));
@@ -82,7 +82,9 @@ const CategoryAdmin = () => {
       return {
         key: item._id,
         stt: index + 1,
-        name: item.name,
+        name: <MVLink to={'/q/' + item._id}>
+          {item.name}
+        </MVLink>,
         image: (
           <Image
             width={150}
@@ -92,6 +94,11 @@ const CategoryAdmin = () => {
           />
         ),
         createAt: item.createdAt,
+        duration: item.time,
+        isActive: item.isActive == 0 ? <Tag color="warning">isPending</Tag> : <Tag color="success">Done</Tag>,
+        year: item.year,
+        set: item.up,
+        week: weeks && weeks.map((i: any) => i._id == item.week && i.name),
         action: (
           <div className="flex gap-1">
             <MVLink to={`/dashboard/category/edit/${item._id}`}>
@@ -101,13 +108,13 @@ const CategoryAdmin = () => {
             </MVLink>
             <MyButton
               danger
-              className="text-light ml-2"
+              className="ml-2"
               onClick={() => handleDelete(item._id)}
             >
               Delete
             </MyButton>
             <MyButton
-              className="text-light ml-2"
+              className="ml-2"
               onClick={() => hanedlePushCategoryToType(item._id)}
             >
               Push
@@ -183,7 +190,7 @@ const CategoryAdmin = () => {
             />
             <MVInput
               name={"time"}
-              label={"Time"}
+              label={"Duration"}
               control={control}
               rules={undefined}
             />

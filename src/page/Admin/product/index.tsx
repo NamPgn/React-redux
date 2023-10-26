@@ -4,7 +4,7 @@ import {Button} from "@nextui-org/react";
 import {
   getProducts,
   deleteProduct,
-} from "../../../redux/slice/product/thunkProduct/product";
+} from "../../../redux/slice/product/thunk/product";
 import { toast } from "react-toastify";
 import { deleteMultipleProduct } from "../../../sevices/product";
 import styled from "styled-components";

@@ -3,7 +3,7 @@ import { Spiner } from "../Message/Notification";
 import PaginationCustoms from "../MV/Pagination";
 import MVGridCategory from "../Grid/component";
 import { MyContext } from "../../context";
-import MVTypeDisplay from "../../page/Type/conponent";
+import MVTypeDisplay from "../../page/Type/component";
 export default function Index() {
   const { category, isLoading, setPage, page } = useContext(MyContext);
   if (isLoading) return <Spiner />;

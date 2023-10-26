@@ -8,7 +8,6 @@ import { MyButton } from "../components/MV/Button";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import AuthHeader from "../components/Teamplates/Header/component/auth";
 import { MyContext } from "../context";
-import { handelChangeAuthOptions } from "../components/Dom";
 import MVRow from "../components/MV/Grid";
 import MVCol from "../components/MV/Grid/Col";
 import MVLink from "../components/Location/Link";
@@ -17,14 +16,21 @@ const { Content, Sider, Header, Footer } = Layout;
 const LayoutAdmin = () => {
   const { Auth, user, isLoggedInState } = useContext(MyContext) ?? {};
   const [collapsed, setCollapsed] = useState(false);
-  const { state } = handelChangeAuthOptions();
   return (
     <Layout
       style={{
         minHeight: "100vh",
       }}
     >
-      <Sider trigger={null} collapsible collapsed={collapsed} width={180}>
+      <Sider  trigger={null} collapsible collapsed={collapsed} width={180}>
+        <MVLink
+          to={"/"}
+          style={{
+            display: "block",
+            width: "50px",
+          }}
+        >
+        </MVLink>
         <MVMenuItem
           icons={""}
           background={"#fff"}

@@ -53,7 +53,7 @@ const AuthForm = memo(
     return (
       <div className="h-screen relative z-0">
         <DivContainer
-          className="containers g-6 flex flex-wrap justify-center w-full items-center absolute top-1/2 left-1/2 translate-x-2/4 translate-y-2/4"
+          className="g-6 flex flex-wrap justify-center w-full items-center absolute top-1/2 left-1/2 translate-x-2/4 translate-y-2/4"
           style={{ transform: "translate(-50%,-50%)" }}
         >
           <div className="w-8/12 items-center text-white hidden lg:block md:hidden">

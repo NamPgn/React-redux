@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { isAuthentication } from "../../../auth/getToken";
-import { addCommentSlice } from "../../../redux/slice/comment/thunkComment/comment";
+import { addCommentSlice } from "../../../redux/slice/comment/thunk/comment";
 import { useAppDispatch } from "../../../hook/index";
 import { Input } from "antd";
 import { MyButton } from "../../MV/Button";

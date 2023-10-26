@@ -43,7 +43,6 @@ const Header = () => {
   const { Auth, user, isLoggedInState } = useContext(MyContext) ?? {};
   const [scrollUp, setScrollUp] = useState(false);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const { state: change, handleClick: handleClickChangeSidebar } =
     useContext(ChangeContext) ?? {};
   const [navSize, setnavSize] = useState("20px 10px");
@@ -73,19 +72,6 @@ const Header = () => {
   useEffect(() => {
     setScrollUp(!false);
   }, []);
-  const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ];
-
   const routerLoggedIn = isLoggedInState ? loggedInRoutes : routerNavBar;
   return (
     <React.Fragment>

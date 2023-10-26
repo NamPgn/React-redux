@@ -7,7 +7,7 @@ import {
   addCateGorySlice,
   updateCatgorySlice,
   deleteCategorySlice,
-} from "./thunkCategory/category";
+} from "./thunk/category";
 
 const categorySlice = createSlice({
   name: "category",

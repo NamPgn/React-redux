@@ -4,7 +4,7 @@ import { cart$ } from '../../../redux/selectors/Cart';
 import { deleteCartSlice, getAllCartSlice } from '../../../redux/slice/cart/thunk/cart';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../../hook';
-import { deleteCommentSlice } from '../../../redux/slice/comment/thunkComment/comment';
+import { deleteCommentSlice } from '../../../redux/slice/comment/thunk/comment';
 import MVTable from '../../../components/MV/Table';
 import { MyButton } from '../../../components/MV/Button';
 import { columsCart } from '../../../constant';

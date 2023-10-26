@@ -8,7 +8,7 @@ export const editTrailerSlice = createAsyncThunk(
     return data;
   }
 );
-const postSlice = createSlice({
+const trailerSlice = createSlice({
   name: "post",
   initialState: {
     value: [],
@@ -22,4 +22,4 @@ const postSlice = createSlice({
   },
 });
 
-export default postSlice.reducer;
+export default trailerSlice.reducer;
