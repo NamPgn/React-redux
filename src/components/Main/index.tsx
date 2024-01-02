@@ -27,7 +27,6 @@ import Dividers from "../MV/Divider";
 import { MyButton } from "../MV/Button";
 import { Spiner } from "../Message/Notification";
 import { ProductsPending$ } from "../../redux/selectors/product";
-import { Accordion, AccordionItem, Image} from "@nextui-org/react";
 const DetailComponent = () => {
   const productByCategory = useAppSelector(getAllProductsByCategory$);
   const getOneProductDetail = useAppSelector(getOneProduct$);
@@ -130,9 +129,8 @@ const DetailComponent = () => {
               {/* chi tiết */}
               <DivStyledContent className="mt-2">
                 <DivStyledItem className="w-3/12">
-                  <Image
+                  <img
                     className="w-full h-full md:block hidden"
-                    isBlurred
                     alt={"Ảnh" + getOneProductDetail.category?.name}
                     src={
                       getOneProductDetail &&
@@ -151,19 +149,10 @@ const DetailComponent = () => {
                   <Content getOneProductDetail={getOneProductDetail} />
                   <SeriDetailProducts seriProduct={productByCategory} />
                   <div className="text-[#999] lg:text-md sm:text-sm mt-2 mb-2">
-                    <Accordion defaultExpandedKeys={["1"]} className="px-0">
-                      <AccordionItem
-                        key="1"
-                        aria-label="Description"
-                        title={
-                          <Dividers textColor={"#fff"} orientation="left">
-                            Mô tả:
-                          </Dividers>
-                        }
-                      >
-                        {getOneProductDetail.descriptions}
-                      </AccordionItem>
-                    </Accordion>
+                    <Dividers textColor={"#fff"} orientation="left">
+                      Mô tả:
+                    </Dividers>
+                    {getOneProductDetail.descriptions}
                   </div>
                 </DivStyledContentText>
               </DivStyledContent>
@@ -179,10 +168,7 @@ const DetailComponent = () => {
               <ComentProductsLayout setCommentAdded={setCommentAdded} />
             </React.Fragment>
           ) : (
-            <Spiner
-              size={"large"}
-              children={undefined}
-            />
+            <Spiner size={"large"} children={undefined} />
           ))}
       </DivContainer>
     </div>

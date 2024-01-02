@@ -1,6 +1,5 @@
+import { Image } from "antd";
 import React from "react";
-// import { Image } from "antd";
-import { Image } from "@nextui-org/react";
 interface ImageInterFace {
   src: string;
   alt?: string;
@@ -14,19 +13,12 @@ interface ImageInterFace {
 }
 const MVImage = ({ src, alt, style, ...rest }: ImageInterFace) => {
   return (
-    <Image
+    <img
       // placeholder={}
       // removeWrapper={true}
-      isBlurred={true}
-      shadow="sm"
       loading="lazy"
       src={src}
-      radius={"sm"}
-      fallbackSrc={src}
-      className="m-5"
-      classNames={{
-        wrapper: "h-full",
-      }}
+      className="m-5 w-full h-[150px] md:h-[200px] lg:h-[300px]"
       style={style}
       alt={alt}
       {...rest}

@@ -25,7 +25,8 @@ const SearchResults = ({ data: { doc, isError, isLoading } }: any) => {
                     <img
                       src={item.linkImg}
                       style={{ borderRadius: "5px" }}
-                      alt=""
+                      alt={item.name}
+                      loading="lazy"
                     />
                   </div>
                 </MVLink>

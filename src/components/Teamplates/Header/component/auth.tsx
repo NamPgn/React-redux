@@ -17,7 +17,6 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../../hook";
 import { MVError } from "../../../Message";
 import { handleLogout } from "../../../../function";
-import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem} from "@nextui-org/react";
 const AuthHeader = ({ Auth, isLoggedInState, user, style }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();

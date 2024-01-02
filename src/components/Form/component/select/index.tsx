@@ -1,7 +1,7 @@
 import { Controller } from "react-hook-form";
 import { Select } from "antd";
 import React, { memo } from "react";
-import MVText from "../../MV/Text";
+import MVText from "../../../MV/Text";
 
 export const MVForm = ({ onSubmit, children, ...rest }) => {
   return <form onSubmit={onSubmit}>{children}</form>;

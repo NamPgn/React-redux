@@ -8,7 +8,7 @@ export default function Index() {
   const { category, isLoading, setPage, page } = useContext(MyContext);
   if (isLoading) return <Spiner />;
   const data = {
-    name: "Category",
+    name: "Danh mục",
   };
   return (
     <>

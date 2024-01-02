@@ -5,7 +5,6 @@ import { useSWRWithAxios } from "../../hook/Swr";
 import { MessageErr, NotUpdate, Spiner } from "../Message/Notification";
 import { BtnStyledNumber } from "./styles";
 import MVLink from "../Location/Link";
-import { Card } from "@nextui-org/react";
 import MVRow from "../MV/Grid";
 import MVCol from "../MV/Grid/Col";
 const SeriNumberMovie = () => {
@@ -20,12 +19,11 @@ const SeriNumberMovie = () => {
   if (error) {
     return <MessageErr />;
   }
-
   return (
-    <Card radius="sm" isBlurred className="md:p-[16px] lg:p-[20px] p-[13px] bg-[#00000033]">
-      <MVRow gutter={[16, 16]}>
-        {data.length > 0 && data ? (
-          data.map((item, index) => (
+    <MVRow gutter={[16, 16]}>
+      {data.length > 0 && data ? (
+        data.map((item: any, index: number) =>
+          item.isApproved == true ? (
             <MVCol
               lg={3}
               md={4}
@@ -48,12 +46,14 @@ const SeriNumberMovie = () => {
                 )}
               </MVLink>
             </MVCol>
-          ))
-        ) : (
-          <NotUpdate />
-        )}
-      </MVRow>
-    </Card>
+          ) : (
+            ""
+          )
+        )
+      ) : (
+        <NotUpdate />
+      )}
+    </MVRow>
   );
 };
 

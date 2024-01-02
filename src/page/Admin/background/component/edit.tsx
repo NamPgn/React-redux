@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { MyButton } from "../../../../components/MV/Button";
 import { setBackground } from "../../../../sevices/trailer";
 const EditBackground = () => {
-  const { handleSubmit, register, reset, control } = useForm();
+  const { handleSubmit, register } = useForm();
   const { id } = useParams();
   const onsubmit = async (data: any) => {
     const formData = new FormData();
@@ -21,7 +21,7 @@ const EditBackground = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onsubmit)}>
+      <form onSubmit={handleSubmit(onsubmit)} >
         <input
           {...register("file")}
           type="file"

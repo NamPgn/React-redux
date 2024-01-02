@@ -28,8 +28,9 @@ export const deleteCate = async (id: any): Promise<Icategory> => {
 };
 
 export const updateCate = async (data: any): Promise<Icategory> => {
-  return await intances.put(
-    `/category/${data._id}/${dataToken.user._id}`,
+  console.log(data);
+  return await intances.post(
+    `/category/${data.get("_id")}/${dataToken.user._id}`,
     data,
     {
       headers: {

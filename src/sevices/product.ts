@@ -77,3 +77,17 @@ export const UploadAssby = async (id: any, body: any): Promise<IProduct> =>
       },
     }
   );
+
+export const approveProduct = async (id: any) =>
+  await intances.post(`/product/approve/${id}/${dataToken.user._id}`, {
+    header: {
+      Authorization: `Bearer ${dataToken.token}`,
+    },
+  });
+
+  export const cancelApproveProduct = async (id: any) =>
+  await intances.post(`/product/approve/cancel/${id}/${dataToken.user._id}`, {
+    header: {
+      Authorization: `Bearer ${dataToken.token}`,
+    },
+  });

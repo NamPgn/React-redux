@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const MainContent = styled.div`
   position: relative;
@@ -17,13 +17,7 @@ export const MainContent = styled.div`
     background-attachment: fixed;
     background-position: center;
     opacity: .2;
-  }
-
-  @media (min-width: 768px) {
-    &:before{
-      content: '';
-      background-image: url(${(props) => props.background});
-    }
+    background-image: url(${(props) => props.background});
   }
 }
-`
+`;

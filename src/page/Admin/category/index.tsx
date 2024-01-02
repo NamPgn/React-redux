@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from "../../../hook";
 import { MyContext } from "../../../context";
 import { pushCateTotype } from "../../../sevices/type";
 import { useForm } from "react-hook-form";
-import { MySelectWrapper } from "../../../components/Form/component";
+import { MySelectWrapper } from "../../../components/Form/component/select";
 import { MyButton } from "../../../components/MV/Button";
 import { columnsCategory } from "../../../constant";
 import MVTable from "../../../components/MV/Table";
@@ -81,10 +81,8 @@ const CategoryAdmin = () => {
     category.data.map((item, index) => {
       return {
         key: item._id,
-        stt: index + 1,
-        name: <MVLink to={'/q/' + item._id}>
-          {item.name}
-        </MVLink>,
+        // stt: index + 1,
+        name: <MVLink to={"/q/" + item._id}>{item.name}</MVLink>,
         image: (
           <Image
             width={150}
@@ -95,7 +93,12 @@ const CategoryAdmin = () => {
         ),
         createAt: item.createdAt,
         duration: item.time,
-        isActive: item.isActive == 0 ? <Tag color="warning">isPending</Tag> : <Tag color="success">Done</Tag>,
+        isActive:
+          item.isActive == 0 ? (
+            <Tag color="warning">isPending</Tag>
+          ) : (
+            <Tag color="success">Done</Tag>
+          ),
         year: item.year,
         set: item.up,
         week: weeks && weeks.map((i: any) => i._id == item.week && i.name),
@@ -121,6 +124,18 @@ const CategoryAdmin = () => {
             </MyButton>
           </div>
         ),
+        children: [
+          {
+            name: "Jim Green jr.",
+            age: 25,
+            address: "London No. 3 Lake Park",
+          },
+          {
+            name: "Jimmy Green sr.",
+            age: 18,
+            address: "London No. 4 Lake Park",
+          },
+        ],
       };
     });
   return (
@@ -149,6 +164,7 @@ const CategoryAdmin = () => {
           <MVTable
             columns={columnsCategory}
             dataSource={data}
+            scroll={{ x: 1000, y: 1000 }}
             pagination={{
               defaultPageSize: 5,
               showSizeChanger: true,

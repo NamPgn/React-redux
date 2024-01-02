@@ -7,7 +7,6 @@ import {
   RiseOutlined,
 } from "@ant-design/icons";
 import React from "react";
-import type { ColumnsType } from "antd/es/table";
 
 const backgrounds = [
   {
@@ -88,6 +87,11 @@ const columnsBackground = [
     key: "url",
   },
   {
+    title: "Image",
+    dataIndex: "image",
+    key: "image",
+  },
+  {
     title: "Action",
     dataIndex: "action",
     key: "action",
@@ -142,6 +146,7 @@ const columnsCategory = [
     title: "Stt",
     dataIndex: "stt",
     key: "stt",
+    width: 50,
   },
   {
     title: "Name",
@@ -157,31 +162,37 @@ const columnsCategory = [
     title: "Duration",
     dataIndex: "duration",
     key: "duration",
+    width: 100,
   },
   {
     title: "isActive",
     dataIndex: "isActive",
     key: "isActive",
+    width: 100,
   },
   {
     title: "Year",
     dataIndex: "year",
     key: "year",
+    width: 100,
   },
   {
     title: "Set",
     dataIndex: "set",
     key: "set",
+    width: 100,
   },
   {
     title: "Week",
     dataIndex: "week",
     key: "week",
+    width: 100,
   },
   {
     title: "Action",
     dataIndex: "action",
     key: "action",
+    width: 100,
   },
 ];
 
@@ -225,80 +236,6 @@ const columnsComment = [
     title: "Action",
     dataIndex: "action",
     key: "action",
-  },
-];
-
-const columnsProduct: ColumnsType<any> = [
-  // {
-  //   title: "C",
-  //   key: "all",
-  //   dataIndex: 'all',
-  //   width: 50,
-  //   fixed: 'left',
-  // },
-  {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "Category",
-    key: "category",
-    dataIndex: "category",
-  },
-  {
-    title: "Sidebar",
-    key: "sidebar",
-    dataIndex: "sidebar",
-    width: 100,
-  },
-  {
-    title: "Seri",
-    key: "Seri",
-    dataIndex: "Seri",
-    width: 100,
-  },
-  {
-    title: "Copyright",
-    key: "copyright",
-    dataIndex: "copyright",
-    width: 100,
-  },
-  {
-    title: "Active",
-    dataIndex: "isActive",
-    key: "isActive",
-    width: 90,
-  },
-  {
-    title: "Trailer",
-    dataIndex: "trailer",
-    key: "trailer",
-    width: 100,
-  },
-  {
-    title: "Country",
-    dataIndex: "country",
-    key: "country",
-    width: 100,
-  },
-  {
-    title: "Year",
-    dataIndex: "year",
-    key: "year",
-    width: 100,
-  },
-  {
-    title: "Options",
-    dataIndex: "options",
-    key: "options",
-  },
-  {
-    title: "Action",
-    key: "action",
-    dataIndex: "action",
-    width: 120,
-    fixed: "right",
   },
 ];
 
@@ -468,7 +405,6 @@ export {
   columnsType,
   columnsComment,
   columnsCategory,
-  columnsProduct,
   columnsTrailer,
   columnsCatemainProduct,
   columnsGetAdmin,

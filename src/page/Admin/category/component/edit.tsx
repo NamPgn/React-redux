@@ -19,7 +19,19 @@ const EditCategory = () => {
   const { reset, handleSubmit, control } = useForm();
   const { id } = useParams();
   const onsubmit = async (data: any) => {
-    const res = await dispatch(updateCatgorySlice(data));
+    const formdata = new FormData();
+    formdata.append("_id", data._id);
+    formdata.append("name", data.name);
+    formdata.append("des", data.des);
+    formdata.append("sumSeri", data.sumSeri);
+    formdata.append("week", data.week);
+    formdata.append("type", data.type);
+    formdata.append("file", data.file);
+    formdata.append("up", data.up);
+    formdata.append("time", data.time);
+    formdata.append("isActive", data.isActive);
+    formdata.append("year", data.year);
+    const res = await dispatch(updateCatgorySlice(formdata));
     if (res.payload) {
       toast.success("Edit successfully");
     } else {

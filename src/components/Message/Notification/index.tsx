@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import styed from "styled-components";
-import { Skeleton } from "antd";
+import { Skeleton, Spin } from "antd";
 import { MyContext } from "../../../context";
-import { Code, Spinner } from "@nextui-org/react";
 import MyProgress from "../../MV/Progress";
 import MVText from "../../MV/Text";
+import { Tag } from "antd";
 interface SpinerLoading {
   size?: string;
   children?: React.ReactNode;
@@ -48,21 +48,25 @@ export const Loader = () => {
 export const MessageErr = () => {
   return (
     <LoadingErr>
-      <MVText type="danger">Lỗi rồi kiểm tra lại mạng của bạn hoặc tải lại trang...</MVText>
+      <MVText type="danger">
+        Lỗi rồi kiểm tra lại mạng của bạn hoặc tải lại trang...
+      </MVText>
     </LoadingErr>
   );
 };
 
 export const Spiner = ({ size, children }: SpinerLoading) => (
   <LoadingErr className="w-full">
-    <Spinner color="default" size="lg">
-      {children}
-    </Spinner>
+    <Spin size="large">{children}</Spin>
   </LoadingErr>
 );
 
 export const NotUpdate = () => {
-  return <div className="text-white">Chưa cập nhật</div>;
+  return (
+    <Tag color="#108ee9" className="mx-2">
+      Chưa cập nhật
+    </Tag>
+  );
 };
 
 export const MVLoadingTopBar = ({ percent }) => {
@@ -76,9 +80,5 @@ export const MVLoadingTopBar = ({ percent }) => {
 };
 
 export const NotFoundContent = () => {
-  return (
-    <Code color="warning" size="lg">
-      <p>Trống!</p>
-    </Code>
-  );
+  return <p>Trống!</p>;
 };

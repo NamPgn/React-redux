@@ -33,7 +33,7 @@ const Weeks = () => {
             handleDelete
             className="ml-1"
           >
-            Xóa
+            Delete
           </MyButton>
         </React.Fragment>
       ),

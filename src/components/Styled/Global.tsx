@@ -16,7 +16,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   #root {
-    background: rgb(41 41 41 / 83%);
+    background: rgb(41 41 41);
     position: relative;
     z-index: -2;
   }
@@ -100,7 +100,7 @@ export const GlobalStyle = createGlobalStyle`
   @media(min-width:1024px) {
 
     #root{
-      background:rgb(41 41 41 / 26%);
+      background:rgb(41 41 41);
     }
 
     font-size:16px;

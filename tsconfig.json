@@ -30,7 +30,7 @@
     "src/router/Router-Security/index.tsx",
     "src/@types/.d.ts",
     "src/components/Lazy/LazyComponent.tsx",
-    "src/components/Form/component/index.tsx",
+    "src/components/Form/component/select/index.tsx",
     "src/components/Form/index.tsx",
     "src/components/Particles/index.tsx",
     "src/auth/getUser.tsx",

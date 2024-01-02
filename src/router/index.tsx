@@ -6,23 +6,23 @@ import {
   UserOutlined,
   LaptopOutlined,
   ControlOutlined,
-  CompassOutlined,
   CarryOutOutlined,
   PicRightOutlined,
   ClockCircleOutlined,
   FormOutlined,
+  SlidersOutlined,
+  SettingOutlined,
+  AreaChartOutlined,
+  ShoppingCartOutlined,
 } from "@ant-design/icons";
 import DetailProductPage from "../page/Home/Detail";
 import CategoryProduct from "../page/Home/Category";
 import LayoutAdmin from "../Layout/Admin";
 import PrivateRouter from "./Router-Security";
 import LayoutWebsite from "../Layout/Client";
-import Page404 from "../components/404/Page404";
 import LazyComponent from "../components/Lazy/LazyComponent";
 import Weeks from "../page/Admin/week";
-import CatemainProduct from "../page/Admin/TypesCategory/component/CatemainProduct";
-import TypesCateAdmin from "../page/Admin/TypesCategory";
-//type component
+import Page404 from "../components/404/Page404";
 const ListType = lazy(() => import("../page/Type/Theloai"));
 const OllMovie = lazy(() => import("../page/Type/SidebarData"));
 const SearchResults = lazy(() => import("../components/Search")); //search
@@ -57,7 +57,10 @@ const CommentAdmin = lazy(() => import("../page/Admin/comment"));
 const CartUser = lazy(() => import("../components/Cart"));
 const CartAdmin = lazy(() => import("../page/Admin/cart"));
 const Loadmore = lazy(() => import("../page/Home/Category/Loadmore"));
-
+const TypesCateAdmin = lazy(() => import("../page/Admin/typesCategory"));
+const CatemainProduct = lazy(
+  () => import("../page/Admin/typesCategory/component/CatemainProduct")
+);
 //background
 const Background = lazy(() => import("../page/Admin/background"));
 const EditBackground = lazy(
@@ -376,24 +379,29 @@ export const router = [
 export const TableRouterAdminPage = [
   {
     path: "/dashboard",
-    name: "Thống kê",
+    name: "Admin",
     icon: <DashboardOutlined />,
   },
-
   {
     path: "/dashboard/products",
-    name: " Products",
+    name: "Products",
     icon: <NotificationOutlined />,
   },
   {
-    path: "/dashboard/users",
-    name: "Users",
-    icon: <UserOutlined />,
-  },
-  {
-    path: "/dashboard/adminUer",
-    name: "Admin",
-    icon: <LaptopOutlined />,
+    name: "User",
+    icon: <SlidersOutlined />,
+    children: [
+      {
+        path: "/dashboard/users",
+        name: "Users",
+        icon: <UserOutlined />,
+      },
+      {
+        path: "/dashboard/adminUer",
+        name: "Admin",
+        icon: <LaptopOutlined />,
+      },
+    ],
   },
   {
     path: "/dashboard/category",
@@ -401,9 +409,32 @@ export const TableRouterAdminPage = [
     icon: <ControlOutlined />,
   },
   {
-    path: "/dashboard/trailing",
-    name: "Trailer",
-    icon: <LaptopOutlined />,
+    name: "Themes",
+    icon: <SettingOutlined />,
+    children: [
+      {
+        path: "/dashboard/trailing",
+        name: "Trailer",
+        icon: <LaptopOutlined />,
+      },
+
+      {
+        path: "/dashboard/background",
+        name: "Background",
+        icon: <FormOutlined />,
+      },
+    ],
+  },
+  {
+    name: "Big Category",
+    icon: <AreaChartOutlined />,
+    children: [
+      {
+        path: "/dashboard/types",
+        name: "Types",
+        icon: <PicRightOutlined />,
+      },
+    ],
   },
   {
     path: "/dashboard/comments",
@@ -413,18 +444,9 @@ export const TableRouterAdminPage = [
   {
     path: "/dashboard/cart",
     name: "Cart",
-    icon: <CompassOutlined />,
+    icon: <ShoppingCartOutlined />,
   },
-  {
-    path: "/dashboard/types",
-    name: "Types",
-    icon: <PicRightOutlined />,
-  },
-  {
-    path: "/dashboard/background",
-    name: "Background",
-    icon: <FormOutlined />,
-  },
+
   {
     path: "/dashboard/weeks",
     icon: <ClockCircleOutlined />,

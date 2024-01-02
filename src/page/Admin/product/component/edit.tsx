@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import styled from "styled-components";
 import { useAppDispatch } from "../../../../hook";
 import { MyContext } from "../../../../context";
-import { MySelectWrapper } from "../../../../components/Form/component";
+import { MySelectWrapper } from "../../../../components/Form/component/select";
 import { UploadAssby } from "../../../../sevices/product";
 import { MyButton } from "../../../../components/MV/Button";
 import Dividers from "../../../../components/MV/Divider";
@@ -132,7 +132,6 @@ const EditProduct = () => {
         />
         <Divstyled style={{ width: "150px", height: "200px" }}>
           <MVImage
-            
             src={
               state.image == undefined || null
                 ? "https://firebasestorage.googleapis.com/v0/b/mystorage-265d8.appspot.com/o/image%2Fdau-pha-thuong-khung-ova-3-hen-uoc-3-nam-856.jpg?alt=media&token=dca80d37-bb85-41a0-9fd5-c6e949e1db54"

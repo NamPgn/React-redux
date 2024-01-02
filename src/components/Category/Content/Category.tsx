@@ -27,7 +27,7 @@ const CategoryContents = memo(
               alt={title}
               className="h-[200px] md:h-[300px] lg:h-[400px] transition-opacity duration-300 group-hover:opacity-40"
             />
-            <PlayCircleOutlined className="absolute text-[30px] text-[#fff] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 group-hover:opacity-100 transition-opacity duration-300" />
+            <PlayCircleOutlined className="absolute opacity-0 text-[30px] text-[#fff] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 group-hover:opacity-100 transition-opacity duration-300" />
           </MVLink>
         </div>
         <div className="cateTitle text-white mt-1">

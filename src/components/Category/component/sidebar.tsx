@@ -4,7 +4,7 @@ import MVLink from "../../Location/Link";
 import { useSWRWithAxios } from "../../../hook/Swr";
 import Dividers from "../../MV/Divider";
 import MVImage from "../../MV/Image";
-import { Progress } from "@nextui-org/react";
+import { Progress, Tag } from "antd";
 const Container = stylded.div`
 ::-webkit-scrollbar-thumb {
   background: #888;
@@ -22,6 +22,7 @@ background: rgb(28, 28, 30);
 border-radius: 10px;
 margin: 5px 0px;
 `;
+const conicColors = { "0%": "#87d068", "50%": "#ffe58f", "100%": "#ffccc7" };
 const CategoryProductSidebar = () => {
   const {
     data: { data },
@@ -59,27 +60,14 @@ const CategoryProductSidebar = () => {
                 >
                   {item.name}
                 </MVLink>
-                <div className="text-[12px] text-[#999] mt-2">
-                  {item.sumSeri + " Tập"}
-                </div>
-                <Progress
-                  classNames={{
-                    value:
-                      "text-foreground/60 lg:text-[13px] md:text[12px] text-[11px] text-[#999] mt-2",
-                  }}
-                  value={item.up}
-                  aria-label="Loading..."
-                  radius="none"
-                  size="sm"
-                  color={
-                    item.up >= 80
-                      ? "success"
-                      : item.up <= 70
-                      ? "danger"
-                      : "warning"
-                  }
-                  showValueLabel={true}
-                />
+                <Tag
+                  color="#108ee9"
+                  className="text-[12px] text-[#999] my-2 block w-6/12 "
+                >
+                  {" "}
+                  {item.sumSeri + " Tập VietSub"}
+                </Tag>
+                <Tag color="#2db7f5">{item.type ? item.type : "null"}</Tag>
               </div>
             </CategorySideBarStyles>
           ))}

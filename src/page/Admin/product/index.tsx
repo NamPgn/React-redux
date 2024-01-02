@@ -1,31 +1,43 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Spin, Tag } from "antd";
-import {Button} from "@nextui-org/react";
 import {
   getProducts,
   deleteProduct,
 } from "../../../redux/slice/product/thunk/product";
 import { toast } from "react-toastify";
-import { deleteMultipleProduct } from "../../../sevices/product";
+import {
+  approveProduct,
+  cancelApproveProduct,
+  deleteMultipleProduct,
+} from "../../../sevices/product";
 import styled from "styled-components";
 import { useAppDispatch } from "../../../hook";
 import { MyContext } from "../../../context";
 import { MyButton } from "../../../components/MV/Button";
 import MySelect from "../../../components/MV/Select";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { columnsProduct } from "../../../constant";
+import {
+  CheckOutlined,
+  CloseCircleOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  EyeOutlined,
+  PlusOutlined,
+  SendOutlined,
+} from "@ant-design/icons";
 import MVTable from "../../../components/MV/Table";
 import MVConfirm from "../../../components/MV/Confirm";
 import MVRow from "../../../components/MV/Grid";
 import MVCol from "../../../components/MV/Grid/Col";
 import MVLink from "../../../components/Location/Link";
+import { MVError, MVSuccess } from "../../../components/Message";
 const Divstyled = styled.div``;
 const InputStyled = styled.input``;
 
 const ProductAdmin = ({ product, length, isLoading }) => {
-  const { category, seri }: any = useContext(MyContext);
+  const { category, seri, user }: any = useContext(MyContext);
   const [search, searchState] = useState("");
   const [filter, setFilter] = useState("");
+  const [filterApproved, setFilterApproved] = useState("");
   // const [checkedId, setCheckedId]: any = useState([]);
   // const [checkAllid, setCheckAllid] = useState(false);
   const [init, setInit] = useState(false);
@@ -46,6 +58,10 @@ const ProductAdmin = ({ product, length, isLoading }) => {
   if (filter) {
     dataS = product.filter((item: any) => filter == item.category);
     filter == "Select" ? product.map((item: any) => dataS.push(item)) : "";
+  }
+  if (filterApproved) {
+    dataS = product.filter((item: any) => item.isApproved == false);
+    filter == "Select" && product.map((item: any) => dataS.push(item));
   }
   // const hanedleCheckboxChange = (id: any) => {
   // 	if (checkedId.includes(id)) {
@@ -70,7 +86,7 @@ const ProductAdmin = ({ product, length, isLoading }) => {
     // await deleteMultipleProduct(checkedId);
     const response: any = await deleteMultipleProduct(selectedRowKeys);
     if (response.success) {
-      setInit(true);
+      setInit(!init);
       toast.success("Delete products successfully");
     } else {
       toast.error("Error deleting products");
@@ -94,6 +110,10 @@ const ProductAdmin = ({ product, length, isLoading }) => {
     setFilter(value); //lọc
   };
 
+  const handleChangeSelectApprove = (value: any) => {
+    setFilterApproved(value);
+  };
+
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);
   };
@@ -102,6 +122,185 @@ const ProductAdmin = ({ product, length, isLoading }) => {
     selectedRowKeys,
     onChange: onSelectChange,
   };
+
+  const handleApproved = async (id: any) => {
+    const response = await approveProduct(id);
+    if (response.data.success == true) {
+      MVSuccess(response.data.message);
+      setInit(!init);
+    } else {
+      MVError("Lỗi rồi!");
+    }
+  };
+
+  const cancelHandleApproved = async (id: any) => {
+    const response = await cancelApproveProduct(id);
+    if (response.data.success == true) {
+      MVSuccess(response.data.message);
+      console.log(response);
+      setInit(!init);
+    } else {
+      MVError("Lỗi rồi!");
+    }
+  };
+  const columnsProduct = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Category",
+      key: "category",
+      dataIndex: "category",
+    },
+    {
+      title: "Sidebar",
+      key: "sidebar",
+      dataIndex: "sidebar",
+      width: 100,
+    },
+    {
+      title: "Seri",
+      key: "seri",
+      dataIndex: "seri",
+      width: 100,
+    },
+    {
+      title: "Copyright",
+      key: "copyright",
+      dataIndex: "copyright",
+      width: 100,
+    },
+    {
+      title: "Active",
+      dataIndex: "isActive",
+      key: "isActive",
+      width: 90,
+    },
+    {
+      title: "Trailer",
+      dataIndex: "trailer",
+      key: "trailer",
+      width: 100,
+    },
+    {
+      title: "Country",
+      dataIndex: "country",
+      key: "country",
+      width: 100,
+    },
+    {
+      title: "Year",
+      dataIndex: "year",
+      key: "year",
+      width: 100,
+    },
+    {
+      title: "Options",
+      dataIndex: "options",
+      key: "options",
+    },
+    {
+      title: "Action",
+      key: "action",
+      dataIndex: "action",
+      width: 140,
+      fixed: "right",
+      render: (_: any, record: any) => {
+        switch (user?.role) {
+          case 0:
+            return (
+              <>
+                <MVLink to={"/"}>
+                  <MyButton type="text" shape="circle">
+                    <EyeOutlined />
+                  </MyButton>
+                </MVLink>
+              </>
+            );
+          case 1:
+            return (
+              <>
+                <MVLink to={"/"}>
+                  <MyButton type="text" shape="circle">
+                    <EyeOutlined />
+                  </MyButton>
+                </MVLink>
+                <MVLink to={`/dashboard/product/edit/${record.key}`}>
+                  <MyButton type="text" danger shape="circle">
+                    <EditOutlined />
+                  </MyButton>
+                </MVLink>
+              </>
+            );
+          case 2:
+            return (
+              <>
+                {record.isApproved == true ? (
+                  <>
+                    <MyButton
+                      className="flex items-center mb-2"
+                      icon={<CheckOutlined />}
+                      ghost
+                      type="text"
+                      style={{
+                        color: "#000",
+                      }}
+                      disabled={record.isApproved == true ? true : false}
+                    >
+                      Approved
+                    </MyButton>
+                    <MyButton
+                      onClick={() => cancelHandleApproved(record.key)}
+                      icon={<CloseCircleOutlined />}
+                      className="flex items-center w-full justify-center mb-2"
+                      danger
+                    >
+                      Approval
+                    </MyButton>
+                  </>
+                ) : (
+                  <>
+                    <MyButton
+                      onClick={() => handleApproved(record.key)}
+                      icon={<SendOutlined />}
+                      className="flex items-center w-full justify-center"
+                      type="primary"
+                    >
+                      Approve
+                    </MyButton>
+                  </>
+                )}
+                <MVLink to={"/d/" + record.key + "?c" + record.idCategory}>
+                  <MyButton type="text" shape="circle">
+                    <EyeOutlined />
+                  </MyButton>
+                </MVLink>
+                <MVLink to={`/dashboard/product/edit/${record.key}`}>
+                  <MyButton type="text" danger shape="circle">
+                    <EditOutlined />
+                  </MyButton>
+                </MVLink>
+                <MVConfirm
+                  title="Delete the product"
+                  onConfirm={() => confirm(record.key)}
+                  okText="Yes"
+                  cancelText="No"
+                >
+                  <MyButton type="text" shape="circle" className="ml-2">
+                    <DeleteOutlined />
+                  </MyButton>
+                </MVConfirm>
+              </>
+            );
+            break;
+          default:
+            break;
+        }
+      },
+    },
+  ];
   const data =
     dataS &&
     dataS.map((value: any, index: any) => {
@@ -115,7 +314,7 @@ const ProductAdmin = ({ product, length, isLoading }) => {
             if (item._id === value.category) return item.name;
           }),
         sidebar: seri && seri.map((i, v) => i._id === value.typeId && i.name),
-        Seri: value.seri,
+        seri: value.seri,
         copyright: value.copyright,
         isActive:
           value.server2 || value.dailymotion ? (
@@ -126,25 +325,9 @@ const ProductAdmin = ({ product, length, isLoading }) => {
         options: value.options,
         country: value.country ? value.country : "null",
         year: value.year ? value.year : "null",
-        action: (
-          <>
-            <MVLink to={`/dashboard/product/edit/${value._id}`}>
-              <MyButton danger shape="circle">
-                <EditOutlined />
-              </MyButton>
-            </MVLink>
-            <MVConfirm
-              title="Delete the product"
-              onConfirm={() => confirm(value._id)}
-              okText="Yes"
-              cancelText="No"
-            >
-              <MyButton shape="circle" className="ml-2">
-                <DeleteOutlined />
-              </MyButton>
-            </MVConfirm>
-          </>
-        ),
+        isApproved: value.isApproved,
+        idCategory: value.category,
+        option: [<MyButton>Add Option</MyButton>],
       };
     });
   return (
@@ -169,16 +352,20 @@ const ProductAdmin = ({ product, length, isLoading }) => {
             okText="Yes"
             cancelText="No"
           >
-            <MyButton>Xóa</MyButton>
+            <MyButton icon={<DeleteOutlined />} className="flex items-center">
+              Delete
+            </MyButton>
           </MVConfirm>
         </MVCol>
         <MVCol>
           <MVLink to={"/dashboard/product/add"}>
-            <MyButton>Add Product</MyButton>
+            <MyButton icon={<PlusOutlined />} className="flex items-center">
+              Add Product
+            </MyButton>
           </MVLink>
         </MVCol>
         <MVCol>
-          <MVLink to={"/dashboard/product/creacting"}>
+          <MVLink icon={<PlusOutlined />} to={"/dashboard/product/creacting"}>
             <MyButton>Add Multiple</MyButton>
           </MVLink>
         </MVCol>
@@ -211,11 +398,24 @@ const ProductAdmin = ({ product, length, isLoading }) => {
           />
         </MVCol>
         <MVCol>
+          <MySelect
+            placeholder={"Select"}
+            onChange={handleChangeSelectApprove}
+            defaultValue={"Select"}
+            style={{ width: 300 }}
+            options={[
+              { value: true, label: "Approve" },
+              { value: false, label: "Approved" },
+            ]}
+            children={undefined}
+          />
+        </MVCol>
+        <MVCol>
           <Divstyled className="form-outline">
             <InputStyled
               type="search"
               placeholder="search..."
-              className="form-control p-2 rounded"
+              className="form-control p-2 rounded bg-[#fff]"
               onChange={(e) => {
                 searchState(e.target.value);
               }}
@@ -226,6 +426,9 @@ const ProductAdmin = ({ product, length, isLoading }) => {
       <Spin spinning={isLoading} delay={undefined}>
         <MVTable
           rowSelection={rowSelection}
+          expandable={{
+            expandedRowRender: (record: any) => <>{record.option}</>,
+          }}
           columns={columnsProduct}
           dataSource={data}
           scroll={{ x: 1500, y: 1000 }}

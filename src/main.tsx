@@ -8,10 +8,8 @@ import { Provider } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import { store } from "./redux/store/store";
 import { ChangeContextProvider, MyContextProvider } from "./context";
-import { ProvidersNext } from "./NextProviders";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    <ProvidersNext>
       <MyContextProvider>
         <ChangeContextProvider>
           <BrowserRouter>
@@ -19,6 +17,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           </BrowserRouter>
         </ChangeContextProvider>
       </MyContextProvider>
-    </ProvidersNext>
   </Provider>
 );

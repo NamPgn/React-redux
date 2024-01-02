@@ -4,17 +4,6 @@ import { loggedInRoutes, routerNavBar } from "../../../router";
 import { ChangeContext, MyContext } from "../../../context";
 import { DivContentMkt, DivLink, DivstyledMkt } from "../styles";
 import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  Link,
-  Button,
-  NavbarMenuToggle,
-  NavbarMenuItem,
-  NavbarMenu,
-} from "@nextui-org/react";
-import {
   HomeOutlined,
   LikeOutlined,
   LoginOutlined,
