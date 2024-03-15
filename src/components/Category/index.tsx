@@ -8,10 +8,6 @@ import MVTitle from "../MV/Title";
 import MVLink from "../Location/Link";
 import MVImage from "../MV/Image";
 import MVText from "../MV/Text";
-import {
-  CheckCircleOutlined,
-  Loading3QuartersOutlined,
-} from "@ant-design/icons";
 import Dividers from "../MV/Divider";
 import { Tag } from "antd";
 
@@ -24,7 +20,7 @@ const CategoryProductComponent = () => {
   }
   const c = category && category.data.find((c) => c._id === id);
   useEffect(() => {
-    document.title = c.name;
+    document.title = c?.name;
   }, [c]);
   return (
     <Divstyled>
@@ -55,6 +51,31 @@ const CategoryProductComponent = () => {
                   </MVLink>
                 </Divstyled>
                 <Divstyled className="loai des text-[12px] md:text-[13px] lg:text-[14px]">
+                  <b>Youth of May (2021)</b>
+                  <br />
+                  <MVText
+                    style={{
+                      color: "#999",
+                    }}
+                  >
+                    Đạo diễn : ?
+                  </MVText>
+                  <br />
+                  <MVText
+                    style={{
+                      color: "#999",
+                    }}
+                  >
+                    Diễn viên : ?
+                  </MVText>
+                  <br />
+                  <MVText
+                    style={{
+                      color: "#999",
+                    }}
+                  >
+                    Quốc gia : ?
+                  </MVText>
                   <div>
                     <MVText
                       style={{
@@ -110,7 +131,7 @@ const CategoryProductComponent = () => {
             </Divstyled>
             <Divstyled className="text-[#999] lg:text-[15px] md:text[14px] text-[13px]">
               <Dividers textColor={"#fff"} orientation="left">
-                Mô tả:
+                NỘI DUNG PHIM
               </Dividers>
               {c.des}
             </Divstyled>

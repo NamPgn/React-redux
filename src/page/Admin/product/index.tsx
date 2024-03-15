@@ -237,7 +237,7 @@ const ProductAdmin = ({ product, length, isLoading }) => {
           case 2:
             return (
               <>
-                {record.isApproved == true ? (
+                {record?.isApproved == true ? (
                   <>
                     <MyButton
                       className="flex items-center mb-2"
@@ -449,3 +449,4 @@ const ProductAdmin = ({ product, length, isLoading }) => {
 };
 
 export default ProductAdmin;
+

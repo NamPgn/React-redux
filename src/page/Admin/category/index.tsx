@@ -166,9 +166,9 @@ const CategoryAdmin = () => {
             dataSource={data}
             scroll={{ x: 1000, y: 1000 }}
             pagination={{
-              defaultPageSize: 5,
+              defaultPageSize: 20,
               showSizeChanger: true,
-              pageSizeOptions: ["5", "20", "30"],
+              pageSizeOptions: ["20", "40", "60"],
             }}
           ></MVTable>
         </MVCol>

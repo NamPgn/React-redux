@@ -39,7 +39,7 @@ intances.interceptors.request.use((config) => {
                 MVWarning('Token expires-relogin');
                 setTimeout(() => {
                     localStorage.clear();
-                    window.location.href = '/auth/signin'; // Chuyển hướng đến trang đăng nhập
+                    window.location.href = '/signin'; // Chuyển hướng đến trang đăng nhập
                 }, 1500)
             } else {
                 // Token còn hạn, thêm token vào header của yêu cầu
