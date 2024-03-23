@@ -39,7 +39,7 @@ const CatemainProduct = () => {
             className="ml-2"
             onClick={() => handleclick(item._id, item.categorymain)}
           >
-            Cút
+            Del
           </Button>
         </span>
       ),

@@ -35,7 +35,7 @@ const index = () => {
               </MyButton>
             </MVLink>
             <MyButton onClick={() => dispatch(deleteCartSlice(item._id))} className='ml-2'>
-              Cút
+              Del
             </MyButton>
           </SpanStyled>
         )

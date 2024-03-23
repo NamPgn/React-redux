@@ -53,7 +53,7 @@ const TypesCateAdmin = () => {
                   onClick={() => handleDeleTypeProduct(product._id, item._id)}
                   className="ml-2"
                 >
-                  Cút
+                  Del
                 </MyButton>
                 <MyButton
                   onClick={() => handlePushItem(product._id)}
@@ -80,7 +80,7 @@ const TypesCateAdmin = () => {
             <MVLink to={`/dashboard/type/${item._id}`}>
               <MyButton>Edit</MyButton>
               <MyButton danger className="ml-2">
-                Cút
+                Del
               </MyButton>
             </MVLink>
           </span>

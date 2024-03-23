@@ -38,7 +38,7 @@ const SidebarApi = () => {
           data.category.length == 0 &&
           data.categorymain.length == 0 ? (
             <NotUpdate />
-          ) : data.products.length && data.categorymain.length <= 0 ? (
+          ) : data.categorymain.length <= 0 ? (
             <MVGridCategory type="category" gutter={[16, 16]} child={dt} />
           ) : (
             data.categorymain.length > 0 &&

@@ -57,9 +57,9 @@ const CommentAdmin = lazy(() => import("../page/Admin/comment"));
 const CartUser = lazy(() => import("../components/Cart"));
 const CartAdmin = lazy(() => import("../page/Admin/cart"));
 const Loadmore = lazy(() => import("../page/Home/Category/Loadmore"));
-const TypesCateAdmin = lazy(() => import("../page/Admin/typesCategory"));
+const TypesCateAdmin = lazy(() => import("../page/Admin/TypesCategory"));
 const CatemainProduct = lazy(
-  () => import("../page/Admin/typesCategory/component/CatemainProduct")
+  () => import("../page/Admin/TypesCategory/component/CatemainProduct")
 );
 //background
 const Background = lazy(() => import("../page/Admin/background"));
@@ -83,6 +83,16 @@ export const routerNavBar = [
     name: "Đăng kí",
     title: "Đăng kí",
   },
+  {
+    path: "/new-update",
+    name: "Mới cập nhật",
+    title: "Mới cập nhật",
+  },
+  {
+    path: "/complete",
+    name: "Hoàn Thành",
+    title: "Hoàn Thành",
+  },
 ];
 
 export const loggedInRoutes = [
@@ -94,6 +104,16 @@ export const loggedInRoutes = [
     path: "/profile",
     name: "Hồ sơ",
     title: "Hồ sơ",
+  },
+  {
+    path: "/new-update",
+    name: "Mới cập nhật",
+    title: "Mới cập nhật",
+  },
+  {
+    path: "/complete",
+    name: "Hoàn Thành",
+    title: "Hoàn Thành",
   },
 ];
 

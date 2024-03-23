@@ -18,6 +18,7 @@ import {
 } from "../style";
 import MVTypeDisplay from "../component";
 import MVLink from "../../../components/Location/Link";
+import MVGridCategory from "../../../components/Grid/component";
 
 const ListType = () => {
   const { id } = useParams();
@@ -31,30 +32,17 @@ const ListType = () => {
   if (isError) {
     return <MessageErr />;
   }
-
+  console.log(data);
+  const datas = data.categorys.concat(data.products);
   return (
     <MVTypeDisplay
       data={data}
       children={
-        <DivStyledGrid className="mt-4">
-          {data.products && data.products.length ? (
-            data.products.map((item: any, index: number) => (
-              <DivStyledContent key={index}>
-                <DivStyledItem>
-                  <MVLink to={"/d/" + item._id + `?c=${item.categorymain}`}>
-                    <Div>
-                      <DivStyledImage src={item.image}></DivStyledImage>
-                    </Div>
-                  </MVLink>
-                  <DivStyledTitleItem>{item.name}</DivStyledTitleItem>
-                  <DivStyledText>{data.name}</DivStyledText>
-                </DivStyledItem>
-              </DivStyledContent>
-            ))
-          ) : (
-            <NotUpdate />
-          )}
-        </DivStyledGrid>
+        datas.length ? (
+          <MVGridCategory type="category" gutter={[16, 16]} child={datas} />
+        ) : (
+          <NotUpdate />
+        )
       }
     />
   );

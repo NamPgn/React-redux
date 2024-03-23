@@ -3,7 +3,7 @@ import React, { memo } from "react";
 const MVAvatar = memo(({ title, src, size, ...rest }: any) => {
   return (
     <div title={title} style={{ cursor: "pointer" }}>
-      <Avatar isBordered size={size} color="default" src={src} {...rest} />
+      <Avatar  size={size} color="default" src={src} {...rest} />
     </div>
   );
 });

@@ -51,7 +51,7 @@ const CategoryProductComponent = () => {
                   </MVLink>
                 </Divstyled>
                 <Divstyled className="loai des text-[12px] md:text-[13px] lg:text-[14px]">
-                  <b>Youth of May (2021)</b>
+                  <b>?</b>
                   <br />
                   <MVText
                     style={{

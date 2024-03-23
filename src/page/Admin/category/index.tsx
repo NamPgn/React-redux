@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Image, Radio, Tag } from "antd";
+import { Image, Tag } from "antd";
 import {
   addCateGorySlice,
   deleteCategorySlice,
@@ -20,13 +20,28 @@ import MVCol from "../../../components/MV/Grid/Col";
 import MVUpload from "../../../components/MV/Upload";
 import MVInput from "../../../components/MV/Input";
 import MVLink from "../../../components/Location/Link";
+import { TreeSelect } from "antd";
+import { MVError, MVSuccess } from "../../../components/Message";
 
 const CategoryAdmin = () => {
   const dispatch = useAppDispatch();
   const category = useAppSelector(category$);
   const { seri, weeks } = useContext(MyContext);
-  const [typeId, setId] = useState(null);
   const { handleSubmit, control, register } = useForm();
+  const [valueId, setValue] = useState();
+  const valueOptions =
+    seri &&
+    seri?.map((items: any, index: number) => ({
+      label: index + 1 + " - " + items.name,
+      value: items._id,
+      children: items.categorymain.map((val: any, i: number) => ({
+        label: i + 1 + " - " + val.cates.name,
+        value: val.cates._id,
+      })),
+    }));
+  const onChange = (newValue: any) => {
+    setValue(newValue);
+  };
   const onsubmit = async (data: any) => {
     const formdata = new FormData();
     formdata.append("name", data.name);
@@ -59,26 +74,28 @@ const CategoryAdmin = () => {
   useEffect(() => {
     dispatch(getAllcate());
   }, []);
-  const handleGetid = (id) => {
-    setId(id);
-  };
 
   const hanedlePushCategoryToType = async (categoryId) => {
     const body = {
       categoryId: categoryId,
     };
-    await pushCateTotype(typeId, body);
+    const res = await pushCateTotype(valueId, body);
+    if (res.data.success) {
+      MVSuccess("Add category success!");
+    } else {
+      MVError("Failure!");
+    }
   };
 
   const weeekOptions =
     weeks &&
-    weeks?.map((item) => ({
+    weeks?.map((item: any, index: number) => ({
       label: item.name,
       value: item._id,
     }));
   const data =
     category.data &&
-    category.data.map((item, index) => {
+    category.data.map((item: any, index: number) => {
       return {
         key: item._id,
         // stt: index + 1,
@@ -140,7 +157,17 @@ const CategoryAdmin = () => {
     });
   return (
     <React.Fragment>
-      <div
+      <TreeSelect
+        style={{ width: "100%" }}
+        value={valueId}
+        dropdownStyle={{ maxHeight: 400, overflow: "auto" }}
+        treeData={valueOptions}
+        placeholder="Please select"
+        treeDefaultExpandAll
+        onChange={onChange}
+        className="mb-2"
+      />
+      {/* <div
         className="p-2"
         style={{ display: "flex", gap: "0 10px", justifyContent: "center" }}
       >
@@ -158,7 +185,7 @@ const CategoryAdmin = () => {
               )}
             </div>
           ))}
-      </div>
+      </div> */}
       <MVRow gutter={10}>
         <MVCol span={18}>
           <MVTable
