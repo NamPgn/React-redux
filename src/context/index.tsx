@@ -31,6 +31,8 @@ export const MyContextProvider = (props) => {
   const { data: seri, isLoading: loadingSeri } = useSWRWithAxios(
     urlSwr + `/types`
   );
+
+  
   const {
     data: categorymain,
     isLoading: LoadingCateMain,
