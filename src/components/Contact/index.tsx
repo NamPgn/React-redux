@@ -7,10 +7,13 @@ import React from "react";
 import MVLink from "../Location/Link";
 const ContactAdmin = () => {
   return (
-    <div className="mt-5 lg:flex hidden justify-center text-white">
-      <div className="lg:w-7/12 ">
-        <div className="card p-3">
-          <div className="card-body">
+    <div className="mt-[200px] lg:flex hidden justify-center text-white ">
+      <div className="w-full">
+        <div
+          className="card p-3 "
+          style={{ boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}
+        >
+          <div className="card-body ">
             <div>
               <div className="d-flex justify-center">
                 <img
@@ -33,19 +36,19 @@ const ContactAdmin = () => {
             <div className="mt-3 pt-1 iconContact">
               <p className="mb-0">
                 <FacebookOutlined />
-                <MVLink to="https://www.facebook.com/profile.php?id=100040511214253">
+                <a href="https://www.facebook.com/profile.php?id=100040511214253">
                   Facebook
-                </MVLink>
+                </a>
               </p>
               <p className="mb-0 mt-2">
                 <SafetyCertificateFilled />
-                <MVLink to="https://www.tiktok.com/@tieu_loli">Tiktok</MVLink>
+                <a href="https://www.tiktok.com/@tieu_loli">Tiktok</a>
               </p>
               <p className="mb-0 mt-2">
                 <YoutubeOutlined />
-                <MVLink to="https://www.youtube.com/channel/UCMRhIr6pa_Xs7MEPAquDBQQ">
+                <a href="https://www.youtube.com/channel/UCMRhIr6pa_Xs7MEPAquDBQQ">
                   Youtube
-                </MVLink>
+                </a>
               </p>
             </div>
           </div>

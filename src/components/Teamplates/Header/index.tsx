@@ -11,17 +11,20 @@ import {
   MenuFoldOutlined,
   MenuOutlined,
   MenuUnfoldOutlined,
+  SearchOutlined,
   SettingOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Drawer } from "antd";
 import MVMenuItem from "../../MV/Menu";
-import { Icon } from "../../SideBar/styles";
+import { DivStyledSearchBarStyle, Icon } from "../../SideBar/styles";
 import AuthHeader from "./component/auth";
 import MVRow from "../../MV/Grid";
 import MVCol from "../../MV/Grid/Col";
 import MVLink from "../../Location/Link";
 import { MVError } from "../../Message";
+import SearchResults from "../../Search";
+import { searCategory } from "../../../sevices/category";
 const icon = [
   <HomeOutlined />,
   <LoginOutlined />,
@@ -37,6 +40,8 @@ const Header = () => {
   const [navSize, setnavSize] = useState("20px 10px");
   const [open, setOpen] = useState(false);
   const placement = "left";
+  const [searchValue, setSearchValue] = useState("");
+  const [results, setResults] = useState([]);
   const showDrawer = () => {
     setOpen(true);
   };
@@ -58,6 +63,15 @@ const Header = () => {
       naviagate("/cart/user");
     }
   };
+  const handleChange = async (val: any) => {
+    setSearchValue(val);
+  };
+  useEffect(() => {
+    (async () => {
+      const { data }: any = await searCategory(searchValue);
+      setResults(data);
+    })();
+  }, [searchValue]);
   useEffect(() => {
     setScrollUp(!false);
   }, []);
@@ -84,7 +98,15 @@ const Header = () => {
             {change ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
           </Icon>
         </MVCol>
-        <MVCol span={22}>
+        <MVCol span={6} className="relative">
+          <DivStyledSearchBarStyle
+            style={{ boxShadow: "#333 0px 2px 10px" }}
+            onChange={(e) => handleChange(e.target.value)}
+            placeholder="Search..."
+          />
+          <SearchResults data={results} />
+        </MVCol>
+        <MVCol span={16}>
           <MVRow justify={"center"} align={"middle"}>
             <MVRow>
               {routerLoggedIn.map((item: any, index: any) => (
@@ -150,6 +172,13 @@ const Header = () => {
             <div className="ml-5 relative" onClick={handleCheckCart}>
               <LikeOutlined className="__ text-yellow-500" />
             </div>
+          </MVCol>
+          <MVCol span={16} className="relative">
+            <DivStyledSearchBarStyle
+              onChange={(e) => handleChange(e.target.value)}
+              placeholder="Search..."
+            />
+            <SearchResults data={results} />
           </MVCol>
           <MVCol>
             <AuthHeader

@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import styled from "styled-components";
 import { Loading } from "../Message/Notification";
 import { MyContext } from "../../context";
 import SeriNumberMovie from "../Seri/SeriCategory";
@@ -11,8 +10,7 @@ import MVText from "../MV/Text";
 import Dividers from "../MV/Divider";
 import { Tag } from "antd";
 
-const Divstyled = styled.div``;
-const CategoryProductComponent = () => {
+const CategoryPage = () => {
   const { id } = useParams();
   const { category, isLoading }: any = useContext(MyContext);
   if (isLoading) {
@@ -23,22 +21,22 @@ const CategoryProductComponent = () => {
     document.title = c?.name;
   }, [c]);
   return (
-    <Divstyled>
+    <div>
       {c && (
-        <Divstyled key={c._id}>
-          <Divstyled style={{ color: "#fff" }}>
-            <Divstyled className="md:flex lg:flex block gap-2 ">
-              <Divstyled className="mb-5 lg:w-3/12 md:w-3/12 md:h-full h-52 ">
-                <div className="h-full w-full flex justify-center">
+        <div key={c._id}>
+          <div style={{ color: "#fff" }}>
+            <div className="md:flex lg:flex block gap-2 ">
+              <div className="mb-5 lg:w-3/12 md:w-3/12 md:h-full h-52 ">
+                <div className="h-full w-full flex justify-center ">
                   <MVImage
                     className="object-contain w-full h-full flex-grow"
                     src={c.linkImg}
                     alt={c.name}
                   />
                 </div>
-              </Divstyled>
-              <Divstyled className="lg:w-9/12 md:w-9/12">
-                <Divstyled className="category">
+              </div>
+              <div className="lg:w-9/12 md:w-9/12">
+                <div className="category text-2xl md:text-3xl pl-2 my-2 border-l-4  font-sans font-bold border-teal-400  dark:text-gray-200">
                   <MVLink to={`/q/` + c._id}>
                     <MVTitle
                       type={"secondary"}
@@ -49,9 +47,9 @@ const CategoryProductComponent = () => {
                       {c.name}
                     </MVTitle>
                   </MVLink>
-                </Divstyled>
-                <Divstyled className="loai des text-[12px] md:text-[13px] lg:text-[14px]">
-                  <b>?</b>
+                </div>
+                <div className="loai des text-[12px] md:text-[13px] lg:text-[14px]">
+                  <b>{c.anotherName}</b>
                   <br />
                   <MVText
                     style={{
@@ -78,11 +76,14 @@ const CategoryProductComponent = () => {
                   </MVText>
                   <div>
                     <MVText
+                     
                       style={{
                         color: "#999",
                       }}
                     >
-                      Thể loại : {c.type}
+                      Thể loại : <span className="p-1 bg-gray-500 rounded-sm">
+                      {c.type}
+                      </span>
                     </MVText>
                   </div>
                   <div>
@@ -118,28 +119,28 @@ const CategoryProductComponent = () => {
                         color: "#999",
                       }}
                     >
-                      Kiểu: Thuyết minh
+                      Kiểu: 
                     </MVText>
                   </div>
                   <Tag color="#2db7f5" className="mt-5">
                     {c.isActive == 0 ? "Is Comming" : "Commpelete"}
                   </Tag>
-                </Divstyled>
+                </div>
                 <br />
                 <SeriNumberMovie />
-              </Divstyled>
-            </Divstyled>
-            <Divstyled className="text-[#999] lg:text-[15px] md:text[14px] text-[13px]">
+              </div>
+            </div>
+            <div className="text-[#999] lg:text-[15px] md:text[14px] text-[13px]">
               <Dividers textColor={"#fff"} orientation="left">
                 NỘI DUNG PHIM
               </Dividers>
               {c.des}
-            </Divstyled>
-          </Divstyled>
-        </Divstyled>
+            </div>
+          </div>
+        </div>
       )}
-    </Divstyled>
+    </div>
   );
 };
 
-export default CategoryProductComponent;
+export default CategoryPage;

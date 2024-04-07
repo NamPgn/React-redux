@@ -52,7 +52,7 @@ const ProductAdd = () => {
     formdata.append("imageLink", data.imageLink);
     formdata.append("video2", data.video2);
     const res = await dispatch(addProduct(formdata));
-    if (res) {
+    if (res.payload.success == true) {
       toast.success("Add product successfully");
     } else {
       toast.error("Add product failed");

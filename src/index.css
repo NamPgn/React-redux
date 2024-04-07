@@ -10,10 +10,6 @@
   text-decoration: none;
 }
 
-a:hover {
-  color: #ffffffa5;
-}
-
 .activeSeri button {
   background-color: #999;
 }
@@ -105,7 +101,7 @@ a:hover {
   background-color: transparent !important;
 }
 
-a:hover {
+.link:hover {
   color: #7d7d7db5 !important;
 }
 
@@ -115,4 +111,9 @@ p {
 
 :where(.css-1s3dcof).ant-layout .ant-layout-sider {
   background-color: transparent !important;
+}
+
+.slick-slider {
+  cursor: grab;
+  cursor: -webkit-grab;
 }

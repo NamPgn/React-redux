@@ -34,7 +34,7 @@ const Signup = lazy(() => import("../page/Auth-Page/Sign-up")); //signup
 
 //router admin
 const AdminPage = lazy(() => import("../page/Admin")); //admin
-const DataProduct = lazy(() => import("../page/Admin/product/component/list"));
+const DataProduct = lazy(() => import("../page/Admin/product/list"));
 const GetUser = lazy(() => import("../page/Admin/user"));
 const Adduser = lazy(() => import("../page/Admin/user/component/add"));
 const EditUser = lazy(() => import("../page/Admin/user/component/edit"));
@@ -43,7 +43,7 @@ const ProductAdd = lazy(() => import("../page/Admin/product/component/add"));
 const EditProduct = lazy(() => import("../page/Admin/product/component/edit"));
 const CreatingUser = lazy(() => import("../page/Admin/user/component/adds"));
 const CreatingProducts = lazy(
-  () => import("../page/Admin/product/component/CreatingProducts")
+  () => import("../page/Admin/product/component/creatingProducts")
 );
 const CategoryAdmin = lazy(() => import("../page/Admin/category"));
 const EditCategoryAdmin = lazy(

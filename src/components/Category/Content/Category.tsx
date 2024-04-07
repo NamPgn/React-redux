@@ -13,47 +13,58 @@ interface CategoryContent {
   sumSeri?: any;
   time: string;
   typecm?: string;
-  year?:string;
+  year?: string;
+  products?: [];
 }
 const CategoryContents = memo(
-  ({ text, title, link, image, sumSeri, time, typecm,year }: CategoryContent) => {
-    
+  ({
+    title,
+    link,
+    image,
+    sumSeri,
+    time,
+    typecm,
+    year,
+    products,
+  }: CategoryContent) => {
     return (
       <div className="w-full">
-        <div className="w-full">
-          <MVLink to={link} className="relative group">
+        <div className="relative group">
+          <MVLink to={link} className="block">
             <MVImage
               src={image}
               alt={title}
-              className="h-[200px] md:h-[300px] lg:h-[400px] transition-opacity duration-300 group-hover:opacity-40"
+              className="h-[200px] md:h-[300px] lg:h-[400px] object-cover transition-opacity duration-300 group-hover:opacity-40 rounded-lg"
             />
-            <PlayCircleOutlined className="absolute opacity-0 text-[30px] text-[#fff] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute top-0 left-0 bg-[#e66f20] text-white text-xs rounded-[4px] px-2 py-1 font-medium">
+              {sumSeri
+                ? `${sumSeri}/${products ? products.length : "0"} Tập Vietsub`
+                : ""}
+            </div>
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <PlayCircleOutlined className="text-white text-5xl" />
+            </div>
           </MVLink>
         </div>
-        <div className="cateTitle text-white mt-1">
+        <div className="mt-4">
           <MVLink to={link}>
             <MVTitle
               level={5}
-              style={{
-                color: "#fff",
-              }}
-              className="lg:text-[16px] md:text-[14px] text-[13px] "
+              style={{ color: "#fff" }}
+              className="text-xl md:text-2xl lg:text-3xl font-bold"
             >
               {title}
             </MVTitle>
           </MVLink>
         </div>
-        <div className="text-[11px] lg:text-[12px] md:text-[13px] text-[#999]">
-          <div className="mt-2 mb-2">
-            <div style={{ fontWeight: "500" }}>
-              {sumSeri ? sumSeri + " Tập" : ""}{" "}
-            </div>
+        <div className="text-sm text-gray-400 mt-2">
+          <div className="font-semibold">{sumSeri ? `${sumSeri} Tập` : ""}</div>
+          <div className="flex items-center mt-1 justify-between">
+            <MVText className="mr-2 text-gray-300">Full HD/Vietsub</MVText>
+            <MVText className="mr-2 text-gray-300">{typecm}</MVText>
+            <MVText className="text-gray-400 text-sm">({time})</MVText>
           </div>
-          <div className="des">
-            <MVText className="text-[#999]">Full hđ/Vietsub</MVText>
-            <MVText className="text-[#999]">{typecm}</MVText>
-          </div>
-          <MVText className="text-[#999]">{time}</MVText>
+          <div className="font-semibold mt-2">{year ? `${year}` : ""}</div>
         </div>
       </div>
     );

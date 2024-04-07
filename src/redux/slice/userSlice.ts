@@ -59,7 +59,6 @@ export const editUser = createAsyncThunk(
   "edit/editUser",
   async (payload: any) => {
     const { data }: any = await editAuth(payload);
-    console.log(payload);
     return data;
   }
 );

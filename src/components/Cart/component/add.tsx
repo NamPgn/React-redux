@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import styled from "styled-components";
 import { addCartSlice } from "../../../redux/slice/cart/thunk/cart";
 import { useAppDispatch } from "../../../hook";
 import { MyContext } from "../../../context";
@@ -9,12 +8,11 @@ import { MVError, MVSuccess, MVWarning } from "../../Message";
 import MVTitle from "../../MV/Title";
 import MVLink from "../../Location/Link";
 
-const DivStyled = styled.div``;
 interface Istate {
   user: string;
   product: string;
 }
-const CartAddContent = ({ item, id, categoryId }) => {
+const CartAddContent = ({ item, id }) => {
   const dispatch = useAppDispatch();
   const { Auth, user, isLoggedInState } = useContext(MyContext);
   const [isFavorited, setIsFavorited] = useState(false);
@@ -46,7 +44,7 @@ const CartAddContent = ({ item, id, categoryId }) => {
 
   return (
     <div className="lg:flex md:flex-row items-center @screen md:justify-between flex flex-col">
-      <MVLink to={`/q/` + item?.category?._id}>
+      <MVLink to={`/q/` + item?.category?._id} className="text-2xl md:text-3xl pl-2 my-2 border-l-4  font-sans font-bold border-teal-400  dark:text-gray-200">
         <MVTitle level={4} style={{ color: "#fff" }}>
           {item.name}
         </MVTitle>

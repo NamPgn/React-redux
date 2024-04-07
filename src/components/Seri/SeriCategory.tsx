@@ -14,7 +14,7 @@ const SeriNumberMovie = () => {
   );
 
   if (isLoading) {
-    return <Spiner size={undefined} children={undefined} />;
+    return "Loading....";
   }
   if (error) {
     return <MessageErr />;

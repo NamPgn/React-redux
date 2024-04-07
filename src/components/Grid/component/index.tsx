@@ -18,6 +18,7 @@ const MVGridCategory = memo(({ type, gutter, child, ...rest }: any) => {
               time={item.time}
               year={item.year}
               sumSeri={item.sumSeri}
+              products={item.products}
             />
           </MVCol>
         ))
@@ -27,7 +28,7 @@ const MVGridCategory = memo(({ type, gutter, child, ...rest }: any) => {
             <CategoryContents
               title={item.name}
               link={item.image ? "/d/" + item._id : "/q/" + item._id}
-              image={item.image}
+              image={item.linkImg || item.image}
               time={item.time}
               sumSeri={item.sumSeri}
             />

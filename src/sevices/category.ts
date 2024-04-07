@@ -28,7 +28,6 @@ export const deleteCate = async (id: any): Promise<Icategory> => {
 };
 
 export const updateCate = async (data: any): Promise<Icategory> => {
-  console.log(data);
   return await intances.post(
     `/category/${data.get("_id")}/${dataToken.user._id}`,
     data,
@@ -49,5 +48,5 @@ export const getAllCategoryNotReq = async (id: string) => {
 };
 
 export const searCategory = async (data: any) => {
-  return await intances.get(`/products/search?value=${data}`);
+  return await intances.get(`/categorys/search?value=${data}`);
 };

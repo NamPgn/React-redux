@@ -1,4 +1,3 @@
-import ContactAdmin from "../../../components/Contact";
 import CategoryHomePage from "../../../components/Category/component/home";
 import React, { Suspense, useContext } from "react";
 import { Loader } from "../../../components/Message/Notification";
@@ -8,7 +7,6 @@ const DetailProduct = () => {
   const { category, isLoading }: any = useContext(MyContext);
   return (
     <React.Fragment>
-      <ContactAdmin />
       <Suspense fallback={<Loader />}>
         <DetailComponent />
       </Suspense>

@@ -7,17 +7,7 @@ import {
   MessageErr,
   NotUpdate,
 } from "../../../components/Message/Notification";
-import {
-  Div,
-  DivStyledGrid,
-  DivStyledContent,
-  DivStyledImage,
-  DivStyledItem,
-  DivStyledText,
-  DivStyledTitleItem,
-} from "../style";
 import MVTypeDisplay from "../component";
-import MVLink from "../../../components/Location/Link";
 import MVGridCategory from "../../../components/Grid/component";
 
 const ListType = () => {
@@ -32,7 +22,6 @@ const ListType = () => {
   if (isError) {
     return <MessageErr />;
   }
-  console.log(data);
   const datas = data.categorys.concat(data.products);
   return (
     <MVTypeDisplay

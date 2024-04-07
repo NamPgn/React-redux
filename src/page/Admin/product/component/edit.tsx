@@ -6,7 +6,6 @@ import {
   getProduct,
 } from "../../../../redux/slice/product/thunk/product";
 import { toast } from "react-toastify";
-import styled from "styled-components";
 import { useAppDispatch } from "../../../../hook";
 import { MyContext } from "../../../../context";
 import { MySelectWrapper } from "../../../../components/Form/component/select";
@@ -19,9 +18,10 @@ import MVLink from "../../../../components/Location/Link";
 import MVTitle from "../../../../components/MV/Title";
 import MVImage from "../../../../components/MV/Image";
 declare var Promise: any;
-const Divstyled = styled.div``;
 const EditProduct = () => {
   const { categorymain, category, seri }: any = useContext(MyContext);
+  const [isLoading, setIsLoading] = useState(false);
+
   const { id } = useParams();
   const { handleSubmit, reset, control } = useForm();
   const dispatch = useAppDispatch();
@@ -38,7 +38,6 @@ const EditProduct = () => {
     const formdata = new FormData();
     formdata.append("name", data.name);
     formdata.append("options", data.options);
-    formdata.append("seri", data.seri);
     formdata.append("category", data.category);
     formdata.append("_id", id);
     formdata.append("seri", data.seri);
@@ -56,20 +55,27 @@ const EditProduct = () => {
     formdata.append("link", data.link);
     formdata.append("imageLink", data.image);
     const res = await dispatch(editProduct(formdata));
-    if (res.payload.success) {
+    if (res.payload.success == true) {
       toast.success(`Sửa ${data.name} công`);
     }
   };
   const handleSubmitServerAssb = async (data: any) => {
-    const formdata = new FormData();
-    formdata.append("fileupload", data.fileupload);
-    const res = await UploadAssby(id, formdata);
-    if (res) {
-      toast.success(`${data.name} susscessfully uploaded`);
+    try {
+      const formdata = new FormData();
+      formdata.append("fileupload", data.fileupload);
+      const res = await UploadAssby(id, formdata);
+      if (res) {
+        toast.success(`${data.name} Susscessfully Uploaded`);
+        setIsLoading(true);
+      }
+    } catch (error) {
+      toast.success(`${data.name} Failer Uploaded`);
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
-    <Divstyled>
+    <div>
       <MVTitle level={4}>
         <MVLink to={`/d/${state._id}?c=${state.category?._id}`}>
           {state.name + " tập " + state.seri}
@@ -130,7 +136,7 @@ const EditProduct = () => {
           control={control}
           rules={undefined}
         />
-        <Divstyled style={{ width: "150px", height: "200px" }}>
+        <div style={{ width: "150px", height: "200px" }}>
           <MVImage
             src={
               state.image == undefined || null
@@ -139,7 +145,7 @@ const EditProduct = () => {
             }
             className="w-full h-full"
           />
-        </Divstyled>
+        </div>
         <br />
         {/* <MyUploadWrapper
           name={'file'}
@@ -231,12 +237,16 @@ const EditProduct = () => {
           control={control}
         />
         <div className="mt-2">
-          <MyButton htmlType="submit" className="btn btn-primary">
+          <MyButton
+            loading={isLoading}
+            htmlType="submit"
+            className="btn btn-primary"
+          >
             Submit
           </MyButton>
         </div>
       </form>
-    </Divstyled>
+    </div>
   );
 };
 

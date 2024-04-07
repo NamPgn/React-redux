@@ -268,7 +268,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     .containers{
-      padding-top: 6.5%;
+      padding-top: 5.5%;
     }
   }
 

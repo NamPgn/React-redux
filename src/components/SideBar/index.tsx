@@ -1,11 +1,8 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { SearchOutlined } from "@ant-design/icons";
 import { ChangeContext, MyContext } from "../../context";
 import {
-  DivStyled,
   DivStyledRouter,
-  DivStyledSearchBarStyle,
   DivStyledTitle,
   DivstySideBar,
   DivstyledContent,
@@ -20,6 +17,7 @@ import {
 import { Spiner } from "../Message/Notification";
 import { Icons } from "../../constant";
 import MVLink from "../Location/Link";
+import ContactAdmin from "../Contact";
 const SideBar = () => {
   const { seri, loadingSeri }: any = useContext(MyContext) || {};
   const { state } = useContext(ChangeContext) || {};
@@ -46,24 +44,13 @@ const SideBar = () => {
             </MVLink>
           </SideBarText>
         </DivStyledTitle>
-        <DivStyled>
-          {state ? (
-            <SearchOutlined
-              className="w-full justify-center"
-              style={{
-                textAlign: "center",
-                padding: "10px 15px",
-                margin: "25px 0 0 0",
-              }}
-            />
-          ) : (
-            <DivStyledSearchBarStyle placeholder="Search..." />
-          )}
+        <div className="mt-[50px]">
           {!loadingSeri ? (
             <RouterLink className="sideBarActive">
               {seri &&
                 seri.map((item: any, index: any) => (
                   <NavLink
+                    title={item.name}
                     to={
                       item.path == "/"
                         ? item.path
@@ -81,12 +68,10 @@ const SideBar = () => {
                 ))}
             </RouterLink>
           ) : (
-            <Spiner
-              size="large"
-              children={undefined}
-            />
+            <Spiner size="large" children={undefined} />
           )}
-        </DivStyled>
+        </div>
+        <ContactAdmin />
       </DivstyledContent>
     </DivstySideBar>
   );

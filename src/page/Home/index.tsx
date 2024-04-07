@@ -1,9 +1,6 @@
-import React, { useContext, useState } from "react";
-import SearchResults from "../../components/Search";
+import React, { useContext } from "react";
 import ConfigHomePage from "./Container/Config";
 import { ChangeContext, MyContext } from "../../context";
-import { useSWRWithAxios } from "../../hook/Swr";
-import { urlSwr } from "../../function";
 import { BtnStyled, InputStyled } from "./Container/styles";
 import { Spiner } from "../../components/Message/Notification";
 import MVRow from "../../components/MV/Grid";
@@ -12,25 +9,22 @@ import MVCol from "../../components/MV/Grid/Col";
 const HomePage = () => {
   const { category, isLoading, isError }: any = useContext(MyContext) ?? {};
   const { state } = useContext(ChangeContext) || {};
-  const [searchValue, setSearchValue] = useState("");
-  const [results, setResults] = useState({});
-  const {
-    data,
-    isLoading: l,
-    error: e,
-  }: any = useSWRWithAxios(urlSwr + `/products/search?value=${searchValue}`);
-  const handleSearch = () => {
-    setResults({ doc: data, isError: e, isLoading: l });
-  };
+
+  // const {
+  //   data,
+  //   isLoading: l,
+  //   error: e,
+  // }: any = useSWRWithAxios(urlSwr + `/categorys/search?value=${searchValue}`);
+  
   return (
     <React.Fragment>
       {!isLoading ? (
         <React.Fragment>
           <MVRow align="middle">
-            <MVCol xl={22} lg={21} md={20} sm={19} xs={18}>
+            {/* <MVCol xl={22} lg={21} md={20} sm={19} xs={18}>
               <InputStyled
                 placeholder="Search"
-                onChange={(e) => setSearchValue(e.target.value)}
+                onChange={(e) => handleChange(e.target.value)}
                 type="search"
               />
             </MVCol>
@@ -44,24 +38,18 @@ const HomePage = () => {
               >
                 Tìm
               </BtnStyled>
-            </MVCol>
+            </MVCol> */}
           </MVRow>
-          {searchValue ? (
-            <SearchResults data={results} />
-          ) : (
-            <ConfigHomePage
-              category={category?.data}
-              isLoading={isLoading}
-              isError={isError}
-              state={state}
-            />
-          )}
+
+          <ConfigHomePage
+            category={category?.data}
+            isLoading={isLoading}
+            isError={isError}
+            state={state}
+          />
         </React.Fragment>
       ) : (
-        <Spiner
-          size="large"
-          children={undefined}
-        />
+        <Spiner size="large" children={undefined} />
       )}
     </React.Fragment>
   );

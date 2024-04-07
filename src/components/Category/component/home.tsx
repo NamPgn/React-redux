@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {MessageErr, Spiner } from "../../Message/Notification";
+import { MessageErr, Spiner } from "../../Message/Notification";
 import { useSWRWithAxios } from "../../../hook/Swr";
 import { urlSwr } from "../../../function";
 import MVGridCategory from "../../Grid/component";
@@ -22,12 +22,7 @@ const CategoryHomePage = ({ category, isLoading, isError }: CategoryProp) => {
     urlSwr + "/type/movie?key=Phim lẻ"
   );
   if (isLoading && loading) {
-    return (
-      <Spiner
-        size={undefined}
-        children={undefined}
-      />
-    );
+    return <Spiner size={undefined} children={undefined} />;
   }
   if (isError) {
     return <MessageErr />;
@@ -35,8 +30,8 @@ const CategoryHomePage = ({ category, isLoading, isError }: CategoryProp) => {
   return (
     <DivstyledContainer>
       <div className="flex justify-between items-center">
-        <MVTitle level={2} underline style={{ color: "#fff" }} strong>
-          Hh 3d
+        <MVTitle level={2} underline style={{ color: "#fff" }} strong className="uppercase">
+          phim hot
         </MVTitle>
         <MVLink to={"/loadmore"}>
           <div className="underline lg:text-[15px] md:text[14px] text-[13px] text-[#999]">
@@ -52,7 +47,7 @@ const CategoryHomePage = ({ category, isLoading, isError }: CategoryProp) => {
         <MVGridCategory
           type="types"
           gutter={phim && phim.products.length ? [16, 16] : 0}
-          child={phim.products}
+          child={phim.products?.length == 0 ? phim.category : ""}
         />
       </DivstyOllMovie>
     </DivstyledContainer>

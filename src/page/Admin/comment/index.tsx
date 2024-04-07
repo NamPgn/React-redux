@@ -39,7 +39,6 @@ const CommentAdmin = () => {
     comment
       .filter((item) => item.user !== null)
       .map((item: any, index: any) => {
-        console.log(item);
         return {
           key: item._id,
           stt: index + 1,

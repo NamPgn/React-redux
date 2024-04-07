@@ -82,7 +82,7 @@ export const Spiner = ({ size, children }: SpinerLoading) => (
 export const NotUpdate = () => {
   return (
     <Tag color="#108ee9" className="mx-2">
-      Chưa cập nhật
+      Empty
     </Tag>
   );
 };
@@ -98,5 +98,5 @@ export const MVLoadingTopBar = ({ percent }) => {
 };
 
 export const NotFoundContent = () => {
-  return <p>Trống!</p>;
+  return <p className="text-white">Trống!</p>;
 };

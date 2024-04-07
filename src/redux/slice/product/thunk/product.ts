@@ -3,10 +3,12 @@ import {
   addProductData,
   deleteProductById,
   editProductData,
+  filterProductByCategory,
   getAllProduct,
   getAllProductsByCategory,
   getOneProduct,
   importData,
+  searchProduct,
 } from "../../../../sevices/product";
 export const getProducts = createAsyncThunk(
   "product/getProducts",
@@ -74,3 +76,19 @@ export const getAllProductDataByCategorySlice = createAsyncThunk(
 //     return data
 //   }
 // )
+
+export const filterProductByCategorySlice = createAsyncThunk(
+  "product/filter",
+  async (filter: any) => {
+    const { data }: any = await filterProductByCategory(filter);
+    return data;
+  }
+);
+
+export const searchProductsSlice = createAsyncThunk(
+  "product/Search",
+  async (val: any) => {
+    const { data }: any = await searchProduct(val);
+    return data;
+  }
+);

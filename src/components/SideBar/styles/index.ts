@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const DivstySideBar = styled.div`
   display: block;
-
   @media (max-width: 768px) {
     background-color: none;
   }
@@ -27,24 +26,23 @@ export const SideBarText = styled.div`
   }
 `;
 
-export const DivStyled = styled.div``;
 
 export const DivStyledSearchBarStyle = styled.input`
-  margin: 40px 0px 10px 0px;
   padding: 10px;
-  width: 100%;
+  color:#fff;
+  width:100%;
   background-color: #1f1f22;
   border-radius: 10px;
   font-size: 14px;
   @media (min-width: 768px) {
-    display: none;
+    display: block;
   }
 
   @media (min-width: 1024px) {
     display: block;
   }
   @media (max-width: 768px) {
-    display: none;
+    display: block;
   }
 `;
 

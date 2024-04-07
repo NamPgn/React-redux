@@ -1,5 +1,5 @@
 import React, { useEffect, memo } from "react";
-import ContactAdmin from "../../../components/Contact";
+
 import { MessageErr } from "../../../components/Message/Notification";
 import { useSWRWithAxios } from "../../../hook/Swr";
 import { urlSwr } from "../../../function";
@@ -7,6 +7,7 @@ import CategoryProductSidebar from "../../../components/Category/component/sideb
 import WeekComponent from "../../../components/Week";
 import CategoryHomePage from "../../../components/Category/component/home";
 import styled from "styled-components";
+import LatesCategory from "../../../components/Category/component/latest";
 
 const Video = styled.video``;
 const VideoContainer = styled.div`
@@ -44,11 +45,12 @@ const ConfigHomePage = memo(({ category, isLoading, isError, state }: any) => {
                 src={trailer.url}
               />
             </VideoContainer>
+          <LatesCategory />
+
           </div>
         </div>
         <CategoryProductSidebar />
       </div>
-      <ContactAdmin />
       <WeekComponent />
       <CategoryHomePage
         category={category}

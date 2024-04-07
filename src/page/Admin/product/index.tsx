@@ -1,8 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { memo, useContext, useEffect, useState } from "react";
 import { Spin, Tag } from "antd";
 import {
   getProducts,
   deleteProduct,
+  filterProductByCategorySlice,
+  searchProductsSlice,
 } from "../../../redux/slice/product/thunk/product";
 import { toast } from "react-toastify";
 import {
@@ -30,13 +32,10 @@ import MVRow from "../../../components/MV/Grid";
 import MVCol from "../../../components/MV/Grid/Col";
 import MVLink from "../../../components/Location/Link";
 import { MVError, MVSuccess } from "../../../components/Message";
-const Divstyled = styled.div``;
-const InputStyled = styled.input``;
 
-const ProductAdmin = ({ product, length, isLoading }) => {
+const ProductAdmin = memo(({ product, length, isLoading }: any) => {
   const { category, seri, user }: any = useContext(MyContext);
   const [search, searchState] = useState("");
-  const [filter, setFilter] = useState("");
   const [filterApproved, setFilterApproved] = useState("");
   // const [checkedId, setCheckedId]: any = useState([]);
   // const [checkAllid, setCheckAllid] = useState(false);
@@ -44,24 +43,28 @@ const ProductAdmin = ({ product, length, isLoading }) => {
   const [selectedRowKeys, setSelectedRowKeys]: any = useState<React.Key[]>([]);
   const [page, setPage] = useState(3);
   const dispath = useAppDispatch();
-
+  let dataS = product;
   useEffect(() => {
     dispath(getProducts(page));
-    document.title = "Admin Page";
   }, [init, page]);
-  let dataS = product;
+  const handleSelectChange = (value: any) => {
+    dispath(filterProductByCategorySlice(value));
+  };
+  const handleSearch = (value: any) => {
+    dispath(searchProductsSlice(value));
+  };
   if (search.length) {
     dataS = product.filter((item) =>
       item.name.toLowerCase().includes(search.toLowerCase())
     );
   }
-  if (filter) {
-    dataS = product.filter((item: any) => filter == item.category);
-    filter == "Select" ? product.map((item: any) => dataS.push(item)) : "";
-  }
+  // if (filter) {
+  //   dataS = product.filter((item: any) => filter == item.category);
+  //   filter == "Select" ? product.map((item: any) => dataS.push(item)) : "";
+  // }
   if (filterApproved) {
     dataS = product.filter((item: any) => item.isApproved == false);
-    filter == "Select" && product.map((item: any) => dataS.push(item));
+    filterApproved == "Select" && product.map((item: any) => dataS.push(item));
   }
   // const hanedleCheckboxChange = (id: any) => {
   // 	if (checkedId.includes(id)) {
@@ -85,7 +88,7 @@ const ProductAdmin = ({ product, length, isLoading }) => {
     // setCheckAllid([]); //xóa xong thì về 1 mảng rỗng
     // await deleteMultipleProduct(checkedId);
     const response: any = await deleteMultipleProduct(selectedRowKeys);
-    if (response.success) {
+    if (response.data.success == true) {
       setInit(!init);
       toast.success("Delete products successfully");
     } else {
@@ -104,10 +107,6 @@ const ProductAdmin = ({ product, length, isLoading }) => {
     } else {
       toast.error("Error deleting product");
     }
-  };
-
-  const handleChangeSelect = (value: any) => {
-    setFilter(value); //lọc
   };
 
   const handleChangeSelectApprove = (value: any) => {
@@ -137,7 +136,6 @@ const ProductAdmin = ({ product, length, isLoading }) => {
     const response = await cancelApproveProduct(id);
     if (response.data.success == true) {
       MVSuccess(response.data.message);
-      console.log(response);
       setInit(!init);
     } else {
       MVError("Lỗi rồi!");
@@ -384,8 +382,8 @@ const ProductAdmin = ({ product, length, isLoading }) => {
         <MVCol>
           <MySelect
             placeholder={"Select"}
-            onChange={handleChangeSelect}
-            defaultValue={"Select"}
+            onChange={handleSelectChange}
+            defaultValue={""}
             style={{ width: 300 }}
             options={
               category &&
@@ -394,7 +392,6 @@ const ProductAdmin = ({ product, length, isLoading }) => {
                 value: item._id,
               }))
             }
-            children={undefined}
           />
         </MVCol>
         <MVCol>
@@ -411,16 +408,14 @@ const ProductAdmin = ({ product, length, isLoading }) => {
           />
         </MVCol>
         <MVCol>
-          <Divstyled className="form-outline">
-            <InputStyled
+          <div className="form-outline">
+            <input
               type="search"
               placeholder="search..."
               className="form-control p-2 rounded bg-[#fff]"
-              onChange={(e) => {
-                searchState(e.target.value);
-              }}
+              onChange={(e) => handleSearch(e.target.value)}
             />
-          </Divstyled>
+          </div>
         </MVCol>
       </MVRow>
       <Spin spinning={isLoading} delay={undefined}>
@@ -446,7 +441,6 @@ const ProductAdmin = ({ product, length, isLoading }) => {
       </Spin>
     </>
   );
-};
+});
 
 export default ProductAdmin;
-

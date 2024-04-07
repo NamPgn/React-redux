@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import styled from "styled-components";
 import { Spiner } from "../../Message/Notification";
 import { urlSwr } from "../../../function";
 import { useSWRWithAxios } from "../../../hook/Swr";

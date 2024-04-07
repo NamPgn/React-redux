@@ -54,18 +54,19 @@ const CategoryAdmin = () => {
     formdata.append("time", data.time);
     formdata.append("isActive", data.isActive);
     formdata.append("year", data.year);
+    formdata.append("anotherName", data.anotherName);
     const res = await dispatch(addCateGorySlice(formdata));
-    if (res.payload.success) {
+    if (res.payload.success == true) {
       toast.success("Thành công");
     } else {
       toast.error("Thất bại");
     }
   };
 
-  const handleDelete = (id: string | number) => {
-    if (id) {
+  const handleDelete = async (id: string | number) => {
+    const res = await dispatch(deleteCategorySlice(id));
+    if (res.payload) {
       toast.success("Delete Success");
-      dispatch(deleteCategorySlice(id));
     } else {
       toast.error("Delete Failure");
     }
@@ -204,6 +205,12 @@ const CategoryAdmin = () => {
             <MVInput
               name={"name"}
               label={"Name"}
+              control={control}
+              rules={undefined}
+            />
+            <MVInput
+              name={"anotherName"}
+              label={"Another Name"}
               control={control}
               rules={undefined}
             />

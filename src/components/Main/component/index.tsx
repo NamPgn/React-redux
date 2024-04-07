@@ -42,8 +42,7 @@ const Content = ({ getOneProductDetail }) => {
       </div>
       <div style={{ color: "#fff", margin: "10px 0" }} className="des">
         <div className="text-[#999] flex items-center gap-2 lg:justify-start @screen justify-center">
-          <EyeOutlined />:{getOneProductDetail.view}
-          <span>Lượt xem</span>
+          <EyeOutlined />{getOneProductDetail.view } Lượt xem
         </div>
       </div>
       <div
@@ -51,7 +50,7 @@ const Content = ({ getOneProductDetail }) => {
         style={{ background: "rgb(0 0 0 / 47%)" }}
       >
         Copyright video:
-        <div>{" " +getOneProductDetail.copyright}</div>
+        <div>{" " + getOneProductDetail.copyright}</div>
       </div>
     </>
   );

@@ -7,6 +7,8 @@ export const getAllProduct = async (page): Promise<IProduct> => {
   return await intances.get(`products?page=${page}`);
 };
 
+
+
 export const getOneProduct = async (id: string): Promise<IProduct> => {
   return await intances.get(`product/${id}`);
 };
@@ -40,15 +42,15 @@ export const editProductData = async (data: any): Promise<IProduct> => {
 };
 
 export const importData = async (data: any): Promise<IProduct> => {
-  return await intances.post(`/product/creating/${dataToken.user._id}`, data, {
-    headers: {
-      Authorization: `Bearer ${dataToken.token}`,
-    },
+  return await intances.post(`/products/creating`, data, {
+    // headers: {
+    //   Authorization: `Bearer ${dataToken.token}`,
+    // },
   });
 };
 
 export const deleteMultipleProduct = async (id: string): Promise<IProduct> =>
-  await intances.post(`/product/deleteMultiple/${dataToken.user._id}`, id, {
+  await intances.post(`/products/deleteMultiple/${dataToken.user._id}`, id, {
     headers: {
       Authorization: `Bearer ${dataToken.token}`,
     },
@@ -85,9 +87,17 @@ export const approveProduct = async (id: any) =>
     },
   });
 
-  export const cancelApproveProduct = async (id: any) =>
+export const cancelApproveProduct = async (id: any) =>
   await intances.post(`/product/approve/cancel/${id}/${dataToken.user._id}`, {
     header: {
       Authorization: `Bearer ${dataToken.token}`,
     },
   });
+
+export const filterProductByCategory = async (categoryId) => {
+  return await intances.get(`/product/filter?c=${categoryId}`);
+};
+
+export const searchProduct = async (val: any) => {
+  return await intances.get(`/product/v?name=${val}`);
+}

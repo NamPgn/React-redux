@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
@@ -12,12 +12,21 @@ import { MyButton } from "../../../../components/MV/Button";
 import MVImage from "../../../../components/MV/Image";
 import MVUpload from "../../../../components/MV/Upload";
 import MVInput from "../../../../components/MV/Input";
+import { MySelectWrapper } from "../../../../components/Form/component/select";
+import { MyContext } from "../../../../context";
 declare var Promise: any;
 const EditCategory = () => {
   const dispatch = useAppDispatch();
+  const { weeks } = useContext(MyContext);
   const [state, setState]: any = useState({});
   const { reset, handleSubmit, control } = useForm();
   const { id } = useParams();
+  const weeekOptions =
+    weeks &&
+    weeks?.map((item: any, index: number) => ({
+      label: item.name,
+      value: item._id,
+    }));
   const onsubmit = async (data: any) => {
     const formdata = new FormData();
     formdata.append("_id", data._id);
@@ -31,6 +40,7 @@ const EditCategory = () => {
     formdata.append("time", data.time);
     formdata.append("isActive", data.isActive);
     formdata.append("year", data.year);
+    formdata.append("anotherName", data.anotherName);
     const res = await dispatch(updateCatgorySlice(formdata));
     if (res.payload) {
       toast.success("Edit successfully");
@@ -52,6 +62,12 @@ const EditCategory = () => {
       <MVInput
         name={"name"}
         label={"Category name"}
+        control={control}
+        rules={undefined}
+      />
+      <MVInput
+        name={"anotherName"}
+        label={"Another Name"}
         control={control}
         rules={undefined}
       />
@@ -79,6 +95,12 @@ const EditCategory = () => {
         control={control}
         rules={undefined}
       />
+      <MVInput
+        name={"type"}
+        label={"Type"}
+        control={control}
+        rules={undefined}
+      />
       <MVInput name={"up"} label={"Set"} control={control} rules={undefined} />
       <MVImage
         className="h-[200px] md:h-[300px] lg:h-[400px] transition-opacity duration-300 group-hover:opacity-40"
@@ -90,6 +112,14 @@ const EditCategory = () => {
         label={"Link Image"}
         control={control}
         rules={undefined}
+      />
+      <MySelectWrapper
+        name={"week"}
+        label={"Theo tuần"}
+        control={control}
+        placeholder={"Week"}
+        defaultValue={undefined}
+        options={weeekOptions}
       />
       <MVUpload name={"file"} label={"Image"} control={control} />
       <MyButton htmlType="submit" className="btn btn-primary">

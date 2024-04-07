@@ -4,7 +4,8 @@ import MVLink from "../../Location/Link";
 import { useSWRWithAxios } from "../../../hook/Swr";
 import Dividers from "../../MV/Divider";
 import MVImage from "../../MV/Image";
-import { Progress, Tag } from "antd";
+import { Tag } from "antd";
+import MVText from "../../MV/Text";
 const Container = stylded.div`
 ::-webkit-scrollbar-thumb {
   background: #888;
@@ -22,7 +23,6 @@ background: rgb(28, 28, 30);
 border-radius: 10px;
 margin: 5px 0px;
 `;
-const conicColors = { "0%": "#87d068", "50%": "#ffe58f", "100%": "#ffccc7" };
 const CategoryProductSidebar = () => {
   const {
     data: { data },
@@ -68,6 +68,19 @@ const CategoryProductSidebar = () => {
                   {item.sumSeri + " Tập VietSub"}
                 </Tag>
                 <Tag color="#2db7f5">{item.type ? item.type : "null"}</Tag>
+                <div className="text-sm text-gray-400 mt-2">
+                  <div className="flex items-center mt-1 justify-between">
+                    <MVText className="mr-2 text-gray-300">
+                      Full HD/Vietsub
+                    </MVText>
+                    <MVText className="mr-2 text-gray-300">
+                      {item.typecm}
+                    </MVText>
+                    <MVText className="text-gray-400 text-sm">
+                      ({item.time})
+                    </MVText>
+                  </div>
+                </div>
               </div>
             </CategorySideBarStyles>
           ))}

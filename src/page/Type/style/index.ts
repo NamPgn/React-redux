@@ -20,11 +20,6 @@ export const DivStyledGrid = styled.div`
   }
 `;
 export const DivStyledContent = styled.div``;
-export const DivStyledItem = styled.div`
-  &:hover {
-    cursor: pointer;
-  }
-`;
 export const DivStyledImage = styled.img`
   border-radius: 5px;
 `;

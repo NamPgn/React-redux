@@ -1,12 +1,12 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import GetAllCategoryNotRequest from "../../../components/Category/component/other";
-import CategoryProductComponent from "../../../components/Category";
+import CategoryPage from "../../../components/Category";
 const CategoryProduct = () => {
   const { id } = useParams();
   return (
     <div >
-      <CategoryProductComponent />
+      <CategoryPage />
       <GetAllCategoryNotRequest id={id} />
     </div>
   );

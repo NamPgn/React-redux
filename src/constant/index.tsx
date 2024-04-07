@@ -1,10 +1,13 @@
 import {
   AreaChartOutlined,
+  AuditOutlined,
   BarChartOutlined,
   BlockOutlined,
   FundOutlined,
   HomeOutlined,
+  LeftOutlined,
   RiseOutlined,
+  WeiboSquareOutlined,
 } from "@ant-design/icons";
 import React from "react";
 
@@ -45,6 +48,9 @@ const Icons = [
   <RiseOutlined />,
   <BarChartOutlined />,
   <FundOutlined />,
+  <WeiboSquareOutlined />,
+  <LeftOutlined />,
+  <AuditOutlined />
 ];
 
 const columsCart = [
@@ -360,7 +366,55 @@ export const settingsSlider = {
   pauseOnHover: true,
   initialSlide: 0,
   autoplay: true,
-  autoplaySpeed: 4000,
+  autoplaySpeed: 2000,
+  
+  responsive: [
+    {
+      breakpoint: 1440,
+      settings: {
+        slidesToShow: 5,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: true,
+      },
+    },
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: true,
+      },
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        initialSlide: 2,
+      },
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+      },
+    },
+  ],
+};
+export const settingsSliderLatest = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 5,
+  slidesToScroll: 2,
+  pauseOnHover: true,
+  initialSlide: 0,
+  autoplay: false,
+  autoplaySpeed: 2000,
+  
   responsive: [
     {
       breakpoint: 1440,

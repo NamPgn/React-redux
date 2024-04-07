@@ -32,11 +32,7 @@ const DetailComponent = () => {
   const getOneProductDetail = useAppSelector(getOneProduct$);
   const isLoadingDetail = useAppSelector(ProductsPending$);
   const [commentAdded, setCommentAdded] = useState(false); // tạo state
-  const [link, setLink] = useState(
-    getOneProductDetail
-      ? getOneProductDetail.dailyMotionServer
-      : getOneProductDetail.server2
-  );
+  const [link, setLink] = useState("");
   const { id } = useParams();
   const { c } = queryString.parse(window.location.href.split("?")[1]); //lấy data url
   const [activeLink, setActiveLink] = useState("dailyMotion");
@@ -44,11 +40,11 @@ const DetailComponent = () => {
   useEffect(() => {
     dispatch(getProduct(id));
     dispatch(getAllProductDataByCategorySlice(c));
-    setLink(getOneProductDetail.dailyMotionServer);
+    setLink(getOneProductDetail.dailyMotionServer); 
     window.scrollTo({
       top: 0,
     });
-  }, [id, c, commentAdded, getOneProductDetail.dailyMotionServer]); //nếu mà 2 thằng này có thay đổi thì rereder
+  }, [id, c, commentAdded,getOneProductDetail.dailyMotionServer]); //nếu mà 2 thằng này có thay đổi thì rereder
   return (
     <div className="flex justify-center mt-4" style={{ gap: "10px" }}>
       <DivContainer className="col-md-12">
@@ -56,7 +52,8 @@ const DetailComponent = () => {
           (!isLoadingDetail ? (
             <React.Fragment>
               <Movie className="d-flex justify-content-center relative">
-                {getOneProductDetail.dailyMotionServer ? (
+                {getOneProductDetail.dailyMotionServer !== "" &&
+                getOneProductDetail.server2 !== "" ? (
                   <iframe
                     title="vimeo-player"
                     className="absolute"
@@ -82,6 +79,7 @@ const DetailComponent = () => {
                 </Dividers>
                 <div className="md:text-sm lg:text-base text-sm flex items-center justify-center gap-4 px-4 py-3">
                   <MyButton
+                    disabled={getOneProductDetail.link !== "" ? false : true}
                     onClick={() => {
                       setActiveLink("link1");
                       setLink(getOneProductDetail.link);
@@ -141,18 +139,18 @@ const DetailComponent = () => {
                 </DivStyledItem>
                 <DivStyledContentText className="lg:w-9/12 md:w-full text-center lg:text-start">
                   {/* content */}
-                  <CartAddContent
-                    item={getOneProductDetail}
-                    id={id}
-                    categoryId={c}
-                  />
+                  <CartAddContent item={getOneProductDetail} id={id} />
                   <Content getOneProductDetail={getOneProductDetail} />
                   <SeriDetailProducts seriProduct={productByCategory} />
                   <div className="text-[#999] lg:text-md sm:text-sm mt-2 mb-2">
                     <Dividers textColor={"#fff"} orientation="left">
                       Mô tả:
                     </Dividers>
-                    {getOneProductDetail.descriptions}
+                    {
+                      getOneProductDetail &&
+                      (getOneProductDetail.category?.descriptions ||
+                        getOneProductDetail.descriptions)
+                    }
                   </div>
                 </DivStyledContentText>
               </DivStyledContent>

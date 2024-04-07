@@ -15,3 +15,19 @@ export const pushCateTotype = async (id, body) =>
       Authorization: `Bearer ${Auth.token}`,
     },
   });
+
+export const addBigCategory = async (data: any) => {
+  return await intances.post(`/type/${Auth.user._id}`, data, {
+    headers: {
+      Authorization: `Bearer ${Auth.token}`,
+    },
+  });
+};
+
+export const delBigCategory = async (id: any) => {
+  return await intances.delete(`/type/${id}/${Auth.user._id}`, {
+    headers: {
+      Authorization: `Bearer ${Auth.token}`,
+    },
+  });
+};

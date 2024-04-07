@@ -3,12 +3,9 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { resgisterLogin } from '../../../../redux/slice/userSlice';
 import { toast } from 'react-toastify';
-import styled from 'styled-components';
 import { useAppDispatch } from '../../../../hook';
 import { MyButton } from '../../../../components/MV/Button';
 import MVInput from '../../../../components/MV/Input';
-const Divstyled = styled.div``;
-const InputStyled = styled.input``;
 const Adduser = () => {
   const { register, handleSubmit, control } = useForm();
   const dispath = useAppDispatch();
@@ -33,39 +30,39 @@ const Adduser = () => {
     });
   }
   return (
-    <Divstyled>
+    <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Divstyled className="mb-3">
+        <div className="mb-3">
           <MVInput
             name={'username'}
             label={'User name'}
             control={control}
             rules={undefined}
           />
-        </Divstyled>
-        <Divstyled className="mb-3">
+        </div>
+        <div className="mb-3">
           <MVInput
             name={'email'}
             label={'Email'}
             control={control}
             rules={undefined}
           />
-        </Divstyled>
-        <Divstyled className="mb-3">
+        </div>
+        <div className="mb-3">
           <MVInput
             name={'password'}
             label={'Password'}
             control={control}
             rules={undefined}
           />
-        </Divstyled>
-        <Divstyled className="mb-3">
+        </div>
+        <div className="mb-3">
           <label className="form-label">Image</label>
-          <InputStyled type="file"  {...register("image")} className="form-control" required />
-        </Divstyled>
+          <input type="file"  {...register("image")} className="form-control" required />
+        </div>
         <MyButton className="btn btn-primary">Submit</MyButton>
       </form>
-    </Divstyled>
+    </div>
   )
 }
 

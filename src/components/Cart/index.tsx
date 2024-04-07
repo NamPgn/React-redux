@@ -11,18 +11,12 @@ import MVLink from "../Location/Link";
 import { MVSuccess } from "../Message";
 import MVImage from "../MV/Image";
 import MVTitle from "../MV/Title";
-const Divstyled = styled.div``;
 const Psyled = styled.p``;
 const CartUser = () => {
   const { Auth, user, isLoading, setReset, setRerender } =
     useContext(MyContext) || {};
   if (isLoading) {
-    return (
-      <Spiner
-        children={undefined}
-        size={"large"}
-      />
-    );
+    return <Spiner children={undefined} size={"large"} />;
   }
   if (!Auth) {
     return <Navigate to={"/signin"} />;
@@ -33,8 +27,9 @@ const CartUser = () => {
   };
 
   return (
-    <Divstyled className="p-3">
+    <div className="p-3">
       <MVTitle
+        className="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-teal-400 dark:text-gray-200"
         style={{
           color: "#fff",
         }}
@@ -51,16 +46,16 @@ const CartUser = () => {
       >
         Làm mới
       </MyButton>
-      <Divstyled>
+      <div>
         {user.cart && user.cart?.length ? (
           user.cart
             .filter((item: any) => item.product !== null)
             .map((item: any, index: any) => (
-              <Divstyled key={index}>
-                <Divstyled className="mb-3">
-                  <Divstyled className="searhValue" key={index}>
+              <div key={index}>
+                <div className="mb-3">
+                  <div className="searhValue" key={index}>
                     <div className="lg:w-3/12 md:w-3/12 w-3/12 lg:h-52 md:h-48 h-32">
-                      <Divstyled className="h-full">
+                      <div className="h-full">
                         {item.product && (
                           <MVLink
                             to={
@@ -77,7 +72,7 @@ const CartUser = () => {
                             />
                           </MVLink>
                         )}
-                      </Divstyled>
+                      </div>
                     </div>
                     <div className="lg:w-9/12 lg:text-[14px] md:text-[13px] text-[12px]">
                       {item.product && (
@@ -88,7 +83,7 @@ const CartUser = () => {
                             `?c=${item.product.category} `
                           }
                         >
-                          <Divstyled className="text-white mt-3 lg:text-[15px] md:text-[14px] text-[13px]">
+                          <div className="text-white mt-3 lg:text-[15px] md:text-[14px] text-[13px]">
                             {item.product && (
                               <div>
                                 {item.product.name + " " + item.product.seri}
@@ -105,7 +100,7 @@ const CartUser = () => {
                               </Psyled>
                             </div>
                             {/* <p className='des des_cart'>Mô tả: {filterCate(category, item.product.category).des}</p> */}
-                          </Divstyled>
+                          </div>
                         </MVLink>
                       )}
                       {item.product && (
@@ -117,15 +112,15 @@ const CartUser = () => {
                         />
                       )}
                     </div>
-                  </Divstyled>
-                </Divstyled>
-              </Divstyled>
+                  </div>
+                </div>
+              </div>
             ))
         ) : (
           <NotFoundContent />
         )}
-      </Divstyled>
-    </Divstyled>
+      </div>
+    </div>
   );
 };
 

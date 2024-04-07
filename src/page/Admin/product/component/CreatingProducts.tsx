@@ -1,44 +1,53 @@
-import React from 'react'
-import { useForm } from 'react-hook-form';
-import { importDataFile } from '../../../../redux/slice/product/thunk/product';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { useAppDispatch } from '../../../../hook';
-const Divstyled = styled.div``;
-const BtnStyled = styled.button``;
-const InputStyled = styled.input``;
+import React from "react";
+import { useForm } from "react-hook-form";
+import { importDataFile } from "../../../../redux/slice/product/thunk/product";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../../../hook";
+import MVUpload from "../../../../components/MV/Upload";
+import { MyButton } from "../../../../components/MV/Button";
+import { MVError, MVSuccess } from "../../../../components/Message";
+import MVInput from "../../../../components/MV/Input";
 const CreatingProducts = () => {
-  const { handleSubmit, register } = useForm();
-  const navigate = useNavigate();
+  const { handleSubmit, control } = useForm();
   const dispatch = useAppDispatch();
-  const onsubmit = (data: any) => {
-    const formData = new FormData();
-    formData.append('xlsxProduct', data.xlsxProduct[0]);
-    dispatch(importDataFile(formData));
-    toast.success(`Thêm sản phẩm thành công`, {
-      position: "bottom-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    navigate('/dashboard/products');
-  }
+  const onsubmit = async (data: any) => {
+    const formdata = new FormData();
+    formdata.append("selectedSheets", data.selectedSheets);
+    formdata.append("excelProduct", data.excelProduct);
+    const res = await dispatch(importDataFile(formdata));
+    if (res.payload.success == true) {
+      MVSuccess(`Add product success`);
+    } else {
+      MVError("Add product failure");
+    }
+  };
   return (
-    <Divstyled>
-      <Divstyled style={{ display: "flex", justifyContent: "center", textAlign: "center", height: "100vh" }}>
-        <form onSubmit={handleSubmit(onsubmit)}>
-          <label className="form-label" >Default file input example</label>
-          <InputStyled type="file" {...register('xlsxProduct')} className="form-control" id="customFile" />
-          <BtnStyled className="btn btn-success" style={{ margin: "20px 0" }}>Submit</BtnStyled>
-        </form>
-      </Divstyled>
-    </Divstyled>
-  )
-}
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        textAlign: "center",
+        height: "100vh",
+      }}
+    >
+      <form onSubmit={handleSubmit(onsubmit)}>
+        <MVInput
+          name={"selectedSheets"}
+          label={"Index Sheet"}
+          control={control}
+          rules={undefined}
+        />
+        <MVUpload
+          name={"excelProduct"}
+          label={"Add Multiple file"}
+          control={control}
+        />
+        <MyButton htmlType="submit" type="primary">
+          Create
+        </MyButton>
+      </form>
+    </div>
+  );
+};
 
-export default CreatingProducts
+export default CreatingProducts;
