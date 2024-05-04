@@ -27,6 +27,7 @@ import Dividers from "../MV/Divider";
 import { MyButton } from "../MV/Button";
 import { Spiner } from "../Message/Notification";
 import { ProductsPending$ } from "../../redux/selectors/product";
+import { Alert, Result } from "antd";
 const DetailComponent = () => {
   const productByCategory = useAppSelector(getAllProductsByCategory$);
   const getOneProductDetail = useAppSelector(getOneProduct$);
@@ -40,11 +41,11 @@ const DetailComponent = () => {
   useEffect(() => {
     dispatch(getProduct(id));
     dispatch(getAllProductDataByCategorySlice(c));
-    setLink(getOneProductDetail.dailyMotionServer); 
+    setLink(getOneProductDetail.dailyMotionServer);
     window.scrollTo({
       top: 0,
     });
-  }, [id, c, commentAdded,getOneProductDetail.dailyMotionServer]); //nếu mà 2 thằng này có thay đổi thì rereder
+  }, [id, c, commentAdded, getOneProductDetail.dailyMotionServer]); //nếu mà 2 thằng này có thay đổi thì rereder
   return (
     <div className="flex justify-center mt-4" style={{ gap: "10px" }}>
       <DivContainer className="col-md-12">
@@ -60,13 +61,27 @@ const DetailComponent = () => {
                     src={link}
                     style={{ width: "100%", height: "100%" }}
                   />
-                ) : (
+                ) : getOneProductDetail.trailer !== "" ? (
                   <iframe
                     title="vimeo-player"
                     className="absolute"
                     style={{ width: "100%", height: "100%" }}
                     src={getOneProductDetail.trailer + "?autoplay=1&mute=1"}
                   />
+                ) : (
+                  <Result
+                    className="absolute inset-0 text-white"
+                    status="500"
+                    title="500"
+                    subTitle="Phim này đang trong quá trình cập nhật video. Vui lòng quay lại sau."
+                    extra={<MyButton type="primary">Back Home</MyButton>}
+                  />
+                  // <Alert
+                  //   message="Video đang được cập nhật"
+                  //   description=""
+                  //   type="info"
+                  //   showIcon
+                  // />
                 )}
               </Movie>
               <Server className="mt-4 rounded">
@@ -146,11 +161,9 @@ const DetailComponent = () => {
                     <Dividers textColor={"#fff"} orientation="left">
                       Mô tả:
                     </Dividers>
-                    {
-                      getOneProductDetail &&
+                    {getOneProductDetail &&
                       (getOneProductDetail.category?.descriptions ||
-                        getOneProductDetail.descriptions)
-                    }
+                        getOneProductDetail.descriptions)}
                   </div>
                 </DivStyledContentText>
               </DivStyledContent>

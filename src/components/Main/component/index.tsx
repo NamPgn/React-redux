@@ -4,8 +4,9 @@ import React, { useState } from "react";
 import { Rate } from "antd";
 import MyProgress from "../../MV/Progress";
 const Content = ({ getOneProductDetail }) => {
-  const desc = ["Terrible", "Bad", "Normal", "Good", "Very good"];
+  const desc = ["Rất Tệ", "Tệ", "Xem Được", "Hay", "Rấc Hay"];
   const [value, setValue] = useState(3);
+  console.log(Math.floor(Math.random() * (51 - 36)) + 36)
   return (
     <>
       <span className="text-white">
@@ -42,7 +43,7 @@ const Content = ({ getOneProductDetail }) => {
       </div>
       <div style={{ color: "#fff", margin: "10px 0" }} className="des">
         <div className="text-[#999] flex items-center gap-2 lg:justify-start @screen justify-center">
-          <EyeOutlined />{getOneProductDetail.view } Lượt xem
+          <EyeOutlined />{getOneProductDetail.view * 36} Lượt xem
         </div>
       </div>
       <div
