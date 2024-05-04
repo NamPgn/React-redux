@@ -6,16 +6,17 @@ import { BrowserRouter } from "react-router-dom";
 import "antd/dist/reset.css";
 import { Provider } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
-import { store } from "./redux/store/store";
-import { ChangeContextProvider, MyContextProvider } from "./context";
+import { store, persistor } from "./redux/store/store";
+import { MyContextProvider } from "./context";
+import { PersistGate } from "redux-persist/integration/react";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
+    <PersistGate persistor={persistor}>
       <MyContextProvider>
-        <ChangeContextProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </ChangeContextProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </MyContextProvider>
+    </PersistGate>
   </Provider>
 );

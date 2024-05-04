@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loggedInRoutes, routerNavBar } from "../../../router";
-import { ChangeContext, MyContext } from "../../../context";
+import { MyContext } from "../../../context";
 import { DivContentMkt, DivLink, DivstyledMkt } from "../styles";
 import {
   HomeOutlined,
@@ -11,9 +11,7 @@ import {
   MenuFoldOutlined,
   MenuOutlined,
   MenuUnfoldOutlined,
-  SearchOutlined,
   SettingOutlined,
-  UserOutlined,
 } from "@ant-design/icons";
 import { Drawer } from "antd";
 import MVMenuItem from "../../MV/Menu";
@@ -25,6 +23,7 @@ import MVLink from "../../Location/Link";
 import { MVError } from "../../Message";
 import SearchResults from "../../Search";
 import { searCategory } from "../../../sevices/category";
+import { debounce } from "lodash";
 const icon = [
   <HomeOutlined />,
   <LoginOutlined />,
@@ -32,11 +31,15 @@ const icon = [
   <SettingOutlined />,
 ];
 const Header = () => {
-  const { Auth, user, isLoggedInState } = useContext(MyContext) ?? {};
+  const {
+    Auth,
+    user,
+    isLoggedInState,
+    state: change,
+    handleClick: handleClickChangeSidebar,
+  } = useContext(MyContext) ?? {};
   const [scrollUp, setScrollUp] = useState(false);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
-  const { state: change, handleClick: handleClickChangeSidebar } =
-    useContext(ChangeContext) ?? {};
   const [navSize, setnavSize] = useState("20px 10px");
   const [open, setOpen] = useState(false);
   const placement = "left";
@@ -63,14 +66,20 @@ const Header = () => {
       naviagate("/cart/user");
     }
   };
+
+  const debouncedSearch = debounce(async (val: string) => {
+    const { data }: any = await searCategory(val);
+    setResults(data);
+  }, 500);
+
   const handleChange = async (val: any) => {
     setSearchValue(val);
+    debouncedSearch(val);
   };
   useEffect(() => {
-    (async () => {
-      const { data }: any = await searCategory(searchValue);
-      setResults(data);
-    })();
+    return () => {
+      debouncedSearch.cancel();
+    };
   }, [searchValue]);
   useEffect(() => {
     setScrollUp(!false);
@@ -145,7 +154,7 @@ const Header = () => {
             </MVCol>
           </MVRow>
         </MVCol>
-        <MVCol span={1}>
+        <MVCol span={1} className="text-end">
           <AuthHeader
             user={user}
             isLoggedInState={isLoggedInState}

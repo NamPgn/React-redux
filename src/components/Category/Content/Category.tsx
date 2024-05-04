@@ -4,6 +4,7 @@ import MVLink from "../../Location/Link";
 import MVImage from "../../MV/Image";
 import MVTitle from "../../MV/Title";
 import { PlayCircleOutlined } from "@ant-design/icons";
+import { NotFoundContent } from "../../Message/Notification";
 
 interface CategoryContent {
   text?: string;
@@ -27,6 +28,7 @@ const CategoryContents = memo(
     year,
     products,
   }: CategoryContent) => {
+    const lastItem: any = products ? products[products.length - 1] : "";
     return (
       <div className="w-full">
         <div className="relative group">
@@ -37,9 +39,11 @@ const CategoryContents = memo(
               className="h-[200px] md:h-[300px] lg:h-[400px] object-cover transition-opacity duration-300 group-hover:opacity-40 rounded-lg"
             />
             <div className="absolute top-0 left-0 bg-[#e66f20] text-white text-xs rounded-[4px] px-2 py-1 font-medium">
-              {sumSeri
-                ? `${sumSeri}/${products ? products.length : "0"} Tập Vietsub`
-                : ""}
+              {lastItem ? (
+                `Tập ${lastItem.seri}/${sumSeri} Vietsub`
+              ) : (
+                <NotFoundContent />
+              )}
             </div>
             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <PlayCircleOutlined className="text-white text-5xl" />

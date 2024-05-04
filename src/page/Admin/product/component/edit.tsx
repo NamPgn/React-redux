@@ -54,6 +54,7 @@ const EditProduct = () => {
     formdata.append("dailyMotionServer", data.dailyMotionServer);
     formdata.append("link", data.link);
     formdata.append("imageLink", data.image);
+    formdata.append("view", data.view);
     const res = await dispatch(editProduct(formdata));
     if (res.payload.success == true) {
       toast.success(`Sửa ${data.name} công`);
@@ -177,6 +178,7 @@ const EditProduct = () => {
           control={control}
           rules={undefined}
         />
+      
         {/** Thể loại của phim tập*/}
         <MySelectWrapper
           label={"Category"}

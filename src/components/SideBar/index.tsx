@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { ChangeContext, MyContext } from "../../context";
+import { MyContext } from "../../context";
 import {
   DivStyledRouter,
   DivStyledTitle,
@@ -19,8 +19,7 @@ import { Icons } from "../../constant";
 import MVLink from "../Location/Link";
 import ContactAdmin from "../Contact";
 const SideBar = () => {
-  const { seri, loadingSeri }: any = useContext(MyContext) || {};
-  const { state } = useContext(ChangeContext) || {};
+  const { seri, loadingSeri, state }: any = useContext(MyContext) || {};
   const sidebarWidth = state ? "w-1/12" : "w-2/12";
   return (
     <DivstySideBar className={sidebarWidth}>

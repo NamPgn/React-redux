@@ -119,7 +119,7 @@ const AuthHeader = ({ Auth, isLoggedInState, user, style }) => {
                 style={{
                   textTransform: "uppercase",
                 }}
-                secondary
+                type={"secondary"}
                 level={5}
               >
                 {user?.username}
@@ -165,7 +165,7 @@ const AuthHeader = ({ Auth, isLoggedInState, user, style }) => {
                 style={{
                   textTransform: "uppercase",
                 }}
-                secondary
+                type={"secondary"}
                 level={5}
               >
                 {"Hi"}

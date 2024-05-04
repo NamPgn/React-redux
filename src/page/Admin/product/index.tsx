@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import {
   approveProduct,
   cancelApproveProduct,
+  clearCacheProducts,
   deleteMultipleProduct,
 } from "../../../sevices/product";
 import styled from "styled-components";
@@ -19,6 +20,7 @@ import { MyButton } from "../../../components/MV/Button";
 import MySelect from "../../../components/MV/Select";
 import {
   CheckOutlined,
+  ClearOutlined,
   CloseCircleOutlined,
   DeleteOutlined,
   EditOutlined,
@@ -34,24 +36,34 @@ import MVLink from "../../../components/Location/Link";
 import { MVError, MVSuccess } from "../../../components/Message";
 
 const ProductAdmin = memo(({ product, length, isLoading }: any) => {
+  const [page, setPage] = useState(0); // Đặt trang mặc định là trang cuối cùng
   const { category, seri, user }: any = useContext(MyContext);
+  const [dataLength, setDataLength] = useState();
   const [search, searchState] = useState("");
   const [filterApproved, setFilterApproved] = useState("");
   // const [checkedId, setCheckedId]: any = useState([]);
   // const [checkAllid, setCheckAllid] = useState(false);
   const [init, setInit] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys]: any = useState<React.Key[]>([]);
-  const [page, setPage] = useState(3);
-  const dispath = useAppDispatch();
+  const dispatch = useAppDispatch();
   let dataS = product;
   useEffect(() => {
-    dispath(getProducts(page));
-  }, [init, page]);
+    const itemsPerPage = 40;
+    const totalPages = Math.ceil(length / itemsPerPage);
+    const defaultPage:any = totalPages;
+    setDataLength(defaultPage);
+    setPage(defaultPage);
+    dispatch(getProducts(page));
+  }, [init, dataLength]);
   const handleSelectChange = (value: any) => {
-    dispath(filterProductByCategorySlice(value));
+    dispatch(filterProductByCategorySlice(value));
   };
   const handleSearch = (value: any) => {
-    dispath(searchProductsSlice(value));
+    dispatch(searchProductsSlice(value));
+  };
+  const handlePageChangePage = (value) => {
+    setPage(value);
+    dispatch(getProducts(value));
   };
   if (search.length) {
     dataS = product.filter((item) =>
@@ -84,7 +96,7 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
   // }
   //bấm để cút
   const handleDeleteSelectedData = async () => {
-    // dispath(deleteMultipleData(checkedId)) //xóa theo mảng
+    // dispatch(deleteMultipleData(checkedId)) //xóa theo mảng
     // setCheckAllid([]); //xóa xong thì về 1 mảng rỗng
     // await deleteMultipleProduct(checkedId);
     const response: any = await deleteMultipleProduct(selectedRowKeys);
@@ -101,7 +113,7 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
   };
 
   const confirm = async (id) => {
-    const response = await dispath(deleteProduct(id));
+    const response = await dispatch(deleteProduct(id));
     if (response.payload.success) {
       toast.success("Delete product successfully");
     } else {
@@ -139,6 +151,15 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
       setInit(!init);
     } else {
       MVError("Lỗi rồi!");
+    }
+  };
+
+  const handleClearCache = async () => {
+    const res = await clearCacheProducts();
+    if (res.data.suscess == true) {
+      MVSuccess(res.data.message);
+    } else {
+      MVError(res.data.message);
     }
   };
   const columnsProduct = [
@@ -357,24 +378,28 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
         </MVCol>
         <MVCol>
           <MVLink to={"/dashboard/product/add"}>
-            <MyButton icon={<PlusOutlined />} className="flex items-center">
+            <MyButton
+              icon={<PlusOutlined />}
+              type="primary"
+              className="flex items-center"
+            >
               Add Product
             </MyButton>
           </MVLink>
         </MVCol>
         <MVCol>
           <MVLink icon={<PlusOutlined />} to={"/dashboard/product/creacting"}>
-            <MyButton>Add Multiple</MyButton>
+            <MyButton className="bg-green-400 ">Add Multiple</MyButton>
+          </MVLink>
+        </MVCol>
+        <MVCol>
+          <MVLink to={"/dashboard/product/add"} >
+            <MyButton className="bg-yellow-400">Export PDF</MyButton>
           </MVLink>
         </MVCol>
         <MVCol>
           <MVLink to={"/dashboard/product/add"}>
-            <MyButton>Export PDF</MyButton>
-          </MVLink>
-        </MVCol>
-        <MVCol>
-          <MVLink to={"/dashboard/product/add"}>
-            <MyButton danger shape="round">
+            <MyButton className="bg-purple-500" shape="round">
               Export Excel
             </MyButton>
           </MVLink>
@@ -412,10 +437,21 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
             <input
               type="search"
               placeholder="search..."
-              className="form-control p-2 rounded bg-[#fff]"
+              className="form-control p-2 rounded bg-[#fff] shadow-sm"
               onChange={(e) => handleSearch(e.target.value)}
             />
           </div>
+        </MVCol>
+        <MVCol>
+          <MyButton
+            onClick={() => handleClearCache()}
+            icon={<PlusOutlined />}
+            danger
+            className="flex items-center"
+          >
+            <ClearOutlined />
+            Clear Products Redis
+          </MyButton>
         </MVCol>
       </MVRow>
       <Spin spinning={isLoading} delay={undefined}>
@@ -432,9 +468,7 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
             showSizeChanger: true,
             pageSizeOptions: ["40", "80", "120"],
             current: page,
-            onChange: (value) => {
-              setPage(value);
-            },
+            onChange: handlePageChangePage,
             total: length,
           }}
         />

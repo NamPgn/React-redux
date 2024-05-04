@@ -32,7 +32,6 @@ const EditCategory = () => {
     formdata.append("_id", data._id);
     formdata.append("name", data.name);
     formdata.append("des", data.des);
-    formdata.append("sumSeri", data.sumSeri);
     formdata.append("week", data.week);
     formdata.append("type", data.type);
     formdata.append("file", data.file);
@@ -41,6 +40,7 @@ const EditCategory = () => {
     formdata.append("isActive", data.isActive);
     formdata.append("year", data.year);
     formdata.append("anotherName", data.anotherName);
+    formdata.append("sumSeri", data.sumSeri);
     const res = await dispatch(updateCatgorySlice(formdata));
     if (res.payload) {
       toast.success("Edit successfully");
@@ -103,6 +103,7 @@ const EditCategory = () => {
       />
       <MVInput name={"up"} label={"Set"} control={control} rules={undefined} />
       <MVImage
+        style={{ width: "250px" }}
         className="h-[200px] md:h-[300px] lg:h-[400px] transition-opacity duration-300 group-hover:opacity-40"
         src={state && state.linkImg}
         alt={state.name}
@@ -110,6 +111,12 @@ const EditCategory = () => {
       <MVInput
         name={"linkImg"}
         label={"Link Image"}
+        control={control}
+        rules={undefined}
+      />
+      <MVInput
+        name={"sumSeri"}
+        label={"Sum seri"}
         control={control}
         rules={undefined}
       />

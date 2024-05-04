@@ -7,8 +7,6 @@ export const getAllProduct = async (page): Promise<IProduct> => {
   return await intances.get(`products?page=${page}`);
 };
 
-
-
 export const getOneProduct = async (id: string): Promise<IProduct> => {
   return await intances.get(`product/${id}`);
 };
@@ -100,4 +98,12 @@ export const filterProductByCategory = async (categoryId) => {
 
 export const searchProduct = async (val: any) => {
   return await intances.get(`/product/v?name=${val}`);
-}
+};
+
+export const clearCacheProducts = async () => {
+  return await intances.post(`/products/clear/${dataToken.user._id}`, {
+    header: {
+      Authorization: `Bearer ${dataToken.token}`,
+    },
+  });
+};

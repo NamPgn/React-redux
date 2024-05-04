@@ -49,8 +49,8 @@ const Content = ({ getOneProductDetail }) => {
         className="p-3 mt-3 mb-3 text-white rounded  flex items-center lg:justify-start @screen justify-center"
         style={{ background: "rgb(0 0 0 / 47%)" }}
       >
-        Copyright video:
-        <div>{" " + getOneProductDetail.copyright}</div>
+        Copyright video: 
+        <div className="text-slate-400">{" " + getOneProductDetail.copyright}</div>
       </div>
     </>
   );

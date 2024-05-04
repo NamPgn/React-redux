@@ -7,6 +7,7 @@ import { PlayCircleOutlined } from "@ant-design/icons";
 import { settingsSliderLatest } from "../../../constant";
 import SliderComponent from "../../Slider";
 import MVTitle from "../../MV/Title";
+import { NotFoundContent } from "../../Message/Notification";
 
 const LatesCategory = () => {
   const {
@@ -34,8 +35,11 @@ const LatesCategory = () => {
                         className="h-[150px] md:h-[180px] lg:h-[220px] object-cover transition-opacity duration-300 group-hover:opacity-40 rounded-lg"
                       />
                       <div className="absolute top-0 left-0 bg-[#e66f20] text-white text-xs rounded-[4px] px-1 md:px-2 py-1 font-medium">
-                        {item?.sumSeri &&
-                          `Tập ${lastItem.seri}/${item.sumSeri} Vietsub`}
+                      {lastItem ? (
+                `Tập ${lastItem.seri}/${item.sumSeri} Vietsub`
+              ) : (
+                <NotFoundContent />
+              )}
                       </div>
                       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <PlayCircleOutlined className="text-white text-5xl" />

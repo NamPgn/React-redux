@@ -17,6 +17,11 @@ export const MyContextProvider = (props) => {
   const [reset, setReset] = useState(false);
   const [rerender, setRerender] = useState(false);
   const [page, setPage] = useState(1);
+  const [state, setState] = useState(false);
+  const handleClick = () => {
+    setState(!state);
+  };
+
   useEffect(() => {
     if (Auth) {
       dispatch(getUser_id(Auth.user._id));
@@ -66,26 +71,12 @@ export const MyContextProvider = (props) => {
     weeks,
     setPage,
     page,
-  };
-  return (
-    <MyContext.Provider value={value}>{props.children}</MyContext.Provider>
-  );
-};
 
-export const ChangeContext = createContext(null);
-export const ChangeContextProvider = (props) => {
-  const [state, setState] = useState(false);
-  const handleClick = () => {
-    setState(!state);
-  };
 
-  var value = {
     handleClick,
     state,
   };
   return (
-    <ChangeContext.Provider value={value}>
-      {props.children}
-    </ChangeContext.Provider>
+    <MyContext.Provider value={value}>{props.children}</MyContext.Provider>
   );
 };

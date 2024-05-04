@@ -2,14 +2,12 @@ import React, { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "../components/Teamplates/Header";
 import Footer from "../components/Teamplates/Footer";
-import styled from "styled-components";
 import SideBar from "../components/SideBar";
 import Main from ".";
-import { ChangeContext } from "../context";
-
+import { MyContext } from "../context";
 
 const LayoutWebsite = () => {
-  const { state } = useContext(ChangeContext) || {};
+  const { state } = useContext(MyContext) || {};
   return (
     <Main className="text-start">
       <div>
@@ -23,7 +21,7 @@ const LayoutWebsite = () => {
           <Outlet />
         </div>
       </div>
-      
+
       <div>
         <Footer />
       </div>

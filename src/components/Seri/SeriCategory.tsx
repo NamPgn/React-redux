@@ -14,7 +14,7 @@ const SeriNumberMovie = () => {
   );
 
   if (isLoading) {
-    return "Loading....";
+    return <>Loading....</>;
   }
   if (error) {
     return <MessageErr />;
