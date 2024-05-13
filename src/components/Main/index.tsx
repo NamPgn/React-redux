@@ -27,7 +27,7 @@ import Dividers from "../MV/Divider";
 import { MyButton } from "../MV/Button";
 import { Spiner } from "../Message/Notification";
 import { ProductsPending$ } from "../../redux/selectors/product";
-import { Alert, Result } from "antd";
+import { Result } from "antd";
 const DetailComponent = () => {
   const productByCategory = useAppSelector(getAllProductsByCategory$);
   const getOneProductDetail = useAppSelector(getOneProduct$);
@@ -56,6 +56,7 @@ const DetailComponent = () => {
                 {getOneProductDetail.dailyMotionServer !== "" &&
                 getOneProductDetail.server2 !== "" ? (
                   <iframe
+                    allowFullScreen
                     title="vimeo-player"
                     className="absolute"
                     src={link}
@@ -70,11 +71,10 @@ const DetailComponent = () => {
                   />
                 ) : (
                   <Result
-                    className="absolute inset-0 text-white"
-                    status="500"
-                    title="500"
+                  
+                    icon={"Hiiiii!!"}
+                    className="absolute inset-0 text-white mt-5"
                     subTitle="Phim này đang trong quá trình cập nhật video. Vui lòng quay lại sau."
-                    extra={<MyButton type="primary">Back Home</MyButton>}
                   />
                   // <Alert
                   //   message="Video đang được cập nhật"

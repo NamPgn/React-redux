@@ -20,7 +20,7 @@ const CommentAdmin = () => {
   useEffect(() => {
     dispatch(getAllCommentSlice());
   }, []);
-
+  
   const confirm = async (id, productId) => {
     const dataId = {
       commentId: id,

@@ -10,13 +10,7 @@ import {
   filterProductByCategorySlice,
   searchProductsSlice,
 } from "./thunk/product";
-interface State {
-  value: any[]; // Thay any bằng kiểu dữ liệu chính xác của các phần tử trong mảng
-  isLoading: boolean;
-  getOneProduct: any;
-  getAllProductByCategory: any[];
-  status: any;
-}
+
 const state: any = {
   value: [],
   isLoading: false,
@@ -46,7 +40,7 @@ const productSlice = createSlice({
 
     builder.addCase(addProduct.fulfilled, (state: any, action) => {
       state.value = [action.payload, ...state.value];
-      state.status = action.payload.status;
+      // state.status = action.payload.status;
     });
 
     builder.addCase(editProduct.fulfilled, (state, action) => {

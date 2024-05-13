@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Image, Tag } from "antd";
+import { Image } from "antd";
 import {
   addCateGorySlice,
   deleteCategorySlice,
@@ -22,6 +22,7 @@ import MVInput from "../../../components/MV/Input";
 import MVLink from "../../../components/Location/Link";
 import { TreeSelect } from "antd";
 import { MVError, MVSuccess } from "../../../components/Message";
+import MVTags from "../../../components/MV/Tag";
 
 const CategoryAdmin = () => {
   const dispatch = useAppDispatch();
@@ -113,9 +114,9 @@ const CategoryAdmin = () => {
         duration: item.time,
         isActive:
           item.isActive == 0 ? (
-            <Tag color="warning">isPending</Tag>
+            <MVTags color="warning">isPending</MVTags>
           ) : (
-            <Tag color="success">Done</Tag>
+            <MVTags color="success">Done</MVTags>
           ),
         year: item.year,
         set: item.up,

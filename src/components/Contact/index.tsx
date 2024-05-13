@@ -7,7 +7,7 @@ import React from "react";
 import MVLink from "../Location/Link";
 const ContactAdmin = () => {
   return (
-    <div className="mt-[200px] lg:flex hidden justify-center text-white ">
+    <div className="md:mt-[50px] lg:mt-[50px] lg:flex hidden justify-center text-white ">
       <div className="w-full">
         <div
           className="card p-3 "

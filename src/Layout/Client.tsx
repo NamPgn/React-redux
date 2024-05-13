@@ -21,7 +21,6 @@ const LayoutWebsite = () => {
           <Outlet />
         </div>
       </div>
-
       <div>
         <Footer />
       </div>

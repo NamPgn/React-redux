@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Image, Tag } from "antd";
+import { Image } from "antd";
 import { getAlluser, deteleUser } from "../../../redux/slice/userSlice";
 import { DownloadOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
@@ -9,6 +9,7 @@ import { columnsUser } from "../../../constant";
 import MVTable from "../../../components/MV/Table";
 import { MyButton } from "../../../components/MV/Button";
 import MVLink from "../../../components/Location/Link";
+import MVTags from "../../../components/MV/Tag";
 
 const GetUser = () => {
   const states = useAppSelector(user$);
@@ -40,9 +41,9 @@ const GetUser = () => {
         ),
         status:
           item.isActive == 0 ? (
-            <Tag color="success">Active</Tag>
+            <MVTags color="success">Active</MVTags>
           ) : (
-            <Tag color="error">No Active</Tag>
+            <MVTags color="error">No Active</MVTags>
           ),
         role: item.role,
         action: (

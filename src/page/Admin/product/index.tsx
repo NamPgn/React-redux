@@ -13,7 +13,6 @@ import {
   clearCacheProducts,
   deleteMultipleProduct,
 } from "../../../sevices/product";
-import styled from "styled-components";
 import { useAppDispatch } from "../../../hook";
 import { MyContext } from "../../../context";
 import { MyButton } from "../../../components/MV/Button";
@@ -34,9 +33,11 @@ import MVRow from "../../../components/MV/Grid";
 import MVCol from "../../../components/MV/Grid/Col";
 import MVLink from "../../../components/Location/Link";
 import { MVError, MVSuccess } from "../../../components/Message";
+import MVText from "../../../components/MV/Text";
+import MVTags from "../../../components/MV/Tag";
 
 const ProductAdmin = memo(({ product, length, isLoading }: any) => {
-  const [page, setPage] = useState(0); // Đặt trang mặc định là trang cuối cùng
+  const [page, setPage] = useState(999); // Đặt trang mặc định là trang cuối cùng
   const { category, seri, user }: any = useContext(MyContext);
   const [dataLength, setDataLength] = useState();
   const [search, searchState] = useState("");
@@ -50,7 +51,7 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
   useEffect(() => {
     const itemsPerPage = 40;
     const totalPages = Math.ceil(length / itemsPerPage);
-    const defaultPage:any = totalPages;
+    const defaultPage: any = totalPages;
     setDataLength(defaultPage);
     setPage(defaultPage);
     dispatch(getProducts(page));
@@ -174,9 +175,9 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
       dataIndex: "category",
     },
     {
-      title: "Sidebar",
-      key: "sidebar",
-      dataIndex: "sidebar",
+      title: "View",
+      key: "view",
+      dataIndex: "view",
       width: 100,
     },
     {
@@ -319,10 +320,16 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
         }
       },
     },
+    {
+      title: "Sidebar",
+      key: "sidebar",
+      dataIndex: "sidebar",
+      width: 100,
+    },
   ];
   const data =
     dataS &&
-    dataS.map((value: any, index: any) => {
+    dataS.map((value: any) => {
       return {
         key: value._id,
         name: value.name,
@@ -332,14 +339,19 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
           category.data.map((item: any) => {
             if (item._id === value.category) return item.name;
           }),
+        view: (
+          <MVTags color="#2db7f5">
+            {value.view}
+          </MVTags>
+        ),
         sidebar: seri && seri.map((i, v) => i._id === value.typeId && i.name),
         seri: value.seri,
         copyright: value.copyright,
         isActive:
-          value.server2 || value.dailymotion ? (
-            <Tag color="success">Video active</Tag>
+          value.server2 || value.dailyMotionServer ? (
+            <MVTags color="success">Video active</MVTags>
           ) : (
-            <Tag color="error">No video</Tag>
+            <MVTags color="error">No video</MVTags>
           ),
         options: value.options,
         country: value.country ? value.country : "null",
@@ -393,7 +405,7 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
           </MVLink>
         </MVCol>
         <MVCol>
-          <MVLink to={"/dashboard/product/add"} >
+          <MVLink to={"/dashboard/product/add"}>
             <MyButton className="bg-yellow-400">Export PDF</MyButton>
           </MVLink>
         </MVCol>

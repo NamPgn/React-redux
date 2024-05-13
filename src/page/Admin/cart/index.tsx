@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
-import { Image } from 'antd';
-import { cart$ } from '../../../redux/selectors/Cart';
-import { deleteCartSlice, getAllCartSlice } from '../../../redux/slice/cart/thunk/cart';
-import { useAppDispatch, useAppSelector } from '../../../hook';
-import MVTable from '../../../components/MV/Table';
-import { MyButton } from '../../../components/MV/Button';
-import { columsCart } from '../../../constant';
-import MVLink from '../../../components/Location/Link';
+import React, { useEffect } from "react";
+import { Image } from "antd";
+import { cart$ } from "../../../redux/selectors/Cart";
+import {
+  deleteCartSlice,
+  getAllCartSlice,
+} from "../../../redux/slice/cart/thunk/cart";
+import { useAppDispatch, useAppSelector } from "../../../hook";
+import MVTable from "../../../components/MV/Table";
+import { MyButton } from "../../../components/MV/Button";
+import { columsCart } from "../../../constant";
+import MVLink from "../../../components/Location/Link";
 
 const index = () => {
   const cart = useAppSelector(cart$);
@@ -14,39 +17,48 @@ const index = () => {
   useEffect(() => {
     dispatch(getAllCartSlice());
   }, []);
-  const data = cart && (
-    cart.filter(item => item.user !== null).map((item: any, index: any) => {
-      return {
-        key: item._id,
-        stt: item._id,
-        ProductName: item.product ? item.product.name + " " + item.product.seri : "",
-        user: item.user.username,
-        image: <Image width={60} height={80} style={{ objectFit: "cover" }} src={item.product ? item.product.image : "https://i.pinimg.com/736x/0d/56/7a/0d567a768f35faab85b96f84691235d3.jpg"} />,
-        permission: item.user.role == 0 ? "User" : "Admin",
-        action: (
-          <span>
-            <MVLink to={`/dashboard/trailerUrl/${item._id}`}>
-              <MyButton danger>
-                Edit
+  const data =
+    cart &&
+    cart
+      .filter((item) => item.user !== null)
+      .map((item: any, index: any) => {
+        return {
+          key: item._id,
+          stt: item._id,
+          ProductName: item.product
+            ? item.product.name + " " + item.product.seri
+            : "",
+          user: item.user.username,
+          // image: <Image width={60} height={80} style={{ objectFit: "cover" }} src={item.product ? item.product.image : "https://i.pinimg.com/736x/0d/56/7a/0d567a768f35faab85b96f84691235d3.jpg"} />,
+          permission: item.user.role == 0 ? "User" : "Admin",
+          action: (
+            <span>
+              <MVLink to={`/dashboard/trailerUrl/${item._id}`}>
+                <MyButton danger>Edit</MyButton>
+              </MVLink>
+              <MyButton
+                onClick={() => dispatch(deleteCartSlice(item._id))}
+                className="ml-2"
+              >
+                Del
               </MyButton>
-            </MVLink>
-            <MyButton onClick={() => dispatch(deleteCartSlice(item._id))} className='ml-2'>
-              Del
-            </MyButton>
-          </span>
-        )
-      }
-    })
-  );
+            </span>
+          ),
+        };
+      });
   return (
     <div>
       <MVTable
         columns={columsCart}
         dataSource={data}
-        pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '10', '15'] }}
+        pagination={{
+          defaultPageSize: 5,
+          showSizeChanger: true,
+          pageSizeOptions: ["5", "10", "15"],
+        }}
       />
     </div>
-  )
-}
+  );
+};
 
-export default index
+export default index;

@@ -12,7 +12,7 @@ const MVTypeDisplay = ({ data, children, ...rest }) => {
         {data && data.name}
       </DivStyledTitle>
       <DivStyledText className="mt-3 mb-5">
-        Tuyển chọn Phim hay nhất chất lượng cao, Phim Chiếu Rạp 2022 chọn lọc có
+        Tuyển chọn Phim hay nhất chất lượng cao, Phim Chiếu Rạp 2024 chọn lọc có
         thuyết minh và việt sub.
       </DivStyledText>
       {children}

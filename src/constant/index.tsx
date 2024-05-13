@@ -69,11 +69,11 @@ const columsCart = [
     dataIndex: "user",
     key: "user",
   },
-  {
-    title: "Image",
-    dataIndex: "image",
-    key: "Image",
-  },
+  // {
+  //   title: "Image",
+  //   dataIndex: "image",
+  //   key: "Image",
+  // },
   {
     title: "Permission",
     dataIndex: "permission",

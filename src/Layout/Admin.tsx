@@ -10,12 +10,11 @@ import { MyContext } from "../context";
 import MVRow from "../components/MV/Grid";
 import MVCol from "../components/MV/Grid/Col";
 import MVLink from "../components/Location/Link";
-import { Collapse } from "antd";
-
+// import { Collapse } from "antd";
 const text = `
   d.
 `;
-const { Panel } = Collapse;
+// const { Panel } = Collapse;
 const { Content, Sider, Header, Footer } = Layout;
 
 const LayoutAdmin = () => {
@@ -107,11 +106,11 @@ const LayoutAdmin = () => {
             overflow: "auto",
           }}
         >
-          <Collapse>
+          {/* <Collapse>
             <Panel key={"1"} className="mb-2" header="Tiêu đề Collapse">
               {text}
             </Panel>
-          </Collapse>
+          </Collapse> */}
           <Outlet />
         </Content>
         <Footer>© 2023 copyright | nampg</Footer>

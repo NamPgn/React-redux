@@ -8,7 +8,7 @@ import MVLink from "../Location/Link";
 import MVImage from "../MV/Image";
 import MVText from "../MV/Text";
 import Dividers from "../MV/Divider";
-import { Tag } from "antd";
+import MVTags from "../MV/Tag";
 
 const CategoryPage = () => {
   const { id } = useParams();
@@ -122,9 +122,9 @@ const CategoryPage = () => {
                       Kiểu: 
                     </MVText>
                   </div>
-                  <Tag color="#2db7f5" className="mt-5">
+                  <MVTags color="#2db7f5" className="mt-5">
                     {c.isActive == 0 ? "Is Comming" : "Commpelete"}
-                  </Tag>
+                  </MVTags>
                 </div>
                 <br />
                 <SeriNumberMovie />

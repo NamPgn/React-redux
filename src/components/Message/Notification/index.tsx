@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import styed from "styled-components";
-import { Skeleton, Spin } from "antd";
+import { Skeleton } from "antd";
 import { MyContext } from "../../../context";
 import MyProgress from "../../MV/Progress";
 import MVText from "../../MV/Text";
-import { Tag } from "antd";
+import MVTags from "../../MV/Tag";
 interface SpinerLoading {
   size?: string;
   children?: React.ReactNode;
@@ -81,9 +81,9 @@ export const Spiner = ({ size, children }: SpinerLoading) => (
 
 export const NotUpdate = () => {
   return (
-    <Tag color="#108ee9" className="mx-2">
+    <MVTags color="#108ee9" className="mx-2">
       Empty
-    </Tag>
+    </MVTags>
   );
 };
 

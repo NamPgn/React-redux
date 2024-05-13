@@ -7,6 +7,7 @@ import {
   Loader,
   MessageErr,
   NotUpdate,
+  Spiner,
 } from "../../../components/Message/Notification";
 import PaginationCustoms from "../../../components/MV/Pagination";
 import MVGridCategory from "../../../components/Grid/component";
@@ -23,7 +24,7 @@ const SidebarApi = () => {
     isError,
   } = useSWRWithAxios(urlSwr + `/type/${id}?page=${page}`);
   if (isLoading) {
-    return <Loader />;
+    return <Spiner />;
   }
   if (isError) {
     return <MessageErr />;

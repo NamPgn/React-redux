@@ -4,8 +4,8 @@ import MVLink from "../../Location/Link";
 import { useSWRWithAxios } from "../../../hook/Swr";
 import Dividers from "../../MV/Divider";
 import MVImage from "../../MV/Image";
-import { Tag } from "antd";
 import MVText from "../../MV/Text";
+import MVTags from "../../MV/Tag";
 const Container = stylded.div`
 ::-webkit-scrollbar-thumb {
   background: #888;
@@ -60,14 +60,14 @@ const CategoryProductSidebar = () => {
                 >
                   {item.name}
                 </MVLink>
-                <Tag
+                <MVTags
                   color="#108ee9"
                   className="text-[12px] text-[#999] my-2 block w-6/12 "
                 >
                   {" "}
                   {item.sumSeri + " Tập VietSub"}
-                </Tag>
-                <Tag color="#2db7f5">{item.type ? item.type : "null"}</Tag>
+                </MVTags>
+                <MVTags color="#2db7f5">{item.type ? item.type : "null"}</MVTags>
                 <div className="text-sm text-gray-400 mt-2">
                   <div className="flex items-center mt-1 justify-between">
                     <MVText className="mr-2 text-gray-300">
