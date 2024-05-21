@@ -15,7 +15,7 @@ const categorySlice = createSlice({
     value: [],
     isLoading: false,
     categoryNotReqId: [],
-    details: null,
+    details: {},
   },
   reducers: {},
   extraReducers: (builder) => {

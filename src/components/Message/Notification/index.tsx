@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import styed from "styled-components";
 import { Skeleton } from "antd";
 import { MyContext } from "../../../context";
-import MyProgress from "../../MV/Progress";
 import MVText from "../../MV/Text";
 import MVTags from "../../MV/Tag";
 interface SpinerLoading {
@@ -84,16 +83,6 @@ export const NotUpdate = () => {
     <MVTags color="#108ee9" className="mx-2">
       Empty
     </MVTags>
-  );
-};
-
-export const MVLoadingTopBar = ({ percent }) => {
-  return (
-    <div
-      style={{ position: "fixed", top: 0, left: 0, width: "100%", zIndex: 999 }}
-    >
-      <MyProgress percent={percent} status="active" showInfo={false} />
-    </div>
   );
 };
 

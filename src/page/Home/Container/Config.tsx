@@ -20,9 +20,6 @@ const VideoContainer = styled.div`
   }
 `;
 const ConfigHomePage = memo(({ category, isLoading, isError, state }: any) => {
-  useEffect(() => {
-    document.title = "Home Page";
-  }, []);
   const { data: trailer, isError: ErrTrailer }: any = useSWRWithAxios(
     urlSwr + `/trailer`
   );
@@ -46,7 +43,6 @@ const ConfigHomePage = memo(({ category, isLoading, isError, state }: any) => {
               />
             </VideoContainer>
           <LatesCategory />
-
           </div>
         </div>
         <CategoryProductSidebar />

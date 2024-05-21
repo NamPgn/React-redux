@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { urlSwr } from "../../function";
 import { useSWRWithAxios } from "../../hook/Swr";
-import { MessageErr, NotUpdate, Spiner } from "../Message/Notification";
+import { MessageErr, NotUpdate } from "../Message/Notification";
 import { BtnStyledNumber } from "./styles";
 import MVLink from "../Location/Link";
 import MVRow from "../MV/Grid";
@@ -14,7 +14,7 @@ const SeriNumberMovie = () => {
   );
 
   if (isLoading) {
-    return <>Loading....</>;
+    return <div className="seriLoading">Loading....</div>;
   }
   if (error) {
     return <MessageErr />;

@@ -118,10 +118,25 @@ p {
   cursor: -webkit-grab;
 }
 
-:where(.css-dev-only-do-not-override-1s3dcof).ant-result .ant-result-subtitle{
+:where(.css-dev-only-do-not-override-1s3dcof).ant-result .ant-result-subtitle {
   color: #ffffffc9;
 }
 
-:where(.css-1s3dcof).ant-result .ant-result-subtitle{
+:where(.css-1s3dcof).ant-result .ant-result-subtitle {
   color: #ffffffc9 !important;
+}
+.seriLoading {
+  animation: seriLoading 1s linear infinite;
+}
+
+@keyframes seriLoading {
+  0% {
+    color: #555;
+  }
+  50% {
+    color: #fff;
+  }
+  100% {
+    color: #555;
+  }
 }

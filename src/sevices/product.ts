@@ -108,10 +108,10 @@ export const clearCacheProducts = async () => {
   });
 };
 
-export const ratingProduct = async (productId, data: any) => {
-  return await intances.post(`/product/rating/${productId}`, data);
-};
+// export const ratingProduct = async (productId, data: any) => {
+//   return await intances.post(`/product/rating/${productId}`, data);
+// };
 
-export const ratingProductStats = async (productId) => {
-  return await intances.get(`/product/rate/${productId}`);
-};
+// export const ratingProductStats = async (productId) => {
+//   return await intances.get(`/product/rate/${productId}`);
+// };

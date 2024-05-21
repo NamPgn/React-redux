@@ -33,7 +33,6 @@ import MVRow from "../../../components/MV/Grid";
 import MVCol from "../../../components/MV/Grid/Col";
 import MVLink from "../../../components/Location/Link";
 import { MVError, MVSuccess } from "../../../components/Message";
-import MVText from "../../../components/MV/Text";
 import MVTags from "../../../components/MV/Tag";
 
 const ProductAdmin = memo(({ product, length, isLoading }: any) => {
@@ -222,6 +221,12 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
       key: "options",
     },
     {
+      title: "Sidebar",
+      key: "sidebar",
+      dataIndex: "sidebar",
+      width: 100,
+    },
+    {
       title: "Action",
       key: "action",
       dataIndex: "action",
@@ -320,12 +325,7 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
         }
       },
     },
-    {
-      title: "Sidebar",
-      key: "sidebar",
-      dataIndex: "sidebar",
-      width: 100,
-    },
+   
   ];
   const data =
     dataS &&

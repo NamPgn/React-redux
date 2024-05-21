@@ -11,7 +11,7 @@ import { user$ } from "../../redux/selectors";
 const AdminPage = () => {
   const states = useAppSelector(user$);
   const { data: item } = useSWRWithAxios(urlSwr + "/most-watched-episodes");
-  const { data: rating } = useSWRWithAxios(urlSwr + "/products/rating/stats");
+  const { data: rating } = useSWRWithAxios(urlSwr + "/rating/stats");
    const config = {
     data:item.data,
     xField: 'seri',

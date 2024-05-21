@@ -36,19 +36,13 @@ const ContactAdmin = () => {
             <div className="mt-3 pt-1 iconContact">
               <p className="mb-0">
                 <FacebookOutlined />
-                <a href="https://www.facebook.com/profile.php?id=100040511214253">
+                <a href="https://www.facebook.com/profile.php?id=61556232330775">
                   Facebook
                 </a>
               </p>
               <p className="mb-0 mt-2">
                 <SafetyCertificateFilled />
                 <a href="https://www.tiktok.com/@tieu_loli">Tiktok</a>
-              </p>
-              <p className="mb-0 mt-2">
-                <YoutubeOutlined />
-                <a href="https://www.youtube.com/channel/UCMRhIr6pa_Xs7MEPAquDBQQ">
-                  Youtube
-                </a>
               </p>
             </div>
           </div>

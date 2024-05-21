@@ -29,7 +29,7 @@ const SidebarApi = () => {
   if (isError) {
     return <MessageErr />;
   }
-  let dt = data.category.concat(data.products);
+  let dt = [...data.category,...data.products];
   return (
     <React.Fragment>
       <MVTypeDisplay

@@ -50,3 +50,11 @@ export const getAllCategoryNotReq = async (id: string) => {
 export const searCategory = async (data: any) => {
   return await intances.get(`/categorys/search?value=${data}`);
 };
+
+export const ratingCategory = async (categoryId, data: any) => {
+  return await intances.post("/rating/" + categoryId, data);
+};
+
+export const ratingProduct = async (categoryId, data: any) => {
+  return await intances.post(`/rating/${categoryId}`, data);
+};

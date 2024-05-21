@@ -45,7 +45,7 @@ const CartAddContent = ({ item, id }) => {
   return (
     <div className="lg:flex md:flex-row items-center @screen md:justify-between flex flex-col">
       <MVLink to={`/q/` + item?.category?._id} className="text-2xl md:text-3xl pl-2 my-2 border-l-4  font-sans font-bold border-teal-400  dark:text-gray-200">
-        <MVTitle level={4} style={{ color: "#fff" }}>
+        <MVTitle level={4} style={{ color: "#fff" }} className="uppercase">
           {item.name}
         </MVTitle>
       </MVLink>

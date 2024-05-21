@@ -22,7 +22,7 @@ const ListType = () => {
   if (isError) {
     return <MessageErr />;
   }
-  const datas = data.categorys.concat(data.products);
+  const datas =[...data.category,...data.products];
   return (
     <MVTypeDisplay
       data={data}

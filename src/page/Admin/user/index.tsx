@@ -74,9 +74,9 @@ const GetUser = () => {
         columns={columnsUser}
         dataSource={data}
         pagination={{
-          defaultPageSize: 5,
+          defaultPageSize: 20,
           showSizeChanger: true,
-          pageSizeOptions: ["5", "20", "30"],
+          pageSizeOptions: ["20", "40", "60"],
         }}
       />
     </>

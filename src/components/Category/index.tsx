@@ -1,7 +1,5 @@
 import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Loading } from "../Message/Notification";
-import { MyContext } from "../../context";
 import SeriNumberMovie from "../Seri/SeriCategory";
 import MVTitle from "../MV/Title";
 import MVLink from "../Location/Link";
@@ -9,6 +7,9 @@ import MVImage from "../MV/Image";
 import MVText from "../MV/Text";
 import Dividers from "../MV/Divider";
 import MVTags from "../MV/Tag";
+import Rating from "./component/rating";
+import { MyContext } from "../../context";
+import { Loading } from "../Message/Notification";
 
 const CategoryPage = () => {
   const { id } = useParams();
@@ -64,25 +65,17 @@ const CategoryPage = () => {
                       color: "#999",
                     }}
                   >
-                    Diễn viên : ?
-                  </MVText>
-                  <br />
-                  <MVText
-                    style={{
-                      color: "#999",
-                    }}
-                  >
                     Quốc gia : ?
                   </MVText>
                   <div>
                     <MVText
-                     
                       style={{
                         color: "#999",
                       }}
                     >
-                      Thể loại : <span className="p-1 bg-gray-500 rounded-sm">
-                      {c.type}
+                      Thể loại :{" "}
+                      <span className="p-1 bg-gray-500 rounded-sm">
+                        {c.type}
                       </span>
                     </MVText>
                   </div>
@@ -114,13 +107,6 @@ const CategoryPage = () => {
                     </MVText>
                   </div>
                   <div>
-                    <MVText
-                      style={{
-                        color: "#999",
-                      }}
-                    >
-                      Kiểu: 
-                    </MVText>
                   </div>
                   <MVTags color="#2db7f5" className="mt-5">
                     {c.isActive == 0 ? "Is Comming" : "Commpelete"}
@@ -128,6 +114,7 @@ const CategoryPage = () => {
                 </div>
                 <br />
                 <SeriNumberMovie />
+                <Rating id={id}/>
               </div>
             </div>
             <div className="text-[#999] lg:text-[15px] md:text[14px] text-[13px]">

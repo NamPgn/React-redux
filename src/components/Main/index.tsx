@@ -71,7 +71,6 @@ const DetailComponent = () => {
                   />
                 ) : (
                   <Result
-                  
                     icon={"Hiiiii!!"}
                     className="absolute inset-0 text-white mt-5"
                     subTitle="Phim này đang trong quá trình cập nhật video. Vui lòng quay lại sau."
@@ -162,8 +161,7 @@ const DetailComponent = () => {
                       Mô tả:
                     </Dividers>
                     {getOneProductDetail &&
-                      (getOneProductDetail.category?.descriptions ||
-                        getOneProductDetail.descriptions)}
+                      getOneProductDetail.category?.des}
                   </div>
                 </DivStyledContentText>
               </DivStyledContent>

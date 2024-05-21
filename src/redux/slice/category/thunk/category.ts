@@ -17,7 +17,7 @@ export const getCateSlice = createAsyncThunk(
   "category/getOne",
   async (id: string) => {
     const { data }: any = await getCategory(id);
-    return data.data;
+    return data;
   }
 );
 export const getAllCategoryNotReqSlice = createAsyncThunk(

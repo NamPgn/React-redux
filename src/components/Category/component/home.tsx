@@ -31,7 +31,7 @@ const CategoryHomePage = ({ category, isLoading, isError }: CategoryProp) => {
     <DivstyledContainer>
       <div className="flex justify-between items-center">
         <MVTitle level={2} underline style={{ color: "#fff" }} strong className="uppercase">
-          phim hot
+          Xem Nhiều
         </MVTitle>
         <MVLink to={"/loadmore"}>
           <div className="underline lg:text-[15px] md:text[14px] text-[13px] text-[#999]">
