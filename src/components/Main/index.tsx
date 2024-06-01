@@ -32,7 +32,6 @@ const DetailComponent = () => {
   const productByCategory = useAppSelector(getAllProductsByCategory$);
   const getOneProductDetail = useAppSelector(getOneProduct$);
   const isLoadingDetail = useAppSelector(ProductsPending$);
-  const [commentAdded, setCommentAdded] = useState(false); // tạo state
   const [link, setLink] = useState("");
   const { id } = useParams();
   const { c } = queryString.parse(window.location.href.split("?")[1]); //lấy data url
@@ -45,7 +44,7 @@ const DetailComponent = () => {
     window.scrollTo({
       top: 0,
     });
-  }, [id, c, commentAdded, getOneProductDetail.dailyMotionServer]); //nếu mà 2 thằng này có thay đổi thì rereder
+  }, [id, c, getOneProductDetail.dailyMotionServer]); //nếu mà 2 thằng này có thay đổi thì rereder
   return (
     <div className="flex justify-center mt-4" style={{ gap: "10px" }}>
       <DivContainer className="col-md-12">
@@ -75,12 +74,6 @@ const DetailComponent = () => {
                     className="absolute inset-0 text-white mt-5"
                     subTitle="Phim này đang trong quá trình cập nhật video. Vui lòng quay lại sau."
                   />
-                  // <Alert
-                  //   message="Video đang được cập nhật"
-                  //   description=""
-                  //   type="info"
-                  //   showIcon
-                  // />
                 )}
               </Movie>
               <Server className="mt-4 rounded">
@@ -104,7 +97,6 @@ const DetailComponent = () => {
                   >
                     #S1
                   </MyButton>
-
                   <MyButton
                     onClick={() => {
                       setActiveLink("server2");
@@ -134,7 +126,7 @@ const DetailComponent = () => {
                         : ""
                     } ${activeLink === "dailyMotion" ? "activeServer" : ""}`}
                   >
-                    #FullHđ
+                    #S3
                   </MyButton>
                 </div>
               </Server>
@@ -160,8 +152,7 @@ const DetailComponent = () => {
                     <Dividers textColor={"#fff"} orientation="left">
                       Mô tả:
                     </Dividers>
-                    {getOneProductDetail &&
-                      getOneProductDetail.category?.des}
+                    {getOneProductDetail && getOneProductDetail.category?.des}
                   </div>
                 </DivStyledContentText>
               </DivStyledContent>
@@ -174,7 +165,7 @@ const DetailComponent = () => {
                 Bình luận:
               </Dividers>
               <CommentProductsIndex getOne={getOneProductDetail} />
-              <ComentProductsLayout setCommentAdded={setCommentAdded} />
+              <ComentProductsLayout />
             </React.Fragment>
           ) : (
             <Spiner size={"large"} children={undefined} />

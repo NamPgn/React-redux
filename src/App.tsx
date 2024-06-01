@@ -14,11 +14,10 @@ function App() {
   useEffect(() => {
     setTimeout(() => {
       api.open({
-        message: "Admin xin thông báo!",
+        message: "Quản trị viên xin thông báo!",
         description:
-          "Xin lỗi, server phim hiện đang quá tải do lượng truy cập lớn. Vui lòng chờ đợi trong 1-2 phút để tiếp tục xem. Chúng tôi đang nỗ lực để cải thiện tình hình và xin thành thật xin lỗi vì sự bất tiện này. Xin cảm ơn sự kiên nhẫn của bạn!",
+          "Xin lỗi, server phim hiện đang quá tải do lượng truy cập lớn. Vui lòng chờ đợi trong 1-2 phút để tiếp tục xem. Chúng tôi đang nỗ lực để cải thiện tình hình và xin thành thật xin lỗi vì sự bất tiện này. Trân trọng!",
         className: "custom-class",
-
         duration: 10,
       });
     }, 1000);

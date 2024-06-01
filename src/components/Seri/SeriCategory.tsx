@@ -20,40 +20,42 @@ const SeriNumberMovie = () => {
     return <MessageErr />;
   }
   return (
-    <MVRow gutter={[16, 16]}>
-      {data.length > 0 && data ? (
-        data.map((item: any, index: number) =>
-          item.isApproved == true ? (
-            <MVCol
-              lg={3}
-              md={4}
-              sm={5}
-              xs={6}
-              style={{ textAlign: "center" }}
-              key={index}
-            >
-              <MVLink to={"/d/" + item._id + `?c=${item.category}`}>
-                {item.trailer ? (
-                  <BtnStyledNumber>{item.seri + "Raw"}</BtnStyledNumber>
-                ) : (
-                  <BtnStyledNumber
-                    className="w-full text-white"
-                    variant="ghost"
-                    size="sm"
-                  >
-                    {item.seri}
-                  </BtnStyledNumber>
-                )}
-              </MVLink>
-            </MVCol>
-          ) : (
-            ""
+    <div className="bg-[#9b9b9b1f] h-[174px] overflow-y-scroll p-3 rounded-sm seriCategory">
+      <MVRow gutter={[16, 16]}>
+        {data.length > 0 && data ? (
+          data.map((item: any, index: number) =>
+            item.isApproved == true ? (
+              <MVCol
+                lg={3}
+                md={4}
+                sm={5}
+                xs={6}
+                style={{ textAlign: "center" }}
+                key={index}
+              >
+                <MVLink to={"/d/" + item._id + `?c=${item.category}`}>
+                  {item.trailer ? (
+                    <BtnStyledNumber>{item.seri + "Raw"}</BtnStyledNumber>
+                  ) : (
+                    <BtnStyledNumber
+                      className="w-full text-white"
+                      variant="ghost"
+                      size="sm"
+                    >
+                      {item.seri}
+                    </BtnStyledNumber>
+                  )}
+                </MVLink>
+              </MVCol>
+            ) : (
+              ""
+            )
           )
-        )
-      ) : (
-        <NotUpdate />
-      )}
-    </MVRow>
+        ) : (
+          <NotUpdate />
+        )}
+      </MVRow>
+    </div>
   );
 };
 

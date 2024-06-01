@@ -109,7 +109,7 @@ const CategoryPage = () => {
                   <div>
                   </div>
                   <MVTags color="#2db7f5" className="mt-5">
-                    {c.isActive == 0 ? "Is Comming" : "Commpelete"}
+                    {c.isActive == 0 ? "Đang chiếu" : "Hoàn thành"}
                   </MVTags>
                 </div>
                 <br />

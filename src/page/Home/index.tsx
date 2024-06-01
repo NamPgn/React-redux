@@ -5,7 +5,9 @@ import { Spiner } from "../../components/Message/Notification";
 const HomePage = () => {
   const { category, isLoading, isError, state }: any =
     useContext(MyContext) ?? {};
-
+  useEffect(() => {
+    document.title = "Hoạt hình trung quốc";
+  }, []);
   return (
     <>
       {!isLoading ? (

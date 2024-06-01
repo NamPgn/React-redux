@@ -100,7 +100,6 @@ const CategoryAdmin = () => {
     category.data.map((item: any, index: number) => {
       return {
         key: item._id,
-        // stt: index + 1,
         name: <MVLink to={"/q/" + item._id}>{item.name}</MVLink>,
         image: (
           <Image
@@ -143,18 +142,6 @@ const CategoryAdmin = () => {
             </MyButton>
           </div>
         ),
-        children: [
-          {
-            name: "Jim Green jr.",
-            age: 25,
-            address: "London No. 3 Lake Park",
-          },
-          {
-            name: "Jimmy Green sr.",
-            age: 18,
-            address: "London No. 4 Lake Park",
-          },
-        ],
       };
     });
   return (

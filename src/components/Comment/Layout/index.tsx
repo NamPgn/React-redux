@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { isAuthentication } from "../../../auth/getToken";
 import { addCommentSlice } from "../../../redux/slice/comment/thunk/comment";
@@ -8,7 +8,7 @@ import { MyButton } from "../../MV/Button";
 import { PushpinOutlined } from "@ant-design/icons";
 import { MVError, MVSuccess } from "../../Message";
 const { TextArea } = Input;
-const ComentProductsLayout = ({ setCommentAdded }) => {
+const ComentProductsLayout = memo(() => {
   const rows: any = "3";
   const dispatch = useAppDispatch();
   const { id } = useParams();
@@ -18,11 +18,12 @@ const ComentProductsLayout = ({ setCommentAdded }) => {
     user: Auth ? Auth.user._id : "",
     product: id,
   });
-  const handleAddComment = () => {
-    setCommentAdded((commentAdded: any) => !commentAdded);
+  const handleAddComment = async () => {
     if (Auth) {
-      dispatch(addCommentSlice(s));
-      MVSuccess("Add Comment Success");
+      const res = await dispatch(addCommentSlice(s));
+      if (res.payload) {
+        MVSuccess("Add Comment Success");
+      }
     } else {
       MVError("You are not logged in!");
     }
@@ -52,6 +53,6 @@ const ComentProductsLayout = ({ setCommentAdded }) => {
       </MyButton>
     </>
   );
-};
+});
 
 export default ComentProductsLayout;
