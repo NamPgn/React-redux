@@ -34,7 +34,7 @@ const SeriNumberMovie = () => {
                 key={index}
               >
                 <MVLink to={"/d/" + item._id + `?c=${item.category}`}>
-                  {item.trailer ? (
+                  {!item.dailyMotionServer && item.trailer ? (
                     <BtnStyledNumber>{item.seri + "Raw"}</BtnStyledNumber>
                   ) : (
                     <BtnStyledNumber

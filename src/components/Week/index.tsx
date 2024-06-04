@@ -4,13 +4,23 @@ import { MyContext } from "../../context";
 import { settingsSlider } from "../../constant";
 import CategoryContents from "../Category/Content/Category";
 import { getCategoryByWeek } from "../../sevices/week";
-import { Loading, Spiner } from "../Message/Notification";
-
+import { Loading } from "../Message/Notification";
 
 export default function WeekComponent() {
   const { weeks } = useContext(MyContext) || {};
+  const weekdays = [
+    "Chủ nhật",
+    "Thứ 2",
+    "Thứ 3",
+    "Thứ 4",
+    "Thứ 5",
+    "Thứ 6",
+    "Thứ 7",
+  ];
+  var today = new Date();
+  var day = today.getDay();
   const [isLoading, setIsLoading] = useState(true);
-  const [tabs, setTabs] = useState("Chủ nhật");
+  const [tabs, setTabs] = useState(weekdays[day]);
   const [categorys, setCategory]: any = useState([]);
   const handleTabClick = (tabId) => {
     setTabs(tabId);
@@ -79,10 +89,10 @@ export default function WeekComponent() {
           weeks.map((items, index) => (
             <div
               key={items._id}
-              className={tabs === items.name ? "active " : ""}
+              className={tabs === items.name ? "active border-none" : "cursor-pointer"}
               onClick={() => handleTabClick(items.name)}
             >
-              <div className="text-[11px] md:text-[12px] lg:text-[14px] flex justify-center items-center px-4 py-3 text-white rounded-lg w-full ">
+              <div className="text-[11px] md:text-[12px] lg:text-[14px] flex justify-center items-center px-4 py-2 text-white rounded-lg w-full ">
                 <p>{items.name}</p>
               </div>
             </div>
