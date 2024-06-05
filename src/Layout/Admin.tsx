@@ -34,7 +34,7 @@ const LayoutAdmin = () => {
       }),
     };
   });
-  const { Auth, user, isLoggedInState } = useContext(MyContext) ?? {};
+  const { isLoggedInState } = useContext(MyContext) ?? {};
   const [collapsed, setCollapsed] = useState(false);
   return (
     <Layout
@@ -91,8 +91,6 @@ const LayoutAdmin = () => {
               span={1}
             >
               <AuthHeader
-                Auth={Auth}
-                user={user}
                 isLoggedInState={isLoggedInState}
                 style={undefined}
               />

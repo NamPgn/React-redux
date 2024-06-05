@@ -17,11 +17,13 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../../hook";
 import { MVError } from "../../../Message";
 import { handleLogout } from "../../../../function";
-const AuthHeader = ({ Auth, isLoggedInState, user, style }) => {
+import { isAuthentication } from "../../../../auth/getToken";
+const AuthHeader = ({ isLoggedInState, style }) => {
+  const auths = isAuthentication();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const handleCheckCart = () => {
-    if (!user) {
+    if (!auths) {
       MVError("Bạn cần đăng nhập!");
     } else {
       navigate("/cart/user");
@@ -29,7 +31,7 @@ const AuthHeader = ({ Auth, isLoggedInState, user, style }) => {
   };
   return (
     <React.Fragment>
-      {Auth && isLoggedInState ? (
+      {auths && isLoggedInState ? (
         <ConfigProvider
           theme={{
             token: {
@@ -77,7 +79,7 @@ const AuthHeader = ({ Auth, isLoggedInState, user, style }) => {
                     </MVText>
                   </MVCol>
                 </MVRow>
-                {user && user.role >= 1 && (
+                {auths.user && auths?.user?.role >= 1 && (
                   <MVLink to={"/dashboard"}>
                     <MVRow
                       style={{ lineHeight: "0" }}
@@ -122,7 +124,7 @@ const AuthHeader = ({ Auth, isLoggedInState, user, style }) => {
                 type={"secondary"}
                 level={5}
               >
-                {user?.username}
+                {auths?.user?.username}
               </MVTitle>
             }
             placement="bottomLeft"
@@ -130,8 +132,8 @@ const AuthHeader = ({ Auth, isLoggedInState, user, style }) => {
           >
             <MVAvatar
               className="text-center"
-              title={user?.name}
-              src={user && user.image}
+              title={auths?.user?.name}
+              src={auths.user && auths?.user?.image}
               size={"sm"}
             />
           </Popover>
@@ -175,7 +177,7 @@ const AuthHeader = ({ Auth, isLoggedInState, user, style }) => {
             trigger="click"
           >
             <MVAvatar
-              title={user?.name}
+              title={auths?.user?.name}
               src={undefined}
               style={style}
               size={40}

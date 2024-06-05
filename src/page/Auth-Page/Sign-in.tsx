@@ -1,22 +1,23 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom';
-import { loginForm } from '../../redux/slice/userSlice';
-import { useAppDispatch } from '../../hook';
-import { message } from 'antd';
-import AuthForm from '../../components/Form';
-import { MVError, MVSuccess } from '../../components/Message';
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { loginForm } from "../../redux/slice/userSlice";
+import { useAppDispatch } from "../../hook";
+import { message } from "antd";
+import AuthForm from "../../components/Form";
+import { MVError, MVSuccess } from "../../components/Message";
+import { MyContext } from "../../context";
 
 const array = [
   {
-    type: 'text',
-    field: 'username',
-    disable: false
+    type: "text",
+    field: "username",
+    disable: false,
   },
   {
-    type: 'password',
-    field: 'password',
-    disable: false
-  }
+    type: "password",
+    field: "password",
+    disable: false,
+  },
 ];
 
 const Signin = () => {
@@ -26,29 +27,29 @@ const Signin = () => {
     const responese: any = await dispatch(loginForm(data));
     if (responese.payload && responese.payload.success) {
       MVSuccess(responese.payload.message);
-      navigate('/');
+      navigate("/");
     } else {
       MVError(responese.error.message);
     }
-  }
+  };
 
   const handleMessage = () => {
-    message.success('Đang cập nhật!');
-  }
+    message.success("Đang cập nhật!");
+  };
   return (
     <AuthForm
       onSubmit={onsubmit}
-      formTitle={'Login'}
-      formHeader={'Welcome Back .!'}
-      formIntro={'Skip the lag ?'}
-      submitButtonText={'Login'}
-      formDescription={'Glad you’re back.!'}
-      checkedAccount={'Don’t have an account ? Signup'}
+      formTitle={"Login"}
+      formHeader={"Welcome Back .!"}
+      formIntro={"Skip the lag ?"}
+      submitButtonText={"Login"}
+      formDescription={"Glad you’re back.!"}
+      checkedAccount={"Don’t have an account ? Signup"}
       handleMessage={handleMessage}
-      redirect={'/signup'}
+      redirect={"/signup"}
       array={array}
     />
-  )
-}
+  );
+};
 
-export default Signin
+export default Signin;

@@ -18,7 +18,6 @@ export const StyledBtnClickDeleteCartById = ({
   id,
   userId,
   setReset,
-  setCount,
 }: any) => {
   const text = "Bạn có muốn xóa không?";
   const state = {

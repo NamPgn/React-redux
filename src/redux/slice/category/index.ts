@@ -12,7 +12,7 @@ import {
 const categorySlice = createSlice({
   name: "category",
   initialState: {
-    value: [],
+    category: [],
     isLoading: false,
     categoryNotReqId: [],
     details: {},
@@ -22,7 +22,7 @@ const categorySlice = createSlice({
     builder
       .addCase(getAllcate.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.value = action.payload;
+        state.category = action.payload;
       })
       .addCase(getAllcate.pending, (state, action) => {
         state.isLoading = true;
@@ -38,15 +38,15 @@ const categorySlice = createSlice({
       });
 
     builder.addCase(addCateGorySlice.fulfilled, (state, action) => {
-      state.value.push(action.payload);
+      state.category = state.category.concat(action.payload);
     });
     builder.addCase(deleteCategorySlice.fulfilled, (state, action) => {
-      state.value = state.value.filter(
+      state.category = state.category.filter(
         (item) => item._id !== action.payload._id
       );
     });
     builder.addCase(updateCatgorySlice.fulfilled, (state, action) => {
-      state.value.push(action.payload);
+      state.category.push(action.payload);
     });
     builder.addCase(getCateSlice.fulfilled, (state, action) => {
       state.details = action.payload;

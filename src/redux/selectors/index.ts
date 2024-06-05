@@ -4,7 +4,7 @@ export const product$ = (state => state.product.value);
 export const getOneProduct$ = (state => state.product.getOneProduct);
 export const getAllProductsByCategory$ = (state => state.product.getAllProductByCategory);
 //category
-export const category$ = (state => state.category.value);
+export const category$ = (state => state.category.category);
 export const allCategoryNotReq$ = (state => state.category.categoryNotReqId);
 export const getCategoryOne$ = ((state:any) => state.category.details);
 

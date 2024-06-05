@@ -39,7 +39,7 @@ const productSlice = createSlice({
     });
 
     builder.addCase(addProduct.fulfilled, (state: any, action) => {
-      state.value = [action.payload, ...state.value];
+      state.value.push(action.payload);
       // state.status = action.payload.status;
     });
 

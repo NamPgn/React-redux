@@ -33,7 +33,6 @@ const icon = [
 const Header = () => {
   const {
     Auth,
-    user,
     isLoggedInState,
     state: change,
     handleClick: handleClickChangeSidebar,
@@ -156,9 +155,7 @@ const Header = () => {
         </MVCol>
         <MVCol span={1} className="text-end">
           <AuthHeader
-            user={user}
             isLoggedInState={isLoggedInState}
-            Auth={Auth}
             style={{
               backgroundColor: "#fde3cf",
               color: "#f56a00",
@@ -191,9 +188,7 @@ const Header = () => {
           </MVCol>
           <MVCol>
             <AuthHeader
-              user={user}
               isLoggedInState={isLoggedInState}
-              Auth={Auth}
               style={{
                 backgroundColor: "#fde3cf",
                 color: "#f56a00",
