@@ -6,6 +6,7 @@ import { urlSwr } from "../../../function";
 import MVGridCategory from "../../Grid/component";
 import MVLink from "../../Location/Link";
 import MVTitle from "../../MV/Title";
+import { ArrowRightOutlined } from "@ant-design/icons";
 const DivstyOllMovie = styled.div``;
 const DivstyledContainer = styled.div``;
 
@@ -30,12 +31,21 @@ const CategoryHomePage = ({ category, isLoading, isError }: CategoryProp) => {
   return (
     <DivstyledContainer>
       <div className="flex justify-between items-center">
-        <MVTitle level={2} underline style={{ color: "#fff" }} strong className="uppercase">
+        <MVTitle
+          level={2}
+          underline
+          style={{ color: "#fff" }}
+          strong
+          className="uppercase"
+        >
           Xem Nhiều
         </MVTitle>
         <MVLink to={"/loadmore"}>
-          <div className="underline lg:text-[15px] md:text[14px] text-[13px] text-[#999]">
-            Xem tất cả
+          <div className="text-[16px] text-[#fff] flex lg:text-[20px] md:text[18px] gap-3">
+            <span className="underline">See More</span>
+            <span>
+              <ArrowRightOutlined />
+            </span>
           </div>
         </MVLink>
       </div>

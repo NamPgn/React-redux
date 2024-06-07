@@ -23,6 +23,8 @@ import LayoutWebsite from "../Layout/Client";
 import LazyComponent from "../components/Lazy/LazyComponent";
 import Weeks from "../page/Admin/week";
 import Page404 from "../components/404/Page404";
+import ForgotPassword from "../page/Auth-Page/Forgot-password";
+import ResetPassword from "../page/Auth-Page/Reset-password";
 const ListType = lazy(() => import("../page/Type/Theloai"));
 const OllMovie = lazy(() => import("../page/Type/SidebarData"));
 const SearchResults = lazy(() => import("../components/Search")); //search
@@ -43,7 +45,7 @@ const ProductAdd = lazy(() => import("../page/Admin/product/component/add"));
 const EditProduct = lazy(() => import("../page/Admin/product/component/edit"));
 const CreatingUser = lazy(() => import("../page/Admin/user/component/adds"));
 const CreatingProducts = lazy(
-  () => import("../page/Admin/product/component/CreatingProducts")
+  () => import("../page/Admin/product/component/creatingProducts")
 );
 const CategoryAdmin = lazy(() => import("../page/Admin/category"));
 const EditCategoryAdmin = lazy(
@@ -57,9 +59,9 @@ const CommentAdmin = lazy(() => import("../page/Admin/comment"));
 const CartUser = lazy(() => import("../components/Cart"));
 const CartAdmin = lazy(() => import("../page/Admin/cart"));
 const Loadmore = lazy(() => import("../page/Home/Category/Loadmore"));
-const TypesCateAdmin = lazy(() => import("../page/Admin/typesCategory"));
+const TypesCateAdmin = lazy(() => import("../page/Admin/TypesCategory"));
 const CatemainProduct = lazy(
-  () => import("../page/Admin/typesCategory/component/CatemainProduct")
+  () => import("../page/Admin/TypesCategory/component/CatemainProduct")
 );
 //background
 const Background = lazy(() => import("../page/Admin/background"));
@@ -187,6 +189,22 @@ export const router = [
         element: (
           <LazyComponent>
             <Signin />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: "forgot-password",
+        element: (
+          <LazyComponent>
+            <ForgotPassword />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: "reset-password/:id/:token",
+        element: (
+          <LazyComponent>
+            <ResetPassword />
           </LazyComponent>
         ),
       },

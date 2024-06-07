@@ -150,3 +150,8 @@ p {
 .seriCategory::-webkit-scrollbar-thumb:hover {
   background-color: rgba(0, 0, 0, 0.3);
 }
+
+.profileImg{
+  width: 10rem !important;
+  height: 10rem !important;
+}

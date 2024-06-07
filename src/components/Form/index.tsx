@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import React, { memo } from "react";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
   BtnStyled,
@@ -16,6 +15,7 @@ import {
 } from "./styles";
 import MVLink from "../Location/Link";
 import MVImage from "../MV/Image";
+import { Link } from "react-router-dom";
 const AuthForm = memo(
   ({
     onSubmit,
@@ -28,27 +28,14 @@ const AuthForm = memo(
     handleMessage,
     redirect,
     array,
+    schemaPage,
   }: any) => {
-    const schema = yup.object().shape({
-      username: yup
-        .string()
-        .required()
-        .test("is-email", "Username must not contain @", (value: any) => {
-          return !value.includes("@");
-        })
-        .max(15, "Your Name value must be at most 10 characters long")
-        .matches(/^[A-Za-z]+$/),
-      password: yup
-        .string()
-        .required()
-        .max(15, "Password value must be at most 10 characters long"),
-    });
     const {
       register,
       handleSubmit,
       formState: { errors },
     }: any = useForm({
-      resolver: yupResolver(schema),
+      resolver: yupResolver(schemaPage),
     });
     return (
       <div className="h-screen relative z-0">
@@ -93,14 +80,20 @@ const AuthForm = memo(
                         placeholder={item.field}
                         className="placeholder:capitalize"
                       />
-                      {errors.field && <p>{errors.field.message}</p>}
+                      {errors && errors[item.field] && (
+                        <div className="text-sm text-pink-600 mt-1">
+                          {errors[item.field].message}
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}
               <div className="lg:mb-6 md:mb-5 mb-4">
-                <div className="text-center text-white text-sm font-medium text-primary-600 hover:underline text-primary-500">
-                  Forgot password?{" "}
-                </div>
+                <Link to={"/forgot-password"}>
+                  <div className="text-center text-white text-sm font-medium text-primary-600 hover:underline text-primary-500">
+                    Forgot password?{" "}
+                  </div>
+                </Link>
               </div>
               <BtnStyled
                 type="submit"
@@ -127,10 +120,10 @@ const AuthForm = memo(
                   alt=""
                 />
               </GoogleLogin>
-              <div className="lg:mb-6 md:mb-4 mb-2 text-center lg:mt-5 md:mt-3 mt-2">
+              <div className="lg:mb-6 md:mb-4 mb-2 text-center lg:mt-5 md:mt-3 mt-2 text-slate-400 ">
                 <MVLink
                   to={redirect}
-                  className="text-white text-sm text-primary-600 hover:underline text-primary-500"
+                  className="text-sm text-primary-600 hover:underline text-primary-500"
                 >
                   {checkedAccount}
                 </MVLink>

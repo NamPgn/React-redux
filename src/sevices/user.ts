@@ -48,3 +48,11 @@ export const editImageUser = async (id: any, data: any) =>
       Authorization: `Bearer ${Auth.token}`,
     },
   });
+
+export const forgotPassword = async (data) => {
+  return await intances.post("/forgot-password", data);
+};
+
+export const resetPassword = async (id, token, data) => {
+  return await intances.post(`/reset-password/${id}/${token}`, data);
+};
