@@ -31,6 +31,7 @@ const GetUser = () => {
       return {
         key: item._id,
         name: item.username,
+        email: item.email,
         image: (
           <Image
             width={150}

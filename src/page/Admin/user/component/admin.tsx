@@ -16,6 +16,7 @@ const GetAdmin = () => {
     return {
       key: item._id,
       name: item.username,
+      email: item.email,
       role: item.role == 1 ? "Admin" : "Super Admin",
       status: <MVTags color="success">Active</MVTags>,
       tags: ["nice", "developer"],

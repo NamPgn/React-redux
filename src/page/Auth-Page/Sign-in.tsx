@@ -29,11 +29,11 @@ const Signin = () => {
   });
   const onsubmit = async (data: any) => {
     const responese: any = await dispatch(loginForm(data));
-    if (responese.payload && responese.payload.success) {
+    if (responese.payload && responese?.payload?.success) {
       MVSuccess(responese.payload?.message);
-      navigate("/");
+      navigate(-1);
     } else {
-      MVError(responese.error.message);
+      MVError(responese.payload.message);
     }
   };
 

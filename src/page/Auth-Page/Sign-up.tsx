@@ -41,12 +41,18 @@ const Signup = () => {
     .oneOf([yup.ref("password"), null], "Passwords must match"),
   });
   const onsubmit = async (data: any) => {
-    const response = await dispatch(resgisterLogin(data));
-    if (response.payload.success) {
-      MVSuccess(response.payload.message);
-      navigate("/signin");
-    } else {
-      MVError(response.payload.message);
+    try {
+      const response = await dispatch(resgisterLogin(data));
+      console.log(response)
+      if (response?.payload?.success) {
+        MVSuccess(response.payload.message);
+        navigate("/signin");
+      } else {
+        MVError(response?.payload?.message || "Đăng nhập không thành công");
+      }
+    } catch (error) {
+      // Xử lý lỗi từ dispatch hoặc các lỗi khác
+      MVError("Đăng nhập không thành công");
     }
   };
   const handleMessage = () => {

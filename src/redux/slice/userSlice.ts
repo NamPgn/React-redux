@@ -140,7 +140,7 @@ const userSlice = createSlice({
     builder
       .addCase(deteleUser.fulfilled, (state, action) => {
         state.value = state.value.filter(
-          (item) => item._id !== action.payload.id
+          (item) => item._id !== action.payload._id
         );
       })
       .addCase(deteleUser.rejected, (state, action) => {

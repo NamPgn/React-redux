@@ -56,3 +56,7 @@ export const forgotPassword = async (data) => {
 export const resetPassword = async (id, token, data) => {
   return await intances.post(`/reset-password/${id}/${token}`, data);
 };
+
+export const refreshTokenAuth = async (refreshToken: any) => {
+  return await intances.post("/refreshToken", refreshToken);
+};

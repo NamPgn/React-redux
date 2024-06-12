@@ -45,7 +45,7 @@ const ProductAdd = lazy(() => import("../page/Admin/product/component/add"));
 const EditProduct = lazy(() => import("../page/Admin/product/component/edit"));
 const CreatingUser = lazy(() => import("../page/Admin/user/component/adds"));
 const CreatingProducts = lazy(
-  () => import("../page/Admin/product/component/creatingProducts")
+  () => import("../page/Admin/product/component/CreatingProducts")
 );
 const CategoryAdmin = lazy(() => import("../page/Admin/category"));
 const EditCategoryAdmin = lazy(
@@ -59,9 +59,9 @@ const CommentAdmin = lazy(() => import("../page/Admin/comment"));
 const CartUser = lazy(() => import("../components/Cart"));
 const CartAdmin = lazy(() => import("../page/Admin/cart"));
 const Loadmore = lazy(() => import("../page/Home/Category/Loadmore"));
-const TypesCateAdmin = lazy(() => import("../page/Admin/TypesCategory"));
+const TypesCateAdmin = lazy(() => import("../page/Admin/typesCategory"));
 const CatemainProduct = lazy(
-  () => import("../page/Admin/TypesCategory/component/CatemainProduct")
+  () => import("../page/Admin/typesCategory/component/CatemainProduct")
 );
 //background
 const Background = lazy(() => import("../page/Admin/background"));

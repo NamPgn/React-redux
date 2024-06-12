@@ -50,7 +50,7 @@ const Icons = [
   <FundOutlined />,
   <WeiboSquareOutlined />,
   <LeftOutlined />,
-  <AuditOutlined />
+  <AuditOutlined />,
 ];
 
 const columsCart = [
@@ -299,6 +299,11 @@ const columnsGetAdmin = [
     render: (text) => <a>{text}</a>,
   },
   {
+    title: "Email",
+    dataIndex: "email",
+    key: "email",
+  },
+  {
     title: "Role",
     dataIndex: "role",
     key: "role",
@@ -321,6 +326,11 @@ const columnsUser = [
     dataIndex: "name",
     key: "name",
     render: (text: any) => <a>{text}</a>,
+  },
+  {
+    title: "Email",
+    dataIndex: "email",
+    key: "email",
   },
   {
     title: "Image",
@@ -350,7 +360,6 @@ const columnsWeeks = [
     title: "Name",
     dataIndex: "name",
     key: "name",
-  
   },
   {
     title: "Action",
@@ -368,7 +377,7 @@ export const settingsSlider = {
   initialSlide: 0,
   autoplay: true,
   autoplaySpeed: 2000,
-  
+
   responsive: [
     {
       breakpoint: 1440,
@@ -415,7 +424,7 @@ export const settingsSliderLatest = {
   initialSlide: 0,
   autoplay: false,
   autoplaySpeed: 2000,
-  
+
   responsive: [
     {
       breakpoint: 1440,

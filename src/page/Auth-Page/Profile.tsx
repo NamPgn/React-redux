@@ -146,7 +146,7 @@ const Profile = () => {
               </button>
             </div>
             <div className="flex justify-center">
-              <div className="h-40 w-40">
+              {isLoading ? <div className="seriLoading">Loading...</div>: <div className="h-40 w-40">
                 {user ? (
                   <img
                     className="object-cover h-full p-1 rounded-lg ring-2 ring-indigo-300 dark:ring-indigo-500"
@@ -161,7 +161,7 @@ const Profile = () => {
                     icon={<UserOutlined />}
                   />
                 )}
-              </div>
+              </div>}
             </div>
             <div className="text-center m-5">
               <input
