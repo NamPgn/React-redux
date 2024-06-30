@@ -10,7 +10,8 @@ import MVTags from "../MV/Tag";
 import Rating from "./component/rating";
 import { MyContext } from "../../context";
 import { Loading } from "../Message/Notification";
-
+import ReactGA from "react-ga4";
+import { ClockCircleOutlined } from "@ant-design/icons";
 const CategoryPage = () => {
   const { id } = useParams();
   const { category, isLoading }: any = useContext(MyContext);
@@ -19,8 +20,19 @@ const CategoryPage = () => {
   }
   const c = category && category.data.find((c) => c._id === id);
   useEffect(() => {
+    ReactGA.event({
+      category: c.name,
+      action: "Test action",
+      label: "your label", // optional
+    });
     document.title = c?.name;
   }, [c]);
+  ReactGA.event({
+    category: c.name,
+    action: c.name + "action",
+    label: c.name + "action",
+    value: c.seri,
+  });
   return (
     <div>
       {c && (
@@ -57,7 +69,7 @@ const CategoryPage = () => {
                       color: "#999",
                     }}
                   >
-                    Đạo diễn : ?
+                    Tác giả :...
                   </MVText>
                   <br />
                   <MVText
@@ -65,7 +77,7 @@ const CategoryPage = () => {
                       color: "#999",
                     }}
                   >
-                    Quốc gia : ?
+                    Quốc gia : Chinese
                   </MVText>
                   <div>
                     <MVText
@@ -106,15 +118,23 @@ const CategoryPage = () => {
                       Năm phát hành : {c.year}
                     </MVText>
                   </div>
-                  <div>
-                  </div>
-                  <MVTags color="#2db7f5" className="mt-5">
+                  <div></div>
+                  <MVTags color="#2db7f5" className="my-2">
                     {c.isActive == 0 ? "Đang chiếu" : "Hoàn thành"}
                   </MVTags>
+                  <div
+                    id="toast-simple"
+                    className="flex mb-2 items-center w-full max-w-xs p-4 space-x-4 rtl:space-x-reverse text-gray-500 bg-white divide-x rtl:divide-x-reverse divide-gray-200 rounded-lg shadow dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800"
+                    role="alert"
+                  >
+                    <ClockCircleOutlined />
+                    <div className="ps-4 text-sm font-normal">
+                      Vietsub lúc 10h00 Thứ 4 hàng tuần
+                    </div>
+                  </div>
                 </div>
-                <br />
                 <SeriNumberMovie />
-                <Rating id={id}/>
+                <Rating id={id} />
               </div>
             </div>
             <div className="text-[#999] lg:text-[15px] md:text[14px] text-[13px]">

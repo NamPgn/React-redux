@@ -27,6 +27,7 @@ import Dividers from "../MV/Divider";
 import { MyButton } from "../MV/Button";
 import { Spiner } from "../Message/Notification";
 import { ProductsPending$ } from "../../redux/selectors/product";
+import CryptoJS from "crypto-js";
 import { Result } from "antd";
 const DetailComponent = () => {
   const productByCategory = useAppSelector(getAllProductsByCategory$);
@@ -37,14 +38,23 @@ const DetailComponent = () => {
   const { c } = queryString.parse(window.location.href.split("?")[1]); //lấy data url
   const [activeLink, setActiveLink] = useState("dailyMotion");
   const dispatch = useAppDispatch();
+  const [decodedLink, setDecodedLink] = useState("");
   useEffect(() => {
     dispatch(getProduct(id));
     dispatch(getAllProductDataByCategorySlice(c));
-    setLink(getOneProductDetail.dailyMotionServer);
+    const decryptedText = CryptoJS.AES.decrypt(
+      getOneProductDetail.dailyMotionServer
+        ? getOneProductDetail.dailyMotionServer
+        : "",
+        import.meta.env.VITE_SECERT_CRYPTO_KEY_PRODUCTS_DAILYMOTION_SERVER
+    ).toString(CryptoJS.enc.Utf8);
+    setDecodedLink(decryptedText);
+    setLink(decryptedText);
     window.scrollTo({
       top: 0,
     });
   }, [id, c, getOneProductDetail.dailyMotionServer]); //nếu mà 2 thằng này có thay đổi thì rereder
+
   return (
     <div className="flex justify-center mt-4" style={{ gap: "10px" }}>
       <DivContainer className="col-md-12">
@@ -115,7 +125,7 @@ const DetailComponent = () => {
                   <MyButton
                     onClick={() => {
                       setActiveLink("dailyMotion");
-                      setLink(getOneProductDetail.dailyMotionServer);
+                      setLink(decodedLink);;
                     }}
                     disabled={
                       getOneProductDetail.dailyMotionServer ? false : true

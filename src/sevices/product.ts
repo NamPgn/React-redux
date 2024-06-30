@@ -79,18 +79,22 @@ export const UploadAssby = async (id: any, body: any): Promise<IProduct> =>
   );
 
 export const approveProduct = async (id: any) =>
-  await intances.post(`/product/approve/${id}/${dataToken.user._id}`, {
-    header: {
+  await intances.post(`/product/approve/${id}/${dataToken.user._id}`, null, {
+    headers: {
       Authorization: `Bearer ${dataToken.token}`,
     },
   });
 
 export const cancelApproveProduct = async (id: any) =>
-  await intances.post(`/product/approve/cancel/${id}/${dataToken.user._id}`, {
-    header: {
-      Authorization: `Bearer ${dataToken.token}`,
-    },
-  });
+  await intances.post(
+    `/product/approve/cancel/${id}/${dataToken.user._id}`,
+    null,
+    {
+      headers: {
+        Authorization: `Bearer ${dataToken.token}`,
+      },
+    }
+  );
 
 export const filterProductByCategory = async (categoryId) => {
   return await intances.get(`/product/filter?c=${categoryId}`);
@@ -101,8 +105,8 @@ export const searchProduct = async (val: any) => {
 };
 
 export const clearCacheProducts = async () => {
-  return await intances.post(`/products/clear/${dataToken.user._id}`, {
-    header: {
+  return await intances.post(`/products/clear/${dataToken.user._id}`, null, {
+    headers: {
       Authorization: `Bearer ${dataToken.token}`,
     },
   });

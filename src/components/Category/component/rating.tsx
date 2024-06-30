@@ -26,18 +26,18 @@ const Rating = memo(({ id }: any) => {
     }
   };
   return (
-    <span className="text-white">
+    <span className="text-white flex items-center gap-2">
       <Rate className="mt-2 mb-2" value={data?.averageRating} onChange={handleRatingChange} />
       {data.totalRatings > 0 ? (
         <div className="relative pt-1">
-          <div className="flex mb-2 items-center justify-between">
+          <div className="flex items-center justify-between">
             <div>
-              <span className="text-xs  font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200">
+              <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200">
                 Vip {data?.averageRating.toFixed(2)}/{data?.totalRatings * 115 } Tổng số lượt đánh giá
               </span>
             </div>
           </div>
-          <div className="overflow-hidden h-4 mb-4 text-xs flex rounded bg-pink-200">
+          {/* <div className="overflow-hidden h-4 mb-4 text-xs flex rounded bg-pink-200">
             {data.percentages.map((percentage, index) =>
               <div
                 key={index}
@@ -50,7 +50,7 @@ const Rating = memo(({ id }: any) => {
                 {`(${index + 1})*  ${percentage.toFixed(2) + "%"}`}
               </div>
             )}
-          </div>
+          </div> */}
         </div>
       ) : (
         ""

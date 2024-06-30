@@ -56,8 +56,8 @@ const EditProduct = () => {
     formdata.append("imageLink", data.image);
     formdata.append("view", data.view);
     const res = await dispatch(editProduct(formdata));
-    if (res.payload.success == true) {
-      toast.success(`Sửa ${data.name} công`);
+    if (res?.meta?.requestStatus == "fulfilled") {
+      toast.success(`Edit ${data.name} Success`);
     }
   };
   const handleSubmitServerAssb = async (data: any) => {

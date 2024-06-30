@@ -12,7 +12,6 @@ export const MySelectWrapper = memo(
     return (
       <div>
         <MVText htmlFor={name}>{label + ": "}</MVText>
-
         <Controller
           control={control}
           name={name}

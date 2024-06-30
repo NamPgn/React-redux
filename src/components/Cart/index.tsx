@@ -1,5 +1,4 @@
 import moment from "moment";
-import styled from "styled-components";
 import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { StyledBtnClickDeleteCartById } from "./component/delete";
@@ -11,7 +10,6 @@ import MVLink from "../Location/Link";
 import { MVSuccess } from "../Message";
 import MVImage from "../MV/Image";
 import MVTitle from "../MV/Title";
-const Psyled = styled.p``;
 const CartUser = () => {
   const { Auth, user, isLoading, setReset, setRerender } =
     useContext(MyContext) || {};
@@ -66,7 +64,7 @@ const CartUser = () => {
                           >
                             <MVImage
                               className="h-full"
-                              src={item.product.image}
+                              src={item.product?.category?.linkImg}
                               style={{ borderRadius: "5px" }}
                               alt=""
                             />
@@ -76,32 +74,31 @@ const CartUser = () => {
                     </div>
                     <div className="lg:w-9/12 lg:text-[14px] md:text-[13px] text-[12px]">
                       {item.product && (
-                        <MVLink
-                          to={
-                            "/d/" +
-                            item.product._id +
-                            `?c=${item.product.category} `
-                          }
-                        >
-                          <div className="text-white mt-3 lg:text-[15px] md:text-[14px] text-[13px]">
-                            {item.product && (
-                              <div>
-                                {item.product.name + " " + item.product.seri}
-                              </div>
-                            )}
-                            <div className="text-[#999]">
-                              <Psyled className="mt-2">
-                                Ngày thêm:{" "}
-                                {moment(item.date).format("LTS DD-MM-YYYY")}
-                              </Psyled>
-                              <Psyled>Tập: {item.product.seri}</Psyled>
-                              <Psyled className="mt-1">
-                                Danh mục: [Đang cập nhật]
-                              </Psyled>
+                        <>
+                          <MVLink
+                            to={
+                              "/d/" +
+                              item.product._id +
+                              `?c=${item.product.category} `
+                            }
+                          >
+                            <div className="text-white mt-3 lg:text-[15px] md:text-[14px] text-[13px]">
+                              {item.product && (
+                                <div>
+                                  {item.product.name + " " + item.product.seri}
+                                </div>
+                              )}
+                              {/* <p className='des des_cart'>Mô tả: {filterCate(category, item.product.category).des}</p> */}
                             </div>
-                            {/* <p className='des des_cart'>Mô tả: {filterCate(category, item.product.category).des}</p> */}
+                          </MVLink>
+                          <div className="text-[#999]">
+                            <div className="my-2">
+                              Ngày thêm:{" "}
+                              {moment(item.date).format("LTS DD-MM-YYYY")}
+                            </div>
+                            <div className="py-2">Tập: {item.product.seri}</div>
                           </div>
-                        </MVLink>
+                        </>
                       )}
                       {item.product && (
                         <StyledBtnClickDeleteCartById

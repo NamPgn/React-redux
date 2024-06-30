@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { addProduct } from "../../../../redux/slice/product/thunk/product";
@@ -8,8 +8,11 @@ import { MySelectWrapper } from "../../../../components/Form/component/select";
 import { MyButton } from "../../../../components/MV/Button";
 import MVUpload from "../../../../components/MV/Upload";
 import MVInput from "../../../../components/MV/Input";
+import MVLink from "../../../../components/Location/Link";
+import { EditOutlined } from "@ant-design/icons";
 const ProductAdd = () => {
   const { categorymain, category, seri }: any = useContext(MyContext);
+  const [idProduct, setIdProduct] = useState("");
   const dispatch = useAppDispatch();
   const { handleSubmit, control } = useForm();
   const categoryOptions =
@@ -52,9 +55,9 @@ const ProductAdd = () => {
     formdata.append("imageLink", data.imageLink);
     formdata.append("video2", data.video2);
     const res = await dispatch(addProduct(formdata));
-    console.log(res);
-    if (res.payload.data.success == true) {
-      toast.success("Add product successfully");
+    setIdProduct(res?.payload?.data?._id);
+    if (res.payload.success === true) {
+      toast.success("Add product Successfully");
     } else {
       toast.error("Add product failed");
     }
@@ -180,11 +183,18 @@ const ProductAdd = () => {
           options={categorymainOptions}
         />
         <br />
-        <div className="mt-2">
+       <div className="flex items-center gap-2">
+         <div className="mt-2">
           <MyButton htmlType="submit" className="btn btn-primary">
             Submit
           </MyButton>
         </div>
+        <MVLink to={`/dashboard/product/edit/${idProduct}`}>
+          <MyButton type="text" danger shape="circle">
+            <EditOutlined />
+          </MyButton>
+        </MVLink>
+       </div>
       </form>
     </div>
   );

@@ -100,6 +100,7 @@ const CategoryAdmin = () => {
     category.data.map((item: any, index: number) => {
       return {
         key: item._id,
+        stt: index + 1,
         name: <MVLink to={"/q/" + item._id}>{item.name}</MVLink>,
         image: (
           <Image

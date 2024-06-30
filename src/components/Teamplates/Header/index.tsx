@@ -138,7 +138,7 @@ const Header = () => {
             <MVCol>
               <DivContentMkt className="text-[15px] lg:text-[17px] md:text[16px]">
                 <DivstyledMkt>Liên hệ qc tele: </DivstyledMkt>
-                <a href={"https://web.telegram.org/k/#@nampg"}>
+                <a href={"https://www.facebook.com/profile.php?id=61556232330775"}>
                   <DivLink />
                   @nampg
                 </a>

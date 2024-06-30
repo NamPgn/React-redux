@@ -10,17 +10,21 @@ import {
   filterProductByCategorySlice,
   searchProductsSlice,
 } from "./thunk/product";
+import { isProductSlice } from "../../../interfaces/product";
 
-const state: any = {
-  value: [],
+const initialState: isProductSlice = {
+  value: {
+    product: [],
+    length: 0,
+  },
   isLoading: false,
   getOneProduct: {},
   getAllProductByCategory: [],
-  status: null,
+  status: false,
 };
 const productSlice = createSlice({
   name: "product",
-  initialState: state,
+  initialState: initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -34,21 +38,21 @@ const productSlice = createSlice({
 
     builder.addCase(deleteProduct.fulfilled, (state, action) => {
       state.value.product = state.value.product.filter(
-        (item) => item._id !== action.payload.data._id
+        (item: any) => item._id !== action.payload.data._id
       );
     });
 
     builder.addCase(addProduct.fulfilled, (state: any, action) => {
-      state.value.push(action.payload);
+      state.value.product.push(action.payload);
       // state.status = action.payload.status;
     });
 
     builder.addCase(editProduct.fulfilled, (state, action) => {
-      state.value.push(action.payload);
+      state.value.product.push(action.payload);
     });
 
     builder.addCase(importDataFile.fulfilled, (state, action) => {
-      state.value = [...state.value, action.payload];
+      state.value.product = [...state.value.product, action.payload];
     });
 
     builder.addCase(filterProductByCategorySlice.fulfilled, (state, action) => {

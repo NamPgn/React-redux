@@ -19,3 +19,14 @@ export interface IProduct {
   categorymain?: ObjectId;
   typeId?: ObjectId;
 }
+
+export interface isProductSlice {
+  value: {
+    product: string[];
+    length: number;
+  };
+  isLoading: boolean;
+  getOneProduct: {};
+  getAllProductByCategory: string[];
+  status: boolean;
+}

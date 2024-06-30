@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { router } from "./router";
 import { GlobalStyle } from "./components/Styled/Global";
-import { useNavigate, useRoutes } from "react-router-dom";
+import { useLocation, useNavigate, useRoutes } from "react-router-dom";
 import { FloatButton, notification } from "antd";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -12,12 +12,18 @@ import { isAuthentication } from "./auth/getToken";
 import { isTokenExpired } from "./auth/checkToken";
 import { refreshTokenAuth } from "./sevices/user";
 import { MVWarning } from "./components/Message";
+import ReactGA from "react-ga4";
+
 function App() {
+  const location=useLocation();
+  const TRACKING_ID = "G-0EEY3R7F0S";
   const Routes = useRoutes(router);
   const nav = useNavigate();
   const [api, contextHolder] = notification.useNotification();
   const Auth = isAuthentication();
   useEffect(() => {
+    ReactGA.initialize(TRACKING_ID);
+    ReactGA.send({ hitType: "pageview", page: location.pathname, title: "User Active" });
     (async () => {
       if (Auth) {
         const token = Auth.token;

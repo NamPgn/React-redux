@@ -35,7 +35,7 @@ const SeriNumberMovie = () => {
               >
                 <MVLink to={"/d/" + item._id + `?c=${item.category}`}>
                   {!item.dailyMotionServer && item.trailer ? (
-                    <BtnStyledNumber>{item.seri + "Raw"}</BtnStyledNumber>
+                    <BtnStyledNumber>{item.seri}</BtnStyledNumber>
                   ) : (
                     <BtnStyledNumber
                       className="w-full text-white"

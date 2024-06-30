@@ -9,3 +9,13 @@ export interface Icategory {
   products: any;
   type: string;
 }
+
+export interface isCategorysSlice {
+  category: {
+    data:string[],
+    length:number
+  };
+  isLoading: boolean;
+  categoryNotReqId: string[];
+  details: {};
+}

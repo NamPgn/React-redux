@@ -31,7 +31,7 @@ const Signin = () => {
     const responese: any = await dispatch(loginForm(data));
     if (responese.payload && responese?.payload?.success) {
       MVSuccess(responese.payload?.message);
-      navigate(-1);
+      navigate("/");
     } else {
       MVError(responese.payload.message);
     }

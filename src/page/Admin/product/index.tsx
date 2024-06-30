@@ -1,5 +1,5 @@
 import React, { memo, useContext, useEffect, useState } from "react";
-import { Spin, Tag } from "antd";
+import { Spin } from "antd";
 import {
   getProducts,
   deleteProduct,
@@ -36,7 +36,7 @@ import { MVError, MVSuccess } from "../../../components/Message";
 import MVTags from "../../../components/MV/Tag";
 
 const ProductAdmin = memo(({ product, length, isLoading }: any) => {
-  const [page, setPage] = useState(999); // Đặt trang mặc định là trang cuối cùng
+  const [page, setPage] = useState(8); // Đặt trang mặc định là trang cuối cùng
   const { category, seri, user }: any = useContext(MyContext);
   const [dataLength, setDataLength] = useState();
   const [search, searchState] = useState("");
@@ -48,11 +48,11 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
   const dispatch = useAppDispatch();
   let dataS = product;
   useEffect(() => {
-    const itemsPerPage = 40;
-    const totalPages = Math.ceil(length / itemsPerPage);
-    const defaultPage: any = totalPages;
-    setDataLength(defaultPage);
-    setPage(defaultPage);
+    // const itemsPerPage = 40;
+    // const totalPages = Math.ceil(length / itemsPerPage);
+    // const defaultPage: any = totalPages;
+    // setDataLength(defaultPage);
+    // setPage(defaultPage);
     dispatch(getProducts(page));
   }, [init, dataLength]);
   const handleSelectChange = (value: any) => {
@@ -297,7 +297,7 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
                     </MyButton>
                   </>
                 )}
-                <MVLink to={"/d/" + record.key + "?c" + record.idCategory}>
+                <MVLink to={"/d/" + record.key + "?c=" + record.idCategory}>
                   <MyButton type="text" shape="circle">
                     <EyeOutlined />
                   </MyButton>
@@ -418,9 +418,8 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
         </MVCol>
         <MVCol>
           <MySelect
-            placeholder={"Select"}
+            placeholder={"Category"}
             onChange={handleSelectChange}
-            defaultValue={""}
             style={{ width: 300 }}
             options={
               category &&
@@ -433,9 +432,8 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
         </MVCol>
         <MVCol>
           <MySelect
-            placeholder={"Select"}
+            placeholder={"Approval"}
             onChange={handleChangeSelectApprove}
-            defaultValue={"Select"}
             style={{ width: 300 }}
             options={[
               { value: true, label: "Approve" },

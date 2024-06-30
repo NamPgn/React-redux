@@ -107,7 +107,7 @@ export default function WeekComponent() {
             content={categorys?.content?.map(
               (itemsCategory: any, index: number) => {
                 return (
-                  <div className="px-2">
+                  <div className="px-2" key={itemsCategory._id}>
                     <CategoryContents
                       title={itemsCategory.name}
                       link={"/q/" + itemsCategory._id}

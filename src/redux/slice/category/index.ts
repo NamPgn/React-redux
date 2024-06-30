@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 import {
   getAllcate,
   getAllCategoryNotReqSlice,
@@ -8,15 +7,19 @@ import {
   updateCatgorySlice,
   deleteCategorySlice,
 } from "./thunk/category";
-
+import { isCategorysSlice } from "../../../interfaces/category";
+const state: isCategorysSlice = {
+  category: {
+    data: [],
+    length: 0,
+  },
+  isLoading: false,
+  categoryNotReqId: [],
+  details: {},
+};
 const categorySlice = createSlice({
   name: "category",
-  initialState: {
-    category: [],
-    isLoading: false,
-    categoryNotReqId: [],
-    details: {},
-  },
+  initialState: state,
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -38,15 +41,15 @@ const categorySlice = createSlice({
       });
 
     builder.addCase(addCateGorySlice.fulfilled, (state, action) => {
-      state.category = state.category.concat(action.payload);
+      state.category.data = state.category.data.concat(action.payload);
     });
     builder.addCase(deleteCategorySlice.fulfilled, (state, action) => {
-      state.category = state.category.filter(
-        (item) => item._id !== action.payload._id
+      state.category.data = state.category.data.filter(
+        (item:any) => item._id !== action.payload._id
       );
     });
     builder.addCase(updateCatgorySlice.fulfilled, (state, action) => {
-      state.category.push(action.payload);
+      state.category.data.push(action.payload);
     });
     builder.addCase(getCateSlice.fulfilled, (state, action) => {
       state.details = action.payload;

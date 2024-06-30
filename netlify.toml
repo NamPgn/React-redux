@@ -1,9 +1,0 @@
-[[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200
-
-
-Access-Control-Allow-Origin: https://tromphim.netlify.app
-Access-Control-Allow-Methods: GET, POST, PUT, DELETE
-Access-Control-Allow-Headers: Content-Type
