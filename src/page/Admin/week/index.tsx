@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { MyButton } from "../../../components/MV/Button";
-import { MyContext } from "../../../context";
 import MVTable from "../../../components/MV/Table";
 import { columnsWeeks } from "../../../constant";
 import { useForm } from "react-hook-form";
@@ -16,8 +15,9 @@ import MVLink from "../../../components/Location/Link";
 import MVConfirm from "../../../components/MV/Confirm";
 import { DeleteOutlined } from "@ant-design/icons";
 import { MVError, MVSuccess } from "../../../components/Message";
+import { ApiContext } from "../../../context/api";
 const Weeks = () => {
-  const { weeks } = useContext(MyContext);
+  const { weeks } = useContext(ApiContext);
   const { handleSubmit, control } = useForm();
   const handleDeleteCategoryByWeek = async (weeksId, categoryId) => {
     const _ = {

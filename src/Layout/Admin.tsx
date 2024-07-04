@@ -10,11 +10,6 @@ import { MyContext } from "../context";
 import MVRow from "../components/MV/Grid";
 import MVCol from "../components/MV/Grid/Col";
 import MVLink from "../components/Location/Link";
-// import { Collapse } from "antd";
-const text = `
-  d.
-`;
-// const { Panel } = Collapse;
 const { Content, Sider, Header, Footer } = Layout;
 
 const LayoutAdmin = () => {

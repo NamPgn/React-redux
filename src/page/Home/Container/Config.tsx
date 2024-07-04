@@ -42,7 +42,7 @@ const ConfigHomePage = memo(({ category, isLoading, isError, state }: any) => {
                 src={trailer.url}
               />
             </VideoContainer>
-          <LatesCategory />
+            <LatesCategory />
           </div>
         </div>
         <CategoryProductSidebar />

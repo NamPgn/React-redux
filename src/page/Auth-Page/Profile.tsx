@@ -4,7 +4,6 @@ import { uploadImage } from "../../redux/slice/userSlice";
 import { useAppDispatch, useAppSelector } from "../../hook";
 import { MyContext } from "../../context";
 import { EditOutlined, LogoutOutlined, UserOutlined } from "@ant-design/icons";
-import { MyButton } from "../../components/MV/Button";
 import MVAvatar from "../../components/MV/Avatar";
 import { useForm } from "react-hook-form";
 import { handleLogout } from "../../function";
@@ -14,7 +13,6 @@ import * as yup from "yup";
 const Profile = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [state, setState] = useState(null);
   const { user } = useContext(MyContext) || {};
   const shcemaProfile = yup.object().shape({
     username: yup.string().required(),

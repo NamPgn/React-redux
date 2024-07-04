@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { MainContent } from "./style";
-import { MyContext } from "../context";
+import { ApiContext } from "../context/api";
 
 const Main = ({ children, ...rest }) => {
-  const { background } = useContext(MyContext) || {};
+  const { background } = useContext(ApiContext) || {};
   return (
     <MainContent background={background && background.data.url} {...rest}>
       {children}

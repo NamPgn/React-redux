@@ -12,9 +12,10 @@ export interface Icategory {
 
 export interface isCategorysSlice {
   category: {
-    data:string[],
-    length:number
+    data: string[];
+    length: number;
   };
+  isError: boolean;
   isLoading: boolean;
   categoryNotReqId: string[];
   details: {};

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import SeriNumberMovie from "../Seri/SeriCategory";
 import MVTitle from "../MV/Title";
@@ -8,31 +8,23 @@ import MVText from "../MV/Text";
 import Dividers from "../MV/Divider";
 import MVTags from "../MV/Tag";
 import Rating from "./component/rating";
-import { MyContext } from "../../context";
-import { Loading } from "../Message/Notification";
-import ReactGA from "react-ga4";
 import { ClockCircleOutlined } from "@ant-design/icons";
+import { useAppDispatch, useAppSelector } from "../../hook";
+import { getCateSlice } from "../../redux/slice/category/thunk/category";
+import React from "react";
 const CategoryPage = () => {
   const { id } = useParams();
-  const { category, isLoading }: any = useContext(MyContext);
-  if (isLoading) {
-    return <Loading />;
-  }
-  const c = category && category.data.find((c) => c._id === id);
+  const dispatch = useAppDispatch();
+  const c: any = useAppSelector((state) => state.category.details);
+  const isLoading = useAppSelector((state) => state.category.isLoading);
   useEffect(() => {
-    ReactGA.event({
-      category: c.name,
-      action: "Test action",
-      label: "your label", // optional
-    });
-    document.title = c?.name;
+    dispatch(getCateSlice(id));
+  }, [id]);
+  useEffect(() => {
+    if (c?.name) {
+      document.title = c.name;
+    }
   }, [c]);
-  ReactGA.event({
-    category: c.name,
-    action: c.name + "action",
-    label: c.name + "action",
-    value: c.seri,
-  });
   return (
     <div>
       {c && (
@@ -133,8 +125,12 @@ const CategoryPage = () => {
                     </div>
                   </div>
                 </div>
-                <SeriNumberMovie />
-                <Rating id={id} />
+                <SeriNumberMovie isLoading={isLoading} data={c} />
+                <Rating
+                  id={id}
+                  averageRating={c.averageRating}
+                  totalRatings={c.totalRatings}
+                />
               </div>
             </div>
             <div className="text-[#999] lg:text-[15px] md:text[14px] text-[13px]">

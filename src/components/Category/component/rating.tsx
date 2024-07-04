@@ -1,39 +1,27 @@
 import React, { memo } from "react";
-import { useSWRWithAxios } from "../../../hook/Swr";
-import { urlSwr } from "../../../function";
 import { ratingCategory } from "../../../sevices/category";
 import { Rate } from "antd";
-import { mutate } from "swr";
 
-const Rating = memo(({ id }: any) => {
-  const { data } = useSWRWithAxios(urlSwr + `/rate/${id}`);
-  const backgrounds = [
-    "linear-gradient(62deg, #FBAB7E 37%, #F7CE68 100%)",
-    "linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%)",
-    "linear-gradient(120deg, #f093fb 0%, #f5576c 100%)",
-    "linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%)",
-    "linear-gradient(45deg, #FBDA61 0%, #FF5ACD 100%)",
-  ];
+const Rating = memo(({ id,averageRating,totalRatings }: any) => {
   const handleRatingChange = async (rating) => {
     const data: any = {
       rating: rating,
     };
     try {
       await ratingCategory(id, data);
-      mutate(urlSwr + `/rate/${id}`);
     } catch (error) {
       console.error("Lỗi khi lưu đánh giá:", error);
     }
   };
   return (
     <span className="text-white flex items-center gap-2">
-      <Rate className="mt-2 mb-2" value={data?.averageRating} onChange={handleRatingChange} />
-      {data.totalRatings > 0 ? (
+      <Rate className="mt-2 mb-2" value={averageRating} onChange={handleRatingChange} />
+      {totalRatings > 0 ? (
         <div className="relative pt-1">
           <div className="flex items-center justify-between">
             <div>
               <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200">
-                Vip {data?.averageRating.toFixed(2)}/{data?.totalRatings * 115 } Tổng số lượt đánh giá
+                Vip {averageRating.toFixed(2)}/{totalRatings * 115 } Tổng số lượt đánh giá
               </span>
             </div>
           </div>

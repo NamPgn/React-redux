@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { MyContext } from "../../context";
 import {
   DivStyledRouter,
   DivStyledTitle,
@@ -18,8 +17,11 @@ import { Spiner } from "../Message/Notification";
 import { Icons } from "../../constant";
 import MVLink from "../Location/Link";
 import ContactAdmin from "../Contact";
+import { ApiContext } from "../../context/api";
+import { MyContext } from "../../context";
 const SideBar = () => {
-  const { seri, loadingSeri, state }: any = useContext(MyContext) || {};
+  const { seri, loadingSeri }: any = useContext(ApiContext) || {};
+  const { state }: any = useContext(MyContext) || {};
   const sidebarWidth = state ? "w-1/12" : "w-2/12";
   return (
     <DivstySideBar className={sidebarWidth}>

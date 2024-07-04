@@ -8,7 +8,6 @@ import {
 import { category$ } from "../../../redux/selectors";
 import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../../../hook";
-import { MyContext } from "../../../context";
 import { pushCateTotype } from "../../../sevices/type";
 import { useForm } from "react-hook-form";
 import { MySelectWrapper } from "../../../components/Form/component/select";
@@ -23,13 +22,17 @@ import MVLink from "../../../components/Location/Link";
 import { TreeSelect } from "antd";
 import { MVError, MVSuccess } from "../../../components/Message";
 import MVTags from "../../../components/MV/Tag";
+import { ApiContext } from "../../../context/api";
 
 const CategoryAdmin = () => {
   const dispatch = useAppDispatch();
   const category = useAppSelector(category$);
-  const { seri, weeks } = useContext(MyContext);
-  const { handleSubmit, control, register } = useForm();
+  const { seri, weeks } = useContext(ApiContext);
+  const { handleSubmit, control } = useForm();
   const [valueId, setValue] = useState();
+  useEffect(() => {
+    dispatch(getAllcate(1));
+  }, [1]);
   const valueOptions =
     seri &&
     seri?.map((items: any, index: number) => ({
@@ -72,10 +75,6 @@ const CategoryAdmin = () => {
       toast.error("Delete Failure");
     }
   };
-
-  useEffect(() => {
-    dispatch(getAllcate());
-  }, []);
 
   const hanedlePushCategoryToType = async (categoryId) => {
     const body = {

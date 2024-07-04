@@ -3,8 +3,8 @@ import { isAuthentication } from "../auth/getToken";
 import { Icategory } from "../interfaces/category";
 declare var Promise: any;
 const dataToken = isAuthentication();
-export const getAllcategory = async (): Promise<Icategory[]> => {
-  return await intances.get(`/categorys`);
+export const getAllcategory = async (page): Promise<Icategory[]> => {
+  return await intances.get(`/categorys?page=${page}`);
 };
 
 export const getCategory = async (id: string): Promise<Icategory> => {
@@ -57,4 +57,8 @@ export const ratingCategory = async (categoryId, data: any) => {
 
 export const ratingProduct = async (categoryId, data: any) => {
   return await intances.post(`/rating/${categoryId}`, data);
+};
+
+export const changeLatest = async (data: any) => {
+  return await intances.post(`/category/changeLatest`, data);
 };

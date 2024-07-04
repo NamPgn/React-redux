@@ -13,11 +13,11 @@ import MVImage from "../../../../components/MV/Image";
 import MVUpload from "../../../../components/MV/Upload";
 import MVInput from "../../../../components/MV/Input";
 import { MySelectWrapper } from "../../../../components/Form/component/select";
-import { MyContext } from "../../../../context";
+import { ApiContext } from "../../../../context/api";
 declare var Promise: any;
 const EditCategory = () => {
   const dispatch = useAppDispatch();
-  const { weeks } = useContext(MyContext);
+  const { weeks } = useContext(ApiContext);
   const [state, setState]: any = useState({});
   const { reset, handleSubmit, control } = useForm();
   const { id } = useParams();

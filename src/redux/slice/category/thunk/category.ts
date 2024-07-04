@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   addCate,
   deleteCate,
@@ -8,10 +8,13 @@ import {
   getCategory,
 } from "../../../../sevices/category";
 
-export const getAllcate = createAsyncThunk("category/getAllcate", async () => {
-  const { data }: any = await getAllcategory();
-  return data;
-});
+export const getAllcate = createAsyncThunk(
+  "category/getAllcate",
+  async (page: number) => {
+    const { data }: any = await getAllcategory(page);
+    return data;
+  }
+);
 
 export const getCateSlice = createAsyncThunk(
   "category/getOne",

@@ -14,6 +14,7 @@ const state: isCategorysSlice = {
     length: 0,
   },
   isLoading: false,
+  isError: false,
   categoryNotReqId: [],
   details: {},
 };
@@ -29,6 +30,9 @@ const categorySlice = createSlice({
       })
       .addCase(getAllcate.pending, (state, action) => {
         state.isLoading = true;
+      })
+      .addCase(getAllcate.rejected, (state, action) => {
+        state.isError = true;
       });
 
     builder
@@ -45,15 +49,20 @@ const categorySlice = createSlice({
     });
     builder.addCase(deleteCategorySlice.fulfilled, (state, action) => {
       state.category.data = state.category.data.filter(
-        (item:any) => item._id !== action.payload._id
+        (item: any) => item._id !== action.payload._id
       );
     });
     builder.addCase(updateCatgorySlice.fulfilled, (state, action) => {
       state.category.data.push(action.payload);
     });
-    builder.addCase(getCateSlice.fulfilled, (state, action) => {
-      state.details = action.payload;
-    });
+    builder
+      .addCase(getCateSlice.fulfilled, (state, action) => {
+        state.details = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(getCateSlice.pending, (state, action) => {
+        state.isLoading = true;
+      });
   },
 });
 

@@ -7,23 +7,22 @@ import { BtnStyledNumber } from "./styles";
 import MVLink from "../Location/Link";
 import MVRow from "../MV/Grid";
 import MVCol from "../MV/Grid/Col";
-const SeriNumberMovie = () => {
-  const { id } = useParams();
-  const { data, error, isLoading }: any = useSWRWithAxios(
-    urlSwr + `/category/products/${id}`
-  );
+const SeriNumberMovie = ({data,isLoading}) => {
+  // const { data, error, isLoading }: any = useSWRWithAxios(
+  //   urlSwr + `/category/products/${id}`
+  // );
 
   if (isLoading) {
     return <div className="seriLoading">Loading....</div>;
   }
-  if (error) {
-    return <MessageErr />;
-  }
+  // if (error) {
+  //   return <MessageErr />;
+  // }
   return (
     <div className="bg-[#9b9b9b1f] h-[174px] overflow-y-scroll p-3 rounded-sm seriCategory">
       <MVRow gutter={[16, 16]}>
-        {data.length > 0 && data ? (
-          data.map((item: any, index: number) =>
+        {data?.products?.length > 0 && data?.products ? (
+          data.products.map((item: any, index: number) =>
             item.isApproved == true ? (
               <MVCol
                 lg={3}

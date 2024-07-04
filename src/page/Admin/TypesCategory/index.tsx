@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useContext } from "react";
-import { MyContext } from "../../../context";
 import styled from "styled-components";
 import { pushListData } from "../../../sevices/product";
-import { addBigCategory, delBigCategory, deleteTypeByProducts } from "../../../sevices/type";
+import {
+  addBigCategory,
+  delBigCategory,
+  deleteTypeByProducts,
+} from "../../../sevices/type";
 import { columnsType } from "../../../constant";
 import MVTable from "../../../components/MV/Table";
 import { MyButton } from "../../../components/MV/Button";
@@ -13,6 +16,7 @@ import { useForm } from "react-hook-form";
 import MVInput from "../../../components/MV/Input";
 import MVLink from "../../../components/Location/Link";
 import { MVError, MVSuccess } from "../../../components/Message";
+import { ApiContext } from "../../../context/api";
 const DivstyledContent = styled.div`
   align-items: center;
 `;
@@ -51,7 +55,7 @@ const TypesCateAdmin = () => {
       MVError("Delete Failure");
     }
   };
-  const { seri }: any = useContext(MyContext) || {};
+  const { seri }: any = useContext(ApiContext) || {};
   const data = seri
     ? seri.map((item: any, index: any) => ({
         key: index,
@@ -99,7 +103,7 @@ const TypesCateAdmin = () => {
             <MyButton
               danger
               className="ml-2"
-              onClick={() =>handleDeleteBigCategory(item._id)}
+              onClick={() => handleDeleteBigCategory(item._id)}
             >
               Del
             </MyButton>

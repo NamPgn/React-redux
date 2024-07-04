@@ -6,8 +6,7 @@ import {
   getProduct,
 } from "../../../../redux/slice/product/thunk/product";
 import { toast } from "react-toastify";
-import { useAppDispatch } from "../../../../hook";
-import { MyContext } from "../../../../context";
+import { useAppDispatch, useAppSelector } from "../../../../hook";
 import { MySelectWrapper } from "../../../../components/Form/component/select";
 import { UploadAssby } from "../../../../sevices/product";
 import { MyButton } from "../../../../components/MV/Button";
@@ -17,11 +16,12 @@ import MVInput from "../../../../components/MV/Input";
 import MVLink from "../../../../components/Location/Link";
 import MVTitle from "../../../../components/MV/Title";
 import MVImage from "../../../../components/MV/Image";
+import { ApiContext } from "../../../../context/api";
 declare var Promise: any;
 const EditProduct = () => {
-  const { categorymain, category, seri }: any = useContext(MyContext);
+  const { categorymain, seri }: any = useContext(ApiContext);
   const [isLoading, setIsLoading] = useState(false);
-
+  const { data }: any = useAppSelector((state) => state.category.category);
   const { id } = useParams();
   const { handleSubmit, reset, control } = useForm();
   const dispatch = useAppDispatch();
@@ -138,12 +138,7 @@ const EditProduct = () => {
           rules={undefined}
         />
         <div style={{ width: "150px", height: "200px" }}>
-          <MVImage
-            src={
-              state?.category?.linkImg
-            }
-            className="w-full h-full"
-          />
+          <MVImage src={state?.category?.linkImg} className="w-full h-full" />
         </div>
         <br />
         {/* <MyUploadWrapper
@@ -176,7 +171,7 @@ const EditProduct = () => {
           control={control}
           rules={undefined}
         />
-      
+
         {/** Thể loại của phim tập*/}
         <MySelectWrapper
           label={"Category"}
@@ -184,8 +179,8 @@ const EditProduct = () => {
           name={"category"}
           defaultValue={"category"}
           options={
-            category &&
-            category?.data.map((item, index) => ({
+            data &&
+            data.map((item, index) => ({
               label: item.name,
               value: item._id,
             }))

@@ -14,6 +14,7 @@ import {
   SettingOutlined,
   AreaChartOutlined,
   ShoppingCartOutlined,
+  ArrowUpOutlined,
 } from "@ant-design/icons";
 import DetailProductPage from "../page/Home/Detail";
 import CategoryProduct from "../page/Home/Category";
@@ -25,6 +26,7 @@ import Weeks from "../page/Admin/week";
 import Page404 from "../components/404/Page404";
 import ForgotPassword from "../page/Auth-Page/Forgot-password";
 import ResetPassword from "../page/Auth-Page/Reset-password";
+import LatestAdmin from "../page/Admin/category/Latest";
 const ListType = lazy(() => import("../page/Type/Theloai"));
 const OllMovie = lazy(() => import("../page/Type/SidebarData"));
 const SearchResults = lazy(() => import("../components/Search")); //search
@@ -324,6 +326,14 @@ export const router = [
         ),
       },
       {
+        path: "category/latest",
+        element: (
+          <LazyComponent>
+            <LatestAdmin />
+          </LazyComponent>
+        ),
+      },
+      {
         path: "trailing",
         element: (
           <LazyComponent>
@@ -431,9 +441,20 @@ export const TableRouterAdminPage = [
     ],
   },
   {
-    path: "/dashboard/category",
     name: "Category",
-    icon: <ControlOutlined />,
+    icon: <SlidersOutlined />,
+    children: [
+      {
+        path: "/dashboard/category",
+        name: "Category",
+        icon: <ControlOutlined />,
+      },
+      {
+        path: "/dashboard/category/latest",
+        name: "Latest",
+        icon: <ArrowUpOutlined />,
+      },
+    ],
   },
   {
     name: "Themes",

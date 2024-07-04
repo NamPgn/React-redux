@@ -13,11 +13,11 @@ import {
   clearCacheProducts,
   deleteMultipleProduct,
 } from "../../../sevices/product";
-import { useAppDispatch } from "../../../hook";
-import { MyContext } from "../../../context";
+import { useAppDispatch, useAppSelector } from "../../../hook";
 import { MyButton } from "../../../components/MV/Button";
 import MySelect from "../../../components/MV/Select";
 import {
+  ArrowUpOutlined,
   CheckOutlined,
   ClearOutlined,
   CloseCircleOutlined,
@@ -34,12 +34,17 @@ import MVCol from "../../../components/MV/Grid/Col";
 import MVLink from "../../../components/Location/Link";
 import { MVError, MVSuccess } from "../../../components/Message";
 import MVTags from "../../../components/MV/Tag";
+import { ApiContext } from "../../../context/api";
+import { MyContext } from "../../../context";
 
 const ProductAdmin = memo(({ product, length, isLoading }: any) => {
   const [page, setPage] = useState(8); // Đặt trang mặc định là trang cuối cùng
-  const { category, seri, user }: any = useContext(MyContext);
-  const [dataLength, setDataLength] = useState();
-  const [search, searchState] = useState("");
+  const cate: any = useAppSelector(
+    (state) => state.category.category
+  );
+  const { seri }: any = useContext(ApiContext) || [];
+  const { user }: any = useContext(MyContext);
+  // const [search, searchState] = useState("");
   const [filterApproved, setFilterApproved] = useState("");
   // const [checkedId, setCheckedId]: any = useState([]);
   // const [checkAllid, setCheckAllid] = useState(false);
@@ -54,7 +59,7 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
     // setDataLength(defaultPage);
     // setPage(defaultPage);
     dispatch(getProducts(page));
-  }, [init, dataLength]);
+  }, [init]);
   const handleSelectChange = (value: any) => {
     dispatch(filterProductByCategorySlice(value));
   };
@@ -65,11 +70,11 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
     setPage(value);
     dispatch(getProducts(value));
   };
-  if (search.length) {
-    dataS = product.filter((item) =>
-      item.name.toLowerCase().includes(search.toLowerCase())
-    );
-  }
+  // if (search.length) {
+  //   dataS = product.filter((item) =>
+  //     item.name.toLowerCase().includes(search.toLowerCase())
+  //   );
+  // }
   // if (filter) {
   //   dataS = product.filter((item: any) => filter == item.category);
   //   filter == "Select" ? product.map((item: any) => dataS.push(item)) : "";
@@ -153,7 +158,6 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
       MVError("Lỗi rồi!");
     }
   };
-
   const handleClearCache = async () => {
     const res = await clearCacheProducts();
     if (res.data.suscess == true) {
@@ -167,11 +171,13 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
       title: "Name",
       dataIndex: "name",
       key: "name",
+      width: 200,
     },
     {
       title: "Category",
       key: "category",
       dataIndex: "category",
+      width: 200,
     },
     {
       title: "View",
@@ -219,6 +225,7 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
       title: "Options",
       dataIndex: "options",
       key: "options",
+      width: 100,
     },
     {
       title: "Sidebar",
@@ -297,26 +304,31 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
                     </MyButton>
                   </>
                 )}
-                <MVLink to={"/d/" + record.key + "?c=" + record.idCategory}>
-                  <MyButton type="text" shape="circle">
-                    <EyeOutlined />
-                  </MyButton>
-                </MVLink>
-                <MVLink to={`/dashboard/product/edit/${record.key}`}>
-                  <MyButton type="text" danger shape="circle">
-                    <EditOutlined />
-                  </MyButton>
-                </MVLink>
-                <MVConfirm
-                  title="Delete the product"
-                  onConfirm={() => confirm(record.key)}
-                  okText="Yes"
-                  cancelText="No"
-                >
+                <div className="flex">
+                  <MVLink to={"/d/" + record.key + "?c=" + record.idCategory}>
+                    <MyButton type="text" shape="circle">
+                      <EyeOutlined />
+                    </MyButton>
+                  </MVLink>
+                  <MVLink to={`/dashboard/product/edit/${record.key}`}>
+                    <MyButton type="text" danger shape="circle">
+                      <EditOutlined />
+                    </MyButton>
+                  </MVLink>
+                  <MVConfirm
+                    title="Delete the product"
+                    onConfirm={() => confirm(record.key)}
+                    okText="Yes"
+                    cancelText="No"
+                  >
+                    <MyButton type="text" shape="circle" className="ml-2">
+                      <DeleteOutlined />
+                    </MyButton>
+                  </MVConfirm>
                   <MyButton type="text" shape="circle" className="ml-2">
-                    <DeleteOutlined />
+                    <ArrowUpOutlined type="success" />
                   </MyButton>
-                </MVConfirm>
+                </div>
               </>
             );
             break;
@@ -325,7 +337,6 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
         }
       },
     },
-   
   ];
   const data =
     dataS &&
@@ -335,15 +346,11 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
         name: value.name,
         trailer: value.trailer ? "true" : "false",
         category:
-          category &&
-          category.data.map((item: any) => {
+          cate &&
+          cate.data.map((item: any) => {
             if (item._id === value.category) return item.name;
           }),
-        view: (
-          <MVTags color="#2db7f5">
-            {value.view}
-          </MVTags>
-        ),
+        view: <MVTags color="#2db7f5">{value.view}</MVTags>,
         sidebar: seri && seri.map((i, v) => i._id === value.typeId && i.name),
         seri: value.seri,
         copyright: value.copyright,
@@ -422,8 +429,8 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
             onChange={handleSelectChange}
             style={{ width: 300 }}
             options={
-              category &&
-              category?.data.map((item, index) => ({
+              cate &&
+              cate?.data.map((item, index) => ({
                 label: item.name,
                 value: item._id,
               }))

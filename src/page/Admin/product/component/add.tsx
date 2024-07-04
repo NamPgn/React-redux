@@ -2,22 +2,23 @@ import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { addProduct } from "../../../../redux/slice/product/thunk/product";
-import { MyContext } from "../../../../context";
-import { useAppDispatch } from "../../../../hook";
+import { useAppDispatch, useAppSelector } from "../../../../hook";
 import { MySelectWrapper } from "../../../../components/Form/component/select";
 import { MyButton } from "../../../../components/MV/Button";
 import MVUpload from "../../../../components/MV/Upload";
 import MVInput from "../../../../components/MV/Input";
 import MVLink from "../../../../components/Location/Link";
 import { EditOutlined } from "@ant-design/icons";
+import { ApiContext } from "../../../../context/api";
 const ProductAdd = () => {
-  const { categorymain, category, seri }: any = useContext(MyContext);
+  const { categorymain, seri }: any = useContext(ApiContext);
+  const { data }: any = useAppSelector((state) => state.category.category);
   const [idProduct, setIdProduct] = useState("");
   const dispatch = useAppDispatch();
   const { handleSubmit, control } = useForm();
   const categoryOptions =
-    category &&
-    category?.data.map((item, index) => ({
+    data &&
+    data.map((item, index) => ({
       label: item.name,
       value: item._id,
     }));
@@ -183,18 +184,18 @@ const ProductAdd = () => {
           options={categorymainOptions}
         />
         <br />
-       <div className="flex items-center gap-2">
-         <div className="mt-2">
-          <MyButton htmlType="submit" className="btn btn-primary">
-            Submit
-          </MyButton>
+        <div className="flex items-center gap-2">
+          <div className="mt-2">
+            <MyButton htmlType="submit" className="btn btn-primary">
+              Submit
+            </MyButton>
+          </div>
+          <MVLink to={`/dashboard/product/edit/${idProduct}`}>
+            <MyButton type="text" danger shape="circle">
+              <EditOutlined />
+            </MyButton>
+          </MVLink>
         </div>
-        <MVLink to={`/dashboard/product/edit/${idProduct}`}>
-          <MyButton type="text" danger shape="circle">
-            <EditOutlined />
-          </MyButton>
-        </MVLink>
-       </div>
       </form>
     </div>
   );

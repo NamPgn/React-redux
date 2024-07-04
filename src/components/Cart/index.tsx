@@ -11,7 +11,7 @@ import { MVSuccess } from "../Message";
 import MVImage from "../MV/Image";
 import MVTitle from "../MV/Title";
 const CartUser = () => {
-  const { Auth, user, isLoading, setReset, setRerender } =
+  const { Auth, user, isLoading, setRerender } =
     useContext(MyContext) || {};
   if (isLoading) {
     return <Spiner children={undefined} size={"large"} />;
@@ -103,7 +103,7 @@ const CartUser = () => {
                       {item.product && (
                         <StyledBtnClickDeleteCartById
                           className="w-2/12"
-                          setReset={setReset}
+                          setReset={setRerender}
                           id={item.product._id}
                           userId={Auth.user._id}
                         />

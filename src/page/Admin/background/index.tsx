@@ -1,14 +1,13 @@
 import React, { useContext } from "react";
-import { MyButton } from "../../../components/MV/Button";
-import { MyContext } from "../../../context";
 import MVTable from "../../../components/MV/Table";
 import { columnsBackground } from "../../../constant";
 import MVLink from "../../../components/Location/Link";
 import MVImage from "../../../components/MV/Image";
 import { EditOutlined } from "@ant-design/icons";
+import { ApiContext } from "../../../context/api";
 
 const Background = () => {
-  const { background } = useContext(MyContext) || {};
+  const { background } = useContext(ApiContext) || {};
   const data = {
     key: background.data?._id,
     url: background.data?.url,

@@ -416,7 +416,7 @@ export const settingsSlider = {
 };
 export const settingsSliderLatest = {
   dots: true,
-  infinite: true,
+  infinite: false,
   speed: 500,
   slidesToShow: 5,
   slidesToScroll: 2,
