@@ -41,6 +41,7 @@ const EditCategory = () => {
     formdata.append("year", data.year);
     formdata.append("anotherName", data.anotherName);
     formdata.append("sumSeri", data.sumSeri);
+    formdata.append("hour", data.hour);
     const res = await dispatch(updateCatgorySlice(formdata));
     if (res.payload) {
       toast.success("Edit successfully");
@@ -117,6 +118,12 @@ const EditCategory = () => {
       <MVInput
         name={"sumSeri"}
         label={"Sum seri"}
+        control={control}
+        rules={undefined}
+      />
+      <MVInput
+        name={"hour"}
+        label={"Hour"}
         control={control}
         rules={undefined}
       />

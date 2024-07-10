@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import {
   getAllProductDataByCategorySlice,
   getProduct,
@@ -9,8 +9,6 @@ import {
   getOneProduct$,
 } from "../../redux/selectors";
 import queryString from "query-string";
-import CommentProductsIndex from "../Comment";
-import ComentProductsLayout from "../Comment/Layout";
 import SeriDetailProducts from "../Seri/SeriDetail";
 import CartAddContent from "../Cart/component/add";
 import { useAppDispatch, useAppSelector } from "../../hook";
@@ -39,6 +37,11 @@ const DetailComponent = () => {
   const [activeLink, setActiveLink] = useState("dailyMotion");
   const dispatch = useAppDispatch();
   const [decodedLink, setDecodedLink] = useState("");
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
   useEffect(() => {
     dispatch(getProduct(id));
     dispatch(getAllProductDataByCategorySlice(c));
@@ -46,21 +49,17 @@ const DetailComponent = () => {
       getOneProductDetail.dailyMotionServer
         ? getOneProductDetail.dailyMotionServer
         : "",
-        import.meta.env.VITE_SECERT_CRYPTO_KEY_PRODUCTS_DAILYMOTION_SERVER
+      import.meta.env.VITE_SECERT_CRYPTO_KEY_PRODUCTS_DAILYMOTION_SERVER
     ).toString(CryptoJS.enc.Utf8);
     setDecodedLink(decryptedText);
     setLink(decryptedText);
-    window.scrollTo({
-      top: 0,
-    });
   }, [id, c, getOneProductDetail.dailyMotionServer]); //nếu mà 2 thằng này có thay đổi thì rereder
-
   return (
     <div className="flex justify-center mt-4" style={{ gap: "10px" }}>
       <DivContainer className="col-md-12">
         {getOneProductDetail &&
           (!isLoadingDetail ? (
-            <React.Fragment>
+            <>
               <Movie className="d-flex justify-content-center relative">
                 {getOneProductDetail.dailyMotionServer !== "" &&
                 getOneProductDetail.server2 !== "" ? (
@@ -125,7 +124,7 @@ const DetailComponent = () => {
                   <MyButton
                     onClick={() => {
                       setActiveLink("dailyMotion");
-                      setLink(decodedLink);;
+                      setLink(decodedLink);
                     }}
                     disabled={
                       getOneProductDetail.dailyMotionServer ? false : true
@@ -166,17 +165,7 @@ const DetailComponent = () => {
                   </div>
                 </DivStyledContentText>
               </DivStyledContent>
-              {/* comment */}
-              <Dividers
-                textColor={"#fff"}
-                orientation="left"
-                className="h6 text-white mt-4 text:sm lg:text-lg md:text-md"
-              >
-                Bình luận:
-              </Dividers>
-              <CommentProductsIndex getOne={getOneProductDetail} />
-              <ComentProductsLayout />
-            </React.Fragment>
+            </>
           ) : (
             <Spiner size={"large"} children={undefined} />
           ))}

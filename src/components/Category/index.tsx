@@ -139,6 +139,16 @@ const CategoryPage = () => {
               </Dividers>
               {c.des}
             </div>
+
+            {/* <Dividers
+              textColor={"#fff"}
+              orientation="left"
+              className="h6 text-white mt-4 text:sm lg:text-lg md:text-md"
+            >
+              Bình luận:
+            </Dividers>
+            <CommentProductsIndex getOne={c} />
+            <ComentProductsLayout /> */}
           </div>
         </div>
       )}

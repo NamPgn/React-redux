@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Image } from "antd";
+import { Image, Modal } from "antd";
 import {
   addCateGorySlice,
   deleteCategorySlice,
@@ -25,6 +25,19 @@ import MVTags from "../../../components/MV/Tag";
 import { ApiContext } from "../../../context/api";
 
 const CategoryAdmin = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const dispatch = useAppDispatch();
   const category = useAppSelector(category$);
   const { seri, weeks } = useContext(ApiContext);
@@ -59,6 +72,7 @@ const CategoryAdmin = () => {
     formdata.append("isActive", data.isActive);
     formdata.append("year", data.year);
     formdata.append("anotherName", data.anotherName);
+    formdata.append("hour", data.hour);
     const res = await dispatch(addCateGorySlice(formdata));
     if (res.payload.success == true) {
       toast.success("Thành công");
@@ -146,16 +160,21 @@ const CategoryAdmin = () => {
     });
   return (
     <React.Fragment>
-      <TreeSelect
-        style={{ width: "100%" }}
-        value={valueId}
-        dropdownStyle={{ maxHeight: 400, overflow: "auto" }}
-        treeData={valueOptions}
-        placeholder="Please select"
-        treeDefaultExpandAll
-        onChange={onChange}
-        className="mb-2"
-      />
+      <div className="flex gap-1">
+        <MyButton type="primary" onClick={showModal}>
+          New
+        </MyButton>
+        <TreeSelect
+          style={{ width: "100%" }}
+          value={valueId}
+          dropdownStyle={{ maxHeight: 400, overflow: "auto" }}
+          treeData={valueOptions}
+          placeholder="Please select"
+          treeDefaultExpandAll
+          onChange={onChange}
+          className="mb-2"
+        />
+      </div>
       {/* <div
         className="p-2"
         style={{ display: "flex", gap: "0 10px", justifyContent: "center" }}
@@ -175,96 +194,103 @@ const CategoryAdmin = () => {
             </div>
           ))}
       </div> */}
-      <MVRow gutter={10}>
-        <MVCol span={18}>
-          <MVTable
-            columns={columnsCategory}
-            dataSource={data}
-            scroll={{ x: 1000, y: 1000 }}
-            pagination={{
-              defaultPageSize: 20,
-              showSizeChanger: true,
-              pageSizeOptions: ["20", "40", "60"],
-            }}
-          ></MVTable>
-        </MVCol>
-        <MVCol span={6}>
-          <form onSubmit={handleSubmit(onsubmit)}>
-            <MVInput
-              name={"name"}
-              label={"Name"}
-              control={control}
-              rules={undefined}
-            />
-            <MVInput
-              name={"anotherName"}
-              label={"Another Name"}
-              control={control}
-              rules={undefined}
-            />
-            <MVInput
-              name={"des"}
-              label={"Description"}
-              control={control}
-              rules={undefined}
-            />
-            <MVInput
-              name={"sumSeri"}
-              label={"Sum seri"}
-              control={control}
-              rules={undefined}
-            />
-            <MVInput
-              name={"type"}
-              label={"Type"}
-              control={control}
-              rules={undefined}
-            />
-            <MVInput
-              name={"week"}
-              label={"Week"}
-              control={control}
-              rules={undefined}
-            />
-            <MVInput
-              name={"time"}
-              label={"Duration"}
-              control={control}
-              rules={undefined}
-            />
-            <MVInput
-              name={"isActive"}
-              label={"isActive"}
-              control={control}
-              rules={undefined}
-            />
-            <MVInput
-              name={"year"}
-              label={"Year"}
-              control={control}
-              rules={undefined}
-            />
-            <MVInput
-              name={"up"}
-              label={"Set"}
-              control={control}
-              rules={undefined}
-            />
-            <MySelectWrapper
-              name={"week"}
-              label={"Theo tuần"}
-              control={control}
-              placeholder={"Week"}
-              defaultValue={undefined}
-              options={weeekOptions}
-            />
-            <MVUpload name={"file"} label={"Upload"} control={control} />
-            <MyButton htmlType="submit" className="mt-2">
-              Create
-            </MyButton>
-          </form>
-        </MVCol>
-      </MVRow>
+      <Modal
+        title="Basic Modal"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <form onSubmit={handleSubmit(onsubmit)}>
+          <MVInput
+            name={"name"}
+            label={"Name"}
+            control={control}
+            rules={undefined}
+          />
+          <MVInput
+            name={"anotherName"}
+            label={"Another Name"}
+            control={control}
+            rules={undefined}
+          />
+          <MVInput
+            name={"des"}
+            label={"Description"}
+            control={control}
+            rules={undefined}
+          />
+          <MVInput
+            name={"sumSeri"}
+            label={"Sum seri"}
+            control={control}
+            rules={undefined}
+          />
+          <MVInput
+            name={"type"}
+            label={"Type"}
+            control={control}
+            rules={undefined}
+          />
+          <MVInput
+            name={"week"}
+            label={"Week"}
+            control={control}
+            rules={undefined}
+          />
+          <MVInput
+            name={"time"}
+            label={"Duration"}
+            control={control}
+            rules={undefined}
+          />
+          <MVInput
+            name={"isActive"}
+            label={"isActive"}
+            control={control}
+            rules={undefined}
+          />
+          <MVInput
+            name={"year"}
+            label={"Year"}
+            control={control}
+            rules={undefined}
+          />
+          <MVInput
+            name={"up"}
+            label={"Set"}
+            control={control}
+            rules={undefined}
+          />
+          <MVInput
+            name={"hour"}
+            label={"Hour"}
+            control={control}
+            rules={undefined}
+          />
+          <MySelectWrapper
+            name={"week"}
+            label={"Theo tuần"}
+            control={control}
+            placeholder={"Week"}
+            defaultValue={"Week"}
+            options={weeekOptions}
+          />
+          <MVUpload name={"file"} label={"Upload"} control={control} />
+          <MyButton htmlType="submit" className="mt-2">
+            Create
+          </MyButton>
+        </form>
+      </Modal>
+      <MVTable
+        columns={columnsCategory}
+        dataSource={data}
+        scroll={{ x: 1000, y: 1000 }}
+        pagination={{
+          defaultPageSize: 20,
+          showSizeChanger: true,
+          pageSizeOptions: ["20", "40", "60"],
+        }}
+      ></MVTable>
     </React.Fragment>
   );
 };

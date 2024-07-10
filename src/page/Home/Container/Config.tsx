@@ -8,6 +8,7 @@ import WeekComponent from "../../../components/Week";
 import CategoryHomePage from "../../../components/Category/component/home";
 import styled from "styled-components";
 import LatesCategory from "../../../components/Category/component/latest";
+import LazyLoadOtherComponents from "../../../components/LazyOtherComponents";
 
 const Video = styled.video``;
 const VideoContainer = styled.div`
@@ -48,11 +49,13 @@ const ConfigHomePage = memo(({ category, isLoading, isError, state }: any) => {
         <CategoryProductSidebar />
       </div>
       <WeekComponent />
-      <CategoryHomePage
-        category={category}
-        isLoading={isLoading}
-        isError={isError}
-      />
+      <LazyLoadOtherComponents>
+        <CategoryHomePage
+          category={category}
+          isLoading={isLoading}
+          isError={isError}
+        />
+      </LazyLoadOtherComponents>
     </div>
   );
 });

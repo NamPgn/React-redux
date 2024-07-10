@@ -1,14 +1,11 @@
 import React from "react";
-import styled from "styled-components";
-import { MessageErr, Spiner } from "../../Message/Notification";
+import { Spiner } from "../../Message/Notification";
 import { useSWRWithAxios } from "../../../hook/Swr";
 import { urlSwr } from "../../../function";
 import MVGridCategory from "../../Grid/component";
 import MVLink from "../../Location/Link";
 import MVTitle from "../../MV/Title";
 import { ArrowRightOutlined } from "@ant-design/icons";
-const DivstyOllMovie = styled.div``;
-const DivstyledContainer = styled.div``;
 
 type CategoryProp = {
   category: any;
@@ -25,11 +22,8 @@ const CategoryHomePage = ({ category, isLoading, isError }: CategoryProp) => {
   if (isLoading && loading) {
     return <Spiner size={undefined} children={undefined} />;
   }
-  if (isError) {
-    return <MessageErr />;
-  }
   return (
-    <DivstyledContainer>
+    <div>
       <div className="flex justify-between items-center">
         <MVTitle
           level={2}
@@ -50,7 +44,7 @@ const CategoryHomePage = ({ category, isLoading, isError }: CategoryProp) => {
         </MVLink>
       </div>
       <MVGridCategory type="category" gutter={[16, 16]} child={category} />
-      <DivstyOllMovie>
+      <div>
         <MVTitle level={2} underline style={{ color: "#fff" }} strong>
           {phim?.name}
         </MVTitle>
@@ -59,8 +53,8 @@ const CategoryHomePage = ({ category, isLoading, isError }: CategoryProp) => {
           gutter={phim && phim.products.length ? [16, 16] : 0}
           child={phim.products?.length == 0 ? phim.category : ""}
         />
-      </DivstyOllMovie>
-    </DivstyledContainer>
+      </div>
+    </div>
   );
 };
 

@@ -1,13 +1,10 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import { urlSwr } from "../../function";
-import { useSWRWithAxios } from "../../hook/Swr";
-import { MessageErr, NotUpdate } from "../Message/Notification";
+import { NotUpdate } from "../Message/Notification";
 import { BtnStyledNumber } from "./styles";
 import MVLink from "../Location/Link";
 import MVRow from "../MV/Grid";
 import MVCol from "../MV/Grid/Col";
-const SeriNumberMovie = ({data,isLoading}) => {
+const SeriNumberMovie = ({ data, isLoading }) => {
   // const { data, error, isLoading }: any = useSWRWithAxios(
   //   urlSwr + `/category/products/${id}`
   // );
