@@ -58,6 +58,5 @@ export const resetPassword = async (id, token, data) => {
 };
 
 export const refreshTokenAuth = async (refreshToken: any) => {
-  console.log(refreshToken)
   return await intances.post("/refreshToken", refreshToken);
 };

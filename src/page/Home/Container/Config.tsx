@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from "react";
+import React, { useEffect, memo, useContext } from "react";
 
 import { MessageErr } from "../../../components/Message/Notification";
 import { useSWRWithAxios } from "../../../hook/Swr";
@@ -9,6 +9,7 @@ import CategoryHomePage from "../../../components/Category/component/home";
 import styled from "styled-components";
 import LatesCategory from "../../../components/Category/component/latest";
 import LazyLoadOtherComponents from "../../../components/LazyOtherComponents";
+import { MyContext } from "../../../context";
 
 const Video = styled.video``;
 const VideoContainer = styled.div`
@@ -20,10 +21,11 @@ const VideoContainer = styled.div`
     padding-bottom: 45%;
   }
 `;
-const ConfigHomePage = memo(({ category, isLoading, isError, state }: any) => {
+const ConfigHomePage = memo(() => {
   const { data: trailer, isError: ErrTrailer }: any = useSWRWithAxios(
     urlSwr + `/trailer`
   );
+  const { state } = useContext(MyContext);
   if (ErrTrailer) {
     return <MessageErr />;
   }
@@ -50,11 +52,7 @@ const ConfigHomePage = memo(({ category, isLoading, isError, state }: any) => {
       </div>
       <WeekComponent />
       <LazyLoadOtherComponents>
-        <CategoryHomePage
-          category={category}
-          isLoading={isLoading}
-          isError={isError}
-        />
+        <CategoryHomePage />
       </LazyLoadOtherComponents>
     </div>
   );

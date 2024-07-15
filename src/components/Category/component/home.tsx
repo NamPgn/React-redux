@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Spiner } from "../../Message/Notification";
 import { useSWRWithAxios } from "../../../hook/Swr";
 import { urlSwr } from "../../../function";
@@ -6,6 +6,8 @@ import MVGridCategory from "../../Grid/component";
 import MVLink from "../../Location/Link";
 import MVTitle from "../../MV/Title";
 import { ArrowRightOutlined } from "@ant-design/icons";
+import { useAppDispatch, useAppSelector } from "../../../hook";
+import { getAllcate } from "../../../redux/slice/category/thunk/category";
 
 type CategoryProp = {
   category: any;
@@ -15,13 +17,14 @@ type CategoryProp = {
   loading?: boolean;
 };
 
-const CategoryHomePage = ({ category, isLoading, isError }: CategoryProp) => {
-  const { data: phim, isLoading: loading } = useSWRWithAxios(
-    urlSwr + "/type/movie?key=Phim lẻ"
-  );
-  if (isLoading && loading) {
-    return <Spiner size={undefined} children={undefined} />;
-  }
+const CategoryHomePage = () => {
+  const { data } = useAppSelector((state) => state.category.category);
+  const isLoading = useAppSelector((state) => state.category.isLoading);
+  const isError = useAppSelector((state) => state.category.isError);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getAllcate(1));
+  }, []);
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -43,8 +46,8 @@ const CategoryHomePage = ({ category, isLoading, isError }: CategoryProp) => {
           </div>
         </MVLink>
       </div>
-      <MVGridCategory type="category" gutter={[16, 16]} child={category} />
-      <div>
+      <MVGridCategory type="category" gutter={[16, 16]} child={data} />
+      {/* <div>
         <MVTitle level={2} underline style={{ color: "#fff" }} strong>
           {phim?.name}
         </MVTitle>
@@ -53,7 +56,7 @@ const CategoryHomePage = ({ category, isLoading, isError }: CategoryProp) => {
           gutter={phim && phim.products.length ? [16, 16] : 0}
           child={phim.products?.length == 0 ? phim.category : ""}
         />
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -43,7 +43,6 @@ const Signup = () => {
   const onsubmit = async (data: any) => {
     try {
       const response = await dispatch(resgisterLogin(data));
-      console.log(response)
       if (response?.payload?.success) {
         MVSuccess(response.payload.message);
         navigate("/signin");

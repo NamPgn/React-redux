@@ -23,9 +23,11 @@ function LazyLoadOtherComponents({
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  useEffect(() => {
-    setShowOtherProducts(false);
-  }, [id]);
+  if (id) {
+    useEffect(() => {
+      setShowOtherProducts(false);
+    }, [id]);
+  }
   return <div>{showOtherProducts && children}</div>;
 }
 
