@@ -18,7 +18,7 @@ const LayoutWebsite = () => {
           <SideBar />
         </div>
         <div className={`${state ? "w-11/12" : "w-10/12"} p-2`}>
-          <Outlet />
+         <Outlet/>
         </div>
       </div>
       <div>

@@ -106,7 +106,7 @@ const LayoutAdmin = () => {
           </Collapse> */}
           <Outlet />
         </Content>
-        <Footer>© 2023 copyright | nampg</Footer>
+        <Footer>© 2023 copyright | PH ANG</Footer>
       </Layout>
     </Layout>
   );

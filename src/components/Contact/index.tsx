@@ -13,12 +13,12 @@ const ContactAdmin = () => {
           className="card p-3 "
           style={{ boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}
         >
-          <div className="card-body ">
+          <div className="card-body">
             <div>
               <div className="d-flex justify-center">
                 <img
                   src="https://firebasestorage.googleapis.com/v0/b/mystorage-265d8.appspot.com/o/image%2Fdau-pha-thuong-khung-ova-3-hen-uoc-3-nam-856.jpg?alt=media&token=dca80d37-bb85-41a0-9fd5-c6e949e1db54"
-                  alt=""
+                  alt="Đấu phá thương khung phần 5"
                   className="avatar-md rounded-circle img-thumbnail"
                 />
               </div>

@@ -17,7 +17,7 @@ const Footer = () => {
                 <p className="m-0">
                   © 2023 copyright{" "}
                   <a href="#" className="text-reset">
-                    | nampg
+                    | PH ANG
                   </a>
                 </p>
               </div>

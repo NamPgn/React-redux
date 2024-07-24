@@ -1,7 +1,4 @@
 import React, { useEffect } from "react";
-import { Spiner } from "../../Message/Notification";
-import { useSWRWithAxios } from "../../../hook/Swr";
-import { urlSwr } from "../../../function";
 import MVGridCategory from "../../Grid/component";
 import MVLink from "../../Location/Link";
 import MVTitle from "../../MV/Title";
@@ -22,9 +19,13 @@ const CategoryHomePage = () => {
   const isLoading = useAppSelector((state) => state.category.isLoading);
   const isError = useAppSelector((state) => state.category.isError);
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(getAllcate(1));
   }, []);
+  if (isLoading) {
+    return <div className="seriLoading">Loading...</div>;
+  }
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -37,11 +38,11 @@ const CategoryHomePage = () => {
         >
           Xem Nhiều
         </MVTitle>
-        <MVLink to={"/loadmore"}>
+        <MVLink to={"/loadmore"} aria-label="Tải thêm nội dung">
           <div className="text-[16px] text-[#fff] flex lg:text-[20px] md:text[18px] gap-3">
             <span className="underline">See More</span>
             <span>
-              <ArrowRightOutlined />
+              <ArrowRightOutlined title="Tải thêm nội dung..." />
             </span>
           </div>
         </MVLink>

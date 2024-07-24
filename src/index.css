@@ -155,3 +155,35 @@ p {
   width: 10rem !important;
   height: 10rem !important;
 }
+
+.custom-notification {
+  width: 400px; 
+  z-index: 9999;
+}
+
+.custom-notification .ant-notification-notice {
+  background-color: #f0f0f0; 
+  color: #333; 
+}
+
+.custom-toast {
+  position: fixed;
+  top: 20px; /* Khoảng cách từ cạnh trên của màn hình */
+  right: 20px; /* Khoảng cách từ cạnh phải của màn hình */
+  width: 300px; /* Kích thước thông báo */
+  z-index: 9999; /* Độ ưu tiên z-index */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Tùy chỉnh các thuộc tính khác nếu cần */
+.custom-toast .toast-content {
+  margin-right: 10px;
+}
+
+.custom-toast .toast-close-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}

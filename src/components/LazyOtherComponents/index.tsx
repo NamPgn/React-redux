@@ -1,34 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
-function LazyLoadOtherComponents({
-  id,
-  children,
-}: {
-  id?: any;
-  children: any;
-}) {
+function LazyLoadOtherComponents({ children }) {
   const [showOtherProducts, setShowOtherProducts] = useState(false);
-  useEffect(() => {
-    const handleScroll = () => {
-      const { scrollTop, clientHeight, scrollHeight } =
-        document.documentElement;
-      if (scrollTop + clientHeight >= scrollHeight) {
-        setShowOtherProducts(true);
-      }
-    };
+  const bottomRef = useRef(null);
 
-    window.addEventListener("scroll", handleScroll);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setShowOtherProducts(true);
+        }
+      },
+      { threshold: 1.0 }
+    );
+
+    if (bottomRef.current) {
+      observer.observe(bottomRef.current);
+    }
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      if (bottomRef.current) {
+        observer.unobserve(bottomRef.current);
+      }
     };
   }, []);
-  if (id) {
-    useEffect(() => {
-      setShowOtherProducts(false);
-    }, [id]);
-  }
-  return <div>{showOtherProducts && children}</div>;
+  return (
+    <div>
+      {showOtherProducts && children}
+      <div ref={bottomRef} style={{ height: '1px' }} />
+    </div>
+  );
 }
 
 export default LazyLoadOtherComponents;

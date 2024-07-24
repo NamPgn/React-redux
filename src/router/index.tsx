@@ -27,6 +27,7 @@ import Page404 from "../components/404/Page404";
 import ForgotPassword from "../page/Auth-Page/Forgot-password";
 import ResetPassword from "../page/Auth-Page/Reset-password";
 import LatestAdmin from "../page/Admin/category/Latest";
+import AdminPage from "../page/Admin";
 const ListType = lazy(() => import("../page/Type/Theloai"));
 const OllMovie = lazy(() => import("../page/Type/SidebarData"));
 const SearchResults = lazy(() => import("../components/Search")); //search
@@ -37,7 +38,6 @@ const Signin = lazy(() => import("../page/Auth-Page/Sign-in")); //signin
 const Signup = lazy(() => import("../page/Auth-Page/Sign-up")); //signup
 
 //router admin
-const AdminPage = lazy(() => import("../page/Admin")); //admin
 const DataProduct = lazy(() => import("../page/Admin/product/list"));
 const GetUser = lazy(() => import("../page/Admin/user"));
 const Adduser = lazy(() => import("../page/Admin/user/component/add"));
@@ -114,7 +114,7 @@ export const loggedInRoutes = [
 export const router = [
   {
     path: "/",
-    element: <LayoutWebsite />,
+    element: <LayoutWebsite/>,
     children: [
       {
         path: "/",

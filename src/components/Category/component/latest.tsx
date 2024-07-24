@@ -27,12 +27,14 @@ const LatesCategory = () => {
               <div key={item._id}>
                 <div className="w-full px-1">
                   <div className="relative group">
-                    <MVLink to={"/q/" + item._id} className="block">
-                      <MVImage
-                        src={item.linkImg}
-                        alt={item.name}
-                        className="h-[150px] md:h-[180px] lg:h-[220px] object-cover transition-opacity duration-300 group-hover:opacity-40 rounded-lg"
-                      />
+                    <MVLink to={`/q/${item._id}`} className="block">
+                      <div className="relative w-full h-[150px] md:h-[180px] lg:h-[220px]">
+                        <MVImage
+                          src={item.linkImg}
+                          alt={item.name}
+                          className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-40 rounded-lg"
+                        />
+                      </div>
                       <div
                         style={{
                           background:

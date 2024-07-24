@@ -91,7 +91,7 @@ const Header = () => {
         justify="space-between"
         className={`${
           change ? "w-11/12" : "w-10/12"
-        } lg:flex hidden z-[100000] fixed right-0`}
+        } lg:flex hidden z-[100] fixed right-0`}
         style={{
           top: scrollUp ? "0" : "-25%",
           padding: navSize,
@@ -140,7 +140,7 @@ const Header = () => {
                 <DivstyledMkt>Liên hệ qc tele: </DivstyledMkt>
                 <a href={"https://www.facebook.com/profile.php?id=61556232330775"}>
                   <DivLink />
-                  @nampg
+                  @PH ANG
                 </a>
               </DivContentMkt>
             </MVCol>

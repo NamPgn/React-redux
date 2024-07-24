@@ -298,7 +298,7 @@ const columnsGetAdmin = [
     title: "Name",
     dataIndex: "name",
     key: "name",
-    render: (text) => <a>{text}</a>,
+    render: (text) => <p>{text}</p>,
   },
   {
     title: "Email",
@@ -327,7 +327,7 @@ const columnsUser = [
     title: "Name",
     dataIndex: "name",
     key: "name",
-    render: (text: any) => <a>{text}</a>,
+    render: (text: any) => <p>{text}</p>,
   },
   {
     title: "Email",
@@ -418,7 +418,7 @@ export const settingsSlider = {
 };
 export const settingsSliderLatest = {
   dots: true,
-  infinite: false,
+  infinite: true,
   speed: 500,
   slidesToShow: 5,
   slidesToScroll: 2,

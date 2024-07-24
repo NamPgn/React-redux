@@ -27,15 +27,6 @@ const SideBar = () => {
     <DivstySideBar className={sidebarWidth}>
       <DivstyledContent className={sidebarWidth}>
         <DivStyledTitle justify={state ? "center" : "start"}>
-          <MVLink
-            to={"/"}
-            style={{
-              display: "block",
-              width: "50px",
-            }}
-          >
-            <SibarImage src="/img/zyro-image.png" />
-          </MVLink>
           <SideBarText className={state ? "hiddenn" : "block text-white"}>
             <MVLink to={"/"}>
               <Title>Hhtrungquoc.tv</Title>
