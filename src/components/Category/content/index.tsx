@@ -5,6 +5,7 @@ import MVImage from "../../MV/Image";
 import MVTitle from "../../MV/Title";
 import { PlayCircleOutlined } from "@ant-design/icons";
 import { NotFoundContent } from "../../Message/Notification";
+import { handleImage } from "../../../lib/handleImage";
 
 interface CategoryContent {
   text?: string;
@@ -30,15 +31,15 @@ const CategoryContents = memo(
     products,
   }: CategoryContent) => {
     const lastItem: any = products ? products[products.length - 1] : "";
+   
     return (
       <div className="w-full">
         <div className="relative group">
-          <a href={link} className="block">
-            <div className="relative w-full h-[200px] md:h-[300px] lg:h-[400px]">
-              <img
-                src={image}
+          <MVLink to={link} className="block">
+            <div className="relative w-full h-[200px] md:h-[250px] lg:h-[320px]">
+              <MVImage
+                src={handleImage(300,image)}
                 alt={title}
-                loading="lazy"
                 className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-40 rounded-lg"
               />
             </div>
@@ -54,7 +55,7 @@ const CategoryContents = memo(
             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <PlayCircleOutlined className="text-white text-5xl" />
             </div>
-          </a>
+          </MVLink>
         </div>
         <div className="mt-4">
           <MVLink to={link}>

@@ -10,9 +10,7 @@ html {
   background-color: #999;
 }
 
-:where(.css-1s3dcof).ant-btn-primary {
-  background-color: #1677ff !important;
-}
+
 
 .activeServer {
   background-color: #f0f0f052 !important;
@@ -105,10 +103,6 @@ p {
   margin: 0 !important;
 }
 
-:where(.css-1s3dcof).ant-layout .ant-layout-sider {
-  background-color: transparent !important;
-}
-
 .slick-slider {
   cursor: grab;
   cursor: -webkit-grab;
@@ -118,9 +112,6 @@ p {
   color: #ffffffc9;
 }
 
-:where(.css-1s3dcof).ant-result .ant-result-subtitle {
-  color: #ffffffc9 !important;
-}
 .seriLoading {
   animation: seriLoading 1s linear infinite;
 }
@@ -170,7 +161,6 @@ p {
   position: fixed;
   top: 20px; /* Khoảng cách từ cạnh trên của màn hình */
   right: 20px; /* Khoảng cách từ cạnh phải của màn hình */
-  width: 300px; /* Kích thước thông báo */
   z-index: 9999; /* Độ ưu tiên z-index */
   display: flex;
   align-items: center;
@@ -186,4 +176,8 @@ p {
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+
+.category-item {
+  min-height: 200px; /* Chiều cao cố định hoặc tối thiểu */
 }

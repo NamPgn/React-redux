@@ -2,7 +2,6 @@ import React from "react";
 import { Line } from "@ant-design/plots";
 import { useSWRWithAxios } from "../../hook/Swr";
 import { urlSwr } from "../../function";
-import PieComponent from "./chart/pie";
 import { Card, Statistic } from "antd";
 import {
   ArrowDownOutlined,

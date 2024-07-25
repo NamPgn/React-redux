@@ -12,6 +12,8 @@ import { ClockCircleOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../hook";
 import { getCateSlice } from "../../redux/slice/category/thunk/category";
 import React from "react";
+import { handleImage } from "../../lib/handleImage";
+import PageMeta from "../../lib/pageMeta";
 const CategoryPage = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -26,7 +28,12 @@ const CategoryPage = () => {
     }
   }, [c]);
   return (
-    <div>
+    <>
+      <PageMeta
+        ogTitle={c.name}
+        description={c?.des}
+        imageUrl={c?.linkImg}
+      />
       {c && (
         <div key={c._id}>
           <div style={{ color: "#fff" }}>
@@ -35,7 +42,7 @@ const CategoryPage = () => {
                 <div className="h-full w-full flex justify-center ">
                   <MVImage
                     className="object-contain w-full h-full flex-grow"
-                    src={c.linkImg}
+                    src={handleImage(300, c.linkImg)}
                     alt={c.name}
                   />
                 </div>
@@ -152,7 +159,7 @@ const CategoryPage = () => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

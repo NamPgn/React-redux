@@ -14,6 +14,7 @@ import MVUpload from "../../../../components/MV/Upload";
 import MVInput from "../../../../components/MV/Input";
 import { MySelectWrapper } from "../../../../components/Form/component/select";
 import { ApiContext } from "../../../../context/api";
+import { handleImage } from "../../../../lib/handleImage";
 declare var Promise: any;
 const EditCategory = () => {
   const dispatch = useAppDispatch();
@@ -106,7 +107,7 @@ const EditCategory = () => {
       <MVImage
         style={{ width: "250px" }}
         className="h-[200px] md:h-[300px] lg:h-[400px] transition-opacity duration-300 group-hover:opacity-40"
-        src={state && state.linkImg}
+        src={handleImage(200, state && state.linkImg)}
         alt={state.name}
       />
       <MVInput

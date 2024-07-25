@@ -18,6 +18,7 @@ import { useAppDispatch } from "../../../../hook";
 import { MVError } from "../../../Message";
 import { handleLogout } from "../../../../function";
 import { isAuthentication } from "../../../../auth/getToken";
+import { handleImage } from "../../../../lib/handleImage";
 const AuthHeader = ({ isLoggedInState, style }) => {
   const auths = isAuthentication();
   const navigate = useNavigate();
@@ -133,7 +134,9 @@ const AuthHeader = ({ isLoggedInState, style }) => {
             <MVAvatar
               className="text-center"
               title={auths?.user?.name}
-              src={auths.user && auths?.user?.image}
+              src={
+                handleImage( 50,auths.user && auths?.user?.image)
+              }
               size={"sm"}
             />
           </Popover>

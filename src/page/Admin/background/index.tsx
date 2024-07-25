@@ -5,13 +5,14 @@ import MVLink from "../../../components/Location/Link";
 import MVImage from "../../../components/MV/Image";
 import { EditOutlined } from "@ant-design/icons";
 import { ApiContext } from "../../../context/api";
+import { handleImage } from "../../../lib/handleImage";
 
 const Background = () => {
   const { background } = useContext(ApiContext) || {};
   const data = {
     key: background.data?._id,
     url: background.data?.url,
-    image: <MVImage className="m-0" src={background.data?.url} />,
+    image: <MVImage className="m-0" src={handleImage(200,background.data?.url)} />,
     action: (
       <span>
         <MVLink to={`/dashboard/background/edit/${background.data?._id}`}>

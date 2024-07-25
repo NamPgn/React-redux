@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { router } from "./router";
 import { GlobalStyle } from "./components/Styled/Global";
 import { useLocation, useNavigate, useRoutes } from "react-router-dom";
-import { FloatButton, message, notification } from "antd";
+import { FloatButton } from "antd";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./index.css";
@@ -19,8 +19,7 @@ function App() {
   const TRACKING_ID = "G-0EEY3R7F0S";
   const Routes = useRoutes(router);
   const nav = useNavigate();
-  const [api, contextHolder] = notification.useNotification();
-  const [showToast, setShowToast] = useState(false);
+  // const [showToast, setShowToast] = useState(false);
   const Auth = isAuthentication();
   useEffect(() => {
     ReactGA.initialize(TRACKING_ID);
@@ -49,21 +48,24 @@ function App() {
       }
     })();
 
-    const timer = setTimeout(() => {
-      setShowToast(true);
-    }, 1000);
+    // const timer = setTimeout(() => {
+    //   setShowToast(true);
+    // }, 1000);
 
-    return () => clearTimeout(timer);
+    // return () => clearTimeout(timer);
   }, []);
-  setTimeout(() => {
-    setShowToast(false);
-  }, 5000);
+  // setTimeout(() => {
+  //   setShowToast(false);
+  // }, 5000);
+  // const handleClose=()=>{
+  //   setShowToast(false);
+  // }
   return (
     <>
-      {showToast && (
+      {/* {showToast && (
         <div
           id="toast-warning"
-          className="flex transition-all gap-3 custom-toast items-center w-full max-w-lg p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
+          className="flex transition-all lg:w-[300px] md:w-[250px] w-200px gap-3 custom-toast items-center max-w-lg p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
           role="alert"
         >
           <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">
@@ -88,6 +90,7 @@ function App() {
             className="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
             data-dismiss-target="#toast-warning"
             aria-label="Close"
+            onClick={()=>handleClose()}
           >
             <span className="sr-only">Close</span>
             <svg
@@ -106,8 +109,10 @@ function App() {
             </svg>
           </button>
         </div>
+      )} */}
+      {alert(
+        " Xin lỗi, server phim hiện đang quá tải do lượng truy cập lớn. Vui lòng chờ đợi trong 1-2 phút để tiếp tục xem. Chúng tôi đang nỗ lực để cải thiện tình hình và xin thành thật xin lỗi vì sự bất tiện này.Trân trọng!"
       )}
-      {contextHolder}
       {Routes}
       <GlobalStyle />
       <ToastContainer />

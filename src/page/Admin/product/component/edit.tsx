@@ -17,6 +17,7 @@ import MVLink from "../../../../components/Location/Link";
 import MVTitle from "../../../../components/MV/Title";
 import MVImage from "../../../../components/MV/Image";
 import { ApiContext } from "../../../../context/api";
+import { handleImage } from "../../../../lib/handleImage";
 declare var Promise: any;
 const EditProduct = () => {
   const { categorymain, seri }: any = useContext(ApiContext);
@@ -138,7 +139,10 @@ const EditProduct = () => {
           rules={undefined}
         />
         <div style={{ width: "150px", height: "200px" }}>
-          <MVImage src={state?.category?.linkImg} className="w-full h-full" />
+          <MVImage
+            src={handleImage(200, state?.category?.linkImg)}
+            className="w-full h-full"
+          />
         </div>
         <br />
         {/* <MyUploadWrapper

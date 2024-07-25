@@ -6,6 +6,7 @@ import Dividers from "../../MV/Divider";
 import MVImage from "../../MV/Image";
 import MVText from "../../MV/Text";
 import MVTags from "../../MV/Tag";
+import { handleImage } from "../../../lib/handleImage";
 const Container = stylded.div`
 ::-webkit-scrollbar-thumb {
   background: #888;
@@ -17,8 +18,6 @@ const Container = stylded.div`
 `;
 
 const CategorySideBarStyles = stylded.div`
-gap: 0px 18px;
-padding: 10px;
 background: rgb(28, 28, 30);
 border-radius: 10px;
 margin: 5px 0px;
@@ -28,7 +27,7 @@ const CategoryProductSidebar = () => {
     data: { data },
   } = useSWRWithAxios("/category/filters");
   return (
-    <div className="rounded des w-3/12 relative overflow-hidden lg:block md:hidden hidden bg-[#0000005e]">
+    <div className="rounded des w-3/12 relative overflow-hidden lg:block md:hidden hidden bg-[#0000005e] min-h-screen">
       <Dividers className="m-0" textColor={"#fff"} orientation="left">
         Xem thêm
       </Dividers>
@@ -36,14 +35,14 @@ const CategoryProductSidebar = () => {
         {data &&
           data?.map((item: any, index: any) => (
             <CategorySideBarStyles
-              className="d-flex col-md-12  my-2"
+              className="flex lg:gap-1 my-2 py-2"
               key={index}
             >
               <div className="w-3/12">
                 <MVLink key={index} to={"/q/" + item._id}>
                   <MVImage
                     className="m-0 h-full"
-                    src={item.linkImg}
+                    src={handleImage(100,item.linkImg)}
                     alt={item.name}
                   />
                 </MVLink>

@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import MVRow from "../../MV/Grid";
 import MVCol from "../../MV/Grid/Col";
 import { NotUpdate } from "../../Message/Notification";
-import CategoryContents from "../../Category/Content/Category";
+import CategoryContents from "../../Category/content";
 const MVGridCategory = memo(({ type, gutter, child, ...rest }: any) => {
   return (
     <MVRow gutter={gutter}>

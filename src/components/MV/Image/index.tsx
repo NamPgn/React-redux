@@ -1,4 +1,3 @@
-import { Image } from "antd";
 import React from "react";
 interface ImageInterFace {
   src: string;
@@ -14,11 +13,9 @@ interface ImageInterFace {
 const MVImage = ({ src, alt, style, ...rest }: ImageInterFace) => {
   return (
     <img
-      // placeholder={}
-      // removeWrapper={true}
       loading="lazy"
       src={src}
-      className="m-5 w-full h-[150px] md:h-[200px] lg:h-[300px]"
+      className="m-5 w-full h-full"
       style={style}
       alt={alt}
       {...rest}

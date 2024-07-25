@@ -1,4 +1,3 @@
-import moment from "moment";
 import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { StyledBtnClickDeleteCartById } from "./component/delete";
@@ -10,6 +9,7 @@ import MVLink from "../Location/Link";
 import { MVSuccess } from "../Message";
 import MVImage from "../MV/Image";
 import MVTitle from "../MV/Title";
+import { handleImage } from "../../lib/handleImage";
 const CartUser = () => {
   const { Auth, user, isLoading, setRerender } =
     useContext(MyContext) || {};
@@ -64,7 +64,7 @@ const CartUser = () => {
                           >
                             <MVImage
                               className="h-full"
-                              src={item.product?.category?.linkImg}
+                              src={handleImage(200,item.product?.category?.linkImg)}
                               style={{ borderRadius: "5px" }}
                               alt=""
                             />
@@ -94,7 +94,6 @@ const CartUser = () => {
                           <div className="text-[#999]">
                             <div className="my-2">
                               Ngày thêm:{" "}
-                              {moment(item.date).format("LTS DD-MM-YYYY")}
                             </div>
                             <div className="py-2">Tập: {item.product.seri}</div>
                           </div>

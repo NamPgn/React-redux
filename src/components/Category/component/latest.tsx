@@ -7,6 +7,7 @@ import { PlayCircleOutlined } from "@ant-design/icons";
 import { settingsSliderLatest } from "../../../constant";
 import SliderComponent from "../../Slider";
 import { NotFoundContent } from "../../Message/Notification";
+import { handleImage } from "../../../lib/handleImage";
 
 const LatesCategory = () => {
   const {
@@ -24,13 +25,13 @@ const LatesCategory = () => {
           data.map((item: any, index: number) => {
             const lastItem = item.products[item.products.length - 1];
             return (
-              <div key={item._id}>
-                <div className="w-full px-1">
-                  <div className="relative group">
-                    <MVLink to={`/q/${item._id}`} className="block">
-                      <div className="relative w-full h-[150px] md:h-[180px] lg:h-[220px]">
+              <div key={item._id} >
+                <div className="w-full ">
+                  <div className="relative group ">
+                    <MVLink to={`/q/${item._id}`} className="block mx-2">
+                      <div className="relative h-[200px] w-[120px] custom-slide md:w-[160px] lg:w-[180px]">
                         <MVImage
-                          src={item.linkImg}
+                          src={handleImage(150, item.linkImg)}
                           alt={item.name}
                           className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-40 rounded-lg"
                         />
