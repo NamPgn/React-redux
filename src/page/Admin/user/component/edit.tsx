@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { editUser, getUser_id } from "../../../../redux/slice/userSlice";
 import { toast } from "react-toastify";
 import styled from "styled-components";

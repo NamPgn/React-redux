@@ -1,5 +1,4 @@
 import React from "react";
-import { message } from "antd";
 import styled from "styled-components";
 import { deleteCartSlice } from "../../../redux/slice/cart/thunk/cart";
 import { useAppDispatch } from "../../../hook";

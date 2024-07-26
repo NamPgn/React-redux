@@ -70,40 +70,13 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
     setPage(value);
     dispatch(getProducts(value));
   };
-  // if (search.length) {
-  //   dataS = product.filter((item) =>
-  //     item.name.toLowerCase().includes(search.toLowerCase())
-  //   );
-  // }
-  // if (filter) {
-  //   dataS = product.filter((item: any) => filter == item.category);
-  //   filter == "Select" ? product.map((item: any) => dataS.push(item)) : "";
-  // }
+
   if (filterApproved) {
     dataS = product.filter((item: any) => item.isApproved == false);
     filterApproved == "Select" && product.map((item: any) => dataS.push(item));
   }
-  // const hanedleCheckboxChange = (id: any) => {
-  // 	if (checkedId.includes(id)) {
-  // 		setCheckedId(checkedId.filter(itemId => itemId !== id));
-  // 	} else {
-  // 		setCheckedId([...checkedId, id]);
-  // 	}
-  // }
-
-  // const handleCheckAll = () => {
-  // 	setCheckAllid(!checkAllid); //nếu mà bằng true
-  // 	if (!checkAllid) {
-  // 		setCheckedId(product.map((item) => item._id))
-  // 	} else {
-  // 		setCheckedId([]);
-  // 	}
-  // }
-  //bấm để cút
   const handleDeleteSelectedData = async () => {
-    // dispatch(deleteMultipleData(checkedId)) //xóa theo mảng
-    // setCheckAllid([]); //xóa xong thì về 1 mảng rỗng
-    // await deleteMultipleProduct(checkedId);
+
     const response: any = await deleteMultipleProduct(selectedRowKeys);
     if (response.data.success == true) {
       setInit(!init);
@@ -111,10 +84,6 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
     } else {
       toast.error("Error deleting products");
     }
-    // if (window.confirm(checkedId) == true) {
-    // 	toast.success('Xóa tất cả thành công');
-    // 	await deleteMultipleProduct(checkedId);
-    // }
   };
 
   const confirm = async (id) => {
@@ -486,7 +455,7 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
             pageSizeOptions: ["40", "80", "120"],
             current: page,
             onChange: handlePageChangePage,
-            total: length,
+            total: 444,
           }}
         />
       </Spin>

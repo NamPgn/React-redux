@@ -1,4 +1,4 @@
-import React, { useEffect, memo, useContext } from "react";
+import React, {  memo, useContext } from "react";
 
 import { MessageErr } from "../../../components/Message/Notification";
 import { useSWRWithAxios } from "../../../hook/Swr";
@@ -31,7 +31,7 @@ const ConfigHomePage = memo(() => {
   }
   return (
     <div className={state ? "p-3" : "mt-3"}>
-      <div className="flex">
+      <div className="d-flex">
         <div className="lg:w-9/12 md:w-12/12 sm:w-full">
           <div className="h-full">
             <VideoContainer className="relative md:mx-2">
@@ -45,11 +45,11 @@ const ConfigHomePage = memo(() => {
                 src={trailer.url}
               />
             </VideoContainer>
+            <LatesCategory />
           </div>
         </div>
         <CategoryProductSidebar />
       </div>
-      {/* <LatesCategory /> */}
       <WeekComponent />
       <LazyLoadOtherComponents>
         <CategoryHomePage />

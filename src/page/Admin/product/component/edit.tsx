@@ -20,7 +20,7 @@ import { ApiContext } from "../../../../context/api";
 import { handleImage } from "../../../../lib/handleImage";
 declare var Promise: any;
 const EditProduct = () => {
-  const { categorymain, seri }: any = useContext(ApiContext);
+  const { seri }: any = useContext(ApiContext);
   const [isLoading, setIsLoading] = useState(false);
   const { data }: any = useAppSelector((state) => state.category.category);
   const { id } = useParams();
@@ -207,7 +207,7 @@ const EditProduct = () => {
         />
         <br />
         {/** Thể loại của danh mục thể loại gồm các danh mục con */}
-        <MySelectWrapper
+        {/* <MySelectWrapper
           control={control}
           name={"Thể loại của danh mục thể loại gồm các danh mục con"}
           label={"Categorymain"}
@@ -220,7 +220,7 @@ const EditProduct = () => {
               value: item._id,
             }))
           }
-        />
+        /> */}
         <br />
         <MyButton htmlType="submit" className="btn btn-primary mt-2">
           Submit

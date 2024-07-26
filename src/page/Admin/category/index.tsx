@@ -14,8 +14,6 @@ import { MySelectWrapper } from "../../../components/Form/component/select";
 import { MyButton } from "../../../components/MV/Button";
 import { columnsCategory } from "../../../constant";
 import MVTable from "../../../components/MV/Table";
-import MVRow from "../../../components/MV/Grid";
-import MVCol from "../../../components/MV/Grid/Col";
 import MVUpload from "../../../components/MV/Upload";
 import MVInput from "../../../components/MV/Input";
 import MVLink from "../../../components/Location/Link";

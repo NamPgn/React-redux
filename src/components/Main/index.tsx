@@ -60,8 +60,8 @@ const DetailComponent = () => {
   return (
     <>
       <PageMeta
-        ogTitle={getOneProductDetail.name}
-        description={getOneProductDetail.category.des}
+        ogTitle={getOneProductDetail?.name}
+        description={getOneProductDetail.category?.des}
         imageUrl={getOneProductDetail.category?.linkImg}
       />
       <div className="flex justify-center mt-4" style={{ gap: "10px" }}>

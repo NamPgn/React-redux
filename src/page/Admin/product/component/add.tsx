@@ -11,7 +11,7 @@ import MVLink from "../../../../components/Location/Link";
 import { EditOutlined } from "@ant-design/icons";
 import { ApiContext } from "../../../../context/api";
 const ProductAdd = () => {
-  const { categorymain, seri }: any = useContext(ApiContext);
+  const { seri }: any = useContext(ApiContext);
   const { data }: any = useAppSelector((state) => state.category.category);
   const [idProduct, setIdProduct] = useState("");
   const dispatch = useAppDispatch();
@@ -23,12 +23,12 @@ const ProductAdd = () => {
       value: item._id,
     }));
 
-  const categorymainOptions =
-    categorymain &&
-    categorymain?.map((item, index) => ({
-      label: item.name,
-      value: item._id,
-    }));
+  // const categorymainOptions =
+  //   categorymain &&
+  //   categorymain?.map((item, index) => ({
+  //     label: item.name,
+  //     value: item._id,
+  //   }));
 
   const typeOptions =
     seri &&
@@ -175,14 +175,14 @@ const ProductAdd = () => {
         />
         <br />
         {/** Thể loại của danh mục thể loại gồm các danh mục con */}
-        <MySelectWrapper
+        {/* <MySelectWrapper
           name={"categorymain"}
           label={"Thể loại của danh mục thể loại gồm các danh mục con"}
           control={control}
           placeholder={"categorymain"}
           defaultValue={"categorymain"}
           options={categorymainOptions}
-        />
+        /> */}
         <br />
         <div className="flex items-center gap-2">
           <div className="mt-2">

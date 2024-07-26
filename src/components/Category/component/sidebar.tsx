@@ -27,7 +27,7 @@ const CategoryProductSidebar = () => {
     data: { data },
   } = useSWRWithAxios("/category/filters");
   return (
-    <div className="rounded des w-3/12 relative overflow-hidden lg:block md:hidden hidden bg-[#0000005e] min-h-screen">
+    <div className="rounded des w-3/12 relative overflow-hidden lg:block md:hidden hidden bg-[#0000005e]">
       <Dividers className="m-0" textColor={"#fff"} orientation="left">
         Xem thêm
       </Dividers>

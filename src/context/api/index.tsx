@@ -12,19 +12,19 @@ export const ApiContextProvider = (props) => {
     urlSwr + `/types`
   );
 
-  const {
-    data: categorymain,
-    isLoading: LoadingCateMain,
-    isError,
-  } = useSWRWithAxios(urlSwr + `/categorymain`);
+  // const {
+  //   data: categorymain,
+  //   isLoading: LoadingCateMain,
+  //   isError,
+  // } = useSWRWithAxios(urlSwr + `/categorymain`);
   const value = {
     //danh mục phim nhiều tập
     seri,
     loadingSeri,
     //phim lẻ phim 1 tập
-    categorymain,
-    LoadingCateMain,
-    isError,
+    // categorymain,
+    // LoadingCateMain,
+    // isError,
 
     //background
     background,

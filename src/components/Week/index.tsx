@@ -45,7 +45,7 @@ export default function WeekComponent() {
           weeks.map((items) => (
             <div
               key={items._id}
-              className={"cursor-pointer"}
+              className={ tabs === items.name ? "active border-none" : "cursor-pointer"}
               onClick={() => handleTabClick(items.name)}
             >
               <div className="text-[11px] md:text-[12px] lg:text-[14px] flex justify-center items-center px-4 py-2 text-white rounded-lg w-full">
