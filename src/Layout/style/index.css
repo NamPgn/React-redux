@@ -1,0 +1,25 @@
+/* styles.css */
+.custom-sider {
+  background-color: #f0f2f5 !important;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid #e8e8e8;
+}
+
+.custom-sider .ant-menu {
+  background: #f0f2f5;
+  border-right: 1px solid #e8e8e8;
+}
+
+.custom-sider .ant-menu-item {
+  border-radius: 4px;
+  margin: 0 8px;
+}
+
+.custom-sider .ant-menu-item:hover {
+  background: #e6f7ff;
+}
+
+.custom-sider .ant-menu-item-selected {
+  background: #1890ff;
+  color: #fff;
+}

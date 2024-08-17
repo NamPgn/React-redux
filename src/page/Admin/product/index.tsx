@@ -38,7 +38,7 @@ import { ApiContext } from "../../../context/api";
 import { MyContext } from "../../../context";
 
 const ProductAdmin = memo(({ product, length, isLoading }: any) => {
-  const [page, setPage] = useState(9); // Đặt trang mặc định là trang cuối cùng
+  const [page, setPage] = useState(10 ); // Đặt trang mặc định là trang cuối cùng
   const cate: any = useAppSelector(
     (state) => state.category.category
   );
@@ -60,6 +60,7 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
     // setPage(defaultPage);
     dispatch(getProducts(page));
   }, [init]);
+
   const handleSelectChange = (value: any) => {
     dispatch(filterProductByCategorySlice(value));
   };

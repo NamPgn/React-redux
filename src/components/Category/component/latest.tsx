@@ -25,11 +25,11 @@ const LatesCategory = () => {
           data.map((item: any, index: number) => {
             const lastItem = item.products[item.products.length - 1];
             return (
-              <div key={item._id} >
-                <div className="w-full ">
-                  <div className="relative group ">
-                    <MVLink to={`/q/${item._id}`} className="block mx-2">
-                      <div className="relative h-[200px] w-[120px] custom-slide md:w-[160px] lg:w-[180px]">
+              <div key={item._id} className="px-2">
+                <div className="w-full flex flex-col items-center">
+                  <div className="relative group">
+                    <MVLink to={`/q/${item._id}`} className="block w-full">
+                      <div className="relative h-[200px] w-[160px] md:w-[180px] lg:w-[200px]">
                         <MVImage
                           src={handleImage(220, item.linkImg)}
                           alt={item.name}
@@ -54,7 +54,7 @@ const LatesCategory = () => {
                       </div>
                     </MVLink>
                   </div>
-                  <div className="mt-4">
+                  <div className="mt-4 text-center">
                     <MVLink to={"/q/" + item._id}>
                       <div
                         style={{ color: "#999" }}

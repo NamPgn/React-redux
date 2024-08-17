@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { router } from "./router";
 import { GlobalStyle } from "./components/Styled/Global";
 import { useLocation, useNavigate, useRoutes } from "react-router-dom";
-import { FloatButton } from "antd";
+import { FloatButton, notification } from "antd";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./index.css";
@@ -19,7 +19,7 @@ function App() {
   const TRACKING_ID = "G-0EEY3R7F0S";
   const Routes = useRoutes(router);
   const nav = useNavigate();
-  // const [showToast, setShowToast] = useState(false);
+  const [api, contextHolder] = notification.useNotification();
   const Auth = isAuthentication();
   useEffect(() => {
     ReactGA.initialize(TRACKING_ID);
@@ -47,13 +47,19 @@ function App() {
         }
       }
     })();
-    {alert(
-      " Xin lỗi, server phim hiện đang quá tải do lượng truy cập lớn. Vui lòng chờ đợi trong 1-2 phút để tiếp tục xem. Chúng tôi đang nỗ lực để cải thiện tình hình và xin thành thật xin lỗi vì sự bất tiện này.Trân trọng!"
-    )}
+    setTimeout(() => {
+      api.open({
+        message: "Admin Xin Thông Báo!",
+        description:
+          "Xin lỗi, server phim hiện đang quá tải do lượng truy cập lớn. Vui lòng chờ đợi trong 1-2 phút để tiếp tục xem. Chúng tôi đang nỗ lực để cải thiện tình hình và xin thành thật xin lỗi vì sự bất tiện này.Trân trọng!",
+        placement: "topRight",
+      });
+    }, 2000);
   }, []);
 
   return (
     <>
+      {contextHolder}
       {Routes}
       <GlobalStyle />
       <ToastContainer />

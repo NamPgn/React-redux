@@ -420,18 +420,13 @@ export const settingsSliderLatest = {
   dots: true,
   infinite: true,
   speed: 500,
-  slidesToShow: 5,
-  slidesToScroll: 2,
-  pauseOnHover: true,
-  initialSlide: 0,
-  autoplay: false,
-  autoplaySpeed: 2000,
-
+  slidesToShow: 4,
+  slidesToScroll: 3,
   responsive: [
     {
       breakpoint: 1440,
       settings: {
-        slidesToShow: 5,
+        slidesToShow: 4,
         slidesToScroll: 3,
         infinite: true,
         dots: true,
@@ -440,7 +435,7 @@ export const settingsSliderLatest = {
     {
       breakpoint: 1024,
       settings: {
-        slidesToShow: 4,
+        slidesToShow: 3,
         slidesToScroll: 3,
         infinite: true,
         dots: true,
@@ -450,20 +445,23 @@ export const settingsSliderLatest = {
       breakpoint: 768,
       settings: {
         slidesToShow: 3,
-        slidesToScroll: 3,
-        initialSlide: 2,
+        slidesToScroll: 2,
+        infinite: true,
+        dots: true,
       },
     },
     {
       breakpoint: 480,
       settings: {
         slidesToShow: 2,
-        slidesToScroll: 2,
+        slidesToScroll: 1,
+        infinite: true,
         dots: true,
       },
     },
   ],
 };
+
 export {
   backgrounds,
   Icons,

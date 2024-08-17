@@ -18,6 +18,7 @@ import MVTitle from "../../../../components/MV/Title";
 import MVImage from "../../../../components/MV/Image";
 import { ApiContext } from "../../../../context/api";
 import { handleImage } from "../../../../lib/handleImage";
+import { getAllcate } from "../../../../redux/slice/category/thunk/category";
 declare var Promise: any;
 const EditProduct = () => {
   const { seri }: any = useContext(ApiContext);
@@ -34,6 +35,9 @@ const EditProduct = () => {
       setState(payload);
     };
     getFormProduct();
+  }, []);
+  useEffect(() => {
+    dispatch(getAllcate(0));
   }, []);
   const onsubmit = async (data: any) => {
     const formdata = new FormData();

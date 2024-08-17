@@ -13,7 +13,7 @@ const MVInput = memo(({ name, label, control, rules, ...rest }: any) => {
         rules={rules}
         defaultValue=""
         render={({ field }) => (
-          <Input placeholder={label} {...field} {...rest} />
+          <Input  placeholder={label} {...field} {...rest} />
         )}
       />
     </div>

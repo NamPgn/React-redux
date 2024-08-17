@@ -1,5 +1,4 @@
 import React, {  memo, useContext } from "react";
-
 import { MessageErr } from "../../../components/Message/Notification";
 import { useSWRWithAxios } from "../../../hook/Swr";
 import { urlSwr } from "../../../function";
@@ -42,7 +41,7 @@ const ConfigHomePage = memo(() => {
                 muted
                 autoPlay
                 controls
-                src={trailer.url}
+                src={trailer?.url}
               />
             </VideoContainer>
             <LatesCategory />

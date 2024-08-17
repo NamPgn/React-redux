@@ -5,7 +5,7 @@ import { ApiContext } from "../context/api";
 const Main = ({ children, ...rest }) => {
   const { background } = useContext(ApiContext) || {};
   return (
-    <MainContent background={background && background.data.url} {...rest}>
+    <MainContent background={background && background?.data?.url} {...rest}>
       {children}
     </MainContent>
   );

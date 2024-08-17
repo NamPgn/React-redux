@@ -24,7 +24,7 @@ import { ApiContext } from "../../../context/api";
 
 const CategoryAdmin = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [page, setPage] = useState(1);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -42,8 +42,8 @@ const CategoryAdmin = () => {
   const { handleSubmit, control } = useForm();
   const [valueId, setValue] = useState();
   useEffect(() => {
-    dispatch(getAllcate(1));
-  }, [1]);
+    dispatch(getAllcate(page));
+  }, [page]);
   const valueOptions =
     seri &&
     seri?.map((items: any, index: number) => ({
@@ -98,6 +98,10 @@ const CategoryAdmin = () => {
     } else {
       MVError("Failure!");
     }
+  };
+
+  const handlePageChangePage = (page: number) => {
+    setPage(page);
   };
 
   const weeekOptions =
@@ -284,9 +288,12 @@ const CategoryAdmin = () => {
         dataSource={data}
         scroll={{ x: 1000, y: 1000 }}
         pagination={{
-          defaultPageSize: 20,
+          defaultPageSize: 24,
           showSizeChanger: true,
-          pageSizeOptions: ["20", "40", "60"],
+          pageSizeOptions: ["24", "44", "64"],
+          current: page,
+          onChange: handlePageChangePage,
+          total: 80,
         }}
       ></MVTable>
     </React.Fragment>

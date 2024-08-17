@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import "../index.css";
+import "./style/index.css";
 import { TableRouterAdminPage } from "../router";
 import { MyButton } from "../components/MV/Button";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
@@ -41,14 +42,14 @@ const LayoutAdmin = () => {
         trigger={null}
         collapsible
         collapsed={collapsed}
-        className="overflow-y-auto "
+        className="custom-sider overflow-y-auto"
         style={{ height: "100%", position: "fixed" }}
       >
         <div className="p-4 bg-[#fff]">
           <div className="h-8 w-full bg-[#ddd] rounded"></div>
         </div>
         <Menu
-          style={{ height: "100%" }}
+          style={{ height: "calc(100% - 56px)", marginTop: "8px" }}
           theme="light"
           mode="inline"
           defaultSelectedKeys={["1"]}
@@ -85,10 +86,7 @@ const LayoutAdmin = () => {
               }}
               span={1}
             >
-              <AuthHeader
-                isLoggedInState={isLoggedInState}
-                style={undefined}
-              />
+              <AuthHeader isLoggedInState={isLoggedInState} style={undefined} />
             </MVCol>
           </MVRow>
         </Header>

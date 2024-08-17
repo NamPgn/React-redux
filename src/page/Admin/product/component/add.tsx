@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { addProduct } from "../../../../redux/slice/product/thunk/product";
@@ -10,12 +10,16 @@ import MVInput from "../../../../components/MV/Input";
 import MVLink from "../../../../components/Location/Link";
 import { EditOutlined } from "@ant-design/icons";
 import { ApiContext } from "../../../../context/api";
+import { getAllcate } from "../../../../redux/slice/category/thunk/category";
 const ProductAdd = () => {
   const { seri }: any = useContext(ApiContext);
   const { data }: any = useAppSelector((state) => state.category.category);
   const [idProduct, setIdProduct] = useState("");
   const dispatch = useAppDispatch();
   const { handleSubmit, control } = useForm();
+  useEffect(()=>{
+    dispatch(getAllcate(0))
+  },[])
   const categoryOptions =
     data &&
     data.map((item, index) => ({
