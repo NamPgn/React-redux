@@ -22,8 +22,9 @@ export interface IProduct {
 
 export interface isProductSlice {
   value: {
-    product: string[];
-    length: number;
+    data: string[];
+    totalCount: number,
+    totalPages: number,
   };
   isLoading: boolean;
   getOneProduct: {};

@@ -3,16 +3,15 @@ import ProductAdmin from ".";
 import { useAppSelector } from "../../../hook";
 
 const DataProduct = () => {
-  const { product, length }: any = useAppSelector(
+  const data: any = useAppSelector(
     (state) => state.product.value
   );
   const isLoading: any = useAppSelector((state) => state.product.isLoading);
-  const memoizedProduct = useMemo(() => product, [product]);
-  const memoizedLength = useMemo(() => length, [length]);
+  const memoizedProduct = useMemo(() => data, [data]);
   const memoizedIsLoading = useMemo(() => isLoading, [isLoading]);
   return (
     <>
-      <ProductAdmin product={memoizedProduct} isLoading={memoizedIsLoading} length={memoizedLength} />
+      <ProductAdmin products={memoizedProduct} isLoading={memoizedIsLoading} />
     </>
   );
 };

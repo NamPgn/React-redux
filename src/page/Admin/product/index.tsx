@@ -37,8 +37,8 @@ import MVTags from "../../../components/MV/Tag";
 import { ApiContext } from "../../../context/api";
 import { MyContext } from "../../../context";
 
-const ProductAdmin = memo(({ product, length, isLoading }: any) => {
-  const [page, setPage] = useState(10 ); // Đặt trang mặc định là trang cuối cùng
+const ProductAdmin = memo(({ products, isLoading }: any) => {
+  const [page, setPage] = useState(1); // Đặt trang mặc định là trang cuối cùng
   const cate: any = useAppSelector(
     (state) => state.category.category
   );
@@ -51,7 +51,6 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
   const [init, setInit] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys]: any = useState<React.Key[]>([]);
   const dispatch = useAppDispatch();
-  let dataS = product;
   useEffect(() => {
     // const itemsPerPage = 40;
     // const totalPages = Math.ceil(length / itemsPerPage);
@@ -73,8 +72,8 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
   };
 
   if (filterApproved) {
-    dataS = product.filter((item: any) => item.isApproved == false);
-    filterApproved == "Select" && product.map((item: any) => dataS.push(item));
+    products = products.data.filter((item: any) => item.isApproved == false);
+    filterApproved == "Select" && products.data.map((item: any) => products?.data.push(item));
   }
   const handleDeleteSelectedData = async () => {
 
@@ -309,8 +308,8 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
     },
   ];
   const data =
-    dataS &&
-    dataS.map((value: any) => {
+    products?.data &&
+    products?.data.map((value: any) => {
       return {
         key: value._id,
         name: value.name,
@@ -456,7 +455,7 @@ const ProductAdmin = memo(({ product, length, isLoading }: any) => {
             pageSizeOptions: ["40", "80", "120"],
             current: page,
             onChange: handlePageChangePage,
-            total: 444,
+            total: products?.totalCount,
           }}
         />
       </Spin>

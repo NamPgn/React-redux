@@ -14,10 +14,7 @@ export const getProducts = createAsyncThunk(
   "product/getProducts",
   async (page: number) => {
     const { data }: any = await getAllProduct(page);
-    return {
-      product: data.data,
-      length: data.length,
-    };
+    return data;
   }
 );
 

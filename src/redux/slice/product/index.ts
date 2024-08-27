@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import {
   getProducts,
   deleteProduct,
@@ -14,8 +14,9 @@ import { isProductSlice } from "../../../interfaces/product";
 
 const initialState: isProductSlice = {
   value: {
-    product: [],
-    length: 0,
+    data: [],
+    totalCount: 0,
+    totalPages: 0,
   },
   isLoading: false,
   getOneProduct: {},
@@ -37,30 +38,30 @@ const productSlice = createSlice({
       });
 
     builder.addCase(deleteProduct.fulfilled, (state, action) => {
-      state.value.product = state.value.product.filter(
+      state.value.data = state.value.data.filter(
         (item: any) => item._id !== action.payload.data._id
       );
     });
 
     builder.addCase(addProduct.fulfilled, (state: any, action) => {
-      state.value.product.push(action.payload);
+      state.value.data.push(action.payload);
       // state.status = action.payload.status;
     });
 
     builder.addCase(editProduct.fulfilled, (state, action) => {
-      state.value.product.push(action.payload);
+      state.value.data.push(action.payload);
     });
 
     builder.addCase(importDataFile.fulfilled, (state, action) => {
-      state.value.product = [...state.value.product, action.payload];
+      state.value.data = [...state.value.data, action.payload];
     });
 
     builder.addCase(filterProductByCategorySlice.fulfilled, (state, action) => {
-      state.value.product = action.payload;
+      state.value.data = action.payload;
     });
 
     builder.addCase(searchProductsSlice.fulfilled, (state, action) => {
-      state.value.product = action.payload;
+      state.value.data = action.payload;
     });
 
     builder

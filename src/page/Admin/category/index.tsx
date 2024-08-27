@@ -293,7 +293,7 @@ const CategoryAdmin = () => {
           pageSizeOptions: ["24", "44", "64"],
           current: page,
           onChange: handlePageChangePage,
-          total: 80,
+          total: category?.totalCount,
         }}
       ></MVTable>
     </React.Fragment>
