@@ -421,7 +421,7 @@ export const TableRouterAdminPage = [
   },
   {
     path: "/dashboard/products",
-    name: "Products",
+    name: "Movies",
     icon: <NotificationOutlined />,
   },
   {

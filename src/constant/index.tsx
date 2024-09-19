@@ -161,6 +161,12 @@ const columnsCategory = [
     width: 150,
   },
   {
+    title: "Slug",
+    dataIndex: "slug",
+    key: "slug",
+    width: 120,
+  },
+  {
     title: "Image",
     dataIndex: "image",
     key: "Image",

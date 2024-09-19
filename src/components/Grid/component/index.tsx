@@ -13,7 +13,7 @@ const MVGridCategory = memo(({ type, gutter, child, ...rest }: any) => {
           <MVCol key={item._id} xs={12} sm={10} md={8} lg={6} xl={4}>
             <CategoryContents
               title={item.name}
-              link={item.image ? "/d/" + item._id : "/q/" + item._id}
+              link={item.image ? "/d/" + item._id : "/q/" + item.slug}
               image={item.linkImg || item.image}
               time={item.time}
               year={item.year}

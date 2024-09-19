@@ -29,8 +29,8 @@ export default function Index() {
         <PaginationCustoms
           className="text-center"
           currentPage={page}
-          defaultCurrent={1}
-          totalItems={category.length}
+          defaultCurrent={category && category.totalPages}
+          totalItems={category && category.totalCount}
           pageSize={20}
           onChange={(value) => setPage(value)}
         />

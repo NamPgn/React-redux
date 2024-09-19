@@ -28,7 +28,7 @@ const LatesCategory = () => {
               <div key={item._id} className="px-2">
                 <div className="w-full flex flex-col items-center">
                   <div className="relative group">
-                    <MVLink to={`/q/${item._id}`} className="block w-full">
+                    <MVLink to={`/q/${item.slug}`} className="block w-full">
                       <div className="relative h-[200px] w-[160px] md:w-[180px] lg:w-[200px]">
                         <MVImage
                           src={handleImage(220, item.linkImg)}
@@ -55,7 +55,7 @@ const LatesCategory = () => {
                     </MVLink>
                   </div>
                   <div className="mt-4 text-center">
-                    <MVLink to={"/q/" + item._id}>
+                    <MVLink to={"/q/" + item.slug}>
                       <div
                         style={{ color: "#999" }}
                         className="text-sm md:text-md lg:text-md"

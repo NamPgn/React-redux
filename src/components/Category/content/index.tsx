@@ -31,7 +31,6 @@ const CategoryContents = memo(
     products,
   }: CategoryContent) => {
     const lastItem: any = products ? products[products.length - 1] : "";
-   
     return (
       <div className="w-full">
         <div className="relative group">

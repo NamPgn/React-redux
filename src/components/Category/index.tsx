@@ -49,7 +49,7 @@ const CategoryPage = () => {
               </div>
               <div className="lg:w-9/12 md:w-9/12">
                 <div className="category text-2xl md:text-3xl pl-2 my-2 border-l-4  font-sans font-bold border-teal-400  dark:text-gray-200">
-                  <MVLink to={`/q/` + c._id}>
+                  <MVLink to={`/q/` + c.slug}>
                     <MVTitle
                       type={"secondary"}
                       level={3}

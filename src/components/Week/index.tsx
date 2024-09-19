@@ -64,7 +64,7 @@ export default function WeekComponent() {
               <div className="px-2" key={itemsCategory._id}>
                 <CategoryContents
                   title={itemsCategory.name}
-                  link={"/q/" + itemsCategory._id}
+                  link={"/q/" + itemsCategory.slug}
                   image={itemsCategory.linkImg}
                   time={itemsCategory.time}
                   sumSeri={itemsCategory.sumSeri}

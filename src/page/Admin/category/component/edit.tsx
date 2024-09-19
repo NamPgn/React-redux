@@ -32,6 +32,7 @@ const EditCategory = () => {
     const formdata = new FormData();
     formdata.append("_id", data._id);
     formdata.append("name", data.name);
+    formdata.append("slug", data.slug);
     formdata.append("des", data.des);
     formdata.append("week", data.week);
     formdata.append("type", data.type);
@@ -43,6 +44,9 @@ const EditCategory = () => {
     formdata.append("anotherName", data.anotherName);
     formdata.append("sumSeri", data.sumSeri);
     formdata.append("hour", data.hour);
+    formdata.append("lang", data.lang);
+    formdata.append("season", data.season);
+    formdata.append("quality", data.quality);
     const res = await dispatch(updateCatgorySlice(formdata));
     if (res.payload) {
       toast.success("Edit successfully");
@@ -70,6 +74,12 @@ const EditCategory = () => {
       <MVInput
         name={"anotherName"}
         label={"Another Name"}
+        control={control}
+        rules={undefined}
+      />
+      <MVInput
+        name={"slug"}
+        label={"Slug"}
         control={control}
         rules={undefined}
       />
@@ -128,9 +138,27 @@ const EditCategory = () => {
         control={control}
         rules={undefined}
       />
+      <MVInput
+        name={"lang"}
+        label={"Lang"}
+        control={control}
+        rules={undefined}
+      />
+      <MVInput
+        name={"season"}
+        label={"Season"}
+        control={control}
+        rules={undefined}
+      />
+      <MVInput
+        name={"quality"}
+        label={"Quality"}
+        control={control}
+        rules={undefined}
+      />
       <MySelectWrapper
         name={"week"}
-        label={"Theo tuần"}
+        label={"Week"}
         control={control}
         placeholder={"Week"}
         defaultValue={undefined}

@@ -112,6 +112,32 @@ export const clearCacheProducts = async () => {
   });
 };
 
+export const approvedMultipleMovies = async (
+  arrId: string
+): Promise<IProduct> =>
+  await intances.post(
+    `/products/approvedMultiple/${dataToken.user._id}`,
+    arrId,
+    {
+      headers: {
+        Authorization: `Bearer ${dataToken.token}`,
+      },
+    }
+  );
+
+export const endcodeMutipleDailymotionServer = async (
+  arrId: string
+): Promise<IProduct> =>
+  await intances.post(
+    `/products/encodeMultipleDailymotionServer/${dataToken.user._id}`,
+    arrId,
+    {
+      headers: {
+        Authorization: `Bearer ${dataToken.token}`,
+      },
+    }
+  );
+
 // export const ratingProduct = async (productId, data: any) => {
 //   return await intances.post(`/product/rating/${productId}`, data);
 // };

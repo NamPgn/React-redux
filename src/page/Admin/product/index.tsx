@@ -8,10 +8,12 @@ import {
 } from "../../../redux/slice/product/thunk/product";
 import { toast } from "react-toastify";
 import {
+  approvedMultipleMovies,
   approveProduct,
   cancelApproveProduct,
   clearCacheProducts,
   deleteMultipleProduct,
+  endcodeMutipleDailymotionServer,
 } from "../../../sevices/product";
 import { useAppDispatch, useAppSelector } from "../../../hook";
 import { MyButton } from "../../../components/MV/Button";
@@ -39,9 +41,7 @@ import { MyContext } from "../../../context";
 
 const ProductAdmin = memo(({ products, isLoading }: any) => {
   const [page, setPage] = useState(1); // Đặt trang mặc định là trang cuối cùng
-  const cate: any = useAppSelector(
-    (state) => state.category.category
-  );
+  const cate: any = useAppSelector((state) => state.category.category);
   const { seri }: any = useContext(ApiContext) || [];
   const { user }: any = useContext(MyContext);
   // const [search, searchState] = useState("");
@@ -73,10 +73,10 @@ const ProductAdmin = memo(({ products, isLoading }: any) => {
 
   if (filterApproved) {
     products = products.data.filter((item: any) => item.isApproved == false);
-    filterApproved == "Select" && products.data.map((item: any) => products?.data.push(item));
+    filterApproved == "Select" &&
+      products.data.map((item: any) => products?.data.push(item));
   }
   const handleDeleteSelectedData = async () => {
-
     const response: any = await deleteMultipleProduct(selectedRowKeys);
     if (response.data.success == true) {
       setInit(!init);
@@ -86,6 +86,27 @@ const ProductAdmin = memo(({ products, isLoading }: any) => {
     }
   };
 
+  const handleApprovedMultipleMovies = async () => {
+    const response: any = await approvedMultipleMovies(selectedRowKeys);
+    if (response.data.success == true) {
+      setInit(!init);
+      toast.success("Approved Products Successfully");
+    } else {
+      toast.error("Error deleting products");
+    }
+  };
+
+  const handleEditEncodeMutipleDailymotionServer = async () => {
+    const response: any = await endcodeMutipleDailymotionServer(
+      selectedRowKeys
+    );
+    if (response.data.success == true) {
+      setInit(!init);
+      toast.success("Edit Products Successfully");
+    } else {
+      toast.error("Error deleting products");
+    }
+  };
   const confirm = async (id) => {
     const response = await dispatch(deleteProduct(id));
     if (response.payload.success) {
@@ -135,6 +156,7 @@ const ProductAdmin = memo(({ products, isLoading }: any) => {
       MVError(res.data.message);
     }
   };
+
   const columnsProduct = [
     {
       title: "Name",
@@ -354,16 +376,44 @@ const ProductAdmin = memo(({ products, isLoading }: any) => {
       >
         <MVCol>
           <MVConfirm
-            title="Delete the products"
+            title="Delete The Movies"
             onConfirm={handleDeleteSelectedData}
             okText="Yes"
             cancelText="No"
           >
-            <MyButton icon={<DeleteOutlined />} className="flex items-center">
-              Delete
+            <MyButton icon={<DeleteOutlined />} className="flex items-center bg-gradient-to-br from-pink-500 to-orange-400 text-white">
+              Delete Multiple Movies
             </MyButton>
           </MVConfirm>
         </MVCol>
+        <MVConfirm
+          title="Approved Multiple Movies"
+          onConfirm={handleApprovedMultipleMovies}
+          okText="Yes"
+          cancelText="No"
+        >
+          <MyButton
+            icon={<CheckOutlined />}
+            className="flex items-center bg-amber-500 text-white"
+          >
+            Approved Multiple
+          </MyButton>
+        </MVConfirm>
+
+
+        <MVConfirm
+          title="Edit Multiple Movies"
+          onConfirm={handleEditEncodeMutipleDailymotionServer}
+          okText="Yes"
+          cancelText="No"
+        >
+          <MyButton
+            icon={<EditOutlined />}
+            className="flex items-center mx-2 bg-gradient-to-br from-purple-600 to-blue-500 text-white"
+          >
+            Edit Multiple
+          </MyButton>
+        </MVConfirm>
         <MVCol>
           <MVLink to={"/dashboard/product/add"}>
             <MyButton

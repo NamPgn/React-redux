@@ -71,6 +71,9 @@ const CategoryAdmin = () => {
     formdata.append("year", data.year);
     formdata.append("anotherName", data.anotherName);
     formdata.append("hour", data.hour);
+    formdata.append("lang", data.lang);
+    formdata.append("season", data.season);
+    formdata.append("quality", data.quality);
     const res = await dispatch(addCateGorySlice(formdata));
     if (res.payload.success == true) {
       toast.success("Thành công");
@@ -117,6 +120,7 @@ const CategoryAdmin = () => {
         key: item._id,
         stt: index + 1,
         name: <MVLink to={"/q/" + item._id}>{item.name}</MVLink>,
+        slug: item.slug,
         image: (
           <Image
             width={150}
@@ -138,7 +142,7 @@ const CategoryAdmin = () => {
         week: weeks && weeks.map((i: any) => i._id == item.week && i.name),
         action: (
           <div className="flex gap-1">
-            <MVLink to={`/dashboard/category/edit/${item._id}`}>
+            <MVLink to={`/dashboard/category/edit/${item.slug}`}>
               <MyButton style={{ background: "#1677ff" }} type="primary">
                 Edit
               </MyButton>
@@ -266,6 +270,24 @@ const CategoryAdmin = () => {
           <MVInput
             name={"hour"}
             label={"Hour"}
+            control={control}
+            rules={undefined}
+          />
+          <MVInput
+            name={"lang"}
+            label={"lang"}
+            control={control}
+            rules={undefined}
+          />
+          <MVInput
+            name={"season"}
+            label={"season"}
+            control={control}
+            rules={undefined}
+          />
+          <MVInput
+            name={"quality"}
+            label={"quality"}
             control={control}
             rules={undefined}
           />

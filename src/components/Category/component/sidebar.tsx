@@ -39,7 +39,7 @@ const CategoryProductSidebar = () => {
               key={index}
             >
               <div className="w-3/12">
-                <MVLink key={index} to={"/q/" + item._id}>
+                <MVLink key={index} to={"/q/" + item.slug}>
                   <MVImage
                     className="m-0 h-full"
                     src={handleImage(100,item.linkImg)}

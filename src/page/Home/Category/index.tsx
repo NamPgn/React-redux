@@ -1,5 +1,4 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import CategoryPage from "../../../components/Category";
 const CategoryProduct = () => {
   return (
