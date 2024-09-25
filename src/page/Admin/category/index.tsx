@@ -118,7 +118,7 @@ const CategoryAdmin = () => {
     category.data.map((item: any, index: number) => {
       return {
         key: item._id,
-        stt: index + 1,
+        stt: item._id,
         name: <MVLink to={"/q/" + item._id}>{item.name}</MVLink>,
         slug: item.slug,
         image: (
@@ -270,24 +270,6 @@ const CategoryAdmin = () => {
           <MVInput
             name={"hour"}
             label={"Hour"}
-            control={control}
-            rules={undefined}
-          />
-          <MVInput
-            name={"lang"}
-            label={"lang"}
-            control={control}
-            rules={undefined}
-          />
-          <MVInput
-            name={"season"}
-            label={"season"}
-            control={control}
-            rules={undefined}
-          />
-          <MVInput
-            name={"quality"}
-            label={"quality"}
             control={control}
             rules={undefined}
           />

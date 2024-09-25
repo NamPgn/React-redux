@@ -162,13 +162,19 @@ const ProductAdmin = memo(({ products, isLoading }: any) => {
       title: "Name",
       dataIndex: "name",
       key: "name",
+      width: 120,
+    },
+    {
+      title: "Slug",
+      dataIndex: "slug",
+      key: "slug",
       width: 200,
     },
     {
       title: "Category",
       key: "category",
       dataIndex: "category",
-      width: 200,
+      width: 150,
     },
     {
       title: "View",
@@ -288,15 +294,14 @@ const ProductAdmin = memo(({ products, isLoading }: any) => {
                     <MyButton
                       onClick={() => handleApproved(record.key)}
                       icon={<SendOutlined />}
-                      className="flex items-center w-full justify-center"
-                      type="primary"
+                      className="flex items-center w-full justify-center text-white bg-blue-500"
                     >
                       Approve
                     </MyButton>
                   </>
                 )}
                 <div className="flex">
-                  <MVLink to={"/d/" + record.key + "?c=" + record.idCategory}>
+                  <MVLink to={"/d/" + record.key}>
                     <MyButton type="text" shape="circle">
                       <EyeOutlined />
                     </MyButton>
@@ -333,8 +338,9 @@ const ProductAdmin = memo(({ products, isLoading }: any) => {
     products?.data &&
     products?.data.map((value: any) => {
       return {
-        key: value._id,
+        key: value.slug,
         name: value.name,
+        slug: value.slug,
         trailer: value.trailer ? "true" : "false",
         category:
           cate &&
@@ -352,8 +358,8 @@ const ProductAdmin = memo(({ products, isLoading }: any) => {
             <MVTags color="error">No video</MVTags>
           ),
         options: value.options,
-        country: value.country ? value.country : "null",
-        year: value.year ? value.year : "null",
+        country: value.category.country ? value.category.country : "null",
+        year: value.category.year ? value.category.year : "null",
         isApproved: value.isApproved,
         idCategory: value.category,
         option: [<MyButton>Add Option</MyButton>],
@@ -418,16 +424,16 @@ const ProductAdmin = memo(({ products, isLoading }: any) => {
           <MVLink to={"/dashboard/product/add"}>
             <MyButton
               icon={<PlusOutlined />}
-              type="primary"
-              className="flex items-center"
+              
+              className="flex items-center text-white bg-blue-500"
             >
-              Add Product
+              Add Movie
             </MyButton>
           </MVLink>
         </MVCol>
         <MVCol>
           <MVLink icon={<PlusOutlined />} to={"/dashboard/product/creacting"}>
-            <MyButton className="bg-green-400 ">Add Multiple</MyButton>
+            <MyButton className="bg-green-400 ">Add Multiple Movies</MyButton>
           </MVLink>
         </MVCol>
         <MVCol>

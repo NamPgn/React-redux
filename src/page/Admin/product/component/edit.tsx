@@ -42,18 +42,15 @@ const EditProduct = () => {
   const onsubmit = async (data: any) => {
     const formdata = new FormData();
     formdata.append("name", data.name);
-    formdata.append("options", data.options);
+    formdata.append("slug", data.slug);
     formdata.append("category", data.category);
     formdata.append("_id", id);
     formdata.append("seri", data.seri);
     formdata.append("LinkCopyright", data.LinkCopyright);
     formdata.append("copyright", data.copyright);
-    formdata.append("descriptions", data.descriptions);
     formdata.append("trailer", data.trailer);
     formdata.append("image", data.image);
     // formdata.append('file', data.file[0]);
-    formdata.append("year", data.year);
-    formdata.append("country", data.country);
     formdata.append("typeId", data.typeId);
     formdata.append("categorymain", data.categorymain);
     formdata.append("dailyMotionServer", data.dailyMotionServer);
@@ -83,7 +80,7 @@ const EditProduct = () => {
   return (
     <div>
       <MVTitle level={4}>
-        <MVLink to={`/d/${state._id}?c=${state.category?._id}`}>
+        <MVLink to={`/d/${state.slug}`}>
           {state.name + " tập " + state.seri}
         </MVLink>
       </MVTitle>
@@ -91,6 +88,12 @@ const EditProduct = () => {
         <MVInput
           name={"name"}
           label={"Product name"}
+          control={control}
+          rules={undefined}
+        />
+        <MVInput
+          name={"slug"}
+          label={"Slug"}
           control={control}
           rules={undefined}
         />
@@ -103,12 +106,6 @@ const EditProduct = () => {
         <MVInput
           name={"view"}
           label={"View"}
-          control={control}
-          rules={undefined}
-        />
-        <MVInput
-          name={"descriptions"}
-          label={"Desciption"}
           control={control}
           rules={undefined}
         />
@@ -156,30 +153,11 @@ const EditProduct = () => {
         /> */}
         <MVUpload name={"image"} label={"New Image Upload"} control={control} />
         <MVInput
-          name={"year"}
-          label={"Year"}
-          control={control}
-          rules={undefined}
-        />
-        <MVInput
-          name={"country"}
-          label={"country"}
-          control={control}
-          rules={undefined}
-        />
-        <MVInput
-          name={"options"}
-          label={"Options"}
-          control={control}
-          rules={undefined}
-        />
-        <MVInput
           name={"imageLink"}
           label={"Image Link"}
           control={control}
           rules={undefined}
         />
-
         {/** Thể loại của phim tập*/}
         <MySelectWrapper
           label={"Category"}

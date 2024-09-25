@@ -47,7 +47,7 @@ const ProductAdd = lazy(() => import("../page/Admin/product/component/add"));
 const EditProduct = lazy(() => import("../page/Admin/product/component/edit"));
 const CreatingUser = lazy(() => import("../page/Admin/user/component/adds"));
 const CreatingProducts = lazy(
-  () => import("../page/Admin/product/component/CreatingProducts")
+  () => import("../page/Admin/product/component/creatingProducts")
 );
 const CategoryAdmin = lazy(() => import("../page/Admin/category"));
 const EditCategoryAdmin = lazy(

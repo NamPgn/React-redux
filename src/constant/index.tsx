@@ -152,13 +152,13 @@ const columnsCategory = [
     title: "Stt",
     dataIndex: "stt",
     key: "stt",
-    width: 50,
+    width: 100,
   },
   {
     title: "Name",
     dataIndex: "name",
     key: "name",
-    width: 150,
+    width: 100,
   },
   {
     title: "Slug",

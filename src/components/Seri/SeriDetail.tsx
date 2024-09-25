@@ -7,7 +7,7 @@ import MVCol from "../MV/Grid/Col";
 const SeriDetailProducts = memo(({ seriProduct }: any) => {
   return (
     <MVRow gutter={14} items="center">
-      {seriProduct.map((item: any, index: any) =>
+      {seriProduct?.category?.products?.map((item: any, index: any) =>
         item.isApproved == true ? (
           <MVCol
             xl={3}
@@ -22,7 +22,7 @@ const SeriDetailProducts = memo(({ seriProduct }: any) => {
               className={({ isActive, isPending }) =>
                 isActive ? "activeSeri" : ""
               }
-              to={"/d/" + item._id + `?c=${item.category}`}
+              to={"/d/" + item.slug}
             >
               <BtnStyled className={item.seri && "w-full"}>
                 {item.seri && "Tập " + item.seri}

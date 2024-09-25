@@ -1,7 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { importDataFile } from "../../../../redux/slice/product/thunk/product";
-import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../../hook";
 import MVUpload from "../../../../components/MV/Upload";
 import { MyButton } from "../../../../components/MV/Button";
@@ -25,8 +24,6 @@ const CreatingProducts = () => {
     <div
       style={{
         display: "flex",
-        justifyContent: "center",
-        textAlign: "center",
         height: "100vh",
       }}
     >

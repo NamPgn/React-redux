@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import {
-  getAllProductDataByCategorySlice,
   getProduct,
 } from "../../redux/slice/product/thunk/product";
 import {
-  getAllProductsByCategory$,
   getOneProduct$,
 } from "../../redux/selectors";
-import queryString from "query-string";
 import SeriDetailProducts from "../Seri/SeriDetail";
 import CartAddContent from "../Cart/component/add";
 import { useAppDispatch, useAppSelector } from "../../hook";
@@ -31,12 +28,11 @@ import MVImage from "../MV/Image";
 import { handleImage } from "../../lib/handleImage";
 import PageMeta from "../../lib/pageMeta";
 const DetailComponent = () => {
-  const productByCategory = useAppSelector(getAllProductsByCategory$);
   const getOneProductDetail = useAppSelector(getOneProduct$);
   const isLoadingDetail = useAppSelector(ProductsPending$);
   const [link, setLink] = useState("");
   const { id } = useParams();
-  const { c } = queryString.parse(window.location.href.split("?")[1]); //lấy data url
+  // const { c } = queryString.parse(window.location.href.split("?")[1]); //lấy data url
   const [activeLink, setActiveLink] = useState("dailyMotion");
   const dispatch = useAppDispatch();
   const [decodedLink, setDecodedLink] = useState("");
@@ -47,7 +43,7 @@ const DetailComponent = () => {
   }, [location]);
   useEffect(() => {
     dispatch(getProduct(id));
-    dispatch(getAllProductDataByCategorySlice(c));
+    // dispatch(getAllProductDataByCategorySlice(c));
     const decryptedText = CryptoJS.AES.decrypt(
       getOneProductDetail.dailyMotionServer
         ? getOneProductDetail.dailyMotionServer
@@ -166,7 +162,7 @@ const DetailComponent = () => {
                     {/* content */}
                     <CartAddContent item={getOneProductDetail} id={id} />
                     <Content getOneProductDetail={getOneProductDetail} />
-                    <SeriDetailProducts seriProduct={productByCategory} />
+                    <SeriDetailProducts seriProduct={getOneProductDetail} />
                     <div className="text-[#999] lg:text-md sm:text-sm mt-2 mb-2">
                       <Dividers textColor={"#fff"} orientation="left">
                         Mô tả:

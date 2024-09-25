@@ -29,7 +29,7 @@ const SeriNumberMovie = ({ data, isLoading }) => {
                 style={{ textAlign: "center" }}
                 key={index}
               >
-                <MVLink to={"/d/" + item._id + `?c=${item.category}`}>
+                <MVLink to={"/d/" + item.slug}>
                   {!item.dailyMotionServer && item.trailer ? (
                     <BtnStyledNumber>{item.seri}</BtnStyledNumber>
                   ) : (

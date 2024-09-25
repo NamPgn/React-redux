@@ -43,17 +43,13 @@ const ProductAdd = () => {
   const onsubmit = async (data: any) => {
     const formdata = new FormData();
     formdata.append("name", data.name);
-    formdata.append("options", data.options);
     formdata.append("category", data.category);
     // formdata.append('file', data.file[0]);
     formdata.append("seri", data.seri);
     formdata.append("LinkCopyright", data.LinkCopyright);
     formdata.append("copyright", data.copyright);
-    formdata.append("descriptions", data.descriptions);
     formdata.append("trailer", data.trailer);
     formdata.append("image", data.image);
-    formdata.append("year", data.year);
-    formdata.append("country", data.country);
     formdata.append("typeId", data.typeId);
     formdata.append("categorymain", data.categorymain);
     formdata.append("dailyMotionServer", data.dailyMotionServer);
@@ -89,12 +85,6 @@ const ProductAdd = () => {
           rules={undefined}
         />
         <MVInput
-          name={"descriptions"}
-          label={"Desciption"}
-          control={control}
-          rules={undefined}
-        />
-        <MVInput
           name={"copyright"}
           label={"Copyright"}
           control={control}
@@ -125,24 +115,6 @@ const ProductAdd = () => {
         <MVInput
           name={"trailer"}
           label={"Trailer Video"}
-          control={control}
-          rules={undefined}
-        />
-        <MVInput
-          name={"year"}
-          label={"Year"}
-          control={control}
-          rules={undefined}
-        />
-        <MVInput
-          name={"country"}
-          label={"Country"}
-          control={control}
-          rules={undefined}
-        />
-        <MVInput
-          name={"options"}
-          label={"Options"}
           control={control}
           rules={undefined}
         />

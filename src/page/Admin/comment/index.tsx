@@ -54,7 +54,7 @@ const CommentAdmin = () => {
           ),
           product: (
             <MVLink
-              to={"/d/" + item.product._id + `?c=${item.product.category}`}
+              to={"/d/" + item.product.slug}
             >
               {item.product.name + " " + item.product.seri}
             </MVLink>

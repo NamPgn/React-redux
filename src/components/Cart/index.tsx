@@ -11,8 +11,7 @@ import MVImage from "../MV/Image";
 import MVTitle from "../MV/Title";
 import { handleImage } from "../../lib/handleImage";
 const CartUser = () => {
-  const { Auth, user, isLoading, setRerender } =
-    useContext(MyContext) || {};
+  const { Auth, user, isLoading, setRerender } = useContext(MyContext) || {};
   if (isLoading) {
     return <Spiner children={undefined} size={"large"} />;
   }
@@ -55,16 +54,13 @@ const CartUser = () => {
                     <div className="lg:w-3/12 md:w-3/12 w-3/12 lg:h-52 md:h-48 h-32">
                       <div className="h-full">
                         {item.product && (
-                          <MVLink
-                            to={
-                              "/d/" +
-                              item.product._id +
-                              `?c=${item.product.category} `
-                            }
-                          >
+                          <MVLink to={"/d/" + item.product.slug}>
                             <MVImage
                               className="h-full"
-                              src={handleImage(200,item.product?.category?.linkImg)}
+                              src={handleImage(
+                                200,
+                                item.product?.category?.linkImg
+                              )}
                               style={{ borderRadius: "5px" }}
                               alt=""
                             />
@@ -75,13 +71,7 @@ const CartUser = () => {
                     <div className="lg:w-9/12 lg:text-[14px] md:text-[13px] text-[12px]">
                       {item.product && (
                         <>
-                          <MVLink
-                            to={
-                              "/d/" +
-                              item.product._id +
-                              `?c=${item.product.category} `
-                            }
-                          >
+                          <MVLink to={"/d/" + item.product.lug}>
                             <div className="text-white mt-3 lg:text-[15px] md:text-[14px] text-[13px]">
                               {item.product && (
                                 <div>
@@ -92,9 +82,7 @@ const CartUser = () => {
                             </div>
                           </MVLink>
                           <div className="text-[#999]">
-                            <div className="my-2">
-                              Ngày thêm:{" "}
-                            </div>
+                            <div className="my-2">Ngày thêm: </div>
                             <div className="py-2">Tập: {item.product.seri}</div>
                           </div>
                         </>
