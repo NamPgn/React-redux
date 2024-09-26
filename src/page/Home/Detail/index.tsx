@@ -5,15 +5,13 @@ import DetailComponent from "../../../components/Main";
 import { useAppSelector } from "../../../hook";
 import LazyLoadOtherComponents from "../../../components/LazyOtherComponents";
 const DetailProduct = () => {
-
   return (
     <React.Fragment>
       <Suspense fallback={<Loader />}>
         <DetailComponent />
       </Suspense>
       <LazyLoadOtherComponents>
-        <CategoryHomePage
-        />
+        <CategoryHomePage />
       </LazyLoadOtherComponents>
     </React.Fragment>
   );

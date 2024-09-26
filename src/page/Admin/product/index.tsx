@@ -301,12 +301,12 @@ const ProductAdmin = memo(({ products, isLoading }: any) => {
                   </>
                 )}
                 <div className="flex">
-                  <MVLink to={"/d/" + record.key}>
+                  <MVLink to={"/d/" + record.slug}>
                     <MyButton type="text" shape="circle">
                       <EyeOutlined />
                     </MyButton>
                   </MVLink>
-                  <MVLink to={`/dashboard/product/edit/${record.key}`}>
+                  <MVLink to={`/dashboard/product/edit/${record.slug}`}>
                     <MyButton type="text" danger shape="circle">
                       <EditOutlined />
                     </MyButton>
@@ -338,15 +338,11 @@ const ProductAdmin = memo(({ products, isLoading }: any) => {
     products?.data &&
     products?.data.map((value: any) => {
       return {
-        key: value.slug,
+        key: value._id,
         name: value.name,
         slug: value.slug,
         trailer: value.trailer ? "true" : "false",
-        category:
-          cate &&
-          cate.data.map((item: any) => {
-            if (item._id === value.category) return item.name;
-          }),
+        category: value.category.name,
         view: <MVTags color="#2db7f5">{value.view}</MVTags>,
         sidebar: seri && seri.map((i, v) => i._id === value.typeId && i.name),
         seri: value.seri,
@@ -357,7 +353,7 @@ const ProductAdmin = memo(({ products, isLoading }: any) => {
           ) : (
             <MVTags color="error">No video</MVTags>
           ),
-        options: value.options,
+        options: value.category.lang,
         country: value.category.country ? value.category.country : "null",
         year: value.category.year ? value.category.year : "null",
         isApproved: value.isApproved,

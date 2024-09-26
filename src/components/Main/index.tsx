@@ -52,7 +52,9 @@ const DetailComponent = () => {
     ).toString(CryptoJS.enc.Utf8);
     setDecodedLink(decryptedText);
     setLink(decryptedText);
+
   }, [id, getOneProductDetail.dailyMotionServer]); //nếu mà 2 thằng này có thay đổi thì rereder
+  console.log(getOneProductDetail.server2 )
   return (
     <>
       <PageMeta
@@ -66,8 +68,7 @@ const DetailComponent = () => {
             (!isLoadingDetail ? (
               <>
                 <Movie className="d-flex justify-content-center relative">
-                  {getOneProductDetail.dailyMotionServer !== "" &&
-                  getOneProductDetail.server2 !== "" ? (
+                  {getOneProductDetail.dailyMotionServer !== "" ? (
                     <iframe
                       allowFullScreen
                       title="vimeo-player"

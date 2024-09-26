@@ -82,8 +82,8 @@ const EditProduct = () => {
   return (
     <div>
       <MVTitle level={4}>
-        <MVLink to={`/d/${state.slug}`}>
-          {state.name + " tập " + state.seri}
+        <MVLink to={`/d/${state?.slug}`}>
+          {state?.name + " tập " + state?.seri}
         </MVLink>
       </MVTitle>
       <form onSubmit={handleSubmit(onsubmit)}>
