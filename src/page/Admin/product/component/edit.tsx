@@ -41,10 +41,11 @@ const EditProduct = () => {
   }, []);
   const onsubmit = async (data: any) => {
     const formdata = new FormData();
+    
     formdata.append("name", data.name);
     formdata.append("slug", data.slug);
-    formdata.append("category", data.category);
-    formdata.append("_id", id);
+    formdata.append("category", data.category._id);
+    formdata.append("_id", data._id);
     formdata.append("seri", data.seri);
     formdata.append("LinkCopyright", data.LinkCopyright);
     formdata.append("copyright", data.copyright);
@@ -57,6 +58,7 @@ const EditProduct = () => {
     formdata.append("link", data.link);
     formdata.append("imageLink", data.image);
     formdata.append("view", data.view);
+    formdata.append("server2", data.server2);
     const res = await dispatch(editProduct(formdata));
     if (res?.meta?.requestStatus == "fulfilled") {
       toast.success(`Edit ${data.name} Success`);
