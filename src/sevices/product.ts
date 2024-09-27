@@ -138,6 +138,17 @@ export const endcodeMutipleDailymotionServer = async (
     }
   );
 
+export const autoRenderEpisodeMovie = async () => {
+  return await intances.post(
+    `/products/autoAddEpisodeMovie/${dataToken.user._id}`,
+    null,
+    {
+      headers: {
+        Authorization: `Bearer ${dataToken.token}`,
+      },
+    }
+  );
+};
 // export const ratingProduct = async (productId, data: any) => {
 //   return await intances.post(`/product/rating/${productId}`, data);
 // };

@@ -16,6 +16,8 @@ import MVConfirm from "../../../components/MV/Confirm";
 import { DeleteOutlined } from "@ant-design/icons";
 import { MVError, MVSuccess } from "../../../components/Message";
 import { ApiContext } from "../../../context/api";
+import { mutate } from "swr";
+import { urlSwr } from "../../../function";
 const Weeks = () => {
   const { weeks } = useContext(ApiContext);
   const { handleSubmit, control } = useForm();
@@ -26,6 +28,7 @@ const Weeks = () => {
     try {
       const response = await deleteCategoryByWeek(weeksId, _);
       if (response.data) {
+        mutate(urlSwr + "/weeks");
         MVSuccess("Delete Success");
       }
     } catch (error) {
@@ -37,6 +40,7 @@ const Weeks = () => {
   };
   const handledelete = async (id) => {
     await removeWeeks(id);
+    
   };
   const expandedRowRender = (record) => {
     const columns = [

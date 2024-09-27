@@ -1,5 +1,5 @@
 import React, { memo, useContext, useEffect, useState } from "react";
-import { Spin } from "antd";
+import { Drawer, Spin } from "antd";
 import {
   getProducts,
   deleteProduct,
@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import {
   approvedMultipleMovies,
   approveProduct,
+  autoRenderEpisodeMovie,
   cancelApproveProduct,
   clearCacheProducts,
   deleteMultipleProduct,
@@ -26,6 +27,7 @@ import {
   DeleteOutlined,
   EditOutlined,
   EyeOutlined,
+  FileAddOutlined,
   PlusOutlined,
   SendOutlined,
 } from "@ant-design/icons";
@@ -42,6 +44,7 @@ import { MyContext } from "../../../context";
 const ProductAdmin = memo(({ products, isLoading }: any) => {
   const [page, setPage] = useState(1); // Đặt trang mặc định là trang cuối cùng
   const cate: any = useAppSelector((state) => state.category.category);
+  const [open, setOpen] = useState(false);
   const { seri }: any = useContext(ApiContext) || [];
   const { user }: any = useContext(MyContext);
   // const [search, searchState] = useState("");
@@ -157,6 +160,22 @@ const ProductAdmin = memo(({ products, isLoading }: any) => {
     }
   };
 
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
+  const handleAutoRenderEpisodeMovie = async () => {
+    try {
+      await autoRenderEpisodeMovie();
+      MVSuccess("Suscess");
+    } catch (error) {
+      MVError("Error");
+    }
+  };
   const columnsProduct = [
     {
       title: "Name",
@@ -342,7 +361,7 @@ const ProductAdmin = memo(({ products, isLoading }: any) => {
         name: value.name,
         slug: value.slug,
         trailer: value.trailer ? "true" : "false",
-        category: value.category.name,
+        category: value?.category?.name,
         view: <MVTags color="#2db7f5">{value.view}</MVTags>,
         sidebar: seri && seri.map((i, v) => i._id === value.typeId && i.name),
         seri: value.seri,
@@ -363,135 +382,142 @@ const ProductAdmin = memo(({ products, isLoading }: any) => {
     });
   return (
     <>
-      {/* <InputStyled
-				type="checkbox"
-				className="mr-2"
-				checked={checkAllid}
-				onChange={() => handleCheckAll()}
-			/> */}
-      <MVRow
-        gutter={[10, 10]}
-        align={"middle"}
-        style={{
-          marginBottom: "10px",
-        }}
-      >
-        <MVCol>
+      <MyButton className="mb-2 bg-blue-500 text-white" onClick={showDrawer}>
+        Open
+      </MyButton>
+      <Drawer title="Làm gì thì làm đi :))" onClose={onClose} open={open}>
+        <MVRow
+          gutter={[10, 10]}
+          align={"middle"}
+          style={{
+            marginBottom: "10px",
+          }}
+        >
+          <MVCol>
+            <MVConfirm
+              title="Delete The Movies"
+              onConfirm={handleDeleteSelectedData}
+              okText="Yes"
+              cancelText="No"
+            >
+              <MyButton
+                icon={<DeleteOutlined />}
+                className="flex items-center bg-gradient-to-br from-pink-500 to-orange-400 text-white"
+              >
+                Delete Multiple Movies
+              </MyButton>
+            </MVConfirm>
+          </MVCol>
           <MVConfirm
-            title="Delete The Movies"
-            onConfirm={handleDeleteSelectedData}
+            title="Approved Multiple Movies"
+            onConfirm={handleApprovedMultipleMovies}
             okText="Yes"
             cancelText="No"
           >
-            <MyButton icon={<DeleteOutlined />} className="flex items-center bg-gradient-to-br from-pink-500 to-orange-400 text-white">
-              Delete Multiple Movies
+            <MyButton className="flex items-center bg-amber-500 text-white">
+              Approved Multiple
             </MyButton>
           </MVConfirm>
-        </MVCol>
-        <MVConfirm
-          title="Approved Multiple Movies"
-          onConfirm={handleApprovedMultipleMovies}
-          okText="Yes"
-          cancelText="No"
-        >
-          <MyButton
-            icon={<CheckOutlined />}
-            className="flex items-center bg-amber-500 text-white"
-          >
-            Approved Multiple
-          </MyButton>
-        </MVConfirm>
 
-
-        <MVConfirm
-          title="Edit Multiple Movies"
-          onConfirm={handleEditEncodeMutipleDailymotionServer}
-          okText="Yes"
-          cancelText="No"
-        >
-          <MyButton
-            icon={<EditOutlined />}
-            className="flex items-center mx-2 bg-gradient-to-br from-purple-600 to-blue-500 text-white"
+          <MVConfirm
+            title="Edit Multiple Movies"
+            onConfirm={handleEditEncodeMutipleDailymotionServer}
+            okText="Yes"
+            cancelText="No"
           >
-            Edit Multiple
-          </MyButton>
-        </MVConfirm>
-        <MVCol>
-          <MVLink to={"/dashboard/product/add"}>
             <MyButton
-              icon={<PlusOutlined />}
-              
-              className="flex items-center text-white bg-blue-500"
+              icon={<EditOutlined />}
+              className="flex items-center mx-2 bg-gradient-to-br from-purple-600 to-blue-500 text-white"
             >
-              Add Movie
+              Edit Multiple
             </MyButton>
-          </MVLink>
-        </MVCol>
-        <MVCol>
-          <MVLink icon={<PlusOutlined />} to={"/dashboard/product/creacting"}>
-            <MyButton className="bg-green-400 ">Add Multiple Movies</MyButton>
-          </MVLink>
-        </MVCol>
-        <MVCol>
-          <MVLink to={"/dashboard/product/add"}>
-            <MyButton className="bg-yellow-400">Export PDF</MyButton>
-          </MVLink>
-        </MVCol>
-        <MVCol>
-          <MVLink to={"/dashboard/product/add"}>
-            <MyButton className="bg-purple-500" shape="round">
-              Export Excel
-            </MyButton>
-          </MVLink>
-        </MVCol>
-        <MVCol>
-          <MySelect
-            placeholder={"Category"}
-            onChange={handleSelectChange}
-            style={{ width: 300 }}
-            options={
-              cate &&
-              cate?.data.map((item, index) => ({
-                label: item.name,
-                value: item._id,
-              }))
-            }
-          />
-        </MVCol>
-        <MVCol>
-          <MySelect
-            placeholder={"Approval"}
-            onChange={handleChangeSelectApprove}
-            style={{ width: 300 }}
-            options={[
-              { value: true, label: "Approve" },
-              { value: false, label: "Approved" },
-            ]}
-            children={undefined}
-          />
-        </MVCol>
-        <MVCol>
-          <div className="form-outline">
-            <input
-              type="search"
-              placeholder="search..."
-              className="form-control p-2 rounded bg-[#fff] shadow-sm"
-              onChange={(e) => handleSearch(e.target.value)}
+          </MVConfirm>
+          <MVCol>
+            <MVLink to={"/dashboard/product/add"}>
+              <MyButton
+                icon={<PlusOutlined />}
+                className="flex items-center text-white bg-blue-500"
+              >
+                Add Movie
+              </MyButton>
+            </MVLink>
+          </MVCol>
+          <MVCol>
+            <MVLink icon={<PlusOutlined />} to={"/dashboard/product/creacting"}>
+              <MyButton className="bg-green-400 ">Add Multiple Movies</MyButton>
+            </MVLink>
+          </MVCol>
+          <MVCol>
+            <MVLink to={"/dashboard/product/add"}>
+              <MyButton className="bg-yellow-400">Export PDF</MyButton>
+            </MVLink>
+          </MVCol>
+          <MVCol>
+            <MVLink to={"/dashboard/product/add"}>
+              <MyButton className="bg-purple-500" shape="round">
+                Export Excel
+              </MyButton>
+            </MVLink>
+          </MVCol>
+          <MVCol>
+            <MySelect
+              placeholder={"Category"}
+              onChange={handleSelectChange}
+              style={{ width: 300 }}
+              options={
+                cate &&
+                cate?.data.map((item, index) => ({
+                  label: item.name,
+                  value: item._id,
+                }))
+              }
             />
-          </div>
-        </MVCol>
-        <MVCol>
-          <MyButton
-            onClick={() => handleClearCache()}
-            icon={<PlusOutlined />}
-            danger
-            className="flex items-center"
-          >
-            <ClearOutlined />
-            Clear Products Redis
-          </MyButton>
-        </MVCol>
-      </MVRow>
+          </MVCol>
+          <MVCol>
+            <MySelect
+              placeholder={"Approval"}
+              onChange={handleChangeSelectApprove}
+              style={{ width: 300 }}
+              options={[
+                { value: true, label: "Approve" },
+                { value: false, label: "Approved" },
+              ]}
+              children={undefined}
+            />
+          </MVCol>
+          <MVCol>
+            <div className="form-outline">
+              <input
+                type="search"
+                placeholder="search..."
+                className="form-control p-2 rounded bg-[#fff] shadow-sm"
+                onChange={(e) => handleSearch(e.target.value)}
+              />
+            </div>
+          </MVCol>
+          <MVCol>
+            <MyButton
+              onClick={() => handleClearCache()}
+              icon={<PlusOutlined />}
+              danger
+              className="flex items-center"
+            >
+              <ClearOutlined />
+              Clear Products Redis
+            </MyButton>
+          </MVCol>
+          <MVCol>
+            <button
+              onClick={() => handleAutoRenderEpisodeMovie()}
+              type="button"
+              className="gap-2 flex items-center py-2.5 px-6 text-sm bg-indigo-50 text-indigo-500 rounded-lg cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-indigo-100"
+            >
+              <FileAddOutlined />
+              Generate Episode Movie
+            </button>
+          </MVCol>
+        </MVRow>
+      </Drawer>
       <Spin spinning={isLoading} delay={undefined}>
         <MVTable
           rowSelection={rowSelection}
