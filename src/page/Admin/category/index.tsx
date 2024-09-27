@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Image, Modal } from "antd";
+import { Image, Modal, Select } from "antd";
 import {
   addCateGorySlice,
   deleteCategorySlice,
@@ -21,6 +21,7 @@ import { TreeSelect } from "antd";
 import { MVError, MVSuccess } from "../../../components/Message";
 import MVTags from "../../../components/MV/Tag";
 import { ApiContext } from "../../../context/api";
+import { getCategoryByWeek } from "../../../sevices/week";
 
 const CategoryAdmin = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -41,9 +42,34 @@ const CategoryAdmin = () => {
   const { seri, weeks } = useContext(ApiContext);
   const { handleSubmit, control } = useForm();
   const [valueId, setValue] = useState();
+  const [defaultValueSelectWeek, setDefaultValueSelectWeek] = useState([]);
+  const daysOfWeek = [
+    "Chủ Nhật",
+    "Thứ 2",
+    "Thứ 3",
+    "Thứ 4",
+    "Thứ 5",
+    "Thứ 6",
+    "Thứ 7",
+  ];
+
+  const now = new Date();
+
+  const dayIndex = now.getDay();
+
+  const day = daysOfWeek[dayIndex];
   useEffect(() => {
+    (async () => {
+      const getDayDb = weeks && weeks.find((i: any) => i.name == day);
+      const res = await getCategoryByWeek(getDayDb.name);
+      const data = res.data.content.map((item, index) => {
+        return item._id;
+      });
+      setDefaultValueSelectWeek(data);
+    })();
+
     dispatch(getAllcate(page));
-  }, [page]);
+  }, [page, day]);
   const valueOptions =
     seri &&
     seri?.map((items: any, index: number) => ({
@@ -107,6 +133,24 @@ const CategoryAdmin = () => {
     setPage(page);
   };
 
+  const handleChange = () => {
+    const daysOfWeek = [
+      "Chủ Nhật",
+      "Thứ 2",
+      "Thứ 3",
+      "Thứ 4",
+      "Thứ 5",
+      "Thứ 6",
+      "Thứ 7",
+    ];
+
+    const now = new Date();
+
+    const dayIndex = now.getDay();
+
+    const day = daysOfWeek[dayIndex];
+    const getDayDb = weeks && weeks.find((i: any) => i.name == day);
+  };
   const weeekOptions =
     weeks &&
     weeks?.map((item: any, index: number) => ({
@@ -164,8 +208,26 @@ const CategoryAdmin = () => {
         ),
       };
     });
+  console.log(defaultValueSelectWeek);
   return (
     <React.Fragment>
+      <Select
+        className="mb-2"
+        mode="multiple"
+        allowClear
+        style={{ width: "100%" }}
+        placeholder="Please select"
+        onChange={handleChange}
+        options={
+          category &&
+          category?.data?.map((item: any, index: number) => ({
+            label: item.name,
+            value: item._id,
+          }))
+        }
+        defaultValue={defaultValueSelectWeek}
+      />
+
       <div className="flex gap-1">
         <MyButton type="primary" onClick={showModal}>
           New
