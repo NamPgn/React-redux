@@ -5,12 +5,12 @@ import {
   deleteProduct,
   filterProductByCategorySlice,
   searchProductsSlice,
+  autoGenarateEpisodeMovieSlice,
 } from "../../../redux/slice/product/thunk/product";
 import { toast } from "react-toastify";
 import {
   approvedMultipleMovies,
   approveProduct,
-  autoRenderEpisodeMovie,
   cancelApproveProduct,
   clearCacheProducts,
   deleteMultipleProduct,
@@ -41,7 +41,11 @@ import MVTags from "../../../components/MV/Tag";
 import { ApiContext } from "../../../context/api";
 import { MyContext } from "../../../context";
 
-const ProductAdmin = memo(({ products, isLoading }: any) => {
+const ProductAdmin = memo(() => {
+  const products = useAppSelector(
+    (state) => state.product.value
+  );
+  const isLoading: any = useAppSelector((state) => state.product.isLoading);
   const [page, setPage] = useState(1); // Đặt trang mặc định là trang cuối cùng
   const cate: any = useAppSelector((state) => state.category.category);
   const [open, setOpen] = useState(false);
@@ -74,11 +78,11 @@ const ProductAdmin = memo(({ products, isLoading }: any) => {
     dispatch(getProducts(value));
   };
 
-  if (filterApproved) {
-    products = products.data.filter((item: any) => item.isApproved == false);
-    filterApproved == "Select" &&
-      products.data.map((item: any) => products?.data.push(item));
-  }
+  // if (filterApproved) {
+  //   products = products.data.filter((item: any) => item.isApproved == false);
+  //   filterApproved == "Select" &&
+  //     products.data.map((item: any) => products?.data.push(item));
+  // }
   const handleDeleteSelectedData = async () => {
     const response: any = await deleteMultipleProduct(selectedRowKeys);
     if (response.data.success == true) {
@@ -169,10 +173,12 @@ const ProductAdmin = memo(({ products, isLoading }: any) => {
   };
 
   const handleAutoRenderEpisodeMovie = async () => {
-    try {
-      await autoRenderEpisodeMovie();
+    const res = await dispatch(autoGenarateEpisodeMovieSlice());
+    if (res.meta.requestStatus == "fulfilled") {
+      setInit(!init)
+      setOpen(false);
       MVSuccess("Suscess");
-    } catch (error) {
+    } else {
       MVError("Error");
     }
   };
@@ -372,9 +378,9 @@ const ProductAdmin = memo(({ products, isLoading }: any) => {
           ) : (
             <MVTags color="error">No video</MVTags>
           ),
-        options: value.category.lang,
-        country: value.category.country ? value.category.country : "null",
-        year: value.category.year ? value.category.year : "null",
+        options: value.category?.lang,
+        country: value.category?.country ? value.category?.country : "null",
+        year: value.category?.year ? value.category?.year : "null",
         isApproved: value.isApproved,
         idCategory: value.category,
         option: [<MyButton>Add Option</MyButton>],

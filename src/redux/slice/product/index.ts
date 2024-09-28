@@ -9,6 +9,7 @@ import {
   importDataFile,
   filterProductByCategorySlice,
   searchProductsSlice,
+  autoGenarateEpisodeMovieSlice,
 } from "./thunk/product";
 import { isProductSlice } from "../../../interfaces/product";
 
@@ -77,6 +78,13 @@ const productSlice = createSlice({
       getAllProductDataByCategorySlice.fulfilled,
       (state, action) => {
         state.getAllProductByCategory = action.payload;
+      }
+    );
+
+    builder.addCase(
+      autoGenarateEpisodeMovieSlice.fulfilled,
+      (state, action) => {
+        state.value.data = [...state.value.data, ...action.payload.data];
       }
     );
   },

@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   addProductData,
+  autoRenderEpisodeMovie,
   deleteProductById,
   editProductData,
   filterProductByCategory,
@@ -86,6 +87,15 @@ export const searchProductsSlice = createAsyncThunk(
   "product/Search",
   async (val: any) => {
     const { data }: any = await searchProduct(val);
+    return data;
+  }
+);
+
+
+export const autoGenarateEpisodeMovieSlice = createAsyncThunk(
+  "product/autoAdd",
+  async () => {
+    const { data }: any = await autoRenderEpisodeMovie();
     return data;
   }
 );
