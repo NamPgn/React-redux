@@ -42,9 +42,7 @@ import { ApiContext } from "../../../context/api";
 import { MyContext } from "../../../context";
 
 const ProductAdmin = memo(() => {
-  const products = useAppSelector(
-    (state) => state.product.value
-  );
+  const products = useAppSelector((state) => state.product.value);
   const isLoading: any = useAppSelector((state) => state.product.isLoading);
   const [page, setPage] = useState(1); // Đặt trang mặc định là trang cuối cùng
   const cate: any = useAppSelector((state) => state.category.category);
@@ -175,7 +173,7 @@ const ProductAdmin = memo(() => {
   const handleAutoRenderEpisodeMovie = async () => {
     const res = await dispatch(autoGenarateEpisodeMovieSlice());
     if (res.meta.requestStatus == "fulfilled") {
-      setInit(!init)
+      setInit(!init);
       setOpen(false);
       MVSuccess("Suscess");
     } else {
@@ -393,11 +391,12 @@ const ProductAdmin = memo(() => {
       </MyButton>
       <Drawer title="Làm gì thì làm đi :))" onClose={onClose} open={open}>
         <MVRow
-          gutter={[10, 10]}
+          gutter={[10, 2]}
           align={"middle"}
           style={{
             marginBottom: "10px",
           }}
+          className="flex flex-wrap items-center space-y-4"
         >
           <MVCol>
             <MVConfirm
@@ -414,71 +413,83 @@ const ProductAdmin = memo(() => {
               </MyButton>
             </MVConfirm>
           </MVCol>
-          <MVConfirm
-            title="Approved Multiple Movies"
-            onConfirm={handleApprovedMultipleMovies}
-            okText="Yes"
-            cancelText="No"
-          >
-            <MyButton className="flex items-center bg-amber-500 text-white">
-              Approved Multiple
-            </MyButton>
-          </MVConfirm>
 
-          <MVConfirm
-            title="Edit Multiple Movies"
-            onConfirm={handleEditEncodeMutipleDailymotionServer}
-            okText="Yes"
-            cancelText="No"
-          >
-            <MyButton
-              icon={<EditOutlined />}
-              className="flex items-center mx-2 bg-gradient-to-br from-purple-600 to-blue-500 text-white"
+          <MVCol>
+            <MVConfirm
+              title="Approved Multiple Movies"
+              onConfirm={handleApprovedMultipleMovies}
+              okText="Yes"
+              cancelText="No"
             >
-              Edit Multiple
-            </MyButton>
-          </MVConfirm>
+              <MyButton className="flex items-center bg-amber-500 text-white">
+                Approved Multiple
+              </MyButton>
+            </MVConfirm>
+          </MVCol>
+
+          <MVCol>
+            <MVConfirm
+              title="Edit Multiple Movies"
+              onConfirm={handleEditEncodeMutipleDailymotionServer}
+              okText="Yes"
+              cancelText="No"
+            >
+              <MyButton
+                icon={<EditOutlined />}
+                className="flex items-center bg-gradient-to-br from-purple-600 to-blue-500 text-white"
+              >
+                Edit Multiple
+              </MyButton>
+            </MVConfirm>
+          </MVCol>
+
           <MVCol>
             <MVLink to={"/dashboard/product/add"}>
               <MyButton
                 icon={<PlusOutlined />}
-                className="flex items-center text-white bg-blue-500"
+                className="flex items-center bg-blue-500 text-white"
               >
                 Add Movie
               </MyButton>
             </MVLink>
           </MVCol>
+
           <MVCol>
-            <MVLink icon={<PlusOutlined />} to={"/dashboard/product/creacting"}>
-              <MyButton className="bg-green-400 ">Add Multiple Movies</MyButton>
+            <MVLink to={"/dashboard/product/creacting"}>
+              <MyButton className="flex items-center bg-green-400 text-white">
+                Add Multiple Movies
+              </MyButton>
             </MVLink>
           </MVCol>
+
           <MVCol>
-            <MVLink to={"/dashboard/product/add"}>
-              <MyButton className="bg-yellow-400">Export PDF</MyButton>
+            <MVLink to={"/dashboard/product/export-pdf"}>
+              <MyButton className="bg-yellow-400 text-white">
+                Export PDF
+              </MyButton>
             </MVLink>
           </MVCol>
+
           <MVCol>
-            <MVLink to={"/dashboard/product/add"}>
-              <MyButton className="bg-purple-500" shape="round">
+            <MVLink to={"/dashboard/product/export-excel"}>
+              <MyButton className="bg-purple-500 text-white" shape="round">
                 Export Excel
               </MyButton>
             </MVLink>
           </MVCol>
+
           <MVCol>
             <MySelect
               placeholder={"Category"}
               onChange={handleSelectChange}
               style={{ width: 300 }}
-              options={
-                cate &&
-                cate?.data.map((item, index) => ({
-                  label: item.name,
-                  value: item._id,
-                }))
-              }
+              options={cate?.data.map((item) => ({
+                label: item.name,
+                value: item._id,
+              }))}
             />
           </MVCol>
+
           <MVCol>
             <MySelect
               placeholder={"Approval"}
@@ -486,32 +497,32 @@ const ProductAdmin = memo(() => {
               style={{ width: 300 }}
               options={[
                 { value: true, label: "Approve" },
-                { value: false, label: "Approved" },
+                { value: false, label: "Not Approved" },
               ]}
-              children={undefined}
             />
           </MVCol>
+
           <MVCol>
             <div className="form-outline">
               <input
                 type="search"
                 placeholder="search..."
-                className="form-control p-2 rounded bg-[#fff] shadow-sm"
+                className="form-control p-2 rounded bg-white shadow-sm w-full"
                 onChange={(e) => handleSearch(e.target.value)}
               />
             </div>
           </MVCol>
+
           <MVCol>
             <MyButton
-              onClick={() => handleClearCache()}
-              icon={<PlusOutlined />}
-              danger
-              className="flex items-center"
+              onClick={handleClearCache}
+              icon={<ClearOutlined />}
+              className="flex items-center text-white bg-red-600"
             >
-              <ClearOutlined />
               Clear Products Redis
             </MyButton>
           </MVCol>
+
           <MVCol>
             <button
               onClick={() => handleAutoRenderEpisodeMovie()}
@@ -524,6 +535,7 @@ const ProductAdmin = memo(() => {
           </MVCol>
         </MVRow>
       </Drawer>
+
       <Spin spinning={isLoading} delay={undefined}>
         <MVTable
           rowSelection={rowSelection}
