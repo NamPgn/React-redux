@@ -28,7 +28,7 @@ import ForgotPassword from "../page/Auth-Page/Forgot-password";
 import ResetPassword from "../page/Auth-Page/Reset-password";
 import LatestAdmin from "../page/Admin/category/Latest";
 import AdminPage from "../page/Admin";
-import ProductAdmin from "../page/Admin/product";
+const ProductAdmin = lazy(() => import("../page/Admin/product"));
 const ListType = lazy(() => import("../page/Type/Theloai"));
 const OllMovie = lazy(() => import("../page/Type/SidebarData"));
 const SearchResults = lazy(() => import("../components/Search")); //search
@@ -39,7 +39,6 @@ const Signin = lazy(() => import("../page/Auth-Page/Sign-in")); //signin
 const Signup = lazy(() => import("../page/Auth-Page/Sign-up")); //signup
 
 //router admin
-const DataProduct = lazy(() => import("../page/Admin/product/list"));
 const GetUser = lazy(() => import("../page/Admin/user"));
 const Adduser = lazy(() => import("../page/Admin/user/component/add"));
 const EditUser = lazy(() => import("../page/Admin/user/component/edit"));
