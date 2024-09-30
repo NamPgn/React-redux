@@ -45,7 +45,9 @@ export default function WeekComponent() {
           weeks.map((items) => (
             <div
               key={items._id}
-              className={ tabs === items.name ? "active border-none" : "cursor-pointer"}
+              className={
+                tabs === items.name ? "active border-none" : "cursor-pointer"
+              }
               onClick={() => handleTabClick(items.name)}
             >
               <div className="text-[11px] md:text-[12px] lg:text-[14px] flex justify-center items-center px-4 py-2 text-white rounded-lg w-full">
@@ -58,9 +60,8 @@ export default function WeekComponent() {
         {isLoading ? (
           <Loading />
         ) : (
-          <SliderComponent
-            settings={settingsSlider}
-            content={categorys?.content?.map((itemsCategory) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {categorys?.content?.map((itemsCategory) => (
               <div className="px-2" key={itemsCategory._id}>
                 <CategoryContents
                   title={itemsCategory.name}
@@ -72,7 +73,7 @@ export default function WeekComponent() {
                 />
               </div>
             ))}
-          />
+          </div>
         )}
       </div>
     </div>
