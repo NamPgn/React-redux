@@ -87,7 +87,7 @@ const Weeks = () => {
         name: v.name,
         action: (
           <>
-            <MVLink to={`/dashboard/week/edit/${v._id}`}>
+            <MVLink to={`/dashboard/week/edit/${v.name}`}>
               <MyButton type="primary">Edit</MyButton>
             </MVLink>
             <MyButton onClick={() => handledelete(v._id)} className="ml-1">

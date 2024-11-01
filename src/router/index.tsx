@@ -28,6 +28,7 @@ import ForgotPassword from "../page/Auth-Page/Forgot-password";
 import ResetPassword from "../page/Auth-Page/Reset-password";
 import LatestAdmin from "../page/Admin/category/Latest";
 import AdminPage from "../page/Admin";
+import EditWeek from "../page/Admin/week/components/edit";
 const ProductAdmin = lazy(() => import("../page/Admin/product"));
 const ListType = lazy(() => import("../page/Type/Theloai"));
 const OllMovie = lazy(() => import("../page/Type/SidebarData"));
@@ -87,11 +88,6 @@ export const routerNavBar = [
     name: "Đăng kí",
     title: "Đăng kí",
   },
-  {
-    path: "/complete",
-    name: "Hoàn Thành",
-    title: "Hoàn Thành",
-  },
 ];
 
 export const loggedInRoutes = [
@@ -103,11 +99,6 @@ export const loggedInRoutes = [
     path: "/profile",
     name: "Hồ sơ",
     title: "Hồ sơ",
-  },
-  {
-    path: "/complete",
-    name: "Hoàn Thành",
-    title: "Hoàn Thành",
   },
 ];
 
@@ -402,6 +393,14 @@ export const router = [
         element: (
           <LazyComponent>
             <Weeks />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: "week/edit/:id",
+        element: (
+          <LazyComponent>
+            <EditWeek />
           </LazyComponent>
         ),
       },

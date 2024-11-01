@@ -22,9 +22,25 @@ export const getCategoryByWeek = async (name: any) => {
 };
 
 export const deleteCategoryByWeek = async (id, body) => {
-  return await intances.post(`/week/category/${id}/${dataToken.user._id}` , body, {
-    headers: {
-      Authorization: `Bearer ${dataToken.token}`,
-    },
-  });
+  return await intances.post(
+    `/week/category/${id}/${dataToken.user._id}`,
+    body,
+    {
+      headers: {
+        Authorization: `Bearer ${dataToken.token}`,
+      },
+    }
+  );
+};
+
+export const insertManyCategoryFromWeek = async (id, body) => {
+  return await intances.post(
+    `/week/insertMany/${id}/${dataToken.user._id}`,
+    body,
+    {
+      headers: {
+        Authorization: `Bearer ${dataToken.token}`,
+      },
+    }
+  );
 };

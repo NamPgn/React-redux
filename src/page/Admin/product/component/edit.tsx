@@ -41,7 +41,7 @@ const EditProduct = () => {
   }, []);
   const onsubmit = async (data: any) => {
     const formdata = new FormData();
-    
+
     formdata.append("name", data.name);
     formdata.append("slug", data.slug);
     formdata.append("category", data.category._id);
@@ -80,154 +80,130 @@ const EditProduct = () => {
     }
   };
   return (
-    <div>
-      <MVTitle level={4}>
-        <MVLink to={`/d/${state?.slug}`}>
+    <div className="p-6 bg-white rounded-lg shadow-md">
+      <MVTitle level={4} className="mb-4 text-lg font-semibold">
+        <MVLink
+          to={`/d/${state?.slug}`}
+          className="text-blue-500 hover:underline"
+        >
           {state?.name + " tập " + state?.seri}
         </MVLink>
       </MVTitle>
-      <form onSubmit={handleSubmit(onsubmit)}>
+
+      <form onSubmit={handleSubmit(onsubmit)} className="space-y-4">
         <MVInput
           name={"name"}
           label={"Product name"}
           control={control}
-          rules={undefined}
+          className="w-full"
         />
         <MVInput
           name={"slug"}
           label={"Slug"}
           control={control}
-          rules={undefined}
+          className="w-full"
         />
         <MVInput
           name={"seri"}
           label={"Seri"}
           control={control}
-          rules={undefined}
+          className="w-full"
         />
         <MVInput
           name={"view"}
           label={"View"}
           control={control}
-          rules={undefined}
+          className="w-full"
         />
         <MVInput
           name={"LinkCopyright"}
           label={"LinkCopyright"}
           control={control}
-          rules={undefined}
+          className="w-full"
         />
         <MVInput
           name={"link"}
           label={"Video Url"}
           control={control}
-          rules={undefined}
+          className="w-full"
         />
         <MVInput
           name={"dailyMotionServer"}
           label={"DailyMotionServer"}
           control={control}
-          rules={undefined}
+          className="w-full"
         />
         <MVInput
           name={"server2"}
           label={"Assb server"}
           control={control}
-          rules={undefined}
+          className="w-full"
         />
         <MVInput
           name={"trailer"}
           label={"Trailer Video"}
           control={control}
-          rules={undefined}
+          className="w-full"
         />
-        <div style={{ width: "150px", height: "200px" }}>
+
+        <div className=" w-36">
           <MVImage
             src={handleImage(200, state?.category?.linkImg)}
-            className="w-full h-full"
+            className="object-cover rounded-md shadow-sm"
           />
         </div>
-        <br />
-        {/* <MyUploadWrapper
-          name={'file'}
-          label={'New Video Upload'}
+
+        <MVUpload
+          name={"image"}
+          label={"New Image Upload"}
           control={control}
-        /> */}
-        <MVUpload name={"image"} label={"New Image Upload"} control={control} />
+          className="w-full mt-4"
+        />
         <MVInput
           name={"imageLink"}
           label={"Image Link"}
           control={control}
-          rules={undefined}
+          className="w-full"
         />
-        {/** Thể loại của phim tập*/}
+
         <MySelectWrapper
           label={"Category"}
           control={control}
           name={"category"}
           defaultValue={"category"}
-          options={
-            data &&
-            data.map((item, index) => ({
-              label: item.name,
-              value: item._id,
-            }))
-          }
+          options={data?.map((item) => ({ label: item.name, value: item._id }))}
+          className="w-full mt-4"
         />
-        <br />
-        {/** Thể loại của phim lẻ phim bộ 1 tập */}
+
         <MySelectWrapper
           name={"typeId"}
           label={"Thể loại của phim lẻ"}
           control={control}
           defaultValue={"Thể loại"}
-          options={
-            seri &&
-            seri?.map((item, index) => ({
-              label: item.name,
-              value: item._id,
-            }))
-          }
+          options={seri?.map((item) => ({ label: item.name, value: item._id }))}
+          className="w-full mt-4"
         />
-        <br />
-        {/** Thể loại của danh mục thể loại gồm các danh mục con */}
-        {/* <MySelectWrapper
-          control={control}
-          name={"Thể loại của danh mục thể loại gồm các danh mục con"}
-          label={"Categorymain"}
-          placeholder={"categorymain"}
-          defaultValue={"categorymain"}
-          options={
-            categorymain &&
-            categorymain?.map((item, index) => ({
-              label: item.name,
-              value: item._id,
-            }))
-          }
-        /> */}
-        <br />
-        <MyButton htmlType="submit" className="btn btn-primary mt-2">
-          Submit
-        </MyButton>
+
+        <MyButton htmlType="submit">Submit</MyButton>
       </form>
-      <Dividers textColor={"#000"} orientation={"center"}>
+
+      <Dividers textColor={"#000"} orientation={"center"} className="mt-8">
         Abyss Server
       </Dividers>
-      <form onSubmit={handleSubmit(handleSubmitServerAssb)}>
+
+      <form
+        onSubmit={handleSubmit(handleSubmitServerAssb)}
+        className="space-y-4 mt-4"
+      >
         <MVUpload
           name={"fileupload"}
           label={"New Video Upload"}
           control={control}
+          className="w-full"
         />
-        <div className="mt-2">
-          <MyButton
-            loading={isLoading}
-            htmlType="submit"
-            className="btn btn-primary"
-          >
-            Submit
-          </MyButton>
-        </div>
+        <MyButton loading={isLoading} htmlType="submit">
+          Submit
+        </MyButton>
       </form>
     </div>
   );
