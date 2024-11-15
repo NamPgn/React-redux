@@ -232,9 +232,9 @@ const columnsComment = [
     key: "Image",
   },
   {
-    title: "Product",
-    dataIndex: "product",
-    key: "product",
+    title: "Category",
+    dataIndex: "category",
+    key: "category",
   },
   {
     title: "Permission",

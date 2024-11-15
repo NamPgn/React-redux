@@ -15,17 +15,20 @@ import {
   clearCacheProducts,
   deleteMultipleProduct,
   endcodeMutipleDailymotionServer,
+  exportDataExcel,
 } from "../../../sevices/product";
 import { useAppDispatch, useAppSelector } from "../../../hook";
 import { MyButton } from "../../../components/MV/Button";
 import MySelect from "../../../components/MV/Select";
 import {
   ArrowUpOutlined,
+  CheckCircleOutlined,
   CheckOutlined,
   ClearOutlined,
   CloseCircleOutlined,
   DeleteOutlined,
   EditOutlined,
+  ExportOutlined,
   EyeOutlined,
   FileAddOutlined,
   PlusOutlined,
@@ -40,6 +43,7 @@ import { MVError, MVSuccess } from "../../../components/Message";
 import MVTags from "../../../components/MV/Tag";
 import { ApiContext } from "../../../context/api";
 import { MyContext } from "../../../context";
+import PageTitle from "../../../components/PageTitle";
 
 const ProductAdmin = memo(() => {
   const products = useAppSelector((state) => state.product.value);
@@ -180,6 +184,40 @@ const ProductAdmin = memo(() => {
       MVError("Error");
     }
   };
+
+  const handleExportDataToExcel = async () => {
+    try {
+      // Make a GET request to the backend to download the Excel file
+      const response = await fetch("http://localhost:8001/api/products/export/excel", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        // Convert the response to a Blob object
+        const blob = await response.blob();
+
+        // Create a URL for the Blob to download the file
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "data.xlsx"; // Default filename for download
+        document.body.appendChild(a); // Needed for Firefox
+        a.click();
+        a.remove();
+
+        // Revoke the object URL to free up memory
+        window.URL.revokeObjectURL(url);
+      } else {
+        console.error("Failed to download file");
+      }
+    } catch (error) {
+      console.error("Error downloading the file:", error);
+    }
+  };
+
   const columnsProduct = [
     {
       title: "Name",
@@ -386,6 +424,7 @@ const ProductAdmin = memo(() => {
     });
   return (
     <>
+      <PageTitle title={`List Episode`} subtitle="List Episode" />
       <MyButton className="mb-2 bg-blue-500 text-white" onClick={showDrawer}>
         Open
       </MyButton>
@@ -421,7 +460,10 @@ const ProductAdmin = memo(() => {
               okText="Yes"
               cancelText="No"
             >
-              <MyButton className="flex items-center bg-amber-500 text-white">
+              <MyButton
+                className="flex items-center bg-amber-500 text-white"
+                icon={<CheckCircleOutlined />}
+              >
                 Approved Multiple
               </MyButton>
             </MVConfirm>
@@ -438,7 +480,7 @@ const ProductAdmin = memo(() => {
                 icon={<EditOutlined />}
                 className="flex items-center bg-gradient-to-br from-purple-600 to-blue-500 text-white"
               >
-                Edit Multiple
+                Encode Dailymotion Server Episode
               </MyButton>
             </MVConfirm>
           </MVCol>
@@ -456,7 +498,10 @@ const ProductAdmin = memo(() => {
 
           <MVCol>
             <MVLink to={"/dashboard/product/creacting"}>
-              <MyButton className="flex items-center bg-green-400 text-white">
+              <MyButton
+                className="flex items-center bg-purple-500 text-white"
+                icon={<FileAddOutlined />}
+              >
                 Add Multiple Movies
               </MyButton>
             </MVLink>
@@ -471,11 +516,13 @@ const ProductAdmin = memo(() => {
           </MVCol>
 
           <MVCol>
-            <MVLink to={"/dashboard/product/export-excel"}>
-              <MyButton className="bg-purple-500 text-white" shape="round">
-                Export Excel
-              </MyButton>
-            </MVLink>
+            <MyButton
+              icon={<ExportOutlined />}
+              className=" bg-green-600 flex items-center"
+              onClick={() => handleExportDataToExcel()}
+            >
+              Export Excel
+            </MyButton>
           </MVCol>
 
           <MVCol>

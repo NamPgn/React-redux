@@ -11,6 +11,7 @@ import MVLink from "../../../../components/Location/Link";
 import { EditOutlined } from "@ant-design/icons";
 import { ApiContext } from "../../../../context/api";
 import { getAllcate } from "../../../../redux/slice/category/thunk/category";
+import PageTitle from "../../../../components/PageTitle";
 const ProductAdd = () => {
   const { seri }: any = useContext(ApiContext);
   const { data }: any = useAppSelector((state) => state.category.category);
@@ -65,6 +66,10 @@ const ProductAdd = () => {
   };
   return (
     <div>
+       <PageTitle
+        title={`Create Episode`}
+        subtitle="Create Episode Description"
+      />
       <form
         onSubmit={handleSubmit(onsubmit)}
         className="mx-auto p-6 bg-white rounded-lg shadow-md"

@@ -134,7 +134,7 @@ const TypesCateAdmin = () => {
           </MVCol>
           <MVCol span={2}>
             <MyButton htmlType="submit" className="mt-3" type="primary">
-              Thêm
+              Create
             </MyButton>
           </MVCol>
         </MVRow>

@@ -19,6 +19,7 @@ import MVImage from "../../../../components/MV/Image";
 import { ApiContext } from "../../../../context/api";
 import { handleImage } from "../../../../lib/handleImage";
 import { getAllcate } from "../../../../redux/slice/category/thunk/category";
+import PageTitle from "../../../../components/PageTitle";
 declare var Promise: any;
 const EditProduct = () => {
   const { seri }: any = useContext(ApiContext);
@@ -31,7 +32,10 @@ const EditProduct = () => {
   useEffect(() => {
     const getFormProduct = async (): Promise<any> => {
       const { payload }: any = await dispatch(getProduct(id));
-      reset(payload);
+      reset({
+        ...payload,
+        category: payload.category?.name,
+      });
       setState(payload);
     };
     getFormProduct();
@@ -81,6 +85,10 @@ const EditProduct = () => {
   };
   return (
     <div className="p-6 bg-white rounded-lg shadow-md">
+      <PageTitle
+        title={`Edit Episode: ${state?.name + " tập " + state?.seri}`}
+        subtitle="Edit Episode Description"
+      />
       <MVTitle level={4} className="mb-4 text-lg font-semibold">
         <MVLink
           to={`/d/${state?.slug}`}
@@ -170,7 +178,6 @@ const EditProduct = () => {
           label={"Category"}
           control={control}
           name={"category"}
-          defaultValue={"category"}
           options={data?.map((item) => ({ label: item.name, value: item._id }))}
           className="w-full mt-4"
         />

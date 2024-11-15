@@ -32,18 +32,6 @@ html {
   background-color: #eee;
 } */
 
-button,
-[type='button'],
-[type='reset'],
-[type='submit'] {
-    -webkit-appearance: none; /* Bỏ qua kiểu mặc định của trình duyệt */
-    background-color: initial; /* Hoặc đặt màu nền theo ý bạn */
-    background-image: none; /* Bỏ ảnh nền nếu có */
-    border: none; /* Bỏ viền nếu cần */
-    padding: 0; /* Điều chỉnh padding nếu cần */
-    /* Thêm các thuộc tính khác nếu cần */
-}
-
 .hiddenn {
   display: none !important;
 }
@@ -57,7 +45,12 @@ button,
   background-color: #b6b6b6 !important;
 }
 
-:where(.css-dev-only-do-not-override-1s3dcof).ant-btn-primary {
+
+:where(.css-1s3dcof).ant-btn-primary{
+  background-color: #1677ff !important;
+}
+
+:where(.css-dev-only-do-not-override-1s3dcof).ant-btn-primary{
   background-color: #1677ff !important;
 }
 

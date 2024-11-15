@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   addComment,
   deleteComent,
+  deleteMultipleComment,
   getAllComment,
 } from "../../../../sevices/comment";
 
@@ -25,6 +26,14 @@ export const deleteCommentSlice = createAsyncThunk(
   "deleteComment",
   async (dataId: any) => {
     const { data }: any = await deleteComent(dataId);
+    return data;
+  }
+);
+
+export const deleteMultipleCommentsActions = createAsyncThunk(
+  "deleteCommentsMultiple",
+  async (dataId: any) => {
+    const {data}: any = await deleteMultipleComment(dataId);
     return data;
   }
 );
