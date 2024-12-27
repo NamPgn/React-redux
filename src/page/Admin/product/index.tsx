@@ -386,9 +386,21 @@ const ProductAdmin = memo(() => {
     });
   return (
     <>
-      <MyButton className="mb-2 bg-blue-500 text-white" onClick={showDrawer}>
-        Open
-      </MyButton>
+      <div className="flex gap-2">
+        <MyButton className="mb-2 bg-blue-500 text-white" onClick={showDrawer}>
+          Open
+        </MyButton>
+        <MVCol>
+          <MVLink to={"/dashboard/product/add"}>
+            <MyButton
+              icon={<PlusOutlined />}
+              className="flex items-center bg-blue-500 text-white"
+            >
+              Add Movie
+            </MyButton>
+          </MVLink>
+        </MVCol>
+      </div>
       <Drawer title="Làm gì thì làm đi :))" onClose={onClose} open={open}>
         <MVRow
           gutter={[10, 2]}
@@ -441,17 +453,6 @@ const ProductAdmin = memo(() => {
                 Edit Multiple
               </MyButton>
             </MVConfirm>
-          </MVCol>
-
-          <MVCol>
-            <MVLink to={"/dashboard/product/add"}>
-              <MyButton
-                icon={<PlusOutlined />}
-                className="flex items-center bg-blue-500 text-white"
-              >
-                Add Movie
-              </MyButton>
-            </MVLink>
           </MVCol>
 
           <MVCol>
