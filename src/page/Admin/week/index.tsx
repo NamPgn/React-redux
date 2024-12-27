@@ -87,7 +87,7 @@ const Weeks = () => {
         name: v.name,
         action: (
           <>
-            <MVLink to={`/dashboard/week/edit/${v._id}`}>
+            <MVLink to={`/dashboard/week/edit/${v.name}`}>
               <MyButton type="primary">Edit</MyButton>
             </MVLink>
             <MyButton onClick={() => handledelete(v._id)} className="ml-1">
@@ -111,7 +111,7 @@ const Weeks = () => {
           </MVCol>
           <MVCol span={2}>
             <MyButton htmlType="submit" className="mt-3" type="primary">
-              Thêm
+              Create
             </MyButton>
           </MVCol>
         </MVRow>

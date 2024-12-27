@@ -45,7 +45,12 @@ html {
   background-color: #b6b6b6 !important;
 }
 
-:where(.css-dev-only-do-not-override-1s3dcof).ant-btn-primary {
+
+:where(.css-1s3dcof).ant-btn-primary{
+  background-color: #1677ff !important;
+}
+
+:where(.css-dev-only-do-not-override-1s3dcof).ant-btn-primary{
   background-color: #1677ff !important;
 }
 
@@ -180,4 +185,27 @@ p {
 
 .category-item {
   min-height: 200px; /* Chiều cao cố định hoặc tối thiểu */
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #555; /* Màu của thanh cuộn */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #999; /* Màu khi hover */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #1a1a1a; /* Màu nền của thanh cuộn */
+}
+
+:where(.css-dev-only-do-not-override-1s3dcof).ant-layout .ant-layout-footer{
+  background-color: #9999994d;
 }

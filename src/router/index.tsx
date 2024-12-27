@@ -28,6 +28,7 @@ import ForgotPassword from "../page/Auth-Page/Forgot-password";
 import ResetPassword from "../page/Auth-Page/Reset-password";
 import LatestAdmin from "../page/Admin/category/Latest";
 import AdminPage from "../page/Admin";
+import EditWeek from "../page/Admin/week/components/edit";
 const ProductAdmin = lazy(() => import("../page/Admin/product"));
 const ListType = lazy(() => import("../page/Type/Theloai"));
 const OllMovie = lazy(() => import("../page/Type/SidebarData"));
@@ -47,7 +48,7 @@ const ProductAdd = lazy(() => import("../page/Admin/product/component/add"));
 const EditProduct = lazy(() => import("../page/Admin/product/component/edit"));
 const CreatingUser = lazy(() => import("../page/Admin/user/component/adds"));
 const CreatingProducts = lazy(
-  () => import("../page/Admin/product/component/creatingProducts")
+  () => import("../page/Admin/product/component/CreatingProducts")
 );
 const CategoryAdmin = lazy(() => import("../page/Admin/category"));
 const EditCategoryAdmin = lazy(
@@ -61,9 +62,9 @@ const CommentAdmin = lazy(() => import("../page/Admin/comment"));
 const CartUser = lazy(() => import("../components/Cart"));
 const CartAdmin = lazy(() => import("../page/Admin/cart"));
 const Loadmore = lazy(() => import("../page/Home/Category/Loadmore"));
-const TypesCateAdmin = lazy(() => import("../page/Admin/typesCategory"));
+const TypesCateAdmin = lazy(() => import("../page/Admin/TypesCategory"));
 const CatemainProduct = lazy(
-  () => import("../page/Admin/typesCategory/component/CatemainProduct")
+  () => import("../page/Admin/TypesCategory/component/CatemainProduct")
 );
 //background
 const Background = lazy(() => import("../page/Admin/background"));
@@ -87,11 +88,6 @@ export const routerNavBar = [
     name: "Đăng kí",
     title: "Đăng kí",
   },
-  {
-    path: "/complete",
-    name: "Hoàn Thành",
-    title: "Hoàn Thành",
-  },
 ];
 
 export const loggedInRoutes = [
@@ -103,11 +99,6 @@ export const loggedInRoutes = [
     path: "/profile",
     name: "Hồ sơ",
     title: "Hồ sơ",
-  },
-  {
-    path: "/complete",
-    name: "Hoàn Thành",
-    title: "Hoàn Thành",
   },
 ];
 
@@ -402,6 +393,14 @@ export const router = [
         element: (
           <LazyComponent>
             <Weeks />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: "week/edit/:id",
+        element: (
+          <LazyComponent>
+            <EditWeek />
           </LazyComponent>
         ),
       },

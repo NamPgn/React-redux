@@ -28,7 +28,7 @@ const index = () => {
           ProductName: item.product
             ? item.product.name + " " + item.product.seri
             : "",
-          user: item.user.username,
+          user: item?.user?.username,
           // image: <Image width={60} height={80} style={{ objectFit: "cover" }} src={item.product ? item.product.image : "https://i.pinimg.com/736x/0d/56/7a/0d567a768f35faab85b96f84691235d3.jpg"} />,
           permission: item.user.role == 0 ? "User" : "Admin",
           action: (

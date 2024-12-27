@@ -11,15 +11,16 @@ import MVLink from "../../../../components/Location/Link";
 import { EditOutlined } from "@ant-design/icons";
 import { ApiContext } from "../../../../context/api";
 import { getAllcate } from "../../../../redux/slice/category/thunk/category";
+import PageTitle from "../../../../components/PageTitle";
 const ProductAdd = () => {
   const { seri }: any = useContext(ApiContext);
   const { data }: any = useAppSelector((state) => state.category.category);
   const [idProduct, setIdProduct] = useState("");
   const dispatch = useAppDispatch();
   const { handleSubmit, control } = useForm();
-  useEffect(()=>{
-    dispatch(getAllcate(0))
-  },[])
+  useEffect(() => {
+    dispatch(getAllcate(0));
+  }, []);
   const categoryOptions =
     data &&
     data.map((item, index) => ({
@@ -65,107 +66,115 @@ const ProductAdd = () => {
   };
   return (
     <div>
-      <form onSubmit={handleSubmit(onsubmit)}>
-        <MVInput
-          name={"name"}
-          label={"Product name"}
-          control={control}
-          rules={undefined}
-        />
-        <MVInput
-          name={"view"}
-          label={"View"}
-          control={control}
-          rules={undefined}
-        />
-        <MVInput
-          name={"seri"}
-          label={"Seri"}
-          control={control}
-          rules={undefined}
-        />
-        <MVInput
-          name={"copyright"}
-          label={"Copyright"}
-          control={control}
-          rules={undefined}
-        />
-        <MVInput
-          name={"LinkCopyright"}
-          label={"LinkCopyright"}
-          control={control}
-          rules={undefined}
-        />
-        {/* <MyUploadWrapper
-          name={'file'}
-          label={'New Video Upload'}
-          control={control}
-        /> */}
-        <MVUpload name={"image"} label={"New Image Upload"} control={control} />
-        {/* <label className="form-label">Video Url</label>
-        <input type="file" name='file' {...register('file')} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
-        <label className="form-label">Image</label>
-        <input type="file" name='image' {...register('image')} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" /> */}
-        <MVInput
-          name={"dailyMotionServer"}
-          label={"DailyMotionServer"}
-          control={control}
-          rules={undefined}
-        />
-        <MVInput
-          name={"trailer"}
-          label={"Trailer Video"}
-          control={control}
-          rules={undefined}
-        />
-        <MVInput
-          name={"video2"}
-          label={"Video Link"}
-          control={control}
-          rules={undefined}
-        />
-        <MVInput
-          name={"imageLink"}
-          label={"Image Link"}
-          control={control}
-          rules={undefined}
-        />
-        {/** Thể loại của phim tập*/}
-        <MySelectWrapper
-          control={control}
-          name="category"
-          label={"Category"}
-          placeholder={"category"}
-          defaultValue={"category"}
-          options={categoryOptions}
-        />
-        <br />
-        {/** Thể loại của phim lẻ phim bộ 1 tập */}
-        <MySelectWrapper
-          name={"typeId"}
-          label={"Thể loại của phim lẻ"}
-          control={control}
-          placeholder={"typeId"}
-          defaultValue={"typeId"}
-          options={typeOptions}
-        />
-        <br />
-        {/** Thể loại của danh mục thể loại gồm các danh mục con */}
-        {/* <MySelectWrapper
-          name={"categorymain"}
-          label={"Thể loại của danh mục thể loại gồm các danh mục con"}
-          control={control}
-          placeholder={"categorymain"}
-          defaultValue={"categorymain"}
-          options={categorymainOptions}
-        /> */}
-        <br />
-        <div className="flex items-center gap-2">
-          <div className="mt-2">
-            <MyButton htmlType="submit" className="btn btn-primary">
-              Submit
-            </MyButton>
-          </div>
+       <PageTitle
+        title={`Create Episode`}
+        subtitle="Create Episode Description"
+      />
+      <form
+        onSubmit={handleSubmit(onsubmit)}
+        className="mx-auto p-6 bg-white rounded-lg shadow-md"
+      >
+        <h2 className="text-lg font-semibold mb-4">Episode Create</h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <MVInput
+            name="name"
+            label="Product Name"
+            control={control}
+            rules={undefined}
+            className="w-full"
+          />
+          <MVInput
+            name="view"
+            label="View"
+            control={control}
+            rules={undefined}
+            className="w-full"
+          />
+          <MVInput
+            name="seri"
+            label="Seri"
+            control={control}
+            rules={undefined}
+            className="w-full"
+          />
+          <MVInput
+            name="copyright"
+            label="Copyright"
+            control={control}
+            rules={undefined}
+            className="w-full"
+          />
+          <MVInput
+            name="LinkCopyright"
+            label="Link Copyright"
+            control={control}
+            rules={undefined}
+            className="w-full"
+          />
+        </div>
+
+        <div className="mt-4">
+          <MVUpload name="image" label="New Image Upload" control={control} />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+          <MVInput
+            name="dailyMotionServer"
+            label="DailyMotion Server"
+            control={control}
+            rules={undefined}
+            className="w-full"
+          />
+          <MVInput
+            name="trailer"
+            label="Trailer Video"
+            control={control}
+            rules={undefined}
+            className="w-full"
+          />
+          <MVInput
+            name="video2"
+            label="Video Link"
+            control={control}
+            rules={undefined}
+            className="w-full"
+          />
+          <MVInput
+            name="imageLink"
+            label="Image Link"
+            control={control}
+            rules={undefined}
+            className="w-full"
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-4 mt-4">
+          <MySelectWrapper
+            control={control}
+            name="category"
+            label="Category"
+            placeholder="Select a category"
+            options={categoryOptions}
+            className="w-full"
+          />
+          <MySelectWrapper
+            name="typeId"
+            label="Cateogory Donghua"
+            control={control}
+            placeholder="Select a type"
+            options={typeOptions}
+            className="w-full"
+          />
+        </div>
+
+        <div className="flex items-center gap-4 mt-6">
+          <MyButton
+            htmlType="submit"
+            className="btn btn-primary w-full sm:w-auto"
+          >
+            Submit
+          </MyButton>
           <MVLink to={`/dashboard/product/edit/${idProduct}`}>
             <MyButton type="text" danger shape="circle">
               <EditOutlined />

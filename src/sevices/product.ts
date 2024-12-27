@@ -149,10 +149,5 @@ export const autoRenderEpisodeMovie = async () => {
     }
   );
 };
-// export const ratingProduct = async (productId, data: any) => {
-//   return await intances.post(`/product/rating/${productId}`, data);
-// };
-
-// export const ratingProductStats = async (productId) => {
-//   return await intances.get(`/product/rate/${productId}`);
-// };
+export const exportDataExcel = async () =>
+  await intances.get(`/products/export/excel`);

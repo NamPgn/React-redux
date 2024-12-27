@@ -24,8 +24,6 @@ import { Spiner } from "../Message/Notification";
 import { ProductsPending$ } from "../../redux/selectors/product";
 import CryptoJS from "crypto-js";
 import { Result } from "antd";
-import MVImage from "../MV/Image";
-import { handleImage } from "../../lib/handleImage";
 import PageMeta from "../../lib/pageMeta";
 const DetailComponent = () => {
   const getOneProductDetail = useAppSelector(getOneProduct$);
@@ -147,19 +145,7 @@ const DetailComponent = () => {
                 </Server>
                 {/* chi tiết */}
                 <DivStyledContent className="mt-2">
-                  <DivStyledItem className="w-3/12">
-                    <MVImage
-                      className="md:block hidden"
-                      alt={"Ảnh" + getOneProductDetail.category?.name}
-                      src={handleImage(
-                        200,
-                        getOneProductDetail &&
-                          (getOneProductDetail.category?.linkImg ||
-                            getOneProductDetail.image)
-                      )}
-                    />
-                  </DivStyledItem>
-                  <DivStyledContentText className="lg:w-9/12 md:w-full text-center lg:text-start">
+                  <DivStyledContentText className="lg:w-12/12 md:w-full text-center lg:text-start">
                     {/* content */}
                     <CartAddContent item={getOneProductDetail} id={id} />
                     <Content getOneProductDetail={getOneProductDetail} />
