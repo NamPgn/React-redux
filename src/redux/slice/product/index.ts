@@ -84,7 +84,7 @@ const productSlice = createSlice({
     builder.addCase(
       autoGenarateEpisodeMovieSlice.fulfilled,
       (state, action) => {
-        state.value.data = [...state.value.data, ...action.payload.data];
+        state.isLoading = false;
       }
     );
   },

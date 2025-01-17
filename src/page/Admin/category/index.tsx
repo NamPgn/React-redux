@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Image, Modal } from "antd";
+import { DatePicker, Image, Modal } from "antd";
 import {
   addCateGorySlice,
   deleteCategorySlice,
@@ -9,7 +9,7 @@ import { category$ } from "../../../redux/selectors";
 import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../../../hook";
 import { pushCateTotype } from "../../../sevices/type";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { MySelectWrapper } from "../../../components/Form/component/select";
 import { MyButton } from "../../../components/MV/Button";
 import { columnsCategory } from "../../../constant";
@@ -21,6 +21,8 @@ import { TreeSelect } from "antd";
 import { MVError, MVSuccess } from "../../../components/Message";
 import MVTags from "../../../components/MV/Tag";
 import { ApiContext } from "../../../context/api";
+import { ISMOVIE, RELEASES } from "../../../constant/categoyy";
+import dayjs from "dayjs";
 
 const CategoryAdmin = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,8 +46,11 @@ const CategoryAdmin = () => {
 
   useEffect(() => {
     dispatch(getAllcate(page));
-    
   }, [page]);
+  const UpcomingReleasesOptions = RELEASES?.map((item: any) => ({
+    label: item.name,
+    value: item.val,
+  }));
   const valueOptions =
     seri &&
     seri?.map((items: any, index: number) => ({
@@ -61,9 +66,10 @@ const CategoryAdmin = () => {
   };
   const onsubmit = async (data: any) => {
     const formdata = new FormData();
+    formdata.append("_id", data._id);
     formdata.append("name", data.name);
+    formdata.append("slug", data.slug);
     formdata.append("des", data.des);
-    formdata.append("sumSeri", data.sumSeri);
     formdata.append("week", data.week);
     formdata.append("type", data.type);
     formdata.append("file", data.file);
@@ -72,10 +78,15 @@ const CategoryAdmin = () => {
     formdata.append("isActive", data.isActive);
     formdata.append("year", data.year);
     formdata.append("anotherName", data.anotherName);
+    formdata.append("sumSeri", data.sumSeri);
     formdata.append("hour", data.hour);
     formdata.append("lang", data.lang);
     formdata.append("season", data.season);
     formdata.append("quality", data.quality);
+    formdata.append("quality", data.episode_many_title);
+    formdata.append("quality", data.upcomingReleases);
+    formdata.append("quality", data.isMovie);
+    // console.log()
     const res = await dispatch(addCateGorySlice(formdata));
     if (res.payload.success == true) {
       toast.success("Thành công");
@@ -109,30 +120,37 @@ const CategoryAdmin = () => {
     setPage(page);
   };
 
-  const handleChange = () => {
-    const daysOfWeek = [
-      "Chủ Nhật",
-      "Thứ 2",
-      "Thứ 3",
-      "Thứ 4",
-      "Thứ 5",
-      "Thứ 6",
-      "Thứ 7",
-    ];
-
-    const now = new Date();
-
-    const dayIndex = now.getDay();
-
-    const day = daysOfWeek[dayIndex];
-    const getDayDb = weeks && weeks.find((i: any) => i.name == day);
+  const onChangeDate = (date, dateString) => {
+    console.log(date, dateString);
   };
+  // const handleChange = () => {
+  //   const daysOfWeek = [
+  //     "Chủ Nhật",
+  //     "Thứ 2",
+  //     "Thứ 3",
+  //     "Thứ 4",
+  //     "Thứ 5",
+  //     "Thứ 6",
+  //     "Thứ 7",
+  //   ];
+
+  //   const now = new Date();
+
+  //   const dayIndex = now.getDay();
+
+  //   const day = daysOfWeek[dayIndex];
+  //   const getDayDb = weeks && weeks.find((i: any) => i.name == day);
+  // };
   const weeekOptions =
     weeks &&
     weeks?.map((item: any, index: number) => ({
       label: item.name,
       value: item._id,
     }));
+  const isMovieOptions = ISMOVIE?.map((item: any) => ({
+    label: item.name,
+    value: item.val,
+  }));
   const data =
     category.data &&
     category.data.map((item: any, index: number) => {
@@ -294,6 +312,7 @@ const CategoryAdmin = () => {
             rules={undefined}
           />
           <MySelectWrapper
+            className="mb-3"
             name={"week"}
             label={"Theo tuần"}
             control={control}
@@ -301,6 +320,51 @@ const CategoryAdmin = () => {
             defaultValue={"Week"}
             options={weeekOptions}
           />
+          <MySelectWrapper
+            name={"upcomingReleases"}
+            label={"UpcomingReleases"}
+            control={control}
+            placeholder={"UpcomingReleases"}
+            defaultValue={undefined}
+            options={UpcomingReleasesOptions}
+          />
+          <MySelectWrapper
+            name={"isMovie"}
+            label={"Is Movie"}
+            control={control}
+            placeholder={"Is Movie"}
+            defaultValue={undefined}
+            options={isMovieOptions}
+          />
+
+          <MVInput
+            name={"episode_many_title"}
+            label={"Episode Many title"}
+            control={control}
+            rules={undefined}
+          />
+          <div className="mt-4">
+            <div>Select Date</div>
+            <Controller
+              name="releaseDate"
+              control={control}
+              defaultValue={null}
+              render={({ field }) => (
+                <DatePicker
+                  {...field}
+                  value={field.value ? dayjs(field.value, "YYYY-MM-DD") : null}
+                  className="w-full"
+                  onChange={(date, dateString) => {
+                    if (date) {
+                      field.onChange(dayjs(date).format("YYYY-MM-DD"));
+                    } else {
+                      field.onChange(null);
+                    }
+                  }}
+                />
+              )}
+            />
+          </div>
           <MVUpload name={"file"} label={"Upload"} control={control} />
           <MyButton htmlType="submit" className="mt-2">
             Create

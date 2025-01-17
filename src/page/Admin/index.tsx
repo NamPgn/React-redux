@@ -73,7 +73,7 @@ const AdminPage = () => {
         </Card>
       </div>
       <div className="flex justify-between gap-2">
-        <Line className="w-5/12" {...config} />
+        <Line {...config} />
       </div>
     </>
   );

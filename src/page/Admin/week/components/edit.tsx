@@ -9,7 +9,6 @@ import { useParams } from "react-router-dom";
 import { TreeSelect } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../../hook";
 import { getAllcate } from "../../../../redux/slice/category/thunk/category";
-import { mutate } from "swr";
 import { insertManyCategoryFromWeek } from "../../../../sevices/week";
 import { toast } from "react-toastify";
 const { SHOW_PARENT } = TreeSelect;
