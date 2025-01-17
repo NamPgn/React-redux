@@ -1,6 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import SliderComponent from "../Slider";
-import { settingsSlider } from "../../constant";
 import { getCategoryByWeek } from "../../sevices/week";
 import { Loading } from "../Message/Notification";
 import { ApiContext } from "../../context/api";

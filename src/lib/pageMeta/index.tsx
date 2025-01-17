@@ -1,5 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import { handleImage } from "../handleImage";
 interface PageMetaProps {
   ogTitle: string;
   description?: string;
@@ -20,7 +21,7 @@ const PageMeta = ({
       <title>{title}</title>
       <meta property="og:title" content={ogTitle} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={imageUrl} />
+      <meta property="og:image" content={handleImage(300,imageUrl)} />
       {Object.keys(rest).map((key) => (
         <meta key={key} {...rest[key]} />
       ))}
