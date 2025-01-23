@@ -1,5 +1,5 @@
 import React, { memo, useContext, useEffect, useState } from "react";
-import { Drawer, Spin } from "antd";
+import { Drawer, Input, Spin } from "antd";
 import {
   getProducts,
   deleteProduct,
@@ -71,7 +71,8 @@ const ProductAdmin = memo(() => {
   const handleSelectChange = (value: any) => {
     dispatch(filterProductByCategorySlice(value));
   };
-  const handleSearch = (value: any) => {
+  const handleSearch = (e) => {
+    const value = e.target.value;
     dispatch(searchProductsSlice(value));
   };
   const handlePageChangePage = (value) => {
@@ -187,12 +188,15 @@ const ProductAdmin = memo(() => {
   const handleExportDataToExcel = async () => {
     try {
       // Make a GET request to the backend to download the Excel file
-      const response = await fetch("http://localhost:8001/api/products/export/excel", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "http://localhost:8001/api/products/export/excel",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (response.ok) {
         // Convert the response to a Blob object
@@ -423,19 +427,51 @@ const ProductAdmin = memo(() => {
     });
   return (
     <>
-      <div className="flex gap-2">
-        <MyButton className="mb-2 bg-blue-500 text-white" onClick={showDrawer}>
+      <PageTitle title="" subtitle="Movie Episode" />
+      <div
+        style={{
+          display: "flex",
+          gap: "16px",
+          alignItems: "center",
+          marginBottom: "16px",
+        }}
+      >
+        <MyButton
+          type="primary"
+          onClick={showDrawer}
+          style={{ backgroundColor: "#1890ff", color: "white" }}
+        >
           Open
         </MyButton>
+
+        <MyButton
+          type="primary"
+          icon={<PlusOutlined />}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            backgroundColor: "#1890ff",
+            color: "white",
+          }}
+          href="/dashboard/product/add"
+        >
+          Add Movie
+        </MyButton>
+
+        <Input.Search
+          placeholder="Search products"
+          onChange={handleSearch}
+          style={{ width: "300px", borderRadius: "4px" }}
+        />
         <MVCol>
-          <MVLink to={"/dashboard/product/add"}>
-            <MyButton
-              icon={<PlusOutlined />}
-              className="flex items-center bg-blue-500 text-white"
-            >
-              Add Movie
-            </MyButton>
-          </MVLink>
+          <button
+            onClick={() => handleAutoRenderEpisodeMovie()}
+            type="button"
+            className="gap-2 flex items-center py-2.5 px-6 text-sm bg-indigo-50 text-indigo-500 rounded-lg cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-indigo-100"
+          >
+            <FileAddOutlined />
+            Generate Episode Movie
+          </button>
         </MVCol>
       </div>
       <Drawer title="Làm gì thì làm đi :))" onClose={onClose} open={open}>
@@ -549,17 +585,6 @@ const ProductAdmin = memo(() => {
           </MVCol>
 
           <MVCol>
-            <div className="form-outline">
-              <input
-                type="search"
-                placeholder="search..."
-                className="form-control p-2 rounded bg-white shadow-sm w-full"
-                onChange={(e) => handleSearch(e.target.value)}
-              />
-            </div>
-          </MVCol>
-
-          <MVCol>
             <MyButton
               onClick={handleClearCache}
               icon={<ClearOutlined />}
@@ -567,17 +592,6 @@ const ProductAdmin = memo(() => {
             >
               Clear Products Redis
             </MyButton>
-          </MVCol>
-
-          <MVCol>
-            <button
-              onClick={() => handleAutoRenderEpisodeMovie()}
-              type="button"
-              className="gap-2 flex items-center py-2.5 px-6 text-sm bg-indigo-50 text-indigo-500 rounded-lg cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-indigo-100"
-            >
-              <FileAddOutlined />
-              Generate Episode Movie
-            </button>
           </MVCol>
         </MVRow>
       </Drawer>

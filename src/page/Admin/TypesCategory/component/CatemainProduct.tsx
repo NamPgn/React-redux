@@ -3,7 +3,6 @@ import { Button, Image } from "antd";
 import { useParams } from "react-router-dom";
 import { urlSwr } from "../../../../function";
 import { useSWRWithAxios } from "../../../../hook/Swr";
-import { deleteCatemainByProduct } from "../../../../sevices/catemain";
 import { columnsCatemainProduct } from "../../../../constant";
 import MVTable from "../../../../components/MV/Table";
 import MVLink from "../../../../components/Location/Link";
@@ -17,7 +16,7 @@ const CatemainProduct = () => {
     const body = {
       CatemainId: CatemainId,
     };
-    await deleteCatemainByProduct(id, body);
+    // await deleteCatemainByProduct(id, body);
   };
   const data =
     datas.products &&

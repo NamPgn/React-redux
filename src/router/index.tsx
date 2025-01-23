@@ -406,14 +406,7 @@ export const router = [
           </LazyComponent>
         ),
       },
-      {
-        path: "week/edit/:id",
-        element: (
-          <LazyComponent>
-            <EditWeek />
-          </LazyComponent>
-        ),
-      },
+ 
     ],
   },
   {
