@@ -98,9 +98,9 @@ const EditCategory = () => {
     formdata.append("lang", data.lang);
     formdata.append("season", data.season);
     formdata.append("quality", data.quality);
-    formdata.append("quality", data.episode_many_title);
-    formdata.append("quality", data.upcomingReleases);
-    formdata.append("quality", data.isMovie);
+    formdata.append("episode_many_title", data.episode_many_title);
+    formdata.append("upcomingReleases", data.upcomingReleases);
+    formdata.append("isMovie", data.isMovie);
     const res = await dispatch(updateCatgorySlice(formdata));
     if (res.payload) {
       toast.success("Edit successfully");

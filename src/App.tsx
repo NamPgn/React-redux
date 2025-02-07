@@ -47,14 +47,14 @@ function App() {
         }
       }
     })();
-    setTimeout(() => {
-      api.open({
-        message: "Admin Xin Thông Báo!",
-        description:
-          "Xin lỗi, server phim hiện đang quá tải do lượng truy cập lớn. Vui lòng chờ đợi trong 1-2 phút để tiếp tục xem. Chúng tôi đang nỗ lực để cải thiện tình hình và xin thành thật xin lỗi vì sự bất tiện này.Trân trọng!",
-        placement: "topRight",
-      });
-    }, 2000);
+    // setTimeout(() => {
+    //   api.open({
+    //     message: "Admin Xin Thông Báo!",
+    //     description:
+    //       "Xin lỗi, server phim hiện đang quá tải do lượng truy cập lớn. Vui lòng chờ đợi trong 1-2 phút để tiếp tục xem. Chúng tôi đang nỗ lực để cải thiện tình hình và xin thành thật xin lỗi vì sự bất tiện này.Trân trọng!",
+    //     placement: "topRight",
+    //   });
+    // }, 2000);
   }, []);
 
   return (
