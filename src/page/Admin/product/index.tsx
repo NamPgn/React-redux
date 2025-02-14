@@ -13,6 +13,7 @@ import {
   approveProduct,
   cancelApproveProduct,
   clearCacheProducts,
+  clearCacheRedis,
   deleteMultipleProduct,
   endcodeMutipleDailymotionServer,
 } from "../../../sevices/product";
@@ -160,6 +161,15 @@ const ProductAdmin = memo(() => {
   const handleClearCache = async () => {
     const res = await clearCacheProducts();
     if (res.data.suscess == true) {
+      MVSuccess(res.data.message);
+    } else {
+      MVError(res.data.message);
+    }
+  };
+
+  const handleClearCacheRedis = async () => {
+    const res = await clearCacheRedis();
+    if (res?.data?.success == true) {
       MVSuccess(res.data.message);
     } else {
       MVError(res.data.message);
@@ -591,6 +601,16 @@ const ProductAdmin = memo(() => {
               className="flex items-center text-white bg-red-600"
             >
               Clear Products Redis
+            </MyButton>
+          </MVCol>
+          <MVCol>
+            <MyButton
+              primary
+              onClick={handleClearCacheRedis}
+              icon={<ClearOutlined />}
+              className="flex items-center text-[#4096ff]"
+            >
+              Clear Redis
             </MyButton>
           </MVCol>
         </MVRow>

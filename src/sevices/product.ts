@@ -112,6 +112,18 @@ export const clearCacheProducts = async () => {
   });
 };
 
+export const clearCacheRedis = async () => {
+  return await intances.post(
+    `/products/clear/redis/bull/${dataToken.user._id}`,
+    null,
+    {
+      headers: {
+        Authorization: `Bearer ${dataToken.token}`,
+      },
+    }
+  );
+};
+
 export const approvedMultipleMovies = async (
   arrId: string
 ): Promise<IProduct> =>
