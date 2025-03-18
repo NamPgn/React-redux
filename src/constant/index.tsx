@@ -10,7 +10,28 @@ import {
   WeiboSquareOutlined,
 } from "@ant-design/icons";
 import React from "react";
-
+export const columnsBanner = [
+  {
+    title: "Ảnh",
+    dataIndex: "imageUrl",
+    key: "imageUrl",
+  },
+  {
+    title: "Tiêu đề",
+    dataIndex: "title",
+    key: "title",
+  },
+  {
+    title: "Vị trí",
+    dataIndex: "position",
+    key: "position",
+  },
+  {
+    title: "Hành động",
+    dataIndex: "action",
+    key: "action",
+  },
+];
 const backgrounds = [
   {
     background: "#101010",

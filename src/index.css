@@ -10,8 +10,6 @@ html {
   background-color: #999;
 }
 
-
-
 .activeServer {
   background-color: #f0f0f052 !important;
 }
@@ -45,12 +43,11 @@ html {
   background-color: #b6b6b6 !important;
 }
 
-
-:where(.css-1s3dcof).ant-btn-primary{
+:where(.css-1s3dcof).ant-btn-primary {
   background-color: #1677ff !important;
 }
 
-:where(.css-dev-only-do-not-override-1s3dcof).ant-btn-primary{
+:where(.css-dev-only-do-not-override-1s3dcof).ant-btn-primary {
   background-color: #1677ff !important;
 }
 
@@ -147,19 +144,19 @@ p {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
-.profileImg{
+.profileImg {
   width: 10rem !important;
   height: 10rem !important;
 }
 
 .custom-notification {
-  width: 400px; 
+  width: 400px;
   z-index: 9999;
 }
 
 .custom-notification .ant-notification-notice {
-  background-color: #f0f0f0; 
-  color: #333; 
+  background-color: #f0f0f0;
+  color: #333;
 }
 
 .custom-toast {
@@ -206,6 +203,7 @@ p {
   background: #1a1a1a; /* Màu nền của thanh cuộn */
 }
 
-:where(.css-dev-only-do-not-override-1s3dcof).ant-layout .ant-layout-footer{
+:where(.css-dev-only-do-not-override-1s3dcof).ant-layout .ant-layout-footer {
   background-color: #9999994d;
 }
+

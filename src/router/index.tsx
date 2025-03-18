@@ -16,6 +16,7 @@ import {
   ShoppingCartOutlined,
   ArrowUpOutlined,
   BorderLeftOutlined,
+  FileImageOutlined,
 } from "@ant-design/icons";
 import DetailProductPage from "../page/Home/Detail";
 import CategoryProduct from "../page/Home/Category";
@@ -31,6 +32,7 @@ import LatestAdmin from "../page/Admin/category/Latest";
 import AdminPage from "../page/Admin";
 import EditWeek from "../page/Admin/week/components/edit";
 import TypeCategory from "../page/Admin/category/type";
+import Banners from "../page/Admin/banner";
 const ProductAdmin = lazy(() => import("../page/Admin/product"));
 const ListType = lazy(() => import("../page/Type/Theloai"));
 const OllMovie = lazy(() => import("../page/Type/SidebarData"));
@@ -406,6 +408,14 @@ export const router = [
           </LazyComponent>
         ),
       },
+      {
+        path: "banners",
+        element: (
+          <LazyComponent>
+            <Banners />
+          </LazyComponent>
+        ),
+      },
  
     ],
   },
@@ -506,5 +516,11 @@ export const TableRouterAdminPage = [
     path: "/dashboard/weeks",
     icon: <ClockCircleOutlined />,
     name: "Week",
+  },
+
+  {
+    path: "/dashboard/banners",
+    icon: <FileImageOutlined />,
+    name: "Banners",
   },
 ];
