@@ -5,11 +5,21 @@ import { urlSwr } from "../../function";
 export const ApiContext = createContext(null);
 export const ApiContextProvider = (props) => {
   const [page, setPage] = useState(1);
-  const { data: weeks } = useSWRWithAxios(urlSwr + "/weeks");
+  const { data: weeks } = useSWRWithAxios(urlSwr + "/weeks", {
+    revalidateOnFocus: true,
+    dedupingInterval: 300000,
+  });
 
-  const { data: background } = useSWRWithAxios(urlSwr + "/background");
+  const { data: background } = useSWRWithAxios(urlSwr + "/background", {
+    revalidateOnFocus: true,
+    dedupingInterval: 300000,
+  });
+  
   const { data: seri, isLoading: loadingSeri } = useSWRWithAxios(
-    urlSwr + `/types`
+    urlSwr + `/types`, {
+    revalidateOnFocus: true,
+    dedupingInterval: 300000,
+  }
   );
 
   // const {

@@ -17,6 +17,8 @@ import {
   ArrowUpOutlined,
   BorderLeftOutlined,
   FileImageOutlined,
+  ExclamationOutlined,
+  PlusSquareOutlined,
 } from "@ant-design/icons";
 import DetailProductPage from "../page/Home/Detail";
 import CategoryProduct from "../page/Home/Category";
@@ -33,6 +35,8 @@ import AdminPage from "../page/Admin";
 import EditWeek from "../page/Admin/week/components/edit";
 import TypeCategory from "../page/Admin/category/type";
 import Banners from "../page/Admin/banner";
+import SeriesSeason from "../page/Admin/season";
+import ReportManagement from "../page/Admin/report";
 const ProductAdmin = lazy(() => import("../page/Admin/product"));
 const ListType = lazy(() => import("../page/Type/Theloai"));
 const OllMovie = lazy(() => import("../page/Type/SidebarData"));
@@ -52,7 +56,7 @@ const ProductAdd = lazy(() => import("../page/Admin/product/component/add"));
 const EditProduct = lazy(() => import("../page/Admin/product/component/edit"));
 const CreatingUser = lazy(() => import("../page/Admin/user/component/adds"));
 const CreatingProducts = lazy(
-  () => import("../page/Admin/product/component/CreatingProducts")
+  () => import("../page/Admin/product/component/creatingProducts")
 );
 const CategoryAdmin = lazy(() => import("../page/Admin/category"));
 const EditCategoryAdmin = lazy(
@@ -416,7 +420,22 @@ export const router = [
           </LazyComponent>
         ),
       },
- 
+      {
+        path: "series",
+        element: (
+          <LazyComponent>
+            <SeriesSeason />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: "report",
+        element: (
+          <LazyComponent>
+            <ReportManagement/>
+          </LazyComponent>
+        ),
+      },
     ],
   },
   {
@@ -522,5 +541,15 @@ export const TableRouterAdminPage = [
     path: "/dashboard/banners",
     icon: <FileImageOutlined />,
     name: "Banners",
+  },
+  {
+    path: "/dashboard/series",
+    icon: <PlusSquareOutlined />,
+    name: "Series",
+  },
+  {
+    path: "/dashboard/report",
+    icon: <ExclamationOutlined />,
+    name: "Report",
   },
 ];

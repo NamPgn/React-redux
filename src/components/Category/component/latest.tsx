@@ -15,8 +15,8 @@ const LatesCategory = () => {
   } = useSWRWithAxios(urlSwr + "/category/latest");
   return (
     <div>
-      <h2 className="text-white category text-md md:text-md pl-2 mb-2 mx-2 my-3 border-l-4  font-sans font-bold border-teal-400 dark:text-gray-200">
-        Mới Cập Nhật
+      <h2 className="text-white category text-xl md:text-2xl pl-2 mb-2 mx-2 my-3 border-l-4 font-sans font-bold border-teal-400 dark:text-gray-200">
+        Top phim tuần này
       </h2>
       <SliderComponent
         settings={settingsSliderLatest}

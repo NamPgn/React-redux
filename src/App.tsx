@@ -3,7 +3,7 @@ import { ToastContainer } from "react-toastify";
 import { router } from "./router";
 import { GlobalStyle } from "./components/Styled/Global";
 import { useLocation, useNavigate, useRoutes } from "react-router-dom";
-import { FloatButton, notification } from "antd";
+import { FloatButton, notification, ConfigProvider } from "antd";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./index.css";
@@ -17,7 +17,7 @@ import ReactGA from "react-ga4";
 function App() {
   const location = useLocation();
   const TRACKING_ID = "G-0EEY3R7F0S";
-  const Routes = useRoutes(router);
+  const route: any = useRoutes(router);
   const nav = useNavigate();
   const [api, contextHolder] = notification.useNotification();
   const Auth = isAuthentication();
@@ -59,11 +59,10 @@ function App() {
 
   return (
     <>
-      {contextHolder}
-      {Routes}
-      <GlobalStyle />
-      <ToastContainer />
-      <FloatButton.BackTop visibilityHeight={200} />
+      {route}
+        <GlobalStyle />
+        <ToastContainer />
+        <FloatButton.BackTop visibilityHeight={200} />
     </>
   );
 }

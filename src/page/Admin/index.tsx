@@ -62,7 +62,7 @@ const AdminPage = () => {
   ];
 
   return (
-    <div className=" bg-gray-100 min-h-screen">
+    <div className="min-h-screen">
       <Title level={2} className=" mb-6">
         Admin Dashboard
       </Title>

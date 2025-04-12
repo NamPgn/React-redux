@@ -1,0 +1,144 @@
+.custom-table {
+  @apply w-full rounded-lg overflow-hidden;
+}
+
+.custom-table .ant-table-thead > tr > th {
+}
+
+.custom-table .ant-table-tbody > tr > td {
+  @apply p-4 border-b border-gray-100 transition-colors duration-200;
+}
+
+.custom-table .ant-table-tbody > tr:hover > td {
+  @apply bg-gradient-to-r from-blue-50/50 to-indigo-50/50;
+}
+
+.custom-table .ant-table-pagination {
+  @apply m-4 px-4;
+}
+
+.custom-table .ant-pagination-item {
+  @apply rounded-lg mx-1 border-gray-200 hover:border-blue-500 transition-colors duration-200;
+}
+
+.custom-table .ant-pagination-item-active {
+  @apply bg-gradient-to-r from-blue-500 to-indigo-500 border-transparent shadow-md;
+}
+
+.custom-table .ant-pagination-item-active a {
+  @apply text-white font-medium;
+}
+
+.custom-table .ant-pagination-prev,
+.custom-table .ant-pagination-next {
+  @apply rounded-lg border-gray-200 hover:border-blue-500 transition-colors duration-200;
+}
+
+.custom-table .ant-table-row-selected > td {
+  @apply bg-gradient-to-r from-blue-50 to-indigo-50;
+}
+
+.custom-table .ant-table-expanded-row > td {
+  @apply bg-gradient-to-r from-gray-50 to-gray-100;
+}
+
+.custom-table .ant-table-selection-column {
+  @apply pl-4;
+}
+
+.custom-table .ant-table-cell {
+  @apply whitespace-nowrap;
+}
+
+.custom-table .ant-table-cell-fix-right,
+.custom-table .ant-table-cell-fix-left {
+  @apply bg-white;
+}
+
+/* Custom styles for tags */
+.custom-table .ant-tag {
+  @apply rounded-full px-3 py-1 text-sm font-medium;
+}
+
+.custom-table .ant-tag-success {
+  @apply bg-green-100 text-green-700 border-green-200;
+}
+
+.custom-table .ant-tag-error {
+  @apply bg-red-100 text-red-700 border-red-200;
+}
+
+.custom-table .ant-tag-blue {
+  @apply bg-blue-100 text-blue-700 border-blue-200;
+}
+
+/* Custom styles for buttons in table */
+.custom-table .ant-btn {
+  @apply transition-all duration-200;
+}
+
+.custom-table .ant-btn-circle {
+  @apply hover:scale-110;
+}
+
+/* Custom styles for search input */
+.custom-table .ant-input-search {
+  @apply rounded-lg border-gray-200 hover:border-blue-500 focus:border-blue-500;
+}
+
+.custom-table .ant-input-search .ant-input {
+  @apply rounded-lg;
+}
+
+.custom-table .ant-input-search-button {
+  @apply bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600;
+}
+
+/* Custom styles for select dropdowns */
+.custom-table .ant-select-selector {
+  @apply rounded-lg border-gray-200 hover:border-blue-500;
+}
+
+.custom-table .ant-select-dropdown {
+  @apply rounded-lg shadow-lg;
+}
+
+/* Custom styles for drawer */
+.custom-table .ant-drawer-content {
+  @apply bg-gradient-to-br from-gray-50 to-gray-100;
+}
+
+.custom-table .ant-drawer-header {
+  @apply bg-gradient-to-r from-blue-50 to-indigo-50 border-b-2 border-gray-200;
+}
+
+.custom-table .ant-drawer-title {
+  @apply text-gray-700 font-semibold;
+}
+
+/* Custom styles for confirm modal */
+.custom-table .ant-modal-content {
+  @apply rounded-lg shadow-xl;
+}
+
+.custom-table .ant-modal-header {
+  @apply bg-gradient-to-r from-blue-50 to-indigo-50 border-b-2 border-gray-200 rounded-t-lg;
+}
+
+.custom-table .ant-modal-title {
+  @apply text-gray-700 font-semibold;
+}
+
+.custom-table .ant-modal-footer {
+  @apply border-t-2 border-gray-200;
+}
+
+/* Custom styles for tooltips */
+.custom-table .ant-tooltip-inner {
+  @apply bg-gray-800 text-white rounded-lg px-3 py-2 text-sm;
+}
+
+/* Custom styles for loading spinner */
+.custom-table .ant-spin-dot-item {
+  @apply bg-gradient-to-r from-blue-500 to-indigo-500;
+}

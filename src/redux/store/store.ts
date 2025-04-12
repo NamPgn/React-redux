@@ -7,6 +7,7 @@ import commentReducer from "../slice/comment/index";
 import cartReducer from "../slice/cart/index";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import seriesReducer from "../slice/series/index";
 const persistConfig = {
   key: "root",
   storage,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   trailer: trailerReducer,
   comment: commentReducer,
   cart: cartReducer,
+  series: seriesReducer,  
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

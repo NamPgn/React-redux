@@ -1,5 +1,5 @@
 import React, { memo, useContext, useEffect, useState } from "react";
-import { Drawer, Input, Spin } from "antd";
+import { Spin, Dropdown } from "antd";
 import {
   getProducts,
   deleteProduct,
@@ -19,73 +19,60 @@ import {
 } from "../../../sevices/product";
 import { useAppDispatch, useAppSelector } from "../../../hook";
 import { MyButton } from "../../../components/MV/Button";
-import MySelect from "../../../components/MV/Select";
 import {
-  ArrowUpOutlined,
-  CheckCircleOutlined,
-  CheckOutlined,
-  ClearOutlined,
-  CloseCircleOutlined,
-  DeleteOutlined,
-  EditOutlined,
-  ExportOutlined,
-  EyeOutlined,
-  FileAddOutlined,
-  PlusOutlined,
-  SendOutlined,
-} from "@ant-design/icons";
-import MVTable from "../../../components/MV/Table";
+  Eye,
+  Edit,
+  Trash2,
+  ArrowUp,
+  XCircle,
+  Send,
+  Calendar,
+  Globe,
+  Film,
+  PlayCircle,
+  Check,
+  MoreVertical,
+  Star,
+} from "lucide-react";
 import MVConfirm from "../../../components/MV/Confirm";
-import MVRow from "../../../components/MV/Grid";
-import MVCol from "../../../components/MV/Grid/Col";
 import MVLink from "../../../components/Location/Link";
-import { MVError, MVSuccess } from "../../../components/Message";
-import MVTags from "../../../components/MV/Tag";
-import { ApiContext } from "../../../context/api";
 import { MyContext } from "../../../context";
 import PageTitle from "../../../components/PageTitle";
+import ProductTable from "./components/ProductTable";
+import ProductHeader from "./components/ProductHeader";
+import ProductDrawer from "./components/ProductDrawer";
+import "./style.css";
 
 const ProductAdmin = memo(() => {
   const products = useAppSelector((state) => state.product.value);
   const isLoading: any = useAppSelector((state) => state.product.isLoading);
-  const [page, setPage] = useState(1); // Đặt trang mặc định là trang cuối cùng
+  const [page, setPage] = useState(1);
   const cate: any = useAppSelector((state) => state.category.category);
   const [open, setOpen] = useState(false);
-  const { seri }: any = useContext(ApiContext) || [];
   const { user }: any = useContext(MyContext);
-  // const [search, searchState] = useState("");
   const [filterApproved, setFilterApproved] = useState("");
-  // const [checkedId, setCheckedId]: any = useState([]);
-  // const [checkAllid, setCheckAllid] = useState(false);
   const [init, setInit] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys]: any = useState<React.Key[]>([]);
   const dispatch = useAppDispatch();
+
   useEffect(() => {
-    // const itemsPerPage = 40;
-    // const totalPages = Math.ceil(length / itemsPerPage);
-    // const defaultPage: any = totalPages;
-    // setDataLength(defaultPage);
-    // setPage(defaultPage);
     dispatch(getProducts(page));
   }, [init]);
 
   const handleSelectChange = (value: any) => {
     dispatch(filterProductByCategorySlice(value));
   };
+
   const handleSearch = (e) => {
     const value = e.target.value;
     dispatch(searchProductsSlice(value));
   };
+
   const handlePageChangePage = (value) => {
     setPage(value);
     dispatch(getProducts(value));
   };
 
-  // if (filterApproved) {
-  //   products = products.data.filter((item: any) => item.isApproved == false);
-  //   filterApproved == "Select" &&
-  //     products.data.map((item: any) => products?.data.push(item));
-  // }
   const handleDeleteSelectedData = async () => {
     const response: any = await deleteMultipleProduct(selectedRowKeys);
     if (response.data.success == true) {
@@ -107,9 +94,7 @@ const ProductAdmin = memo(() => {
   };
 
   const handleEditEncodeMutipleDailymotionServer = async () => {
-    const response: any = await endcodeMutipleDailymotionServer(
-      selectedRowKeys
-    );
+    const response: any = await endcodeMutipleDailymotionServer(selectedRowKeys);
     if (response.data.success == true) {
       setInit(!init);
       toast.success("Edit Products Successfully");
@@ -117,6 +102,7 @@ const ProductAdmin = memo(() => {
       toast.error("Error deleting products");
     }
   };
+
   const confirm = async (id) => {
     const response = await dispatch(deleteProduct(id));
     if (response.payload.success) {
@@ -142,37 +128,38 @@ const ProductAdmin = memo(() => {
   const handleApproved = async (id: any) => {
     const response = await approveProduct(id);
     if (response.data.success == true) {
-      MVSuccess(response.data.message);
+      toast.success(response.data.message);
       setInit(!init);
     } else {
-      MVError("Lỗi rồi!");
+      toast.error("Error!");
     }
   };
 
   const cancelHandleApproved = async (id: any) => {
     const response = await cancelApproveProduct(id);
     if (response.data.success == true) {
-      MVSuccess(response.data.message);
+      toast.success(response.data.message);
       setInit(!init);
     } else {
-      MVError("Lỗi rồi!");
+      toast.error("Error!");
     }
   };
+
   const handleClearCache = async () => {
     const res = await clearCacheProducts();
     if (res.data.suscess == true) {
-      MVSuccess(res.data.message);
+      toast.success(res.data.message);
     } else {
-      MVError(res.data.message);
+      toast.error(res.data.message);
     }
   };
 
   const handleClearCacheRedis = async () => {
     const res = await clearCacheRedis();
     if (res?.data?.success == true) {
-      MVSuccess(res.data.message);
+      toast.success(res.data.message);
     } else {
-      MVError(res.data.message);
+      toast.error(res.data.message);
     }
   };
 
@@ -189,450 +176,390 @@ const ProductAdmin = memo(() => {
     if (res.meta.requestStatus == "fulfilled") {
       setInit(!init);
       setOpen(false);
-      MVSuccess("Suscess");
+      toast.success("Success");
     } else {
-      MVError("Error");
+      toast.error("Error");
     }
   };
 
-  const handleExportDataToExcel = async () => {
-    try {
-      // Make a GET request to the backend to download the Excel file
-      const response = await fetch(
-        "http://localhost:8001/api/products/export/excel",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (response.ok) {
-        // Convert the response to a Blob object
-        const blob = await response.blob();
-
-        // Create a URL for the Blob to download the file
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "data.xlsx"; // Default filename for download
-        document.body.appendChild(a); // Needed for Firefox
-        a.click();
-        a.remove();
-
-        // Revoke the object URL to free up memory
-        window.URL.revokeObjectURL(url);
-      } else {
-        console.error("Failed to download file");
-      }
-    } catch (error) {
-      console.error("Error downloading the file:", error);
-    }
-  };
 
   const columnsProduct = [
     {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      width: 120,
+      width: 180,
+      render: (text: string) => (
+        <span className="truncate text-start">{text}</span>
+      ),
     },
     {
       title: "Slug",
       dataIndex: "slug",
       key: "slug",
       width: 200,
+      render: (text: string) => (
+        <span className="truncate max-w-[180px] block">{text}</span>
+      ),
     },
     {
       title: "Category",
       key: "category",
       dataIndex: "category",
       width: 150,
+      render: (text: string) => (
+        <span className="truncate max-w-[130px] block">{text}</span>
+      ),
     },
     {
       title: "View",
       key: "view",
       dataIndex: "view",
       width: 100,
+      render: (text: any) => (
+        <span>{text}</span>
+      ),
     },
     {
       title: "Seri",
       key: "seri",
       dataIndex: "seri",
       width: 100,
-    },
-    {
-      title: "Copyright",
-      key: "copyright",
-      dataIndex: "copyright",
-      width: 100,
+      render: (text: string) => (
+        <span className="truncate max-w-[80px] block">{text}</span>
+      ),
     },
     {
       title: "Active",
       dataIndex: "isActive",
       key: "isActive",
-      width: 90,
+      width: 120,
+      render: (text: any) => (
+        <span>{text}</span>
+      ),
     },
     {
       title: "Trailer",
       dataIndex: "trailer",
       key: "trailer",
       width: 100,
+      render: (text: string) => (
+        <span className="truncate max-w-[80px] block">{text}</span>
+      ),
     },
     {
       title: "Country",
       dataIndex: "country",
       key: "country",
       width: 100,
+      render: (text: string) => (
+        <span className="truncate max-w-[80px] block">{text}</span>
+      ),
     },
     {
       title: "Year",
       dataIndex: "year",
       key: "year",
       width: 100,
+      render: (text: string) => (
+        <span className="truncate max-w-[80px] block">{text}</span>
+      ),
     },
     {
       title: "Options",
       dataIndex: "options",
       key: "options",
       width: 100,
-    },
-    {
-      title: "Sidebar",
-      key: "sidebar",
-      dataIndex: "sidebar",
-      width: 100,
+      render: (text: string) => (
+        <span className="truncate max-w-[80px] block">{text}</span>
+      ),
     },
     {
       title: "Action",
       key: "action",
       dataIndex: "action",
-      width: 140,
+      width: 50,
       fixed: "right",
       render: (_: any, record: any) => {
-        switch (user?.role) {
-          case 0:
-            return (
-              <>
-                <MVLink to={"/"}>
-                  <MyButton type="text" shape="circle">
-                    <EyeOutlined />
-                  </MyButton>
-                </MVLink>
-              </>
-            );
-          case 1:
-            return (
-              <>
-                <MVLink to={"/"}>
-                  <MyButton type="text" shape="circle">
-                    <EyeOutlined />
-                  </MyButton>
-                </MVLink>
-                <MVLink to={`/dashboard/product/edit/${record.key}`}>
-                  <MyButton type="text" danger shape="circle">
-                    <EditOutlined />
-                  </MyButton>
-                </MVLink>
-              </>
-            );
-          case 2:
-            return (
-              <>
-                {record?.isApproved == true ? (
-                  <>
-                    <MyButton
-                      className="flex items-center mb-2"
-                      icon={<CheckOutlined />}
-                      ghost
-                      type="text"
-                      style={{
-                        color: "#000",
-                      }}
-                      disabled={record.isApproved == true ? true : false}
+        const getMenuItems = () => {
+          switch (user?.role) {
+            case 0:
+              return [
+                {
+                  key: 'view',
+                  label: (
+                    <MVLink to={"/"}>
+                      <div className="flex items-center gap-2">
+                        <Eye size={16} />
+                        <span>View</span>
+                      </div>
+                    </MVLink>
+                  ),
+                },
+              ];
+            case 1:
+              return [
+                {
+                  key: 'view',
+                  label: (
+                    <MVLink to={"/"}>
+                      <div className="flex items-center gap-2">
+                        <Eye size={16} />
+                        <span>View</span>
+                      </div>
+                    </MVLink>
+                  ),
+                },
+                {
+                  key: 'edit',
+                  label: (
+                    <MVLink to={`/dashboard/product/edit/${record.slug}`}>
+                      <div className="flex items-center gap-2">
+                        <Edit size={16} />
+                        <span>Edit</span>
+                      </div>
+                    </MVLink>
+                  ),
+                },
+              ];
+            case 2:
+              return [
+                {
+                  key: 'view',
+                  label: (
+                    <MVLink to={"/d/" + record.slug}>
+                      <div className="flex items-center gap-2">
+                        <Eye size={16} />
+                        <span>View</span>
+                      </div>
+                    </MVLink>
+                  ),
+                },
+                {
+                  key: 'edit',
+                  label: (
+                    <MVLink to={`/dashboard/product/edit/${record.slug}`}>
+                      <div className="flex items-center gap-2">
+                        <Edit size={16} />
+                        <span>Edit</span>
+                      </div>
+                    </MVLink>
+                  ),
+                },
+                {
+                  key: 'delete',
+                  label: (
+                    <MVConfirm
+                      title="Delete the product"
+                      onConfirm={() => confirm(record.key)}
+                      okText="Yes"
+                      cancelText="No"
                     >
-                      Approved
-                    </MyButton>
-                    <MyButton
-                      onClick={() => cancelHandleApproved(record.key)}
-                      icon={<CloseCircleOutlined />}
-                      className="flex items-center w-full justify-center mb-2"
-                      danger
-                    >
-                      Approval
-                    </MyButton>
-                  </>
-                ) : (
-                  <>
-                    <MyButton
-                      onClick={() => handleApproved(record.key)}
-                      icon={<SendOutlined />}
-                      className="flex items-center w-full justify-center text-white bg-blue-500"
-                    >
-                      Approve
-                    </MyButton>
-                  </>
-                )}
-                <div className="flex">
-                  <MVLink to={"/d/" + record.slug}>
-                    <MyButton type="text" shape="circle">
-                      <EyeOutlined />
-                    </MyButton>
-                  </MVLink>
-                  <MVLink to={`/dashboard/product/edit/${record.slug}`}>
-                    <MyButton type="text" danger shape="circle">
-                      <EditOutlined />
-                    </MyButton>
-                  </MVLink>
-                  <MVConfirm
-                    title="Delete the product"
-                    onConfirm={() => confirm(record.key)}
-                    okText="Yes"
-                    cancelText="No"
-                  >
-                    <MyButton type="text" shape="circle" className="ml-2">
-                      <DeleteOutlined />
-                    </MyButton>
-                  </MVConfirm>
-                  <MyButton type="text" shape="circle" className="ml-2">
-                    <ArrowUpOutlined type="success" />
-                  </MyButton>
-                </div>
-              </>
-            );
-            break;
-          default:
-            break;
-        }
+                      <div className="flex items-center gap-2">
+                        <Trash2 size={16} />
+                        <span>Delete</span>
+                      </div>
+                    </MVConfirm>
+                  ),
+                },
+                {
+                  key: 'move-up',
+                  label: (
+                    <div className="flex items-center gap-2">
+                      <ArrowUp size={16} />
+                      <span>Move Up</span>
+                    </div>
+                  ),
+                },
+                ...(record?.isApproved
+                  ? [
+                    {
+                      key: 'approved',
+                      label: (
+                        <div className="flex items-center gap-2">
+                          <Check size={16} />
+                          <span>Approved</span>
+                        </div>
+                      ),
+                      disabled: true,
+                    },
+                    {
+                      key: 'cancel-approval',
+                      label: (
+                        <div
+                          className="flex items-center gap-2"
+                          onClick={() => cancelHandleApproved(record.key)}
+                        >
+                          <XCircle size={16} />
+                          <span>Cancel Approval</span>
+                        </div>
+                      ),
+                    },
+                  ]
+                  : [
+                    {
+                      key: 'approve',
+                      label: (
+                        <div
+                          className="flex items-center gap-2"
+                          onClick={() => handleApproved(record.key)}
+                        >
+                          <Send size={16} />
+                          <span>Approve</span>
+                        </div>
+                      ),
+                    },
+                  ]),
+              ];
+            default:
+              return [];
+          }
+        };
+
+        return (
+          <Dropdown
+            menu={{
+              items: getMenuItems(),
+            }}
+            placement="bottomRight"
+            trigger={['click']}
+          >
+            <MyButton type="text" shape="circle" className="hover:bg-gray-100">
+              <MoreVertical size={16} />
+            </MyButton>
+          </Dropdown>
+        );
       },
     },
   ];
+
   const data =
     products?.data &&
     products?.data.map((value: any) => {
       return {
         key: value._id,
-        name: value.name,
+        name: (
+          <div className="flex flex-col">
+            <span className="font-medium text-gray-800 text-sm">{value.name}</span>
+            <span className="text-xs text-gray-500 flex items-center gap-1">
+              <Calendar className="w-2.5 h-2.5" />
+              {new Date(value.createdAt).toLocaleDateString()}
+            </span>
+          </div>
+        ),
         slug: value.slug,
-        trailer: value.trailer ? "true" : "false",
-        category: value?.category?.name,
-        view: <MVTags color="#2db7f5">{value.view}</MVTags>,
-        sidebar: seri && seri.map((i, v) => i._id === value.typeId && i.name),
-        seri: value.seri,
-        copyright: value.copyright,
-        isActive:
-          value.server2 || value.dailyMotionServer ? (
-            <MVTags color="success">Video active</MVTags>
-          ) : (
-            <MVTags color="error">No video</MVTags>
-          ),
-        options: value.category?.lang,
-        country: value.category?.country ? value.category?.country : "null",
-        year: value.category?.year ? value.category?.year : "null",
+        trailer: value.trailer ? (
+          <span className="px-2 py-0.5 text-xs font-medium bg-blue-100 text-blue-700 rounded-full flex items-center gap-1">
+            <PlayCircle className="w-3 h-3" />
+            Has Trailer
+          </span>
+        ) : (
+          <span className="px-2 py-0.5 text-xs font-medium bg-gray-100 text-gray-700 rounded-full flex items-center gap-1">
+            <Film className="w-3 h-3" />
+            No Trailer
+          </span>
+        ),
+        category: (
+          <div className="flex flex-col gap-0.5">
+            <span className="font-medium text-gray-800 text-sm">{value?.category?.name}</span>
+            <div className="flex flex-wrap gap-1">
+              <span className="px-1.5 py-0.5 text-xs font-medium bg-purple-100 text-purple-700 rounded-full flex items-center gap-1">
+                <Globe className="w-2.5 h-2.5" />
+                {value?.category?.lang}
+              </span>
+              <span className="px-1.5 py-0.5 text-xs font-medium bg-yellow-100 text-yellow-700 rounded-full flex items-center gap-1">
+                <Star className="w-2.5 h-2.5" />
+                {value?.category?.quality}
+              </span>
+            </div>
+          </div>
+        ),
+        view: (
+          <div className="flex items-center gap-1">
+            <Eye className="w-4 h-4 text-gray-600" />
+            <span className="font-medium text-gray-800 text-sm">{value?.view}</span>
+          </div>
+        ),
+        seri: (
+          <div className="flex items-center justify-center  text-blue-700 rounded-full font-medium text-sm">
+            {value?.seri}
+          </div>
+        ),
+        isActive: value.server2 || value.dailyMotionServer ? (
+          <div className="flex items-center gap-1">
+            <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+            <span className="text-green-700 font-medium text-sm">Active</span>
+          </div>
+        ) : (
+          <div className="flex items-center gap-1">
+            <div className="w-1.5 h-1.5 bg-red-500 rounded-full"></div>
+            <span className="text-red-700 font-medium text-sm">Inactive</span>
+          </div>
+        ),
+        options: (
+          <div className="flex flex-wrap gap-1">
+            <span className="px-1.5 py-0.5 text-xs font-medium bg-gray-100 text-gray-700 rounded-full flex items-center gap-1">
+              <Globe className="w-2.5 h-2.5" />
+              {value?.category?.lang}
+            </span>
+            {value?.category?.quality && (
+              <span className="px-1.5 py-0.5 text-xs font-medium bg-gray-100 text-gray-700 rounded-full flex items-center gap-1">
+                <Star className="w-2.5 h-2.5" />
+                {value?.category?.quality}
+              </span>
+            )}
+          </div>
+        ),
+        country: (
+          <div className="flex items-center gap-1">
+            <Globe className="w-4 h-4 text-gray-600" />
+            <span className="text-gray-700 text-sm">{value?.category?.country || "N/A"}</span>
+          </div>
+        ),
+        year: (
+          <div className="flex items-center gap-1">
+            <Calendar className="w-4 h-4 text-gray-600" />
+            <span className="text-gray-700 text-sm">{value?.category?.year || "N/A"}</span>
+          </div>
+        ),
         isApproved: value.isApproved,
         idCategory: value.category,
         option: [<MyButton>Add Option</MyButton>],
       };
     });
+
   return (
     <>
       <PageTitle title="" subtitle="Movie Episode" />
-      <div
-        style={{
-          display: "flex",
-          gap: "16px",
-          alignItems: "center",
-          marginBottom: "16px",
-        }}
-      >
-        <MyButton
-          type="primary"
-          onClick={showDrawer}
-          style={{ backgroundColor: "#1890ff", color: "white" }}
-        >
-          Open
-        </MyButton>
 
-        <MyButton
-          type="primary"
-          icon={<PlusOutlined />}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            backgroundColor: "#1890ff",
-            color: "white",
-          }}
-          href="/dashboard/product/add"
-        >
-          Add Movie
-        </MyButton>
+      <ProductHeader
+        onSearch={handleSearch}
+        onOpenDrawer={showDrawer}
+        onGenerateEpisode={handleAutoRenderEpisodeMovie}
+      />
 
-        <Input.Search
-          placeholder="Search products"
-          onChange={handleSearch}
-          style={{ width: "300px", borderRadius: "4px" }}
-        />
-        <MVCol>
-          <button
-            onClick={() => handleAutoRenderEpisodeMovie()}
-            type="button"
-            className="gap-2 flex items-center py-2.5 px-6 text-sm bg-indigo-50 text-indigo-500 rounded-lg cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-indigo-100"
-          >
-            <FileAddOutlined />
-            Generate Episode Movie
-          </button>
-        </MVCol>
-      </div>
-      <Drawer title="Làm gì thì làm đi :))" onClose={onClose} open={open}>
-        <MVRow
-          gutter={[10, 2]}
-          align={"middle"}
-          style={{
-            marginBottom: "10px",
-          }}
-          className="flex flex-wrap items-center space-y-4"
-        >
-          <MVCol>
-            <MVConfirm
-              title="Delete The Movies"
-              onConfirm={handleDeleteSelectedData}
-              okText="Yes"
-              cancelText="No"
-            >
-              <MyButton
-                icon={<DeleteOutlined />}
-                className="flex items-center bg-gradient-to-br from-pink-500 to-orange-400 text-white"
-              >
-                Delete Multiple Movies
-              </MyButton>
-            </MVConfirm>
-          </MVCol>
-
-          <MVCol>
-            <MVConfirm
-              title="Approved Multiple Movies"
-              onConfirm={handleApprovedMultipleMovies}
-              okText="Yes"
-              cancelText="No"
-            >
-              <MyButton
-                className="flex items-center bg-amber-500 text-white"
-                icon={<CheckCircleOutlined />}
-              >
-                Approved Multiple
-              </MyButton>
-            </MVConfirm>
-          </MVCol>
-
-          <MVCol>
-            <MVConfirm
-              title="Edit Multiple Movies"
-              onConfirm={handleEditEncodeMutipleDailymotionServer}
-              okText="Yes"
-              cancelText="No"
-            >
-              <MyButton
-                icon={<EditOutlined />}
-                className="flex items-center bg-gradient-to-br from-purple-600 to-blue-500 text-white"
-              >
-                Encode Dailymotion Server Episode
-              </MyButton>
-            </MVConfirm>
-          </MVCol>
-
-          <MVCol>
-            <MVLink to={"/dashboard/product/creacting"}>
-              <MyButton
-                className="flex items-center bg-purple-500 text-white"
-                icon={<FileAddOutlined />}
-              >
-                Add Multiple Movies
-              </MyButton>
-            </MVLink>
-          </MVCol>
-
-          <MVCol>
-            <MVLink to={"/dashboard/product/export-pdf"}>
-              <MyButton className="bg-yellow-400 text-white">
-                Export PDF
-              </MyButton>
-            </MVLink>
-          </MVCol>
-
-          <MVCol>
-            <MyButton
-              icon={<ExportOutlined />}
-              className=" bg-green-600 flex items-center"
-              onClick={() => handleExportDataToExcel()}
-            >
-              Export Excel
-            </MyButton>
-          </MVCol>
-
-          <MVCol>
-            <MySelect
-              placeholder={"Category"}
-              onChange={handleSelectChange}
-              style={{ width: 300 }}
-              options={cate?.data.map((item) => ({
-                label: item.name,
-                value: item._id,
-              }))}
-            />
-          </MVCol>
-
-          <MVCol>
-            <MySelect
-              placeholder={"Approval"}
-              onChange={handleChangeSelectApprove}
-              style={{ width: 300 }}
-              options={[
-                { value: true, label: "Approve" },
-                { value: false, label: "Not Approved" },
-              ]}
-            />
-          </MVCol>
-
-          <MVCol>
-            <MyButton
-              onClick={handleClearCache}
-              icon={<ClearOutlined />}
-              className="flex items-center text-white bg-red-600"
-            >
-              Clear Products Redis
-            </MyButton>
-          </MVCol>
-          <MVCol>
-            <MyButton
-              primary
-              onClick={handleClearCacheRedis}
-              icon={<ClearOutlined />}
-              className="flex items-center text-[#4096ff]"
-            >
-              Clear Redis
-            </MyButton>
-          </MVCol>
-        </MVRow>
-      </Drawer>
+      <ProductDrawer
+        open={open}
+        onClose={onClose}
+        onDeleteSelected={handleDeleteSelectedData}
+        onApproveMultiple={handleApprovedMultipleMovies}
+        onEditMultiple={handleEditEncodeMutipleDailymotionServer}
+        onClearCache={handleClearCache}
+        onClearCacheRedis={handleClearCacheRedis}
+        categories={cate?.data}
+        onCategoryChange={handleSelectChange}
+        onApprovalChange={handleChangeSelectApprove}
+      />
 
       <Spin spinning={isLoading} delay={undefined}>
-        <MVTable
-          rowSelection={rowSelection}
-          expandable={{
-            expandedRowRender: (record: any) => <>{record.option}</>,
-          }}
+        <ProductTable
+          data={data}
           columns={columnsProduct}
-          dataSource={data}
-          scroll={{ x: 1500, y: 1000 }}
-          pagination={{
-            defaultPageSize: 40,
-            showSizeChanger: true,
-            pageSizeOptions: ["40", "80", "120"],
-            current: page,
-            onChange: handlePageChangePage,
-            total: products?.totalCount,
-          }}
+          rowSelection={rowSelection}
+          isLoading={isLoading}
+          page={page}
+          total={products?.totalCount}
+          onPageChange={handlePageChangePage}
         />
       </Spin>
     </>

@@ -19,8 +19,16 @@ const baseFetcher = async (url: string) => await intances.get(url);
 //   }
 // };
 
-export const useSWRWithAxios = (url: string) => {
-  const { data, error, mutate } = useSWR(url, baseFetcher);
+export const useSWRWithAxios = (url: string, options?: {
+  cacheTime?: number;
+  dedupingInterval?: number;
+  revalidateOnFocus?: boolean;
+}) => {
+  const { data, error, mutate } = useSWR(url, baseFetcher, {
+    dedupingInterval: options?.dedupingInterval ?? 120000, // mặc định: 60s
+    revalidateOnFocus: options?.revalidateOnFocus ?? false,  
+    keepPreviousData: true, // giữ data cũ khi loading data mới
+  });
   return {
     data: data ? data.data : "",
     isLoading: !data && !error,
