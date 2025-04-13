@@ -2,7 +2,7 @@ import intances from "./instances";
 
 const reportApi = {
     // Lấy danh sách tất cả báo cáo
-    getReports: async () => {
+    getReports: async (params: any) => {
         const response = await intances.get(`/reports`);
         return response.data;
     },
