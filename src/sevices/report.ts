@@ -29,6 +29,11 @@ const reportApi = {
     rejectReport: async (id: string) => {
         const response = await intances.put(`/reports/${id}/reject`);
         return response.data;
+    },
+
+    deleteReports: async (id:any) => {
+        const response = await intances.delete(`/reports/${id}`);
+        return response.data;
     }
 };
 

@@ -152,16 +152,15 @@ const ReportManagement: React.FC = () => {
   //   }
   // };
 
-  // const handleDelete = async (id: string) => {
-  //   try {
-  //     await reportApi.deleteReport(id);
-  //     toast.success('Đã xóa báo cáo');
-  //     fetchReports();
-  //     fetchStats();
-  //   } catch (error) {
-  //     toast.error('Không thể xóa báo cáo');
-  //   }
-  // };
+  const handleDelete = async (id: string) => {
+    try {
+      await reportApi.deleteReports(id);
+      toast.success('Đã xóa báo cáo');
+      fetchReports();
+    } catch (error) {
+      toast.error('Không thể xóa báo cáo');
+    }
+  };
 
   const showReportModal = (record: Report) => {
     setSelectedReport(record);
@@ -217,12 +216,12 @@ const ReportManagement: React.FC = () => {
         <Space direction="vertical" size="small">
           <Tag color={
             status === 'pending' ? 'gold' :
-            status === 'resolved' ? 'green' :
-            'red'
+              status === 'resolved' ? 'green' :
+                'red'
           }>
             {status === 'pending' ? 'Chờ xử lý' :
-             status === 'resolved' ? 'Đã xử lý' :
-             'Từ chối'}
+              status === 'resolved' ? 'Đã xử lý' :
+                'Từ chối'}
           </Tag>
           {record.resolvedBy && (
             <Text type="secondary" style={{ fontSize: '12px' }}>
@@ -268,7 +267,7 @@ const ReportManagement: React.FC = () => {
           </Tooltip>
           <Popconfirm
             title="Bạn có chắc chắn muốn xóa?"
-            //  onConfirm={() => handleDelete(record._id)}
+            onConfirm={() => handleDelete(record._id)}
             okText="Xóa"
             cancelText="Hủy"
           >
@@ -331,7 +330,7 @@ const ReportManagement: React.FC = () => {
   return (
     <Card>
       <Title level={2}>Quản lý báo cáo</Title>
-      
+
       {renderStats()}
 
       <Space style={{ marginBottom: 16 }} size="middle">
@@ -342,7 +341,7 @@ const ReportManagement: React.FC = () => {
           value={filters.search}
           onChange={e => setFilters(prev => ({ ...prev, search: e.target.value }))}
         />
-        
+
         <Select
           value={filters.status}
           style={{ width: 120 }}
@@ -435,7 +434,7 @@ const ReportManagement: React.FC = () => {
             key="reject"
             danger
             icon={<CloseCircleOutlined />}
-            // onClick={() => handleUpdateStatus(selectedReport._id, 'rejected')}
+          // onClick={() => handleUpdateStatus(selectedReport._id, 'rejected')}
           >
             Từ chối
           </Button>,
@@ -443,7 +442,7 @@ const ReportManagement: React.FC = () => {
             key="resolve"
             type="primary"
             icon={<CheckCircleOutlined />}
-            // onClick={() => handleUpdateStatus(selectedReport._id, 'resolved')}
+          // onClick={() => handleUpdateStatus(selectedReport._id, 'resolved')}
           >
             Chấp nhận
           </Button>,

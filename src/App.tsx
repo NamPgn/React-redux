@@ -13,6 +13,7 @@ import { isTokenExpired } from "./auth/checkToken";
 import { refreshTokenAuth } from "./sevices/user";
 import { MVWarning } from "./components/Message";
 import ReactGA from "react-ga4";
+import socket from "./config/socket";
 
 function App() {
   const location = useLocation();
@@ -21,6 +22,17 @@ function App() {
   const nav = useNavigate();
   const [api, contextHolder] = notification.useNotification();
   const Auth = isAuthentication();
+
+  useEffect(() => {
+    socket.on('product:update', (data) => {
+      console.log('Product updated:', data);
+      // Xử lý dữ liệu
+    });
+  
+    return () => {
+      socket.off('product:update');
+    };
+  },[]);
   useEffect(() => {
     ReactGA.initialize(TRACKING_ID);
     ReactGA.send({
@@ -56,7 +68,6 @@ function App() {
     //   });
     // }, 2000);
   }, []);
-
   return (
     <>
       {route}

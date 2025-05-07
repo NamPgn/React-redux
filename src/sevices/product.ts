@@ -114,13 +114,8 @@ export const clearCacheProducts = async () => {
 
 export const clearCacheRedis = async () => {
   return await intances.post(
-    `/products/clear/redis/bull/${dataToken.user._id}`,
+    `/products/clear/redis/bull`,
     null,
-    {
-      headers: {
-        Authorization: `Bearer ${dataToken.token}`,
-      },
-    }
   );
 };
 
