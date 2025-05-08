@@ -169,12 +169,7 @@ const columnsType = [
 ];
 
 const columnsCategory = [
-  {
-    title: "Stt",
-    dataIndex: "stt",
-    key: "stt",
-    width: 100,
-  },
+
   {
     title: "Name",
     dataIndex: "name",
@@ -209,12 +204,6 @@ const columnsCategory = [
     title: "Year",
     dataIndex: "year",
     key: "year",
-    width: 50,
-  },
-  {
-    title: "Set",
-    dataIndex: "set",
-    key: "set",
     width: 50,
   },
   {

@@ -12,6 +12,8 @@ const state: isCategorysSlice = {
   category: {
     data: [],
     length: 0,
+    totalCount: 0,
+    totalPages: 0,
   },
   isLoading: false,
   isError: false,
@@ -27,6 +29,8 @@ const categorySlice = createSlice({
       .addCase(getAllcate.fulfilled, (state, action) => {
         state.isLoading = false;
         state.category = action.payload;
+        state.category.totalCount = action.payload.totalCount;
+        state.category.totalPages = action.payload.totalPages;
       })
       .addCase(getAllcate.pending, (state, action) => {
         state.isLoading = true;

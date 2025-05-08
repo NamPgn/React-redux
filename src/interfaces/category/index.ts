@@ -14,6 +14,8 @@ export interface isCategorysSlice {
   category: {
     data: string[];
     length: number;
+    totalCount: number;
+    totalPages: number;
   };
   isError: boolean;
   isLoading: boolean;
