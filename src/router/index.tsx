@@ -114,110 +114,110 @@ export const router = [
   {
     path: "/",
     element: <LayoutWebsite />,
-    children: [
-      {
-        path: "/",
-        element: <HomePage />,
-        index: true,
-      },
-      {
-        path: "d/:id",
-        element: (
-          <LazyComponent>
-            <DetailProductPage />
-          </LazyComponent>
-        ),
-      },
-      {
-        path: "q/:id",
-        element: (
-          <LazyComponent>
-            <CategoryProduct />
-          </LazyComponent>
-        ),
-      },
-      {
-        path: "search/category",
-        element: (
-          <LazyComponent>
-            <SearchResults />
-          </LazyComponent>
-        ),
-      },
-      {
-        path: "cart/user",
-        element: (
-          <LazyComponent>
-            <CartUser />
-          </LazyComponent>
-        ),
-      },
-      {
-        path: "movie-content/:id",
-        element: (
-          <LazyComponent>
-            <OllMovie />
-          </LazyComponent>
-        ),
-      },
+    // children: [
+    //   {
+    //     path: "/",
+    //     element: <HomePage />,
+    //     index: true,
+    //   },
+    //   {
+    //     path: "d/:id",
+    //     element: (
+    //       <LazyComponent>
+    //         <DetailProductPage />
+    //       </LazyComponent>
+    //     ),
+    //   },
+    //   {
+    //     path: "q/:id",
+    //     element: (
+    //       <LazyComponent>
+    //         <CategoryProduct />
+    //       </LazyComponent>
+    //     ),
+    //   },
+    //   {
+    //     path: "search/category",
+    //     element: (
+    //       <LazyComponent>
+    //         <SearchResults />
+    //       </LazyComponent>
+    //     ),
+    //   },
+    //   {
+    //     path: "cart/user",
+    //     element: (
+    //       <LazyComponent>
+    //         <CartUser />
+    //       </LazyComponent>
+    //     ),
+    //   },
+    //   {
+    //     path: "movie-content/:id",
+    //     element: (
+    //       <LazyComponent>
+    //         <OllMovie />
+    //       </LazyComponent>
+    //     ),
+    //   },
 
-      {
-        path: "types/h/:id",
-        element: (
-          <LazyComponent>
-            <ListType />
-          </LazyComponent>
-        ),
-      },
-      {
-        path: "loadmore",
-        element: (
-          <LazyComponent>
-            <Loadmore />
-          </LazyComponent>
-        ),
-      },
-      {
-        path: "signup",
-        element: (
-          <LazyComponent>
-            <Signup />
-          </LazyComponent>
-        ),
-      },
-      {
-        path: "signin",
-        element: (
-          <LazyComponent>
-            <Signin />
-          </LazyComponent>
-        ),
-      },
-      {
-        path: "forgot-password",
-        element: (
-          <LazyComponent>
-            <ForgotPassword />
-          </LazyComponent>
-        ),
-      },
-      {
-        path: "reset-password/:id/:token",
-        element: (
-          <LazyComponent>
-            <ResetPassword />
-          </LazyComponent>
-        ),
-      },
-      {
-        path: "profile",
-        element: (
-          <LazyComponent>
-            <ProfilePage />
-          </LazyComponent>
-        ),
-      },
-    ],
+    //   {
+    //     path: "types/h/:id",
+    //     element: (
+    //       <LazyComponent>
+    //         <ListType />
+    //       </LazyComponent>
+    //     ),
+    //   },
+    //   {
+    //     path: "loadmore",
+    //     element: (
+    //       <LazyComponent>
+    //         <Loadmore />
+    //       </LazyComponent>
+    //     ),
+    //   },
+    //   {
+    //     path: "signup",
+    //     element: (
+    //       <LazyComponent>
+    //         <Signup />
+    //       </LazyComponent>
+    //     ),
+    //   },
+    //   {
+    //     path: "signin",
+    //     element: (
+    //       <LazyComponent>
+    //         <Signin />
+    //       </LazyComponent>
+    //     ),
+    //   },
+    //   {
+    //     path: "forgot-password",
+    //     element: (
+    //       <LazyComponent>
+    //         <ForgotPassword />
+    //       </LazyComponent>
+    //     ),
+    //   },
+    //   {
+    //     path: "reset-password/:id/:token",
+    //     element: (
+    //       <LazyComponent>
+    //         <ResetPassword />
+    //       </LazyComponent>
+    //     ),
+    //   },
+    //   {
+    //     path: "profile",
+    //     element: (
+    //       <LazyComponent>
+    //         <ProfilePage />
+    //       </LazyComponent>
+    //     ),
+    //   },
+    // ],
   },
   {
     path: "dashboard",
