@@ -156,5 +156,14 @@ export const autoRenderEpisodeMovie = async () => {
     }
   );
 };
+
+export const addMultipleEpisodeMovie = async (data:any) => {
+  return await intances.post(
+    `/products/addMultiple`,
+    data
+   
+  );
+};
+
 export const exportDataExcel = async () =>
   await intances.get(`/products/export/excel`);

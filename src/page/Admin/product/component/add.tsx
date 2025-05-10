@@ -46,7 +46,6 @@ const ProductAdd = () => {
   const dispatch = useAppDispatch();
   const { handleSubmit, control, reset, setValue, watch } = useForm();
 
-  const selectedCategory = watch("category");
 
   useEffect(() => {
     // Initial load of categories

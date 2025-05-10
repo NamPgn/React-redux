@@ -257,8 +257,8 @@ const EditCategory = () => {
                       control={control}
                       placeholder="Select status"
                       options={[
-                        { label: "Active", value: "true" },
-                        { label: "Inactive", value: "false" },
+                        { label: "Active", value: 0 },
+                        { label: "Inactive", value: 1 },
                       ]}
                     />
                   </Form.Item>

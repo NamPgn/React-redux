@@ -37,6 +37,7 @@ import TypeCategory from "../page/Admin/category/type";
 import Banners from "../page/Admin/banner";
 import SeriesSeason from "../page/Admin/season";
 import ReportManagement from "../page/Admin/report";
+import AddMultipleEpisodesForm from "../page/Admin/product/component/addMultiple";
 const ProductAdmin = lazy(() => import("../page/Admin/product"));
 const ListType = lazy(() => import("../page/Type/Theloai"));
 const OllMovie = lazy(() => import("../page/Type/SidebarData"));
@@ -241,6 +242,14 @@ export const router = [
         element: (
           <LazyComponent>
             <ProductAdmin />
+          </LazyComponent>
+        ),
+      },
+       {
+        path: "products/addmultiple",
+        element: (
+          <LazyComponent>
+            <AddMultipleEpisodesForm />
           </LazyComponent>
         ),
       },

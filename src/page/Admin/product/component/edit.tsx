@@ -30,7 +30,6 @@ const EditProduct = () => {
   const { handleSubmit, reset, control } = useForm();
   const dispatch = useAppDispatch();
   const [state, setState]: any = useState({});
-
   useEffect(() => {
     const getFormProduct = async (): Promise<any> => {
       const { payload }: any = await dispatch(getProduct(id));
@@ -117,7 +116,9 @@ const EditProduct = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-6">
                 <div className="bg-gray-50 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Basic Information</h3>
+                  <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                    Basic Information
+                  </h3>
                   <div className="space-y-4">
                     <MVInput
                       name={"name"}
@@ -147,7 +148,9 @@ const EditProduct = () => {
                 </div>
 
                 <div className="bg-gray-50 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Media Links</h3>
+                  <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                    Media Links
+                  </h3>
                   <div className="space-y-4">
                     <MVInput
                       name={"link"}
@@ -179,7 +182,9 @@ const EditProduct = () => {
 
               <div className="space-y-6">
                 <div className="bg-gray-50 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Image & Categories</h3>
+                  <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                    Image & Categories
+                  </h3>
                   <div className="space-y-4">
                     <MVUpload
                       name={"image"}
@@ -197,7 +202,10 @@ const EditProduct = () => {
                       label={"Category"}
                       control={control}
                       name={"category"}
-                      options={data?.map((item:any) => ({ label: item.name, value: item._id }))}
+                      options={data?.map((item: any) => ({
+                        label: item.name,
+                        value: item._id,
+                      }))}
                       className="w-full"
                     />
                     <MySelectWrapper
@@ -205,14 +213,19 @@ const EditProduct = () => {
                       label={"Thể loại của phim lẻ"}
                       control={control}
                       defaultValue={"Thể loại"}
-                      options={seri?.map((item:any) => ({ label: item.name, value: item._id }))}
+                      options={seri?.map((item: any) => ({
+                        label: item.name,
+                        value: item._id,
+                      }))}
                       className="w-full"
                     />
                   </div>
                 </div>
 
                 <div className="bg-gray-50 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Copyright Information</h3>
+                  <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                    Copyright Information
+                  </h3>
                   <div className="space-y-4">
                     <MVInput
                       name={"LinkCopyright"}
@@ -232,7 +245,7 @@ const EditProduct = () => {
             </div>
 
             <div className="flex justify-end">
-              <MyButton 
+              <MyButton
                 htmlType="submit"
                 className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
               >
@@ -241,9 +254,9 @@ const EditProduct = () => {
             </div>
           </form>
 
-          <Dividers 
-            textColor={"#4B5563"} 
-            orientation={"center"} 
+          <Dividers
+            textColor={"#4B5563"}
+            orientation={"center"}
             className="my-8 text-lg font-medium"
           >
             Abyss Server
@@ -253,7 +266,9 @@ const EditProduct = () => {
             onSubmit={handleSubmit(handleSubmitServerAssb)}
             className="bg-gray-50 p-6 rounded-lg"
           >
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Upload Video</h3>
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">
+              Upload Video
+            </h3>
             <div className="space-y-4">
               <MVUpload
                 name={"fileupload"}
@@ -262,8 +277,8 @@ const EditProduct = () => {
                 className="w-full"
               />
               <div className="flex justify-end">
-                <MyButton 
-                  loading={isLoading} 
+                <MyButton
+                  loading={isLoading}
                   htmlType="submit"
                   className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
                 >

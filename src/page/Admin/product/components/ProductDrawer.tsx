@@ -96,6 +96,12 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
           </MyButton>
         </MVLink>
 
+         <MVLink to={"/dashboard/products/addmultiple"}>
+          <MyButton className="w-full bg-yellow-400 text-white hover:opacity-90 transition-opacity duration-300">
+            Add Multiple Episode
+          </MyButton>
+        </MVLink>
+
         <MyButton
           icon={<Download size={16}/>}
           className="w-full bg-green-600 text-white hover:opacity-90 transition-opacity duration-300"
