@@ -10,16 +10,20 @@ import { persistor, store } from "./redux/store/store";
 import { MyContextProvider } from "./context";
 import { ApiContextProvider } from "./context/api";
 import { PersistGate } from "redux-persist/integration/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+const queryClient = new QueryClient()
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <PersistGate persistor={persistor}>
-      <ApiContextProvider>
-        <MyContextProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </MyContextProvider>
-      </ApiContextProvider>
+      <QueryClientProvider client={queryClient}>
+        <ApiContextProvider>
+          <MyContextProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </MyContextProvider>
+        </ApiContextProvider>
+      </QueryClientProvider>
     </PersistGate>
   </Provider>
 );

@@ -19,6 +19,7 @@ import {
   FileImageOutlined,
   ExclamationOutlined,
   PlusSquareOutlined,
+  PictureOutlined,
 } from "@ant-design/icons";
 import DetailProductPage from "../page/Home/Detail";
 import CategoryProduct from "../page/Home/Category";
@@ -37,6 +38,7 @@ import TypeCategory from "../page/Admin/category/type";
 import Banners from "../page/Admin/banner";
 import SeriesSeason from "../page/Admin/season";
 import ReportManagement from "../page/Admin/report";
+import SliderAdmin from "../page/Admin/poster";
 const ProductAdmin = lazy(() => import("../page/Admin/product"));
 const ListType = lazy(() => import("../page/Type/Theloai"));
 const OllMovie = lazy(() => import("../page/Type/SidebarData"));
@@ -436,6 +438,14 @@ export const router = [
           </LazyComponent>
         ),
       },
+      {
+        path: "poster",
+        element: (
+          <LazyComponent>
+            <SliderAdmin/>
+          </LazyComponent>
+        ),
+      },
     ],
   },
   {
@@ -551,5 +561,10 @@ export const TableRouterAdminPage = [
     path: "/dashboard/report",
     icon: <ExclamationOutlined />,
     name: "Report",
+  },
+  {
+    path: "/dashboard/poster",
+    icon: <PictureOutlined />,
+    name: "Poster",
   },
 ];
