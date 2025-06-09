@@ -35,16 +35,16 @@ export default function TagsAdmin() {
     const [page, setPage] = useState(0);
     const [form] = Form.useForm()
     const dispatch = useAppDispatch();
-    const {data:categories} = useAppSelector(category$);
+    const { data: categories } = useAppSelector(category$);
     // React Query hooks
-    const { data: tags = [], isLoading: tagsLoading, error: tagsError, refetch: refetchTags } = useTags()
+    const { data: tags = [], isLoading: tagsLoading, error: tagsError, refetch: refetchTags }:any = useTags()
     const createTagMutation = useCreateTag()
     const updateTagMutation = useUpdateTag()
     const deleteTagMutation = useDeleteTag()
 
     // Filter tags
     const filteredTags = useMemo(() => {
-        return tags.filter((tag) => {
+        return tags?.data?.filter((tag) => {
             const matchesSearch =
                 tag.name.toLowerCase().includes(searchText.toLowerCase()) ||
                 tag.slug.toLowerCase().includes(searchText.toLowerCase())

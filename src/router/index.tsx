@@ -120,11 +120,6 @@ export const router = [
     element: <LayoutWebsite />,
     children: [
       {
-        path: "/",
-        element: <HomePage />,
-        index: true,
-      },
-      {
         path: "d/:id",
         element: (
           <LazyComponent>
@@ -196,6 +191,7 @@ export const router = [
             <Signin />
           </LazyComponent>
         ),
+        index: true,
       },
       {
         path: "forgot-password",
