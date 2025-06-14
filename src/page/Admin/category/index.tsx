@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { DatePicker, Image, Modal } from "antd";
+import { DatePicker, Image, Modal, Tabs } from "antd";
 import {
   addCateGorySlice,
   deleteCategorySlice,
@@ -23,6 +23,7 @@ import MVTags from "../../../components/MV/Tag";
 import { ApiContext } from "../../../context/api";
 import { ISMOVIE, RELEASES } from "../../../constant/categoyy";
 import dayjs from "dayjs";
+import RecycleBin from './component/RecycleBin';
 
 const CategoryAdmin = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -66,7 +67,6 @@ const CategoryAdmin = () => {
   };
   const onsubmit = async (data: any) => {
     const formdata = new FormData();
-    formdata.append("_id", data._id);
     formdata.append("name", data.name);
     formdata.append("slug", data.slug);
     formdata.append("des", data.des);
@@ -203,188 +203,176 @@ const CategoryAdmin = () => {
       };
     });
   return (
-    <React.Fragment>
-      <div className="flex gap-1">
-        <MyButton type="primary" onClick={showModal}>
-          New
-        </MyButton>
-        <TreeSelect
-          style={{ width: "100%" }}
-          value={valueId}
-          dropdownStyle={{ maxHeight: 400, overflow: "auto" }}
-          treeData={valueOptions}
-          placeholder="Please select"
-          treeDefaultExpandAll
-          onChange={onChange}
-          className="mb-2"
-        />
-      </div>
-      {/* <div
-        className="p-2"
-        style={{ display: "flex", gap: "0 10px", justifyContent: "center" }}
-      >
-        {seri &&
-          seri.map((item: any, index: any) => (
-            <div key={index}>
-              {item.path == "/" ? (
-                ""
-              ) : (
-                <Radio.Group value={typeId}>
-                  <Radio onChange={() => handleGetid(item._id)}>
-                    {item.name}
-                  </Radio>
-                </Radio.Group>
-              )}
-            </div>
-          ))}
-      </div> */}
-      <Modal
-        title="Basic Modal"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <form onSubmit={handleSubmit(onsubmit)}>
-          <MVInput
-            name={"name"}
-            label={"Name"}
-            control={control}
-            rules={undefined}
-          />
-          <MVInput
-            name={"anotherName"}
-            label={"Another Name"}
-            control={control}
-            rules={undefined}
-          />
-          <MVInput
-            name={"des"}
-            label={"Description"}
-            control={control}
-            rules={undefined}
-          />
-          <MVInput
-            name={"sumSeri"}
-            label={"Sum seri"}
-            control={control}
-            rules={undefined}
-          />
-          <MVInput
-            name={"type"}
-            label={"Type"}
-            control={control}
-            rules={undefined}
-          />
-          <MVInput
-            name={"week"}
-            label={"Week"}
-            control={control}
-            rules={undefined}
-          />
-          <MVInput
-            name={"time"}
-            label={"Duration"}
-            control={control}
-            rules={undefined}
-          />
-          <MVInput
-            name={"isActive"}
-            label={"isActive"}
-            control={control}
-            rules={undefined}
-          />
-          <MVInput
-            name={"year"}
-            label={"Year"}
-            control={control}
-            rules={undefined}
-          />
-          <MVInput
-            name={"up"}
-            label={"Set"}
-            control={control}
-            rules={undefined}
-          />
-          <MVInput
-            name={"hour"}
-            label={"Hour"}
-            control={control}
-            rules={undefined}
-          />
-          <MySelectWrapper
-            className="mb-3"
-            name={"week"}
-            label={"Theo tuần"}
-            control={control}
-            placeholder={"Week"}
-            defaultValue={"Week"}
-            options={weeekOptions}
-          />
-          <MySelectWrapper
-            name={"upcomingReleases"}
-            label={"UpcomingReleases"}
-            control={control}
-            placeholder={"UpcomingReleases"}
-            defaultValue={undefined}
-            options={UpcomingReleasesOptions}
-          />
-          <MySelectWrapper
-            name={"isMovie"}
-            label={"Is Movie"}
-            control={control}
-            placeholder={"Is Movie"}
-            defaultValue={undefined}
-            options={isMovieOptions}
-          />
-
-          <MVInput
-            name={"episode_many_title"}
-            label={"Episode Many title"}
-            control={control}
-            rules={undefined}
-          />
-          <div className="mt-4">
-            <div>Select Date</div>
-            <Controller
-              name="releaseDate"
-              control={control}
-              defaultValue={null}
-              render={({ field }) => (
-                <DatePicker
-                  {...field}
-                  value={field.value ? dayjs(field.value, "YYYY-MM-DD") : null}
-                  className="w-full"
-                  onChange={(date, dateString) => {
-                    if (date) {
-                      field.onChange(dayjs(date).format("YYYY-MM-DD"));
-                    } else {
-                      field.onChange(null);
-                    }
-                  }}
-                />
-              )}
+    <div>
+      <Tabs defaultActiveKey="1">
+        <Tabs.TabPane tab="Category List" key="1">
+          <div className="flex gap-1">
+            <MyButton type="primary" onClick={showModal}>
+              New
+            </MyButton>
+            <TreeSelect
+              style={{ width: "100%" }}
+              value={valueId}
+              dropdownStyle={{ maxHeight: 400, overflow: "auto" }}
+              treeData={valueOptions}
+              placeholder="Please select"
+              treeDefaultExpandAll
+              onChange={onChange}
+              className="mb-2"
             />
           </div>
-          <MVUpload name={"file"} label={"Upload"} control={control} />
-          <MyButton htmlType="submit" className="mt-2">
-            Create
-          </MyButton>
-        </form>
-      </Modal>
-      <MVTable
-        columns={columnsCategory}
-        dataSource={data}
-        scroll={{ x: 1000, y: 1000 }}
-        pagination={{
-          defaultPageSize: 24,
-          showSizeChanger: true,
-          pageSizeOptions: ["24", "44", "64"],
-          current: page,
-          onChange: handlePageChangePage,
-          total: category?.totalCount,
-        }}
-      ></MVTable>
-    </React.Fragment>
+          <Modal
+            title="Basic Modal"
+            open={isModalOpen}
+            onOk={handleOk}
+            onCancel={handleCancel}
+          >
+            <form onSubmit={handleSubmit(onsubmit)}>
+              <MVInput
+                name={"name"}
+                label={"Name"}
+                control={control}
+                rules={undefined}
+              />
+              <MVInput
+                name={"anotherName"}
+                label={"Another Name"}
+                control={control}
+                rules={undefined}
+              />
+              <MVInput
+                name={"des"}
+                label={"Description"}
+                control={control}
+                rules={undefined}
+              />
+              <MVInput
+                name={"sumSeri"}
+                label={"Sum seri"}
+                control={control}
+                rules={undefined}
+              />
+              <MVInput
+                name={"type"}
+                label={"Type"}
+                control={control}
+                rules={undefined}
+              />
+              <MVInput
+                name={"week"}
+                label={"Week"}
+                control={control}
+                rules={undefined}
+              />
+              <MVInput
+                name={"time"}
+                label={"Duration"}
+                control={control}
+                rules={undefined}
+              />
+              <MVInput
+                name={"isActive"}
+                label={"isActive"}
+                control={control}
+                rules={undefined}
+              />
+              <MVInput
+                name={"year"}
+                label={"Year"}
+                control={control}
+                rules={undefined}
+              />
+              <MVInput
+                name={"up"}
+                label={"Set"}
+                control={control}
+                rules={undefined}
+              />
+              <MVInput
+                name={"hour"}
+                label={"Hour"}
+                control={control}
+                rules={undefined}
+              />
+              <MySelectWrapper
+                className="mb-3"
+                name={"week"}
+                label={"Theo tuần"}
+                control={control}
+                placeholder={"Week"}
+                defaultValue={"Week"}
+                options={weeekOptions}
+              />
+              <MySelectWrapper
+                name={"upcomingReleases"}
+                label={"UpcomingReleases"}
+                control={control}
+                placeholder={"UpcomingReleases"}
+                defaultValue={undefined}
+                options={UpcomingReleasesOptions}
+              />
+              <MySelectWrapper
+                name={"isMovie"}
+                label={"Is Movie"}
+                control={control}
+                placeholder={"Is Movie"}
+                defaultValue={undefined}
+                options={isMovieOptions}
+              />
+
+              <MVInput
+                name={"episode_many_title"}
+                label={"Episode Many title"}
+                control={control}
+                rules={undefined}
+              />
+              <div className="mt-4">
+                <div>Select Date</div>
+                <Controller
+                  name="releaseDate"
+                  control={control}
+                  defaultValue={null}
+                  render={({ field }) => (
+                    <DatePicker
+                      {...field}
+                      value={field.value ? dayjs(field.value, "YYYY-MM-DD") : null}
+                      className="w-full"
+                      onChange={(date, dateString) => {
+                        if (date) {
+                          field.onChange(dayjs(date).format("YYYY-MM-DD"));
+                        } else {
+                          field.onChange(null);
+                        }
+                      }}
+                    />
+                  )}
+                />
+              </div>
+              <MVUpload name={"file"} label={"Upload"} control={control} />
+              <MyButton htmlType="submit" className="mt-2">
+                Create
+              </MyButton>
+            </form>
+          </Modal>
+          <MVTable
+            columns={columnsCategory}
+            dataSource={data}
+            scroll={{ x: 1000, y: 1000 }}
+            pagination={{
+              defaultPageSize: 24,
+              showSizeChanger: true,
+              pageSizeOptions: ["24", "44", "64"],
+              current: page,
+              onChange: handlePageChangePage,
+              total: category?.totalCount,
+            }}
+          ></MVTable>
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="Recycle Bin" key="2">
+          <RecycleBin />
+        </Tabs.TabPane>
+      </Tabs>
+    </div>
   );
 };
 

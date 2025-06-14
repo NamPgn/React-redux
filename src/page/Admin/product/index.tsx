@@ -199,7 +199,7 @@ const ProductAdmin = memo(() => {
       key: "slug",
       width: 200,
       render: (text: string) => (
-        <span className="truncate max-w-[180px] block">{text}</span>
+        <span className="truncate text-start block">{text}</span>
       ),
     },
     {
@@ -208,23 +208,14 @@ const ProductAdmin = memo(() => {
       dataIndex: "category",
       width: 150,
       render: (text: string) => (
-        <span className="truncate max-w-[130px] block">{text}</span>
-      ),
-    },
-    {
-      title: "View",
-      key: "view",
-      dataIndex: "view",
-      width: 100,
-      render: (text: any) => (
-        <span>{text}</span>
+        <span className="truncate text-start block">{text}</span>
       ),
     },
     {
       title: "Seri",
       key: "seri",
       dataIndex: "seri",
-      width: 100,
+      width: 50,
       render: (text: string) => (
         <span className="truncate max-w-[80px] block">{text}</span>
       ),
@@ -233,52 +224,16 @@ const ProductAdmin = memo(() => {
       title: "Active",
       dataIndex: "isActive",
       key: "isActive",
-      width: 120,
+      width: 50,
       render: (text: any) => (
         <span>{text}</span>
-      ),
-    },
-    {
-      title: "Trailer",
-      dataIndex: "trailer",
-      key: "trailer",
-      width: 100,
-      render: (text: string) => (
-        <span className="truncate max-w-[80px] block">{text}</span>
-      ),
-    },
-    {
-      title: "Country",
-      dataIndex: "country",
-      key: "country",
-      width: 100,
-      render: (text: string) => (
-        <span className="truncate max-w-[80px] block">{text}</span>
-      ),
-    },
-    {
-      title: "Year",
-      dataIndex: "year",
-      key: "year",
-      width: 100,
-      render: (text: string) => (
-        <span className="truncate max-w-[80px] block">{text}</span>
-      ),
-    },
-    {
-      title: "Options",
-      dataIndex: "options",
-      key: "options",
-      width: 100,
-      render: (text: string) => (
-        <span className="truncate max-w-[80px] block">{text}</span>
       ),
     },
     {
       title: "Action",
       key: "action",
       dataIndex: "action",
-      width: 50,
+      width: 80,
       fixed: "right",
       render: (_: any, record: any) => {
         const getMenuItems = () => {
