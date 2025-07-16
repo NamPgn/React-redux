@@ -256,7 +256,7 @@ export default function TagsAdmin() {
                         </Col>
                         <Col span={8}>
                             <Card size="small" className="text-center bg-green-50 border-green-200">
-                                <div className="text-2xl font-bold text-green-600">{filteredTags.length}</div>
+                                <div className="text-2xl font-bold text-green-600">{filteredTags?.length}</div>
                                 <div className="text-gray-600">Tags hiển thị</div>
                             </Card>
                         </Col>

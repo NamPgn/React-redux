@@ -5,13 +5,11 @@ import { MyButton } from '../../../../components/MV/Button';
 import MVLink from '../../../../components/Location/Link';
 
 interface ProductHeaderProps {
-  onSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onOpenDrawer: () => void;
   onGenerateEpisode: () => void;
 }
 
 const ProductHeader: React.FC<ProductHeaderProps> = ({
-  onSearch,
   onOpenDrawer,
   onGenerateEpisode,
 }) => {
@@ -34,13 +32,6 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
           Add Movie
         </MyButton>
       </MVLink>
-
-      <Input.Search
-        placeholder="Search products"
-        onChange={onSearch}
-        className="w-64 rounded-lg"
-        allowClear
-      />
 
       <Button
         onClick={onGenerateEpisode}

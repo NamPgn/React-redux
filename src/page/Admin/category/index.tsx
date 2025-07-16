@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { DatePicker, Image, Modal, Tabs } from "antd";
+import { DatePicker, Image, Input, Modal, Tabs } from "antd";
+import { debounce } from "lodash"
 import {
   addCateGorySlice,
   deleteCategorySlice,
@@ -27,7 +28,10 @@ import RecycleBin from './component/RecycleBin';
 
 const CategoryAdmin = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [page, setPage] = useState(1);
+  const [page, setPage]: any = useState(1);
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchValue, setSearchValue] = useState("")
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -46,25 +50,37 @@ const CategoryAdmin = () => {
   const [valueId, setValue] = useState();
 
   useEffect(() => {
-    dispatch(getAllcate(page));
-  }, [page]);
+    dispatch(getAllcate({ page, search: searchTerm }));
+  }, [page, searchTerm]);
+
+  useEffect(() => {
+    const debouncedSearch = debounce(() => {
+      setSearchTerm(searchValue);
+      setPage(1);
+    }, 500);
+
+    debouncedSearch();
+
+    return () => {
+      debouncedSearch.cancel();
+    };
+  }, [searchValue]);
+
   const UpcomingReleasesOptions = RELEASES?.map((item: any) => ({
     label: item.name,
     value: item.val,
   }));
-  const valueOptions =
-    seri &&
-    seri?.map((items: any, index: number) => ({
-      label: index + 1 + " - " + items.name,
-      value: items._id,
-      children: items.categorymain.map((val: any, i: number) => ({
-        label: i + 1 + " - " + val.cates.name,
-        value: val.cates._id,
-      })),
-    }));
-  const onChange = (newValue: any) => {
-    setValue(newValue);
+
+  const handleSearch = (e) => {
+    setSearchValue(e.target.value);
   };
+
+  const handleClearSearch = () => {
+    setSearchValue("");
+    setSearchTerm("");
+    setPage(1);
+  };
+
   const onsubmit = async (data: any) => {
     const formdata = new FormData();
     formdata.append("name", data.name);
@@ -206,20 +222,20 @@ const CategoryAdmin = () => {
     <div>
       <Tabs defaultActiveKey="1">
         <Tabs.TabPane tab="Category List" key="1">
-          <div className="flex gap-1">
-            <MyButton type="primary" onClick={showModal}>
-              New
-            </MyButton>
-            <TreeSelect
-              style={{ width: "100%" }}
-              value={valueId}
-              dropdownStyle={{ maxHeight: 400, overflow: "auto" }}
-              treeData={valueOptions}
-              placeholder="Please select"
-              treeDefaultExpandAll
-              onChange={onChange}
-              className="mb-2"
-            />
+          <div className="flex gap-1 mb-3">
+            <div className="flex gap-2 mb-2">
+              <Input
+                placeholder="Tìm kiếm category..."
+                value={searchValue}
+                onChange={handleSearch}
+                allowClear
+                onClear={handleClearSearch}
+                style={{ flex: 1 }}
+              />
+              <MyButton type="primary" onClick={showModal}>
+                New
+              </MyButton>
+            </div>
           </div>
           <Modal
             title="Basic Modal"

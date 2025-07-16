@@ -1,10 +1,8 @@
 import React, { memo, useContext, useEffect, useState } from "react";
-import { Spin, Dropdown } from "antd";
+import { Spin, Dropdown, Select, Input } from "antd";
 import {
   getProducts,
   deleteProduct,
-  filterProductByCategorySlice,
-  searchProductsSlice,
   autoGenarateEpisodeMovieSlice,
 } from "../../../redux/slice/product/thunk/product";
 import { toast } from "react-toastify";
@@ -44,29 +42,34 @@ import ProductDrawer from "./components/ProductDrawer";
 import "./style.css";
 
 const ProductAdmin = memo(() => {
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [episodeSearch, setEpisodeSearch] = useState("");
   const products = useAppSelector((state) => state.product.value);
   const isLoading: any = useAppSelector((state) => state.product.isLoading);
   const [page, setPage] = useState(1);
   const cate: any = useAppSelector((state) => state.category.category);
   const [open, setOpen] = useState(false);
   const { user }: any = useContext(MyContext);
-  const [filterApproved, setFilterApproved] = useState("");
   const [init, setInit] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys]: any = useState<React.Key[]>([]);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getProducts(page));
-  }, [init]);
+    dispatch(getProducts({ page, categoryId: selectedCategory, seri: episodeSearch }));
+  }, [page, selectedCategory, episodeSearch, init]);
+  
 
-  const handleSelectChange = (value: any) => {
-    dispatch(filterProductByCategorySlice(value));
+  const handleCategoryFilter = (value: string) => {
+    setSelectedCategory(value);
+    setPage(1);
   };
 
-  const handleSearch = (e) => {
-    const value = e.target.value;
-    dispatch(searchProductsSlice(value));
+
+  const handleEpisodeSearch = (value: string) => {
+    setEpisodeSearch(value);
+    setPage(1);
   };
+
 
   const handlePageChangePage = (value) => {
     setPage(value);
@@ -110,10 +113,6 @@ const ProductAdmin = memo(() => {
     } else {
       toast.error("Error deleting product");
     }
-  };
-
-  const handleChangeSelectApprove = (value: any) => {
-    setFilterApproved(value);
   };
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
@@ -487,8 +486,32 @@ const ProductAdmin = memo(() => {
     <>
       <PageTitle title="" subtitle="Movie Episode" />
 
+      <div style={{ display: 'flex', gap: 16, marginBottom: 16 }}>
+        <Select
+          style={{ width: 240 }}
+          placeholder="Chọn danh mục để lọc"
+          allowClear
+          value={selectedCategory || undefined}
+          onChange={handleCategoryFilter}
+          options={cate?.data?.map((item: any) => ({
+            label: item.name,
+            value: item._id,
+          }))}
+        />
+        <Input.Search
+          style={{ width: 240 }}
+          placeholder="Tìm kiếm tập phim (episode)"
+          allowClear
+          onSearch={handleEpisodeSearch}
+          onChange={(e) => {
+            if (!e.target.value) {
+              handleEpisodeSearch("");
+            }
+          }}
+        />
+      </div>
+
       <ProductHeader
-        onSearch={handleSearch}
         onOpenDrawer={showDrawer}
         onGenerateEpisode={handleAutoRenderEpisodeMovie}
       />
@@ -502,8 +525,6 @@ const ProductAdmin = memo(() => {
         onClearCache={handleClearCache}
         onClearCacheRedis={handleClearCacheRedis}
         categories={cate?.data}
-        onCategoryChange={handleSelectChange}
-        onApprovalChange={handleChangeSelectApprove}
       />
 
       <Spin spinning={isLoading} delay={undefined}>
