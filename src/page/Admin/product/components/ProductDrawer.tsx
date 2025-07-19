@@ -101,7 +101,18 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
                 block
                 style={{ height: '40px' }}
               >
-                Add Multiple Movies
+                Add Multiple Episode From Excel
+              </Button>
+            </MVLink>
+            <MVLink to={"/dashboard/product/add-multiple-episode"}>
+              <Button
+                color="geekblue"
+                variant="dashed"
+                icon={<FileText size={16}/>}
+                block
+                style={{ height: '40px' }}
+              >
+                Add Multiple Episode 
               </Button>
             </MVLink>
           </Space>

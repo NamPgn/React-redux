@@ -23,6 +23,19 @@ export const deleteProductById = async (id: string): Promise<IProduct> => {
   });
 };
 
+export const addMultipleEpisodeMovie = async (data: any) => {
+  return await intances.post(
+    `/products/addMultiple/${dataToken.user._id}`,
+    data,
+    {
+      headers: {
+        Authorization: `Bearer ${dataToken.token}`,
+      },
+    }
+  );
+};
+
+
 export const addProductData = async (data: IProduct): Promise<IProduct> => {
   return await intances.post(`/product/${dataToken.user._id}`, data, {
     headers: {

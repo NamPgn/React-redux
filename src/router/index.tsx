@@ -41,6 +41,8 @@ import SeriesSeason from "../page/Admin/season";
 import ReportManagement from "../page/Admin/report";
 import SliderAdmin from "../page/Admin/poster";
 import TagsAdmin from "../page/Admin/tags";
+import AddMultipleEpisodesForm from "../page/Admin/product/component/addMultipleEpisode";
+import AddMultipleEpisodes from "../page/Admin/product/component/addMultipleEpisode";
 const ProductAdmin = lazy(() => import("../page/Admin/product"));
 const ListType = lazy(() => import("../page/Type/Theloai"));
 const OllMovie = lazy(() => import("../page/Type/SidebarData"));
@@ -59,9 +61,9 @@ const GetAdmin = lazy(() => import("../page/Admin/user/component/admin"));
 const ProductAdd = lazy(() => import("../page/Admin/product/component/add"));
 const EditProduct = lazy(() => import("../page/Admin/product/component/edit"));
 const CreatingUser = lazy(() => import("../page/Admin/user/component/adds"));
-// const CreatingProducts = lazy(
-//   () => import("../page/Admin/product/component/creatingProducts")
-// );
+const CreatingProducts = lazy(
+  () => import("../page/Admin/product/component/creatingProducts")
+);
 const CategoryAdmin = lazy(() => import("../page/Admin/category"));
 const EditCategoryAdmin = lazy(
   () => import("../page/Admin/category/component/edit")
@@ -300,14 +302,22 @@ export const router = [
           </LazyComponent>
         ),
       },
-      // {
-      //   path: "product/creacting",
-      //   element: (
-      //     <LazyComponent>
-      //       <CreatingProducts />
-      //     </LazyComponent>
-      //   ),
-      // },
+      {
+        path: "product/creacting",
+        element: (
+          <LazyComponent>
+            <CreatingProducts />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: "product/add-multiple-episode",
+        element: (
+          <LazyComponent>
+            <AddMultipleEpisodes />
+          </LazyComponent>
+        ),
+      },
       {
         path: "category",
         element: (
