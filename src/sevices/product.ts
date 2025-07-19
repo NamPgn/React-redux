@@ -3,8 +3,12 @@ import { IProduct } from "../interfaces/product";
 import intances, { URL_SERVER_RENDER } from "./instances";
 declare var Promise: any;
 const dataToken = isAuthentication();
-export const getAllProduct = async (page): Promise<IProduct> => {
-  return await intances.get(`products?page=${page}`);
+
+export const getAllProduct = async (page: number, categoryId?: string, seri?: string): Promise<IProduct> => {
+  let url = `products?page=${page}`;
+  if (categoryId) url += `&categoryId=${categoryId}`;
+  if (seri) url += `&seri=${seri}`;
+  return await intances.get(url);
 };
 
 export const getOneProduct = async (id: string): Promise<IProduct> => {

@@ -10,17 +10,7 @@ export const ApiContextProvider = (props) => {
     dedupingInterval: 300000,
   });
 
-  const { data: background } = useSWRWithAxios(urlSwr + "/background", {
-    revalidateOnFocus: true,
-    dedupingInterval: 300000,
-  });
-  
-  const { data: seri, isLoading: loadingSeri } = useSWRWithAxios(
-    urlSwr + `/types`, {
-    revalidateOnFocus: true,
-    dedupingInterval: 300000,
-  }
-  );
+
 
   // const {
   //   data: categorymain,
@@ -29,15 +19,12 @@ export const ApiContextProvider = (props) => {
   // } = useSWRWithAxios(urlSwr + `/categorymain`);
   const value = {
     //danh mục phim nhiều tập
-    seri,
-    loadingSeri,
     //phim lẻ phim 1 tập
     // categorymain,
     // LoadingCateMain,
     // isError,
 
     //background
-    background,
 
     //weekCategory
     weeks,

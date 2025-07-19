@@ -19,6 +19,8 @@ import {
   FileImageOutlined,
   ExclamationOutlined,
   PlusSquareOutlined,
+  PictureOutlined,
+  TagsOutlined,
 } from "@ant-design/icons";
 import DetailProductPage from "../page/Home/Detail";
 import CategoryProduct from "../page/Home/Category";
@@ -38,6 +40,9 @@ import Banners from "../page/Admin/banner";
 import SeriesSeason from "../page/Admin/season";
 import ReportManagement from "../page/Admin/report";
 import AddMultipleEpisodesForm from "../page/Admin/product/component/addMultiple";
+import TagsAdmin from "../page/Admin/tags";
+import SliderAdmin from "../page/Admin/poster";
+
 const ProductAdmin = lazy(() => import("../page/Admin/product"));
 const ListType = lazy(() => import("../page/Type/Theloai"));
 const OllMovie = lazy(() => import("../page/Type/SidebarData"));
@@ -161,6 +166,46 @@ export const router = [
       //     </LazyComponent>
       //   ),
       // },
+      {
+        path: "d/:id",
+        element: (
+          <LazyComponent>
+            <DetailProductPage />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: "q/:id",
+        element: (
+          <LazyComponent>
+            <CategoryProduct />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: "search/category",
+        element: (
+          <LazyComponent>
+            <SearchResults />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: "cart/user",
+        element: (
+          <LazyComponent>
+            <CartUser />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: "movie-content/:id",
+        element: (
+          <LazyComponent>
+            <OllMovie />
+          </LazyComponent>
+        ),
+      },
 
       // {
       //   path: "types/h/:id",
@@ -193,6 +238,7 @@ export const router = [
             <Signin />
           </LazyComponent>
         ),
+        index: true,
       },
       {
         path: "forgot-password",
@@ -453,6 +499,22 @@ export const router = [
           </LazyComponent>
         ),
       },
+      {
+        path: "poster",
+        element: (
+          <LazyComponent>
+            <SliderAdmin/>
+          </LazyComponent>
+        ),
+      },
+      {
+        path: "tags",
+        element: (
+          <LazyComponent>
+            <TagsAdmin/>
+          </LazyComponent>
+        ),
+      },
     ],
   },
   {
@@ -568,5 +630,15 @@ export const TableRouterAdminPage = [
     path: "/dashboard/report",
     icon: <ExclamationOutlined />,
     name: "Report",
+  },
+  {
+    path: "/dashboard/poster",
+    icon: <PictureOutlined />,
+    name: "Poster",
+  },
+  {
+    path: "/dashboard/tags",
+    icon: <TagsOutlined />,
+    name: "Tags",
   },
 ];

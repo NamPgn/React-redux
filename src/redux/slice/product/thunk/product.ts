@@ -13,8 +13,8 @@ import {
 } from "../../../../sevices/product";
 export const getProducts = createAsyncThunk(
   "product/getProducts",
-  async (page: number) => {
-    const { data }: any = await getAllProduct(page);
+  async ({ page, categoryId, seri }: { page: number; categoryId?: string; seri?: string }) => {
+    const { data }: any = await getAllProduct(page, categoryId, seri);
     return data;
   }
 );

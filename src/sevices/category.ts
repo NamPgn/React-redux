@@ -3,8 +3,12 @@ import { isAuthentication } from "../auth/getToken";
 import { Icategory } from "../interfaces/category";
 declare var Promise: any;
 const dataToken = isAuthentication();
-export const getAllcategory = async (page): Promise<Icategory[]> => {
-  return await intances.get(`/categorys?page=${page}`);
+export const getAllcategory = async (page: number, search?: string): Promise<Icategory[]> => {
+  let url = `/categorys?page=${page}`;
+  if (search && search.trim()) {
+    url += `&search=${encodeURIComponent(search.trim())}`;
+  }
+  return await intances.get(url);
 };
 
 export const getCategory = async (id: string): Promise<Icategory> => {
@@ -61,4 +65,28 @@ export const ratingProduct = async (categoryId, data: any) => {
 
 export const changeLatest = async (data: any) => {
   return await intances.post(`/category/changeLatest`, data);
+};
+
+export const getRecycleBin = async () => {
+  return await intances.get("/c/recycle", {
+    headers: {
+      Authorization: `Bearer ${dataToken.token}`,
+    },
+  });
+};
+
+export const restoreCategory = async (id: string) => {
+  return await intances.post(`/category/restore/${id}/${dataToken.user._id}`, {}, {
+    headers: {
+      Authorization: `Bearer ${dataToken.token}`,
+    },
+  });
+};
+
+export const permanentlyDeleteCategory = async (id: string) => {
+  return await intances.delete(`/category/permanent-delete/${id}/${dataToken.user._id}`, {
+    headers: {
+      Authorization: `Bearer ${dataToken.token}`,
+    },
+  });
 };

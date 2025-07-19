@@ -1,33 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { 
-  DatePicker, 
-  Image, 
-  Modal, 
-  Typography, 
-  Card, 
-  Space, 
-  Row, 
-  Col, 
-  TreeSelect, 
-  Tabs, 
-  Tooltip, 
-  Breadcrumb, 
-  Divider, 
-  Badge 
-} from "antd";
-import {
-  PlusOutlined,
-  EditOutlined,
-  DeleteOutlined,
-  PushpinOutlined,
-  CalendarOutlined,
-  UploadOutlined,
-  FileImageOutlined,
-  HomeOutlined,
-  AppstoreOutlined,
-  DatabaseOutlined,
-  InfoCircleOutlined
-} from "@ant-design/icons";
+import { DatePicker, Image, Input, Modal, Tabs } from "antd";
+import { debounce } from "lodash"
 import {
   addCateGorySlice,
   deleteCategorySlice,
@@ -50,6 +23,7 @@ import MVTags from "../../../components/MV/Tag";
 import { ApiContext } from "../../../context/api";
 import { ISMOVIE, RELEASES } from "../../../constant/categoyy";
 import dayjs from "dayjs";
+import RecycleBin from './component/RecycleBin';
 
 const { Title, Text } = Typography;
 const { TabPane } = Tabs;
@@ -107,6 +81,10 @@ const CategoryAdmin = () => {
   }));
 
   // Modal handlers
+  const [page, setPage]: any = useState(1);
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchValue, setSearchValue] = useState("")
   const showModal = () => {
     reset(); // Reset form when opening modal
     setIsModalOpen(true);
@@ -121,38 +99,65 @@ const CategoryAdmin = () => {
     reset();
   };
 
-  // TreeSelect handler
-  const onChange = (newValue) => {
-    setValue(newValue);
+  useEffect(() => {
+    dispatch(getAllcate({ page, search: searchTerm }));
+  }, [page, searchTerm]);
+
+  useEffect(() => {
+    const debouncedSearch = debounce(() => {
+      setSearchTerm(searchValue);
+      setPage(1);
+    }, 500);
+
+    debouncedSearch();
+
+    return () => {
+      debouncedSearch.cancel();
+    };
+  }, [searchValue]);
+
+  const UpcomingReleasesOptions = RELEASES?.map((item: any) => ({
+    label: item.name,
+    value: item.val,
+  }));
+
+  const handleSearch = (e) => {
+    setSearchValue(e.target.value);
   };
 
-  // Form submission handler
-  const onsubmit = async (data) => {
-    try {
-      setIsLoading(true);
-      const formdata = new FormData();
-      
-      // Append form data
-      Object.keys(data).forEach(key => {
-        if (data[key] !== undefined && data[key] !== null) {
-          formdata.append(key, data[key]);
-        }
-      });
+  const handleClearSearch = () => {
+    setSearchValue("");
+    setSearchTerm("");
+    setPage(1);
+  };
 
-      const res = await dispatch(addCateGorySlice(formdata));
-      
-      if (res.payload.success === true) {
-        toast.success("Category created successfully");
-        handleCancel();
-        fetchCategories();
-      } else {
-        toast.error("Failed to create category");
-      }
-    } catch (error) {
-      console.error("Error creating category:", error);
-      toast.error("An error occurred");
-    } finally {
-      setIsLoading(false);
+  const onsubmit = async (data: any) => {
+    const formdata = new FormData();
+    formdata.append("name", data.name);
+    formdata.append("slug", data.slug);
+    formdata.append("des", data.des);
+    formdata.append("week", data.week);
+    formdata.append("type", data.type);
+    formdata.append("file", data.file);
+    formdata.append("up", data.up);
+    formdata.append("time", data.time);
+    formdata.append("isActive", data.isActive);
+    formdata.append("year", data.year);
+    formdata.append("anotherName", data.anotherName);
+    formdata.append("sumSeri", data.sumSeri);
+    formdata.append("hour", data.hour);
+    formdata.append("lang", data.lang);
+    formdata.append("season", data.season);
+    formdata.append("quality", data.quality);
+    formdata.append("episode_many_title", data.episode_many_title);
+    formdata.append("upcomingReleases", data.upcomingReleases);
+    formdata.append("isMovie", data.isMovie);
+    // console.log()
+    const res = await dispatch(addCateGorySlice(formdata));
+    if (res.payload.success == true) {
+      toast.success("Thành công");
+    } else {
+      toast.error("Thất bại");
     }
   };
 
@@ -273,242 +278,131 @@ const CategoryAdmin = () => {
     });
 
   return (
-    <div className="category-admin-page">
-      {/* Page Header */}
-      <Card bordered={false} className="mb-4">
-        <Row justify="space-between" align="middle">
-          <Col>
-            <Title level={3} className="mb-0">
-              <DatabaseOutlined className="mr-2" /> Category Management
-            </Title>
-            <Text type="secondary">
-              Manage, create, and organize your content categories
-            </Text>
-          </Col>
-          <Col>
-            <MyButton 
-              type="primary" 
-              onClick={showModal} 
-              icon={<PlusOutlined />}
-              size="large"
-            >
-              New Category
-            </MyButton>
-          </Col>
-        </Row>
-      </Card>
-
-      {/* Main Content */}
-      <Row >
-        {/* Right Column - Table and Content */}
-        <Col span={24}>
-          <Card
-            bordered={false}
-            className="shadow-md"
-            loading={isLoading}
-          >
-            <Tabs 
-              activeKey={activeTab} 
-              onChange={setActiveTab}
-              className="mb-4"
-              type="card"
-            >
-              <TabPane 
-                tab={
-                  <span>
-                    <AppstoreOutlined /> All Categories
-                  </span>
-                } 
-                key="1"
-              >
-                <MVTable
-                  columns={columnsCategory}
-                  dataSource={tableData}
-                  scroll={{ x: 1000 }}
-                  pagination={{
-                    defaultPageSize: 24,
-                    showSizeChanger: true,
-                    pageSizeOptions: ["10", "20", "50"],
-                    current: page,
-                    onChange: handlePageChangePage,
-                    total: category?.totalCount,
-                    showTotal: (total) => `Total ${total} categories`,
-                  }}
-                  loading={isLoading}
-                  bordered
-                />
-              </TabPane>
-            </Tabs>
-          </Card>
-        </Col>
-      </Row>
-
-      {/* Create Category Modal */}
-      <Modal
-        title={
-          <Space>
-            <PlusOutlined />
-            <span>Create New Category</span>
-          </Space>
-        }
-        open={isModalOpen}
-        onCancel={handleCancel}
-        footer={null}
-        width={800}
-        destroyOnClose
-      >
-        <form onSubmit={handleSubmit(onsubmit)}>
-          <Divider />
-          
-          <Tabs defaultActiveKey="1" className="mb-4">
-            <TabPane tab="Basic Information" key="1">
-              <Row gutter={16}>
-                <Col span={12}>
-                  <MVInput
-                    name="name"
-                    label="Category Name"
-                    control={control}
-                    rules={{ required: "Name is required" }}
-                    placeholder="Enter category name"
-                  />
-                </Col>
-                <Col span={12}>
-                  <MVInput
-                    name="anotherName"
-                    label="Alternative Name"
-                    control={control}
-                    placeholder="Enter alternative name"
-                  />
-                </Col>
-              </Row>
-              
-              <MVInput
-                name="des"
-                label="Description"
-                control={control}
-                placeholder="Enter description"
+    <div>
+      <Tabs defaultActiveKey="1">
+        <Tabs.TabPane tab="Category List" key="1">
+          <div className="flex gap-1 mb-3">
+            <div className="flex gap-2 mb-2">
+              <Input
+                placeholder="Tìm kiếm category..."
+                value={searchValue}
+                onChange={handleSearch}
+                allowClear
+                onClear={handleClearSearch}
+                style={{ flex: 1 }}
               />
-              
-              <Row gutter={16}>
-                <Col span={8}>
-                  <MVInput
-                    name="sumSeri"
-                    label="Total Episodes"
-                    control={control}
-                    type="number"
-                    placeholder="Enter total episodes"
-                  />
-                </Col>
-                <Col span={8}>
-                  <MVInput
-                    name="year"
-                    label="Release Year"
-                    control={control}
-                    placeholder="Enter release year"
-                  />
-                </Col>
-                <Col span={8}>
-                  <MVInput
-                    name="time"
-                    label="Duration (minutes)"
-                    control={control}
-                    type="number"
-                    placeholder="Enter duration"
-                  />
-                </Col>
-              </Row>
-            </TabPane>
-            
-            <TabPane tab="Additional Details" key="2">
-              <Row gutter={16}>
-                <Col span={12}>
-                  <MVInput
-                    name="type"
-                    label="Type"
-                    control={control}
-                    placeholder="Enter type"
-                  />
-                </Col>
-                <Col span={12}>
-                  <MVInput
-                    name="hour"
-                    label="Hour"
-                    control={control}
-                    placeholder="Enter hour"
-                  />
-                </Col>
-              </Row>
-              
-              <Row gutter={16}>
-                <Col span={12}>
-                  <MySelectWrapper
-                    name="week"
-                    label="Week Schedule"
-                    control={control}
-                    placeholder="Select day of week"
-                    options={weeekOptions}
-                  />
-                </Col>
-                <Col span={12}>
-                  <MVInput
-                    name="up"
-                    label="Set"
-                    control={control}
-                    placeholder="Enter set"
-                  />
-                </Col>
-              </Row>
-              
-              <Row gutter={16}>
-                <Col span={12}>
-                  <MySelectWrapper
-                    name="upcomingReleases"
-                    label="Upcoming Releases"
-                    control={control}
-                    placeholder="Select release status"
-                    options={UpcomingReleasesOptions}
-                  />
-                </Col>
-                <Col span={12}>
-                  <MySelectWrapper
-                    name="isMovie"
-                    label="Content Type"
-                    control={control}
-                    placeholder="Select content type"
-                    options={isMovieOptions}
-                  />
-                </Col>
-              </Row>
-            </TabPane>
-            
-            <TabPane tab="Media & Status" key="3">
-              <Row gutter={16}>
-                <Col span={12}>
-                  <MVInput
-                    name="isActive"
-                    label="Status (0: Pending, 1: Active)"
-                    control={control}
-                    placeholder="Enter status"
-                    type="number"
-                    min={0}
-                    max={1}
-                  />
-                </Col>
-                <Col span={12}>
-                  <MVInput
-                    name="episode_many_title"
-                    label="Episode Title Format"
-                    control={control}
-                    placeholder="Enter episode title format"
-                  />
-                </Col>
-              </Row>
-              
+              <MyButton type="primary" onClick={showModal}>
+                New
+              </MyButton>
+            </div>
+          </div>
+          <Modal
+            title="Basic Modal"
+            open={isModalOpen}
+            onOk={handleOk}
+            onCancel={handleCancel}
+          >
+            <form onSubmit={handleSubmit(onsubmit)}>
+              <MVInput
+                name={"name"}
+                label={"Name"}
+                control={control}
+                rules={undefined}
+              />
+              <MVInput
+                name={"anotherName"}
+                label={"Another Name"}
+                control={control}
+                rules={undefined}
+              />
+              <MVInput
+                name={"des"}
+                label={"Description"}
+                control={control}
+                rules={undefined}
+              />
+              <MVInput
+                name={"sumSeri"}
+                label={"Sum seri"}
+                control={control}
+                rules={undefined}
+              />
+              <MVInput
+                name={"type"}
+                label={"Type"}
+                control={control}
+                rules={undefined}
+              />
+              <MVInput
+                name={"week"}
+                label={"Week"}
+                control={control}
+                rules={undefined}
+              />
+              <MVInput
+                name={"time"}
+                label={"Duration"}
+                control={control}
+                rules={undefined}
+              />
+              <MVInput
+                name={"isActive"}
+                label={"isActive"}
+                control={control}
+                rules={undefined}
+              />
+              <MVInput
+                name={"year"}
+                label={"Year"}
+                control={control}
+                rules={undefined}
+              />
+              <MVInput
+                name={"up"}
+                label={"Set"}
+                control={control}
+                rules={undefined}
+              />
+              <MVInput
+                name={"hour"}
+                label={"Hour"}
+                control={control}
+                rules={undefined}
+              />
+              <MySelectWrapper
+                className="mb-3"
+                name={"week"}
+                label={"Theo tuần"}
+                control={control}
+                placeholder={"Week"}
+                defaultValue={"Week"}
+                options={weeekOptions}
+              />
+              <MySelectWrapper
+                name={"upcomingReleases"}
+                label={"UpcomingReleases"}
+                control={control}
+                placeholder={"UpcomingReleases"}
+                defaultValue={undefined}
+                options={UpcomingReleasesOptions}
+              />
+              <MySelectWrapper
+                name={"isMovie"}
+                label={"Is Movie"}
+                control={control}
+                placeholder={"Is Movie"}
+                defaultValue={undefined}
+                options={isMovieOptions}
+              />
+
+              <MVInput
+                name={"episode_many_title"}
+                label={"Episode Many title"}
+                control={control}
+                rules={undefined}
+              />
               <div className="mt-4">
-                <Text strong>
-                  <CalendarOutlined className="mr-2" />
-                  Release Date
-                </Text>
+                <div>Select Date</div>
                 <Controller
                   name="releaseDate"
                   control={control}
@@ -517,7 +411,7 @@ const CategoryAdmin = () => {
                     <DatePicker
                       {...field}
                       value={field.value ? dayjs(field.value, "YYYY-MM-DD") : null}
-                      className="w-full mt-2"
+                      className="w-full"
                       onChange={(date, dateString) => {
                         if (date) {
                           field.onChange(dayjs(date).format("YYYY-MM-DD"));
@@ -529,51 +423,30 @@ const CategoryAdmin = () => {
                   )}
                 />
               </div>
-              
-              <div className="mt-4">
-                <Text strong>
-                  <UploadOutlined className="mr-2" />
-                  Cover Image
-                </Text>
-                <MVUpload 
-                  name="file" 
-                  label="Upload Cover Image" 
-                  control={control} 
-                />
-              </div>
-            </TabPane>
-          </Tabs>
-          
-          <Divider />
-          
-          <div className="flex justify-end gap-2">
-            <MyButton onClick={handleCancel} disabled={isLoading}>
-              Cancel
-            </MyButton>
-            <MyButton 
-              type="primary" 
-              htmlType="submit" 
-              loading={isLoading}
-              icon={<PlusOutlined />}
-            >
-              Create Category
-            </MyButton>
-          </div>
-        </form>
-      </Modal>
-
-      {/* Delete Confirmation Modal */}
-      <Modal
-        title="Confirm Deletion"
-        open={deleteConfirmVisible}
-        onOk={handleDelete}
-        onCancel={() => setDeleteConfirmVisible(false)}
-        okText="Yes, Delete"
-        cancelText="Cancel"
-        okButtonProps={{ danger: true, loading: isLoading }}
-      >
-        <p>Are you sure you want to delete this category? This action cannot be undone.</p>
-      </Modal>
+              <MVUpload name={"file"} label={"Upload"} control={control} />
+              <MyButton htmlType="submit" className="mt-2">
+                Create
+              </MyButton>
+            </form>
+          </Modal>
+          <MVTable
+            columns={columnsCategory}
+            dataSource={data}
+            scroll={{ x: 1000, y: 1000 }}
+            pagination={{
+              defaultPageSize: 24,
+              showSizeChanger: true,
+              pageSizeOptions: ["24", "44", "64"],
+              current: page,
+              onChange: handlePageChangePage,
+              total: category?.totalCount,
+            }}
+          ></MVTable>
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="Recycle Bin" key="2">
+          <RecycleBin />
+        </Tabs.TabPane>
+      </Tabs>
     </div>
   );
 };

@@ -10,8 +10,8 @@ import {
 
 export const getAllcate = createAsyncThunk(
   "category/getAllcate",
-  async (page: number) => {
-    const { data }: any = await getAllcategory(page);
+  async ({ page, search }: { page: number; search?: string }) => {
+    const { data }: any = await getAllcategory(page, search);
     return data;
   }
 );
