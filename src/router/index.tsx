@@ -61,9 +61,9 @@ const GetAdmin = lazy(() => import("../page/Admin/user/component/admin"));
 const ProductAdd = lazy(() => import("../page/Admin/product/component/add"));
 const EditProduct = lazy(() => import("../page/Admin/product/component/edit"));
 const CreatingUser = lazy(() => import("../page/Admin/user/component/adds"));
-const CreatingProducts = lazy(
-  () => import("../page/Admin/product/component/creatingProducts")
-);
+// const CreatingProducts = lazy(
+//   () => import("../page/Admin/product/component/creatingProducts")
+// );
 
 
 
@@ -305,14 +305,14 @@ export const router = [
           </LazyComponent>
         ),
       },
-      {
-        path: "product/creacting",
-        element: (
-          <LazyComponent>
-            <CreatingProducts />
-          </LazyComponent>
-        ),
-      },
+      // {
+      //   path: "product/creacting",
+      //   element: (
+      //     <LazyComponent>
+      //       <CreatingProducts />
+      //     </LazyComponent>
+      //   ),
+      // },
       {
         path: "product/add-multiple-episode",
         element: (
