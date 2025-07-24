@@ -175,3 +175,15 @@ export const autoRenderEpisodeMovie = async () => {
 };
 export const exportDataExcel = async () =>
   await intances.get(`/products/export/excel`);
+
+export const editVoiceOverBySlug = async (slug: string, voiceOverLink: string, voiceOverLink2: string) => {
+  return await intances.post(
+    `/product/editVoiceOver/${slug}`,
+    { voiceOverLink, voiceOverLink2 },
+   
+  );
+};
+
+export const getVoiceOverBySlug = async (slug: string) => {
+  return await intances.get(`/product/getVoiceOver/${slug}`);
+};

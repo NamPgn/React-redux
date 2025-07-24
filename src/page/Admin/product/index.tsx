@@ -31,14 +31,15 @@ import {
   Check,
   MoreVertical,
   Star,
+  Plus,
 } from "lucide-react";
 import MVConfirm from "../../../components/MV/Confirm";
 import MVLink from "../../../components/Location/Link";
 import { MyContext } from "../../../context";
 import PageTitle from "../../../components/PageTitle";
-import ProductTable from "./components/ProductTable";
-import ProductHeader from "./components/ProductHeader";
-import ProductDrawer from "./components/ProductDrawer";
+import ProductTable from "./ui/ProductTable";
+import ProductHeader from "./ui/ProductHeader";
+import ProductDrawer from "./ui/ProductDrawer";
 import "./style.css";
 
 const ProductAdmin = memo(() => {
@@ -300,6 +301,7 @@ const ProductAdmin = memo(() => {
                     </MVLink>
                   ),
                 },
+                
                 {
                   key: 'delete',
                   label: (
@@ -323,6 +325,17 @@ const ProductAdmin = memo(() => {
                       <ArrowUp size={16} />
                       <span>Move Up</span>
                     </div>
+                  ),
+                },
+                {
+                  key: 'edit-voice-over',
+                  label: (
+                    <MVLink to={`/dashboard/product/edit-voice-over/${record.slug}`}>
+                      <div className="flex items-center gap-2">
+                        <Edit size={16} />
+                        <span>Edit Voice Over</span>
+                      </div>
+                    </MVLink>
                   ),
                 },
                 ...(record?.isApproved

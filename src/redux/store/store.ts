@@ -7,6 +7,7 @@ import commentReducer from "../slice/comment/index";
 import cartReducer from "../slice/cart/index";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import combiningEpisodesReducer from '../slice/combining-episodes.slice';
 import seriesReducer from "../slice/series/index";
 const persistConfig = {
   key: "root",
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   comment: commentReducer,
   cart: cartReducer,
   series: seriesReducer,  
+  combiningEpisodes: combiningEpisodesReducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

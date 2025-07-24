@@ -43,6 +43,10 @@ import SliderAdmin from "../page/Admin/poster";
 import TagsAdmin from "../page/Admin/tags";
 import AddMultipleEpisodesForm from "../page/Admin/product/component/addMultipleEpisode";
 import AddMultipleEpisodes from "../page/Admin/product/component/addMultipleEpisode";
+import AddCombiningEpisodes from "../page/Admin/combining-episodes/components/add-combining-episodes";
+import EditCombiningEpisodes from "../page/Admin/combining-episodes/components/edit-combining-episodes";
+import CombiningEpisodesList from "../page/Admin/combining-episodes";
+import EditVoiceOver from "../page/Admin/product/component/edit-voice-over";
 const ProductAdmin = lazy(() => import("../page/Admin/product"));
 const ListType = lazy(() => import("../page/Type/Theloai"));
 const OllMovie = lazy(() => import("../page/Type/SidebarData"));
@@ -298,6 +302,14 @@ export const router = [
         ),
       },
       {
+        path: "product/edit-voice-over/:slug",
+        element: (
+          <LazyComponent>
+            <EditVoiceOver />
+          </LazyComponent>
+        ),
+      },
+      {
         path: "product/edit/:id",
         element: (
           <LazyComponent>
@@ -350,6 +362,30 @@ export const router = [
         element: (
           <LazyComponent>
             <LatestAdmin />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: "category/combining-episodes/:id",
+        element: (
+          <LazyComponent>
+            <CombiningEpisodesList />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: "category/add-combining-episodes/:slug",
+        element: (
+          <LazyComponent>
+            <AddCombiningEpisodes />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: "category/edit-combining-episodes/:slug",
+        element: (
+          <LazyComponent>
+            <EditCombiningEpisodes />
           </LazyComponent>
         ),
       },
@@ -465,6 +501,7 @@ export const router = [
           </LazyComponent>
         ),
       },
+    
     ],
   },
   {

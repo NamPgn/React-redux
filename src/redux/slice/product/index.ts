@@ -10,6 +10,8 @@ import {
   filterProductByCategorySlice,
   searchProductsSlice,
   autoGenarateEpisodeMovieSlice,
+  addVoiceOverBySlugThunk,
+  getVoiceOverBySlugThunk,
 } from "./thunk/product";
 import { isProductSlice } from "../../../interfaces/product";
 
@@ -23,7 +25,14 @@ const initialState: isProductSlice = {
   getOneProduct: {},
   getAllProductByCategory: [],
   status: false,
+  voiceOver: {
+    voiceOverLink: "",
+    voiceOverLink2: "",
+    loading: false,
+    error: null,
+  },
 };
+
 const productSlice = createSlice({
   name: "product",
   initialState: initialState,
@@ -87,6 +96,36 @@ const productSlice = createSlice({
         state.isLoading = false;
       }
     );
+
+    builder
+      .addCase(addVoiceOverBySlugThunk.pending, (state) => {
+        state.voiceOver.loading = true;
+        state.voiceOver.error = null;
+      })
+      .addCase(addVoiceOverBySlugThunk.fulfilled, (state, action) => {
+        state.voiceOver.loading = false;
+        state.voiceOver.voiceOverLink = action.payload.voiceOverLink;
+        state.voiceOver.voiceOverLink2 = action.payload.voiceOverLink2;
+      })
+      .addCase(addVoiceOverBySlugThunk.rejected, (state, action) => {
+        state.voiceOver.loading = false;
+        state.voiceOver.error = action.error.message;
+      });
+
+    builder
+      .addCase(getVoiceOverBySlugThunk.pending, (state) => {
+        state.voiceOver.loading = true;
+        state.voiceOver.error = null;
+      })
+      .addCase(getVoiceOverBySlugThunk.fulfilled, (state, action) => {
+        state.voiceOver.loading = false;
+        state.voiceOver.voiceOverLink = action.payload.data.voiceOverLink || "";
+        state.voiceOver.voiceOverLink2 = action.payload.data.voiceOverLink2 || "";
+      })
+      .addCase(getVoiceOverBySlugThunk.rejected, (state, action) => {
+        state.voiceOver.loading = false;
+        state.voiceOver.error = action.error.message;
+      });
   },
 });
 

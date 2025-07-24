@@ -10,6 +10,8 @@ import {
   getOneProduct,
   importData,
   searchProduct,
+  editVoiceOverBySlug,
+  getVoiceOverBySlug,
 } from "../../../../sevices/product";
 export const getProducts = createAsyncThunk(
   "product/getProducts",
@@ -97,5 +99,29 @@ export const autoGenarateEpisodeMovieSlice = createAsyncThunk(
   async () => {
     const { data }: any = await autoRenderEpisodeMovie();
     return data;
+  }
+);
+
+export const addVoiceOverBySlugThunk = createAsyncThunk(
+  "product/addVoiceOver",
+  async ({ slug, voiceOverLink, voiceOverLink2 }: { slug: string; voiceOverLink: string; voiceOverLink2: string }) => {
+    try {
+      const response = await editVoiceOverBySlug(slug, voiceOverLink, voiceOverLink2);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
+export const getVoiceOverBySlugThunk = createAsyncThunk(
+  "product/getVoiceOver",
+  async (slug: string) => {
+    try {
+      const response = await getVoiceOverBySlug(slug);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   }
 );

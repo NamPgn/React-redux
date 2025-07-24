@@ -1,33 +1,45 @@
 import { ObjectId } from 'bson';
 
 export interface IProduct {
-  _id?: ObjectId,
-  name: string;
-  seri: string;
+  _id?: string;
+  name?: string;
+  slug?: string;
   image?: string;
+  link?: string;
   descriptions?: string;
-  category?: ObjectId;
-  select?: boolean;
-  uploadDate: Date;
-  options: string;
-  link: string;
-  copyright: string;
-  LinkCopyright: string;
-  year: Date;
-  country: string;
-  comments: any;
-  categorymain?: ObjectId;
-  typeId?: ObjectId;
+  category?: string;
+  categorymain?: string;
+  typeId?: string;
+  seri?: string;
+  options?: string;
+  copyright?: string;
+  LinkCopyright?: string;
+  trailer?: string;
+  country?: string;
+  year?: string;
+  dailyMotionServer?: string;
+  video2?: string;
+  voiceOverLink?: string;
+  voiceOverLink2?: string;
+  view?: number;
+  uploadDate?: Date;
+  isApproved?: boolean;
 }
 
 export interface isProductSlice {
   value: {
-    data: string[];
-    totalCount: number,
-    totalPages: number,
+    data: IProduct[];
+    totalCount: number;
+    totalPages: number;
   };
   isLoading: boolean;
-  getOneProduct: {};
-  getAllProductByCategory: string[];
+  getOneProduct: IProduct | {};
+  getAllProductByCategory: IProduct[];
   status: boolean;
+  voiceOver: {
+    voiceOverLink: string;
+    voiceOverLink2: string;
+    loading: boolean;
+    error: string | null;
+  };
 }

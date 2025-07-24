@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { DatePicker, Image, Input, Modal, Tabs } from "antd";
+import { DatePicker, Image, Input, Modal, Tabs, Dropdown, Space } from "antd";
 import { debounce } from "lodash"
 import {
   addCateGorySlice,
@@ -25,6 +25,7 @@ import { ApiContext } from "../../../context/api";
 import { ISMOVIE, RELEASES } from "../../../constant/categoyy";
 import dayjs from "dayjs";
 import RecycleBin from './component/RecycleBin';
+import { EditOutlined, DeleteOutlined, PushpinOutlined, MoreOutlined, PlayCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 const CategoryAdmin = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -170,9 +171,51 @@ const CategoryAdmin = () => {
   const data =
     category.data &&
     category.data.map((item: any, index: number) => {
+      const actionItems = [
+        {
+          key: 'edit',
+          label: (
+            <MVLink to={`/dashboard/category/edit/${item.slug}`}>
+              <Space>
+                <EditOutlined />
+                Edit
+              </Space>
+            </MVLink>
+          ),
+        },
+        {
+          key: 'delete',
+          label: (
+            <Space onClick={() => handleDelete(item._id)}>
+              <DeleteOutlined />
+              Delete
+            </Space>
+          ),
+          danger: true,
+        },
+        {
+          key: 'push',
+          label: (
+            <Space onClick={() => hanedlePushCategoryToType(item._id)}>
+              <PushpinOutlined />
+              Push
+            </Space>
+          ),
+        },
+        {
+          key: 'combining-episodes',
+          label: (
+            <MVLink to={`/dashboard/category/combining-episodes/${item._id}`}>
+              <Space>
+                <PlusOutlined />
+                Combining Episodes
+              </Space>
+            </MVLink>
+          ),
+        },
+      ];
       return {
         key: item._id,
-        stt: item._id,
         name: <MVLink to={"/q/" + item._id}>{item.name}</MVLink>,
         slug: item.slug,
         image: (
@@ -195,26 +238,15 @@ const CategoryAdmin = () => {
         set: item.up,
         week: weeks && weeks.map((i: any) => i._id == item.week && i.name),
         action: (
-          <div className="flex gap-1">
-            <MVLink to={`/dashboard/category/edit/${item.slug}`}>
-              <MyButton style={{ background: "#1677ff" }} type="primary">
-                Edit
-              </MyButton>
-            </MVLink>
-            <MyButton
-              danger
-              className="ml-2"
-              onClick={() => handleDelete(item._id)}
-            >
-              Delete
+          <Dropdown
+            menu={{ items: actionItems }}
+            trigger={['click']}
+            placement="bottomRight"
+          >
+            <MyButton type="text">
+              <MoreOutlined style={{ fontSize: '20px' }} />
             </MyButton>
-            <MyButton
-              className="ml-2"
-              onClick={() => hanedlePushCategoryToType(item._id)}
-            >
-              Push
-            </MyButton>
-          </div>
+          </Dropdown>
         ),
       };
     });
