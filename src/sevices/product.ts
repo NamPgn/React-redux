@@ -178,9 +178,13 @@ export const exportDataExcel = async () =>
 
 export const editVoiceOverBySlug = async (slug: string, voiceOverLink: string, voiceOverLink2: string) => {
   return await intances.post(
-    `/product/editVoiceOver/${slug}`,
+    `/product/editVoiceOver/${slug}/${dataToken.user._id}`,
     { voiceOverLink, voiceOverLink2 },
-   
+    {
+      headers: {
+        Authorization: `Bearer ${dataToken.token}`,
+      },
+    }
   );
 };
 

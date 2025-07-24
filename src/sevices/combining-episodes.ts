@@ -1,6 +1,12 @@
 import intances from "./instances";
+import { isAuthentication } from "../auth/getToken";
+const dataToken = isAuthentication();
 export const createCombiningEpisodes = async (data: any) => {
-  return await intances.post("/combining-episodes", data);
+  return await intances.post(`/combining-episodes/${dataToken.user._id}`, data, {
+    headers: {
+      Authorization: `Bearer ${dataToken.token}`,
+    },
+  });
 };
 
 export const getListCombiningEpisodes = async () => {
@@ -16,9 +22,17 @@ export const getCombiningEpisodesByEpisodeSlug = async (slug: string) => {
 };
 
 export const updateCombiningEpisodes = async (id: string, data: any) => {
-  return await intances.put(`/combining-episodes/${id}`, data);
+  return await intances.put(`/combining-episodes/${id}/${dataToken.user._id}`, data, {
+    headers: {
+      Authorization: `Bearer ${dataToken.token}`,
+    },
+  });
 };
 
 export const deleteCombiningEpisodes = async (id: string) => {
-  return await intances.delete(`/combining-episodes/${id}`);
+  return await intances.delete(`/combining-episodes/${id}/${dataToken.user._id}`, {
+    headers: {
+      Authorization: `Bearer ${dataToken.token}`,
+    },
+  });
 };
