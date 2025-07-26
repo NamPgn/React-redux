@@ -230,6 +230,15 @@ const ProductAdmin = memo(() => {
       ),
     },
     {
+      title: "Thuyet Minh",
+      dataIndex: "thuyetMinh",
+      key: "thuyetMinh",
+      width: 50,
+      render: (text: any) => (
+        <span>{text}</span>
+      ),
+    },
+    {
       title: "Action",
       key: "action",
       dataIndex: "action",
@@ -463,30 +472,15 @@ const ProductAdmin = memo(() => {
             <span className="text-red-700 font-medium text-sm">Inactive</span>
           </div>
         ),
-        options: (
-          <div className="flex flex-wrap gap-1">
-            <span className="px-1.5 py-0.5 text-xs font-medium bg-gray-100 text-gray-700 rounded-full flex items-center gap-1">
-              <Globe className="w-2.5 h-2.5" />
-              {value?.category?.lang}
-            </span>
-            {value?.category?.quality && (
-              <span className="px-1.5 py-0.5 text-xs font-medium bg-gray-100 text-gray-700 rounded-full flex items-center gap-1">
-                <Star className="w-2.5 h-2.5" />
-                {value?.category?.quality}
-              </span>
-            )}
-          </div>
-        ),
-        country: (
+        thuyetMinh: value.voiceOverLink ? (
           <div className="flex items-center gap-1">
-            <Globe className="w-4 h-4 text-gray-600" />
-            <span className="text-gray-700 text-sm">{value?.category?.country || "N/A"}</span>
+            <Check size={16} />
+            <span className="text-green-700 font-medium text-sm">Yes</span>
           </div>
-        ),
-        year: (
+        ) : (
           <div className="flex items-center gap-1">
-            <Calendar className="w-4 h-4 text-gray-600" />
-            <span className="text-gray-700 text-sm">{value?.category?.year || "N/A"}</span>
+            <XCircle size={16} />
+            <span className="text-red-700 font-medium text-sm">No</span>
           </div>
         ),
         isApproved: value.isApproved,

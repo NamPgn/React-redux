@@ -41,7 +41,7 @@ const EditCategory = () => {
     };
     data();
   }, []);
-  const { data:categorySelect  } = useSWRWithAxios(
+  const { data: categorySelect } = useSWRWithAxios(
     urlSwr + "/bigcategory/content"
   );
   const weeekOptions =
@@ -55,7 +55,7 @@ const EditCategory = () => {
     label: item.name,
     value: item.val,
   }));
-  const treeDataCateogys =categorySelect && categorySelect?.map((item: any) => ({
+  const treeDataCateogys = categorySelect && categorySelect?.map((item: any) => ({
     title: item.name,
     value: item._id,
     key: item._id,
@@ -101,6 +101,7 @@ const EditCategory = () => {
     formdata.append("episode_many_title", data.episode_many_title);
     formdata.append("upcomingReleases", data.upcomingReleases);
     formdata.append("isMovie", data.isMovie);
+    formdata.append("thuyetMinh", data.thuyetMinh);
     const res = await dispatch(updateCatgorySlice(formdata));
     if (res.payload) {
       toast.success("Edit successfully");
@@ -238,10 +239,20 @@ const EditCategory = () => {
         defaultValue={undefined}
         options={isMovieOptions}
       />
+
+      <MySelectWrapper
+        name={"thuyetMinh"}
+        label={"Thuyet Minh"}
+        control={control}
+        placeholder={"Thuyet Minh"}
+        defaultValue={undefined}
+        options={[{ label: "Có", value: true }, { label: "Không", value: false }]}
+      />
       <div className="mt-4">
         <div>Select Date</div>
         <DatePicker className="w-full " onChange={onChangeDate} />
       </div>
+
       <div className="mt-5">
         <div>Select Type</div>
         <TreeSelect {...tProps} />

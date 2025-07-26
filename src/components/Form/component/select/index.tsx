@@ -18,7 +18,6 @@ export const MySelectWrapper = memo(
           render={({ field }) => (
             <Select
               className="mt-2"
-              style={{ width: "100%" }}
               defaultValue={defaultValue}
               placeholder={placeholder}
               value={field.value}
