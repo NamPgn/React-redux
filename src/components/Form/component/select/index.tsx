@@ -17,7 +17,7 @@ export const MySelectWrapper = memo(
           name={name}
           render={({ field }) => (
             <Select
-              className="mt-2"
+              className="mt-2 w-full"
               defaultValue={defaultValue}
               placeholder={placeholder}
               value={field.value}

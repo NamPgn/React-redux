@@ -195,9 +195,9 @@ const columnsCategory = [
     width: 50,
   },
   {
-    title: "isActive",
-    dataIndex: "isActive",
-    key: "isActive",
+    title: "Status",
+    dataIndex: "status",
+    key: "status",
     width: 50,
   },
   {

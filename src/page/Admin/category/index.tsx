@@ -37,10 +37,6 @@ const CategoryAdmin = () => {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
   const handleCancel = () => {
     setIsModalOpen(false);
   };
@@ -92,7 +88,7 @@ const CategoryAdmin = () => {
     formdata.append("file", data.file);
     formdata.append("up", data.up);
     formdata.append("time", data.time);
-    formdata.append("isActive", data.isActive);
+    formdata.append("status", data.status);
     formdata.append("year", data.year);
     formdata.append("anotherName", data.anotherName);
     formdata.append("sumSeri", data.sumSeri);
@@ -103,6 +99,7 @@ const CategoryAdmin = () => {
     formdata.append("episode_many_title", data.episode_many_title);
     formdata.append("upcomingReleases", data.upcomingReleases);
     formdata.append("isMovie", data.isMovie);
+    formdata.append("newMovie", data.newMovie);
     // console.log()
     const res = await dispatch(addCateGorySlice(formdata));
     if (res.payload.success == true) {
@@ -228,11 +225,11 @@ const CategoryAdmin = () => {
         ),
         createAt: item.createdAt,
         duration: item.time,
-        isActive:
-          item.isActive == 0 ? (
-            <MVTags color="warning">isPending</MVTags>
+        status:
+          item.status === "pending" ? (
+            <MVTags color="warning">Đang chờ</MVTags>
           ) : (
-            <MVTags color="success">Done</MVTags>
+            <MVTags color="success">Hoàn thành</MVTags>
           ),
         year: item.year,
         set: item.up,
@@ -270,137 +267,225 @@ const CategoryAdmin = () => {
             </div>
           </div>
           <Modal
-            title="Basic Modal"
-            open={isModalOpen}
-            onOk={handleOk}
-            onCancel={handleCancel}
-          >
-            <form onSubmit={handleSubmit(onsubmit)}>
-              <MVInput
-                name={"name"}
-                label={"Name"}
-                control={control}
-                rules={undefined}
-              />
-              <MVInput
-                name={"anotherName"}
-                label={"Another Name"}
-                control={control}
-                rules={undefined}
-              />
-              <MVInput
-                name={"des"}
-                label={"Description"}
-                control={control}
-                rules={undefined}
-              />
-              <MVInput
-                name={"sumSeri"}
-                label={"Sum seri"}
-                control={control}
-                rules={undefined}
-              />
-              <MVInput
-                name={"type"}
-                label={"Type"}
-                control={control}
-                rules={undefined}
-              />
-              <MVInput
-                name={"week"}
-                label={"Week"}
-                control={control}
-                rules={undefined}
-              />
-              <MVInput
-                name={"time"}
-                label={"Duration"}
-                control={control}
-                rules={undefined}
-              />
-              <MVInput
-                name={"isActive"}
-                label={"isActive"}
-                control={control}
-                rules={undefined}
-              />
-              <MVInput
-                name={"year"}
-                label={"Year"}
-                control={control}
-                rules={undefined}
-              />
-              <MVInput
-                name={"up"}
-                label={"Set"}
-                control={control}
-                rules={undefined}
-              />
-              <MVInput
-                name={"hour"}
-                label={"Hour"}
-                control={control}
-                rules={undefined}
-              />
-              <MySelectWrapper
-                className="mb-3"
-                name={"week"}
-                label={"Theo tuần"}
-                control={control}
-                placeholder={"Week"}
-                defaultValue={"Week"}
-                options={weeekOptions}
-              />
-              <MySelectWrapper
-                name={"upcomingReleases"}
-                label={"UpcomingReleases"}
-                control={control}
-                placeholder={"UpcomingReleases"}
-                defaultValue={undefined}
-                options={UpcomingReleasesOptions}
-              />
-              <MySelectWrapper
-                name={"isMovie"}
-                label={"Is Movie"}
-                control={control}
-                placeholder={"Is Movie"}
-                defaultValue={undefined}
-                options={isMovieOptions}
-              />
-
-              <MVInput
-                name={"episode_many_title"}
-                label={"Episode Many title"}
-                control={control}
-                rules={undefined}
-              />
-              <div className="mt-4">
-                <div>Select Date</div>
-                <Controller
-                  name="releaseDate"
-                  control={control}
-                  defaultValue={null}
-                  render={({ field }) => (
-                    <DatePicker
-                      {...field}
-                      value={field.value ? dayjs(field.value, "YYYY-MM-DD") : null}
-                      className="w-full"
-                      onChange={(date, dateString) => {
-                        if (date) {
-                          field.onChange(dayjs(date).format("YYYY-MM-DD"));
-                        } else {
-                          field.onChange(null);
-                        }
-                      }}
-                    />
-                  )}
-                />
+            title={
+              <div className="flex items-center gap-2 text-lg font-semibold">
+                <span className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                  📝
+                </span>
+                Create New Category
               </div>
-              <MVUpload name={"file"} label={"Upload"} control={control} />
-              <MyButton htmlType="submit" className="mt-2">
-                Create
-              </MyButton>
-            </form>
+            }
+            open={isModalOpen}
+            footer={null}
+            onCancel={handleCancel}
+            width={800}
+            className="custom-modal"
+          >
+            <div className="max-h-[70vh] overflow-y-auto pr-2">
+              <form onSubmit={handleSubmit(onsubmit)} className="space-y-6">
+                {/* Basic Information */}
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <h3 className="text-md font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2">
+                    📋 Basic Information
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <MVInput
+                      name={"name"}
+                      label={"Category Name"}
+                      control={control}
+                      rules={undefined}
+                    />
+                    <MVInput
+                      name={"anotherName"}
+                      label={"Another Name"}
+                      control={control}
+                      rules={undefined}
+                    />
+                    <div className="md:col-span-2">
+                      <MVInput
+                        name={"des"}
+                        label={"Description"}
+                        control={control}
+                        rules={undefined}
+                      />
+                    </div>
+                    <MVInput
+                      name={"type"}
+                      label={"Type"}
+                      control={control}
+                      rules={undefined}
+                    />
+                    <MVInput
+                      name={"episode_many_title"}
+                      label={"Episode Many Title"}
+                      control={control}
+                      rules={undefined}
+                    />
+                  </div>
+                </div>
+
+                {/* Time & Duration */}
+                <div className="bg-blue-50 rounded-lg p-4">
+                  <h3 className="text-md font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2">
+                    ⏰ Time & Duration
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <MVInput
+                      name={"time"}
+                      label={"Duration"}
+                      control={control}
+                      rules={undefined}
+                    />
+                    <MVInput
+                      name={"year"}
+                      label={"Year"}
+                      control={control}
+                      rules={undefined}
+                    />
+                    <MVInput
+                      name={"hour"}
+                      label={"Hour"}
+                      control={control}
+                      rules={undefined}
+                    />
+                    <MVInput
+                      name={"sumSeri"}
+                      label={"Sum Series"}
+                      control={control}
+                      rules={undefined}
+                    />
+                    <MVInput
+                      name={"up"}
+                      label={"Set"}
+                      control={control}
+                      rules={undefined}
+                    />
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        📅 Release Date
+                      </label>
+                      <Controller
+                        name="releaseDate"
+                        control={control}
+                        defaultValue={null}
+                        render={({ field }) => (
+                          <DatePicker
+                            {...field}
+                            value={field.value ? dayjs(field.value, "YYYY-MM-DD") : null}
+                            className="w-full h-10"
+                            placeholder="Select release date"
+                            onChange={(date, dateString) => {
+                              if (date) {
+                                field.onChange(dayjs(date).format("YYYY-MM-DD"));
+                              } else {
+                                field.onChange(null);
+                              }
+                            }}
+                          />
+                        )}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Settings & Status */}
+                <div className="bg-green-50 rounded-lg p-4">
+                  <h3 className="text-md font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2">
+                    ⚙️ Settings & Status
+                  </h3>
+                  <div className="flex flex-wrap gap-4">
+                    <div className="w-full sm:w-[200px]">
+                      <MySelectWrapper
+                        name={"status"}
+                        label={"Status"}
+                        control={control}
+                        placeholder={"Select Status"}
+                        rules={undefined}
+                        options={[
+                          {
+                            label: "✅ Hoàn thành",
+                            value: "completed",
+                          },
+                          {
+                            label: "⏳ Đang chờ",
+                            value: "pending",
+                          },
+                        ]}
+                      />
+                    </div>
+
+                    <div className="w-full sm:w-[180px]">
+                      <MySelectWrapper
+                        name={"week"}
+                        label={"Week"}
+                        control={control}
+                        placeholder={"Select Week"}
+                        defaultValue={undefined}
+                        options={weeekOptions}
+                      />
+                    </div>
+
+                    <div className="w-full sm:w-[220px]">
+                      <MySelectWrapper
+                        name={"upcomingReleases"}
+                        label={"Upcoming Releases"}
+                        control={control}
+                        placeholder={"Select Release"}
+                        defaultValue={undefined}
+                        options={UpcomingReleasesOptions}
+                      />
+                    </div>
+
+                    <div className="w-full sm:w-[160px]">
+                      <MySelectWrapper
+                        name={"isMovie"}
+                        label={"Is Movie"}
+                        control={control}
+                        placeholder={"Select Type"}
+                        defaultValue={undefined}
+                        options={isMovieOptions}
+                      />
+                    </div>
+
+                    <div className="w-full sm:w-[160px]">
+                      <MySelectWrapper
+                        name={"newMovie"}
+                        label={"New Movie"}
+                        control={control}
+                        placeholder={"Is New?"}
+                        defaultValue={undefined}
+                        options={[
+                          {
+                            label: "✅ Có",
+                            value: true,
+                          },
+                          {
+                            label: "❌ Không",
+                            value: false,
+                          },
+                        ]}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* File Upload */}
+                <div className="bg-purple-50 rounded-lg p-4">
+                  <h3 className="text-md font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2">
+                    📁 File Upload
+                  </h3>
+                  <MVUpload name={"file"} label={"Upload Image"} control={control} />
+                </div>
+                <div className="flex justify-end pt-4 border-t border-gray-200">
+                  <MyButton
+                    htmlType="submit"
+                    className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-8 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
+                  >
+                    🚀 Create Category
+                  </MyButton>
+                </div>
+              </form>
+            </div>
           </Modal>
           <MVTable
             columns={columnsCategory}
