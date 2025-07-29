@@ -17,9 +17,10 @@ const AddCombiningEpisodes: React.FC = () => {
         ...values,
         category: slug
       };
-      
-      await dispatch(createCombiningEpisode(episodeData) as any);
-      message.success('Combining episodes added successfully');
+      const response = await dispatch(createCombiningEpisode(episodeData) as any);
+      if(response.payload.success){
+        message.success('Combining episodes added successfully');
+      }
     } catch (err) {
       message.error(error || 'Failed to add combining episodes');
     }

@@ -47,6 +47,7 @@ import AddCombiningEpisodes from "../page/Admin/combining-episodes/components/ad
 import EditCombiningEpisodes from "../page/Admin/combining-episodes/components/edit-combining-episodes";
 import CombiningEpisodesList from "../page/Admin/combining-episodes";
 import EditVoiceOver from "../page/Admin/product/component/edit-voice-over";
+import { Navigate } from "react-router-dom";
 const ProductAdmin = lazy(() => import("../page/Admin/product"));
 const ListType = lazy(() => import("../page/Type/Theloai"));
 const OllMovie = lazy(() => import("../page/Type/SidebarData"));
@@ -129,6 +130,18 @@ export const router = [
     element: <LayoutWebsite />,
     children: [
       {
+        index: true,
+        element: <Navigate to="/signin" replace />,
+      },
+      {
+        path: "signin",
+        element: (
+          <LazyComponent>
+            <Signin />
+          </LazyComponent>
+        ),
+      },
+      {
         path: "d/:id",
         element: (
           <LazyComponent>
@@ -193,15 +206,7 @@ export const router = [
           </LazyComponent>
         ),
       },
-      {
-        path: "signin",
-        element: (
-          <LazyComponent>
-            <Signin />
-          </LazyComponent>
-        ),
-        index: true,
-      },
+
       {
         path: "forgot-password",
         element: (
@@ -481,7 +486,7 @@ export const router = [
         path: "report",
         element: (
           <LazyComponent>
-            <ReportManagement/>
+            <ReportManagement />
           </LazyComponent>
         ),
       },
@@ -489,7 +494,7 @@ export const router = [
         path: "poster",
         element: (
           <LazyComponent>
-            <SliderAdmin/>
+            <SliderAdmin />
           </LazyComponent>
         ),
       },
@@ -497,11 +502,11 @@ export const router = [
         path: "tags",
         element: (
           <LazyComponent>
-            <TagsAdmin/>
+            <TagsAdmin />
           </LazyComponent>
         ),
       },
-    
+
     ],
   },
   {

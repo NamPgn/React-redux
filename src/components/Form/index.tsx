@@ -1,21 +1,22 @@
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import React, { memo } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
-  BtnStyled,
-  DivContainer,
-  FormBorder,
-  FormHeader,
-  FormIntro,
-  FormStyled,
-  FormTitle,
-  Formdescription,
-  GoogleLogin,
-  InputStyled,
-} from "./styles";
-import MVLink from "../Location/Link";
-import MVImage from "../MV/Image";
+  Form,
+  Input,
+  Button,
+  Typography,
+  Divider,
+  Card,
+  Row,
+  Col,
+  Space,
+  Avatar
+} from "antd";
 import { Link } from "react-router-dom";
+
+const { Title, Text, Paragraph } = Typography;
+
 const AuthForm = memo(
   ({
     onSubmit,
@@ -31,106 +32,223 @@ const AuthForm = memo(
     schemaPage,
   }: any) => {
     const {
-      register,
+      control,
       handleSubmit,
       formState: { errors },
-    }: any = useForm({
+    } = useForm({
       resolver: yupResolver(schemaPage),
     });
+
     return (
-      <div className="h-screen relative z-0">
-        <DivContainer
-          className="g-6 flex flex-wrap justify-center w-full items-center absolute top-1/2 left-1/2 translate-x-2/4 translate-y-2/4"
-          style={{ transform: "translate(-50%,-50%)" }}
+      <div className="min-h-screen flex">
+        <Row
+          gutter={0}
+          className="w-full max-w-full h-screen"
+          align="stretch"
         >
-          <div className="w-8/12 items-center text-white hidden lg:block md:hidden">
-            <FormHeader className="text-[50px] ">{formHeader}</FormHeader>
-            <div className="flex items-center">
-              <FormIntro className="w-2/12">{formIntro}</FormIntro>
-              <FormBorder className="w-10/12"></FormBorder>
-            </div>
-          </div>
-          <div
-            className="md:w-8/12 lg:w-4/12 w-full lg:p-5 md:p-4 p-3"
-            style={{
-              background: "rgba(248, 248, 248, 0.04)",
-              borderRadius: " 5px",
-            }}
-          >
-            <div>
-              <FormTitle>{formTitle}</FormTitle>
-              <Formdescription>{formDescription}</Formdescription>
-            </div>
-            <FormStyled onSubmit={handleSubmit(onSubmit)}>
-              {array &&
-                array.map((item: any, index: any) => (
-                  <div
-                    key={index}
-                    className="relative lg:mb-6 md:mb-4 mb-2"
-                    data-te-input-wrapper-init
-                  >
-                    <div>
-                      <InputStyled
-                        disabled={item.disable}
-                        style={{
-                          background: `${item.disable ? "#99979742" : ""}`,
-                        }}
-                        type={item.type}
-                        {...register(`${item.field}`)}
-                        placeholder={item.field}
-                        className="placeholder:capitalize"
-                      />
-                      {errors && errors[item.field] && (
-                        <div className="text-sm text-pink-600 mt-1">
-                          {errors[item.field].message}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              <div className="lg:mb-6 md:mb-5 mb-4">
-                <Link to={"/forgot-password"}>
-                  <div className="text-center text-white text-sm font-medium text-primary-600 hover:underline text-primary-500">
-                    Forgot password?{" "}
-                  </div>
-                </Link>
-              </div>
-              <BtnStyled
-                type="submit"
-                className="w-full text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600"
-              >
-                {submitButtonText}
-              </BtnStyled>
-              <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
-                <p className="mx-4 mb-0 text-center text-white text-[12px]">
-                  {" "}
-                  OR
-                </p>
-              </div>
-              <GoogleLogin
-                className="flex justify-center"
-                onClick={handleMessage}
-              >
-                <MVImage
+          {/* Left side - Background Image (hidden on mobile) */}
+          <Col xs={0} lg={14}>
+            <div
+              className="relative h-screen bg-cover bg-center bg-no-repeat"
+              style={{
+                backgroundImage: 'url(/img/e21f24d3-9989-4c8c-b8a4-d7d11caa8ec6a.jpg)'
+              }}
+            >
+              {/* Main blur to soft blue gradient overlay */}
+              <div
+                className="absolute inset-0 z-10"
+                style={{
+                  background: `linear-gradient(
+                  to right, transparent 0%, 
+                  transparent 30%, 
+                  rgb(240 248 255 / 0%) 50%,
+                   rgb(240 248 255 / 0%) 70%, 
+                   rgb(240 248 255 / 0%) 85%, 
+                   rgb(240 248 255 / 0%) 95%, rgb(240 248 255 / 31%) 100%)`
+                }}
+              />
+
+              {/* Progressive blur effect with soft blue */}
+              <div
+                className="absolute inset-0 z-10"
+                style={{
+                  background: `linear-gradient(
+                    to right, 
+                    transparent 0%, 
+                    transparent 40%,
+                    rgba(240, 248, 255, 0) 60%,
+                    rgba(240, 248, 255, 0.3) 80%,
+                    rgb(240, 248, 255) 100%
+                  )`,
+                  backdropFilter: 'blur(0px)',
+                  WebkitBackdropFilter: 'blur(0px)'
+                }}
+              />
+
+              {/* Content overlay */}
+              <div className="absolute bottom-16 left-16 z-20 text-white text-left">
+                <Title
+                  level={1}
+                  className="text-white text-5xl mb-4 font-bold"
                   style={{
-                    width: "30px",
-                    height: "30px",
+                    textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+                    color: 'white'
                   }}
-                  src="https://www.svgrepo.com/show/475656/google-color.svg"
-                  alt=""
-                />
-              </GoogleLogin>
-              <div className="lg:mb-6 md:mb-4 mb-2 text-center lg:mt-5 md:mt-3 mt-2 text-slate-400 ">
-                <MVLink
-                  to={redirect}
-                  className="text-sm text-primary-600 hover:underline text-primary-500"
                 >
-                  {checkedAccount}
-                </MVLink>
+                  {formHeader}
+                </Title>
+                <Text
+                  className="text-white text-lg font-medium"
+                  style={{
+                    textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
+                    color: 'rgba(255,255,255,0.9)'
+                  }}
+                >
+                  {formIntro}
+                </Text>
               </div>
-            </FormStyled>
-          </div>
-        </DivContainer>
+            </div>
+          </Col>
+
+          {/* Right side - Form */}
+          <Col xs={24} lg={10}>
+            <div className="h-screen flex items-center justify-center p-5 relative" style={{ backgroundColor: 'rgb(240, 248, 255)' }}>
+              {/* Seamless transition from blur to soft blue background */}
+              <div
+                className="absolute left-0 top-0 w-16 h-full z-0"
+                style={{
+                  background: 'linear-gradient(to right, rgba(240, 248, 255, 0.9), rgba(240, 248, 255, 1))'
+                }}
+              />
+
+              <Card
+                className="w-full max-w-md border-0 rounded-2xl shadow-2xl overflow-hidden relative z-10"
+                bodyStyle={{ padding: '40px', backgroundColor: 'white' }}
+              >
+                {/* Form Header */}
+                <div className="text-center mb-9">
+                  <Title
+                    level={2}
+                    className="text-gray-800 mb-2 text-3xl font-semibold"
+                  >
+                    {formTitle}
+                  </Title>
+                  <Text className="text-gray-600 text-base leading-relaxed">
+                    {formDescription}
+                  </Text>
+                </div>
+
+                {/* Form */}
+                <Form
+                  layout="vertical"
+                  onFinish={handleSubmit(onSubmit)}
+                >
+                  {array &&
+                    array.map((item, index) => (
+                      <Form.Item
+                        key={index}
+                        label={
+                          <Text className="text-gray-700 font-medium capitalize text-sm">
+                            {item.field}
+                          </Text>
+                        }
+                        validateStatus={errors[item.field] ? 'error' : ''}
+                        className="mb-5"
+                      >
+                        <Controller
+                          name={item.field}
+                          control={control}
+                          render={({ field }) => (
+                            <Input
+                            {...field}
+                            type={item.type}
+                            placeholder={`Enter ${item.field}`}
+                            disabled={item.disable}
+                            className={`
+                              h-12 px-4 text-sm border rounded-xl transition-all duration-300 ease-in-out
+                              shadow-sm hover:shadow-md focus:shadow-lg
+                              placeholder:text-gray-400 placeholder:font-normal
+                              ${item.disable
+                                ? 'bg-gray-50/50 text-gray-400 border-gray-200 cursor-not-allowed'
+                                : 'bg-white/80 backdrop-blur-sm text-gray-700 border-gray-200 hover:border-blue-300 focus:border-blue-500 focus:bg-white'
+                              }
+                              focus:ring-2 focus:ring-blue-100 focus:outline-none
+                            `}
+                            style={{
+                              borderColor: errors[item.field] 
+                                ? '#ef4444' 
+                                : item.disable 
+                                  ? '#e5e7eb' 
+                                  : '#e5e7eb',
+                              boxShadow: errors[item.field] 
+                                ? '0 0 0 3px rgba(239, 68, 68, 0.1)' 
+                                : undefined
+                            }}
+                          />
+                          )}
+                        />
+                      </Form.Item>
+                    ))}
+
+                  {/* Forgot Password Link */}
+                  <div className="text-right mb-6">
+                    <Link to="/forgot-password">
+                      <Text className="text-blue-500 text-sm font-medium hover:text-blue-700 transition-colors duration-200">
+                        Forgot password?
+                      </Text>
+                    </Link>
+                  </div>
+
+                  {/* Submit Button */}
+                  <Form.Item className="mb-6">
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      block
+                      className="h-11 text-base font-semibold rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 border-0 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300"
+                    >
+                      {submitButtonText}
+                    </Button>
+                  </Form.Item>
+
+                  {/* Divider */}
+                  <Divider className="my-8 border-gray-300">
+                    <Text className="text-gray-500 text-xs font-medium bg-white px-4">
+                      OR
+                    </Text>
+                  </Divider>
+
+                  {/* Google Login Button */}
+                  <Button
+                    block
+                    onClick={handleMessage}
+                    className="h-11 flex items-center justify-center mb-8 text-sm font-medium text-gray-700 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transform hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-md"
+                  >
+                    <Space>
+                      <Avatar
+                        size={20}
+                        src="https://www.svgrepo.com/show/475656/google-color.svg"
+                        className="mr-1"
+                      />
+                      <span>Continue with Google</span>
+                    </Space>
+                  </Button>
+
+                  {/* Bottom Link */}
+                  <div className="text-center">
+                    <Text className="text-gray-600 text-sm">
+                      <Link to={redirect}>
+                        <span className="text-blue-500 font-medium hover:text-blue-700 transition-colors duration-200">
+                          {checkedAccount}
+                        </span>
+                      </Link>
+                    </Text>
+                  </div>
+                </Form>
+              </Card>
+            </div>
+          </Col>
+        </Row>
       </div>
     );
   }

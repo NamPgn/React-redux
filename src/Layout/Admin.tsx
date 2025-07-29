@@ -1,23 +1,26 @@
 import React, { useContext, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Layout, Menu, Input, Image } from "antd";
 import "../index.css";
 import "./style/index.css";
 import { TableRouterAdminPage } from "../router";
 import { MyButton } from "../components/MV/Button";
-import { MenuFoldOutlined, MenuUnfoldOutlined, SearchOutlined } from "@ant-design/icons";
-import AuthHeader from "../components/Teamplates/Header/component/auth";
+import { LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined, SearchOutlined } from "@ant-design/icons";
 import { MyContext } from "../context";
 import MVRow from "../components/MV/Grid";
 import MVCol from "../components/MV/Grid/Col";
 import MVLink from "../components/Location/Link";
 import MyBreadcrumb from "../components/MV/Breadcrumb";
-import MVImage from "../components/MV/Image";
+import { handleLogout } from "../function";
+import { useAppDispatch } from "../hook";
+import { LogOutIcon } from "lucide-react";
 
 const { Content, Sider, Header, Footer } = Layout;
 const { Search } = Input;
 
 const LayoutAdmin = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const items2 = TableRouterAdminPage.map((items, index) => {
     const key = String(index + 1);
     return {
@@ -82,8 +85,8 @@ const LayoutAdmin = () => {
               enterButton={<SearchOutlined />}
               className="max-w-md"
             />
-            <MVCol className="text-center">
-              <AuthHeader isLoggedInState={isLoggedInState} style={undefined} />
+            <MVCol className="text-center" style={{ width: 64 }}>
+              <LogOutIcon size={20} onClick={() => handleLogout(dispatch, navigate)} className="cursor-pointer" />
             </MVCol>
           </MVRow>
         </Header>
