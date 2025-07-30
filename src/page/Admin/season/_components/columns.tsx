@@ -13,27 +13,6 @@ export const getColumns = (
 			key: 'name',
 		},
 		{
-			title: 'Mô tả',
-			dataIndex: 'description',
-			key: 'description',
-			ellipsis: true,
-		},
-		{
-			title: 'Số phần',
-			dataIndex: 'partNumber',
-			key: 'partNumber',
-		},
-		{
-			title: 'Năm phát hành',
-			dataIndex: 'releaseYear',
-			key: 'releaseYear',
-		},
-		{
-			title: 'Tổng số tập',
-			dataIndex: 'totalEpisodes',
-			key: 'totalEpisodes',
-		},
-		{
 			title: 'Hành động',
 			key: 'action',
 			render: (_: any, record: any) => (

@@ -13,7 +13,6 @@ const EditVoiceOver: React.FC = () => {
 		(state: RootState) => state.product.voiceOver
 	);
 
-	console.log(voiceOverLink, voiceOverLink2);
 
 	useEffect(() => {
 		if (slug) {

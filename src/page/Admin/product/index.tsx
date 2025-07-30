@@ -1,5 +1,5 @@
 import React, { memo, useContext, useEffect, useState } from "react";
-import { Spin, Dropdown, Select, Input } from "antd";
+import { Spin, Dropdown, Select, Input, message } from "antd";
 import {
   getProducts,
   deleteProduct,
@@ -32,6 +32,7 @@ import {
   MoreVertical,
   Star,
   Plus,
+  LinkIcon,
 } from "lucide-react";
 import MVConfirm from "../../../components/MV/Confirm";
 import MVLink from "../../../components/Location/Link";
@@ -58,7 +59,7 @@ const ProductAdmin = memo(() => {
   useEffect(() => {
     dispatch(getProducts({ page, categoryId: selectedCategory, seri: episodeSearch }));
   }, [page, selectedCategory, episodeSearch, init]);
-  
+
 
   const handleCategoryFilter = (value: string) => {
     setSelectedCategory(value);
@@ -289,14 +290,24 @@ const ProductAdmin = memo(() => {
             case 2:
               return [
                 {
-                  key: 'view',
+                  key: 'Copy Link',
                   label: (
-                    <MVLink to={"/d/" + record.slug}>
-                      <div className="flex items-center gap-2">
-                        <Eye size={16} />
-                        <span>View</span>
-                      </div>
-                    </MVLink>
+                    <button
+                      onClick={() => {
+                        const link = `https://hh3dtq.site/xem-phim/${record.slug}`;
+                        navigator.clipboard.writeText(link)
+                          .then(() => {
+                            message.success('Copy link successfully');
+                          })
+                          .catch((err) => {
+                            console.error("Copy failed:", err);
+                          });
+                      }}
+                      className="flex items-center gap-2"
+                    >
+                      <LinkIcon size={16} />
+                      <span>Copy Link</span>
+                    </button>
                   ),
                 },
                 {
@@ -310,7 +321,7 @@ const ProductAdmin = memo(() => {
                     </MVLink>
                   ),
                 },
-                
+
                 {
                   key: 'delete',
                   label: (

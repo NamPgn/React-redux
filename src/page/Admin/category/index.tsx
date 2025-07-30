@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { DatePicker, Image, Input, Modal, Tabs, Dropdown, Space } from "antd";
-import { debounce } from "lodash"
+import { debounce } from "lodash";
 import {
   addCateGorySlice,
   deleteCategorySlice,
@@ -24,15 +24,23 @@ import MVTags from "../../../components/MV/Tag";
 import { ApiContext } from "../../../context/api";
 import { ISMOVIE, RELEASES } from "../../../constant/categoyy";
 import dayjs from "dayjs";
-import RecycleBin from './component/RecycleBin';
-import { EditOutlined, DeleteOutlined, PushpinOutlined, MoreOutlined, PlayCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import RecycleBin from "./component/RecycleBin";
+import {
+  EditOutlined,
+  DeleteOutlined,
+  PushpinOutlined,
+  MoreOutlined,
+  PlayCircleOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
+import { useTags } from "../../../hook/useTags";
 
 const CategoryAdmin = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [page, setPage]: any = useState(1);
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchValue, setSearchValue] = useState("")
+  const [searchValue, setSearchValue] = useState("");
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -45,7 +53,16 @@ const CategoryAdmin = () => {
   const { seri, weeks } = useContext(ApiContext);
   const { handleSubmit, control } = useForm();
   const [valueId, setValue] = useState();
-
+  const {
+    data: tags = [],
+    isLoading: tagsLoading,
+    error: tagsError,
+    refetch: refetchTags,
+  }: any = useTags();
+  const tagsOptions = tags?.data?.map((tag: any) => ({
+    label: tag.name,
+    value: tag._id,
+  }));
   useEffect(() => {
     dispatch(getAllcate({ page, search: searchTerm }));
   }, [page, searchTerm]);
@@ -100,7 +117,11 @@ const CategoryAdmin = () => {
     formdata.append("upcomingReleases", data.upcomingReleases);
     formdata.append("isMovie", data.isMovie);
     formdata.append("newMovie", data.newMovie);
-    // console.log()
+    if (data.tags) {
+      data.tags.forEach((tag: any) => {
+        formdata.append("tags[]", tag);
+      });
+    }
     const res = await dispatch(addCateGorySlice(formdata));
     if (res.payload.success == true) {
       toast.success("Thành công");
@@ -134,9 +155,6 @@ const CategoryAdmin = () => {
     setPage(page);
   };
 
-  const onChangeDate = (date, dateString) => {
-    console.log(date, dateString);
-  };
   // const handleChange = () => {
   //   const daysOfWeek = [
   //     "Chủ Nhật",
@@ -170,7 +188,7 @@ const CategoryAdmin = () => {
     category.data.map((item: any, index: number) => {
       const actionItems = [
         {
-          key: 'edit',
+          key: "edit",
           label: (
             <MVLink to={`/dashboard/category/edit/${item.slug}`}>
               <Space>
@@ -181,7 +199,7 @@ const CategoryAdmin = () => {
           ),
         },
         {
-          key: 'delete',
+          key: "delete",
           label: (
             <Space onClick={() => handleDelete(item._id)}>
               <DeleteOutlined />
@@ -191,7 +209,7 @@ const CategoryAdmin = () => {
           danger: true,
         },
         {
-          key: 'push',
+          key: "push",
           label: (
             <Space onClick={() => hanedlePushCategoryToType(item._id)}>
               <PushpinOutlined />
@@ -200,7 +218,7 @@ const CategoryAdmin = () => {
           ),
         },
         {
-          key: 'combining-episodes',
+          key: "combining-episodes",
           label: (
             <MVLink to={`/dashboard/category/combining-episodes/${item._id}`}>
               <Space>
@@ -237,11 +255,11 @@ const CategoryAdmin = () => {
         action: (
           <Dropdown
             menu={{ items: actionItems }}
-            trigger={['click']}
+            trigger={["click"]}
             placement="bottomRight"
           >
             <MyButton type="text">
-              <MoreOutlined style={{ fontSize: '20px' }} />
+              <MoreOutlined style={{ fontSize: "20px" }} />
             </MyButton>
           </Dropdown>
         ),
@@ -309,12 +327,7 @@ const CategoryAdmin = () => {
                         rules={undefined}
                       />
                     </div>
-                    <MVInput
-                      name={"type"}
-                      label={"Type"}
-                      control={control}
-                      rules={undefined}
-                    />
+
                     <MVInput
                       name={"episode_many_title"}
                       label={"Episode Many Title"}
@@ -371,12 +384,18 @@ const CategoryAdmin = () => {
                         render={({ field }) => (
                           <DatePicker
                             {...field}
-                            value={field.value ? dayjs(field.value, "YYYY-MM-DD") : null}
+                            value={
+                              field.value
+                                ? dayjs(field.value, "YYYY-MM-DD")
+                                : null
+                            }
                             className="w-full h-10"
                             placeholder="Select release date"
                             onChange={(date, dateString) => {
                               if (date) {
-                                field.onChange(dayjs(date).format("YYYY-MM-DD"));
+                                field.onChange(
+                                  dayjs(date).format("YYYY-MM-DD")
+                                );
                               } else {
                                 field.onChange(null);
                               }
@@ -466,6 +485,17 @@ const CategoryAdmin = () => {
                         ]}
                       />
                     </div>
+                    <div className="sm:w-[160px]">
+                      <MySelectWrapper
+                        name={"tags"}
+                        label={"Tags"}
+                        placeholder={"Select Tags"}
+                        control={control}
+                        rules={undefined}
+                        options={tagsOptions}
+                        mode="multiple"
+                      />
+                    </div>
                   </div>
                 </div>
 
@@ -474,7 +504,11 @@ const CategoryAdmin = () => {
                   <h3 className="text-md font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2">
                     📁 File Upload
                   </h3>
-                  <MVUpload name={"file"} label={"Upload Image"} control={control} />
+                  <MVUpload
+                    name={"file"}
+                    label={"Upload Image"}
+                    control={control}
+                  />
                 </div>
                 <div className="flex justify-end pt-4 border-t border-gray-200">
                   <MyButton

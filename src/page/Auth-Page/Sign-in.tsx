@@ -44,8 +44,6 @@ const Signin = () => {
     <AuthForm
       onSubmit={onsubmit}
       formTitle={"Login"}
-      formHeader={"Welcome Back .!"}
-      formIntro={"Skip the lag ?"}
       submitButtonText={"Login"}
       formDescription={"Glad you’re back.!"}
       checkedAccount={"Don’t have an account ? Signup"}

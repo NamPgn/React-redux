@@ -19,16 +19,26 @@ import { ISMOVIE, RELEASES } from "../../../../constant/categoyy";
 import { DatePicker, TreeSelect } from "antd";
 import { useSWRWithAxios } from "../../../../hook/Swr";
 import { urlSwr } from "../../../../function";
+import { useTags } from "../../../../hook/useTags";
 const { SHOW_PARENT } = TreeSelect;
 declare var Promise: any;
 const EditCategory = () => {
-
   const dispatch = useAppDispatch();
   const [selectCategory, setSelectCategory] = useState([]);
   const { weeks } = useContext(ApiContext);
   const [state, setState]: any = useState({});
   const { reset, handleSubmit, control } = useForm();
   const { id } = useParams();
+  const {
+    data: tags = [],
+    isLoading: tagsLoading,
+    error: tagsError,
+    refetch: refetchTags,
+  }: any = useTags();
+  const tagsOptions = tags?.data?.map((tag: any) => ({
+    label: tag.name,
+    value: tag._id,
+  }));
   useEffect(() => {
     dispatch(getCateSlice(id));
     const data = async (): Promise<any> => {
@@ -36,6 +46,7 @@ const EditCategory = () => {
       reset({
         ...data,
         week: data.week._id,
+        tags: data.tags?.map((tag: any) => tag._id)
       });
       setState(data);
     };
@@ -55,11 +66,13 @@ const EditCategory = () => {
     label: item.name,
     value: item.val,
   }));
-  const treeDataCateogys = categorySelect && categorySelect?.map((item: any) => ({
-    title: item.name,
-    value: item._id,
-    key: item._id,
-  }));
+  const treeDataCateogys =
+    categorySelect &&
+    categorySelect?.map((item: any) => ({
+      title: item.name,
+      value: item._id,
+      key: item._id,
+    }));
   const isMovieOptions = ISMOVIE?.map((item: any) => ({
     label: item.name,
     value: item.val,
@@ -103,7 +116,12 @@ const EditCategory = () => {
     formdata.append("isMovie", data.isMovie);
     formdata.append("thuyetMinh", data.thuyetMinh);
     formdata.append("newMovie", data.newMovie);
-
+    if (data.tags) {
+      data.tags.forEach((tag: any) => {
+        formdata.append("tags[]", tag);
+      });
+    }
+    console.log(data.tags);
     const res = await dispatch(updateCatgorySlice(formdata));
     if (res.payload) {
       toast.success("Edit successfully");
@@ -111,11 +129,12 @@ const EditCategory = () => {
       toast.error("Edit failure");
     }
   };
-  const onChangeDate = (date, dateString) => {
-    console.log(date, dateString);
-  };
+
   return (
-    <form onSubmit={handleSubmit(onsubmit)} className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+    <form
+      onSubmit={handleSubmit(onsubmit)}
+      className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-lg"
+    >
       {/* Basic Information Section */}
       <div className="mb-8">
         <h3 className="text-lg font-semibold text-gray-800  mb-4 border-b border-gray-200  pb-2">
@@ -234,11 +253,7 @@ const EditCategory = () => {
               control={control}
               rules={undefined}
             />
-            <MVUpload
-              name={"file"}
-              label={"Upload Image"}
-              control={control}
-            />
+            <MVUpload name={"file"} label={"Upload Image"} control={control} />
           </div>
         </div>
       </div>
@@ -259,7 +274,7 @@ const EditCategory = () => {
             options={[
               { label: "Vietsub", value: "Vietsub" },
               { label: "Thuyết Minh", value: "ThuyetMinh" },
-              { label: "Thuyết Minh + Vietsub", value: "ThuyetMinh-Vietsub" }
+              { label: "Thuyết Minh + Vietsub", value: "ThuyetMinh-Vietsub" },
             ]}
           />
 
@@ -273,7 +288,7 @@ const EditCategory = () => {
             options={[
               { label: "HD", value: "HD" },
               { label: "FHD", value: "FHD" },
-              { label: "4K", value: "4K" }
+              { label: "4K", value: "4K" },
             ]}
           />
 
@@ -285,7 +300,7 @@ const EditCategory = () => {
             defaultValue={undefined}
             options={[
               { label: "Có", value: true },
-              { label: "Không", value: false }
+              { label: "Không", value: false },
             ]}
           />
 
@@ -350,8 +365,18 @@ const EditCategory = () => {
             defaultValue={undefined}
             options={[
               { label: "Có", value: true },
-              { label: "Không", value: false }
+              { label: "Không", value: false },
             ]}
+          />
+
+          <MySelectWrapper
+            name={"tags"}
+            label={"Tags"}
+            placeholder={"Select Tags"}
+            control={control}
+            rules={undefined}
+            options={tagsOptions}
+            mode="multiple"
           />
         </div>
       </div>
@@ -363,11 +388,9 @@ const EditCategory = () => {
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <label className="block text-sm font-medium">
-              Select Date
-            </label>
+            <label className="block text-sm font-medium">Select Date</label>
             <div className="p-3 border border-gray-300  rounded-md bg-white ">
-              <DatePicker onChange={onChangeDate} />
+              <DatePicker />
             </div>
           </div>
 
