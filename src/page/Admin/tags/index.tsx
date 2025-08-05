@@ -50,7 +50,7 @@ export default function TagsAdmin() {
                 tag.slug.toLowerCase().includes(searchText.toLowerCase())
 
             const matchesCategory =
-                selectedCategories.length === 0 || tag.categories.some((cat) => selectedCategories.includes(cat._id))
+                selectedCategories?.length === 0 || tag.categories.some((cat) => selectedCategories.includes(cat._id))
 
             return matchesSearch && matchesCategory
         })
@@ -250,7 +250,7 @@ export default function TagsAdmin() {
                     <Row gutter={16} className="mb-6">
                         <Col span={8}>
                             <Card size="small" className="text-center bg-blue-50 border-blue-200">
-                                <div className="text-2xl font-bold text-blue-600">{tags.data.length}</div>
+                                <div className="text-2xl font-bold text-blue-600">{tags?.data?.length}</div>
                                 <div className="text-gray-600">Tổng số tags</div>
                             </Card>
                         </Col>
@@ -262,7 +262,7 @@ export default function TagsAdmin() {
                         </Col>
                         <Col span={8}>
                             <Card size="small" className="text-center bg-purple-50 border-purple-200">
-                                <div className="text-2xl font-bold text-purple-600">{categories.length}</div>
+                                <div className="text-2xl font-bold text-purple-600">{categories?.length}</div>
                                 <div className="text-gray-600">Categories</div>
                             </Card>
                         </Col>
