@@ -127,9 +127,9 @@ export default function TagsAdmin() {
             key: "categories",
             render: (categories: TagResponse["categories"]) => (
                 <div className="flex flex-wrap gap-1">
-                    {categories.map((category) => (
+                    {categories.map((category:any) => (
                         <Tag key={category._id} color="blue" className="mb-1">
-                            {category.name}
+                            {category.slug}
                         </Tag>
                     ))}
                 </div>
@@ -250,7 +250,7 @@ export default function TagsAdmin() {
                     <Row gutter={16} className="mb-6">
                         <Col span={8}>
                             <Card size="small" className="text-center bg-blue-50 border-blue-200">
-                                <div className="text-2xl font-bold text-blue-600">{tags.length}</div>
+                                <div className="text-2xl font-bold text-blue-600">{tags.data.length}</div>
                                 <div className="text-gray-600">Tổng số tags</div>
                             </Card>
                         </Col>
