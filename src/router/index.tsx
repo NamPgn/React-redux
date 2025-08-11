@@ -39,7 +39,8 @@ import TypeCategory from "../page/Admin/category/type";
 import Banners from "../page/Admin/banner";
 import SeriesSeason from "../page/Admin/season";
 import ReportManagement from "../page/Admin/report";
-import SliderAdmin from "../page/Admin/poster";
+import SliderAdmin from "../page/Admin/sliders";
+import PostersAdmin from "../page/Admin/posters";
 import TagsAdmin from "../page/Admin/tags";
 import AddMultipleEpisodesForm from "../page/Admin/product/component/addMultipleEpisode";
 import AddMultipleEpisodes from "../page/Admin/product/component/addMultipleEpisode";
@@ -491,10 +492,18 @@ export const router = [
         ),
       },
       {
-        path: "poster",
+        path: "sliders",
         element: (
           <LazyComponent>
             <SliderAdmin />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: "posters",
+        element: (
+          <LazyComponent>
+            <PostersAdmin />
           </LazyComponent>
         ),
       },
@@ -624,9 +633,14 @@ export const TableRouterAdminPage = [
     name: "Report",
   },
   {
-    path: "/dashboard/poster",
+    path: "/dashboard/sliders",
     icon: <PictureOutlined />,
-    name: "Poster",
+    name: "Sliders",
+  },
+  {
+    path: "/dashboard/posters",
+    icon: <FileImageOutlined />,
+    name: "Posters",
   },
   {
     path: "/dashboard/tags",

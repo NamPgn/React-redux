@@ -1,0 +1,69 @@
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { message } from 'antd'
+import { posterService, PosterListResponse, PosterItem } from '../services/poster.service'
+
+export const usePosters = (params?: { page?: number; limit?: number; category?: string; isActive?: boolean }) => {
+  const queryClient = useQueryClient()
+
+  const { data, isLoading } = useQuery<PosterListResponse>({
+    queryKey: ['posters', params],
+    queryFn: () => posterService.getAll(params),
+    staleTime: 5 * 60 * 1000,
+  })
+
+  const useGetPoster = (id: string) => {
+    return useQuery<{ data: PosterItem }>({
+      queryKey: ['poster', id],
+      queryFn: () => posterService.getById(id),
+      enabled: !!id,
+    })
+  }
+
+  const createMutation = useMutation({
+    mutationFn: (data: FormData) => posterService.create(data),
+    onSuccess: () => {
+      message.success('Poster created successfully')
+      queryClient.invalidateQueries({ queryKey: ['posters'] })
+    },
+    onError: (error: any) => {
+      message.error(error.response?.data?.message || 'Failed to create poster')
+    },
+  })
+
+  const updateMutation = useMutation({
+    mutationFn: ({ id, data }: { id: string; data: FormData }) => posterService.update(id, data),
+    onSuccess: () => {
+      message.success('Poster updated successfully')
+      queryClient.invalidateQueries({ queryKey: ['posters'] })
+    },
+    onError: (error: any) => {
+      message.error(error.response?.data?.message || 'Failed to update poster')
+    },
+  })
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: string) => posterService.delete(id),
+    onSuccess: () => {
+      message.success('Poster deleted successfully')
+      queryClient.invalidateQueries({ queryKey: ['posters'] })
+    },
+    onError: (error: any) => {
+      message.error(error.response?.data?.message || 'Failed to delete poster')
+    },
+  })
+
+  return {
+    posters: data?.data || [],
+    pagination: data?.pagination,
+    isLoading,
+    useGetPoster,
+    createPoster: createMutation.mutate,
+    updatePoster: updateMutation.mutate,
+    deletePoster: deleteMutation.mutate,
+    isCreating: createMutation.isPending,
+    isUpdating: updateMutation.isPending,
+    isDeleting: deleteMutation.isPending,
+  }
+}
+
+
