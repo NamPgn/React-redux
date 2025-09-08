@@ -4,7 +4,7 @@ import { Upload, Button, message, Card, Image, Space, Typography, Divider } from
 import { InboxOutlined, EditOutlined, EyeOutlined, DeleteOutlined } from "@ant-design/icons";
 import type { UploadProps, UploadFile } from "antd";
 import { updateProductThumbnailService } from "../../../../sevices/product";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 const { Dragger } = Upload;
 const { Text, Title } = Typography;
@@ -22,6 +22,10 @@ const EditThumbnail: React.FC<EditThumbnailProps> = ({
 	const [fileList, setFileList] = React.useState<UploadFile[]>([]);
 	const [previewImage, setPreviewImage] = React.useState<string>("");
 	const [showUploader, setShowUploader] = React.useState<boolean>(!currentThumbnail);
+  const location = useLocation();
+
+  // state truyền từ Link
+  const { thumbnail } = location.state || {};
 
 	const { mutate, isLoading }: any = useMutation({
 		mutationFn: async () => {
@@ -106,6 +110,12 @@ const EditThumbnail: React.FC<EditThumbnailProps> = ({
 
 	return (
 		<div className="max-w-2xl mx-auto p-6">
+			 <h1>Thêm Thumbnail cho {thumbnail?.name}</h1>
+      {thumbnail?.thumbnail ? (
+        <img src={thumbnail.thumbnail} alt={thumbnail.name} className="w-32 h-32 object-cover rounded-md" />
+      ) : (
+        <p>Chưa có thumbnail</p>
+      )}
 			<Card
 				title={
 					<div className="flex items-center gap-2 text-lg font-semibold">
