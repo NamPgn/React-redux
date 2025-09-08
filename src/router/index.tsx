@@ -49,6 +49,8 @@ import EditCombiningEpisodes from "../page/Admin/combining-episodes/components/e
 import CombiningEpisodesList from "../page/Admin/combining-episodes";
 import EditVoiceOver from "../page/Admin/product/component/edit-voice-over";
 import { Navigate } from "react-router-dom";
+import AddThumnail from "../page/Admin/product/component/addThumnail";
+import EditThumnail from "../page/Admin/product/component/editThumnail";
 const ProductAdmin = lazy(() => import("../page/Admin/product"));
 const ListType = lazy(() => import("../page/Type/Theloai"));
 const OllMovie = lazy(() => import("../page/Type/SidebarData"));
@@ -312,6 +314,22 @@ export const router = [
         element: (
           <LazyComponent>
             <EditVoiceOver />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: "product/:productId/thumbnail/add",
+        element: (
+          <LazyComponent>
+            <AddThumnail />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: "product/:productId/thumbnail/edit",
+        element: (
+          <LazyComponent>
+            <EditThumnail />
           </LazyComponent>
         ),
       },

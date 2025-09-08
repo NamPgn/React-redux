@@ -33,6 +33,8 @@ import {
   Star,
   Plus,
   LinkIcon,
+  CirclePlus,
+  Pencil,
 } from "lucide-react";
 import MVConfirm from "../../../components/MV/Confirm";
 import MVLink from "../../../components/Location/Link";
@@ -358,6 +360,28 @@ const ProductAdmin = memo(() => {
                     </MVLink>
                   ),
                 },
+                {
+                  key: 'Add Thumnail Episode',
+                  label: (
+                    <MVLink to={`/dashboard/product/${record._id}/thumbnail/add`}>
+                      <div className="flex items-center gap-2">
+                        <CirclePlus size={16} />
+                        <span>Add Thumnail Episode</span>
+                      </div>
+                    </MVLink>
+                  ),
+                },
+                {
+                  key: 'Edit Thumnail Episode',
+                  label: (
+                    <MVLink to={`/dashboard/product/${record._id}/thumbnail/edit`}>
+                      <div className="flex items-center gap-2">
+                        <Pencil size={16} />
+                        <span>Edit Thumnail Episode</span>
+                      </div>
+                    </MVLink>
+                  ),
+                },
                 ...(record?.isApproved
                   ? [
                     {
@@ -424,6 +448,7 @@ const ProductAdmin = memo(() => {
     products?.data &&
     products?.data.map((value: any) => {
       return {
+        _id: value._id,
         key: value._id,
         name: (
           <div className="flex flex-col">

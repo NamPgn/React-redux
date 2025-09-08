@@ -191,3 +191,37 @@ export const editVoiceOverBySlug = async (slug: string, voiceOverLink: string, v
 export const getVoiceOverBySlug = async (slug: string) => {
   return await intances.get(`/product/getVoiceOver/${slug}`);
 };
+
+export const uploadProductThumbnailService = async (
+  productId: string,
+  file: File
+) => {
+  const form = new FormData();
+  form.append("file", file);
+  return await intances.post(
+    `/product/${productId}/thumbnail/${dataToken.user._id}`,
+    form,
+    {
+      headers: {
+        Authorization: `Bearer ${dataToken.token}`,
+      },
+    }
+  );
+};
+
+export const updateProductThumbnailService = async (
+  productId: string,
+  file: File
+) => {
+  const form = new FormData();
+  form.append("file", file);
+  return await intances.put(
+    `/product/${productId}/thumbnail/${dataToken.user._id}`,
+    form,
+    {
+      headers: {
+        Authorization: `Bearer ${dataToken.token}`,
+      },
+    }
+  );
+};
