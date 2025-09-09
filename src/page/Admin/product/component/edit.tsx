@@ -44,7 +44,7 @@ const EditProduct = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getAllcate(0));
+    dispatch(getAllcate({ page: 0 }));
   }, []);
 
   const onsubmit = async (value: any) => {

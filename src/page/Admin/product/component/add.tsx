@@ -21,7 +21,7 @@ const ProductAdd = () => {
   const { handleSubmit, control } = useForm();
 
   useEffect(() => {
-    dispatch(getAllcate(0));
+    dispatch(getAllcate({ page: 0 }));
   }, []);
 
   const categoryOptions = data?.map((item) => ({

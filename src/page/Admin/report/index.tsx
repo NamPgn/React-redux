@@ -124,33 +124,6 @@ const ReportManagement: React.FC = () => {
     }
   };
 
-  // const fetchStats = async () => {
-  //   try {
-  //     setStatsLoading(true);
-  //     const response = await reportApi.getReportStats();
-  //     setStatsData(response.data);
-  //   } catch (error) {
-  //     toast.error('Không thể tải thống kê báo cáo');
-  //   } finally {
-  //     setStatsLoading(false);
-  //   }
-  // };
-
-  // const handleUpdateStatus = async (id: string, status: 'resolved' | 'rejected') => {
-  //   try {
-  //     const values = await form.validateFields();
-  //     await reportApi.updateReportStatus(id, {
-  //       status,
-  //       adminNote: values.adminNote
-  //     });
-  //     toast.success(`Đã ${status === 'resolved' ? 'chấp nhận' : 'từ chối'} báo cáo`);
-  //     setIsModalVisible(false);
-  //     fetchReports();
-  //     fetchStats();
-  //   } catch (error) {
-  //     toast.error('Không thể cập nhật trạng thái báo cáo');
-  //   }
-  // };
 
   const handleDelete = async (id: string) => {
     try {
@@ -178,12 +151,12 @@ const ReportManagement: React.FC = () => {
       render: (text, record) => (
         <Space>
           <img
-            src={record.product.thumbnail}
+            src={record?.product?.thumbnail}
             alt={text}
             style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: 4 }}
           />
           <div>
-            <a href={`/movies/${record.product.slug}`} target="_blank" rel="noopener noreferrer">
+            <a href={`/movies/${record?.product?.slug}`} target="_blank" rel="noopener noreferrer">
               {text}
             </a>
             <br />

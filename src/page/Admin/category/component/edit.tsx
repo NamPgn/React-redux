@@ -31,9 +31,6 @@ const EditCategory = () => {
   const { id } = useParams();
   const {
     data: tags = [],
-    isLoading: tagsLoading,
-    error: tagsError,
-    refetch: refetchTags,
   }: any = useTags();
   const tagsOptions = tags?.data?.map((tag: any) => ({
     label: tag.name,
@@ -45,7 +42,7 @@ const EditCategory = () => {
       const { data }: any = await getCategory(id);
       reset({
         ...data,
-        week: data.week._id,
+        week: data.week?.map((week: any) => week._id),
         tags: data.tags?.map((tag: any) => tag._id)
       });
       setState(data);
@@ -98,7 +95,6 @@ const EditCategory = () => {
     formdata.append("name", data.name);
     formdata.append("slug", data.slug);
     formdata.append("des", data.des);
-    formdata.append("week", data.week);
     formdata.append("type", data.type);
     formdata.append("file", data.file);
     formdata.append("up", data.up);
@@ -121,7 +117,11 @@ const EditCategory = () => {
         formdata.append("tags[]", tag);
       });
     }
-    console.log(data.tags);
+    if (data.week) {
+      data.week.forEach((week: any) => {
+        formdata.append("week[]", week);
+      });
+    }
     const res = await dispatch(updateCatgorySlice(formdata));
     if (res.payload) {
       toast.success("Edit successfully");
@@ -346,6 +346,7 @@ const EditCategory = () => {
             placeholder={"Select Week"}
             defaultValue={undefined}
             options={weeekOptions}
+            mode="multiple"
           />
 
           <MySelectWrapper

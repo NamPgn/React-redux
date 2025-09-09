@@ -34,6 +34,7 @@ import {
   PlusOutlined,
 } from "@ant-design/icons";
 import { useTags } from "../../../hook/useTags";
+import { CheckCircle } from "lucide-react";
 
 const CategoryAdmin = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -55,9 +56,6 @@ const CategoryAdmin = () => {
   const [valueId, setValue] = useState();
   const {
     data: tags = [],
-    isLoading: tagsLoading,
-    error: tagsError,
-    refetch: refetchTags,
   }: any = useTags();
   const tagsOptions = tags?.data?.map((tag: any) => ({
     label: tag.name,
@@ -100,7 +98,6 @@ const CategoryAdmin = () => {
     formdata.append("name", data.name);
     formdata.append("slug", data.slug);
     formdata.append("des", data.des);
-    formdata.append("week", data.week);
     formdata.append("type", data.type);
     formdata.append("file", data.file);
     formdata.append("up", data.up);
@@ -120,6 +117,11 @@ const CategoryAdmin = () => {
     if (data.tags) {
       data.tags.forEach((tag: any) => {
         formdata.append("tags[]", tag);
+      });
+    }
+    if (data.week) {
+      data.week.forEach((week: any) => {
+        formdata.append("week[]", week);
       });
     }
     const res = await dispatch(addCateGorySlice(formdata));
@@ -155,24 +157,6 @@ const CategoryAdmin = () => {
     setPage(page);
   };
 
-  // const handleChange = () => {
-  //   const daysOfWeek = [
-  //     "Chủ Nhật",
-  //     "Thứ 2",
-  //     "Thứ 3",
-  //     "Thứ 4",
-  //     "Thứ 5",
-  //     "Thứ 6",
-  //     "Thứ 7",
-  //   ];
-
-  //   const now = new Date();
-
-  //   const dayIndex = now.getDay();
-
-  //   const day = daysOfWeek[dayIndex];
-  //   const getDayDb = weeks && weeks.find((i: any) => i.name == day);
-  // };
   const weeekOptions =
     weeks &&
     weeks?.map((item: any, index: number) => ({
@@ -185,7 +169,7 @@ const CategoryAdmin = () => {
   }));
   const data =
     category.data &&
-    category.data.map((item: any, index: number) => {
+    category.data.map((item: any) => {
       const actionItems = [
         {
           key: "edit",
@@ -251,7 +235,7 @@ const CategoryAdmin = () => {
           ),
         year: item.year,
         set: item.up,
-        week: weeks && weeks.map((i: any) => i._id == item.week && i.name),
+        week: item.week?.length > 0 ? item.week.map(w => w.name).join(" | ") : <span className="flex items-center gap-1"><CheckCircle size={16} /> <span className="text-green-500">Hoàn Thành</span></span>,
         action: (
           <Dropdown
             menu={{ items: actionItems }}
@@ -441,6 +425,7 @@ const CategoryAdmin = () => {
                         placeholder={"Select Week"}
                         defaultValue={undefined}
                         options={weeekOptions}
+                        mode="multiple"
                       />
                     </div>
 

@@ -26,7 +26,6 @@ const PostersAdmin: React.FC = () => {
       setCategoryOptions(categories.map((c: any) => ({ _id: c._id, name: c.name })))
     })()
   }, [])
-
   const filteredData = useMemo(() => {
     if (!searchText) return posters
     const st = searchText.toLowerCase()
@@ -36,7 +35,7 @@ const PostersAdmin: React.FC = () => {
   const handleAdd = () => {
     setEditingId(null)
     form.resetFields()
-    form.setFieldsValue({ aspect: '16:9', isActive: true })
+    form.setFieldsValue({ aspect: '16:9', isActive: true, coverPoster: 'poster' })
     setFileList([])
     setModalVisible(true)
   }
@@ -49,6 +48,7 @@ const PostersAdmin: React.FC = () => {
       category: typeof record.category === 'string' ? record.category : record.category?._id,
       isActive: record.isActive,
       aspect: record.aspect || '16:9',
+      coverPoster: record.coverPoster || 'poster',
     })
     if (record.imageUrl) {
       setFileList([{
@@ -113,6 +113,14 @@ const PostersAdmin: React.FC = () => {
       render: (val: boolean) => <Tag color={val ? 'green' : 'red'}>{val ? 'Active' : 'Inactive'}</Tag>,
     },
     {
+      title: 'Cover',
+      dataIndex: 'coverPoster',
+      key: 'coverPoster',
+      render: (val: string) => (
+        val === 'cover' ? <Tag color="blue">Cover</Tag> : <Tag>Poster</Tag>
+      ),
+    },
+    {
       title: 'Actions',
       key: 'actions',
       render: (_: any, record: any) => (
@@ -173,6 +181,13 @@ const PostersAdmin: React.FC = () => {
             <Select>
               <Option value={true}>Active</Option>
               <Option value={false}>Inactive</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item name="coverPoster" label="Use as cover" initialValue={'poster'}>
+            <Select>
+              <Option value="cover">Cover</Option>
+              <Option value="poster">Poster</Option>
             </Select>
           </Form.Item>
 

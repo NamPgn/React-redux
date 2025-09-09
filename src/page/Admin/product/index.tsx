@@ -531,31 +531,30 @@ const ProductAdmin = memo(() => {
             <span className="text-red-700 font-medium text-sm">No</span>
           </div>
         ),
-        thumbnail: value.thumnail ? (
+        thumbnail: value.thumnail  ? (
           <div className="flex items-center gap-2.5 py-1.5">
             {/* Thumbnail container with advanced styling */}
             <div className="relative group flex-shrink-0">
-
+              {/* Glow effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-green-600/20 
                               rounded-xl blur-sm group-hover:blur-md transition-all duration-300 opacity-0 
                               group-hover:opacity-100 transform scale-95 group-hover:scale-100"></div>
-
-
-
+        
+              {/* Main thumbnail image */}
               <img
-                src={value.thumnail}
+                src={value.thumnail }
                 alt={`${value.name} thumbnail`}
                 className="relative w-11 h-11 object-cover rounded-xl border border-emerald-200/80 
                            shadow-sm transition-all duration-300 ease-out
                            group-hover:scale-105 group-hover:shadow-md group-hover:border-emerald-300
                            group-hover:-translate-y-0.5 cursor-pointer backdrop-blur-sm"
                 loading="lazy"
-                onError={(e: any) => {
+                onError={(e) => {
                   e.currentTarget.style.display = 'none';
-                  e.currentTarget.nextElementSibling.style.display = 'flex';
+                  (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'flex';
                 }}
               />
-
+        
               {/* Fallback placeholder (hidden by default) */}
               <div className="hidden w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-50 to-green-100 
                               border border-emerald-200 items-center justify-center">
@@ -563,19 +562,42 @@ const ProductAdmin = memo(() => {
                   <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
                 </svg>
               </div>
-
+        
               {/* Hover tooltip indicator */}
               <div className="absolute -inset-0.5 rounded-xl opacity-0 group-hover:opacity-100 
                               bg-gradient-to-r from-emerald-600 to-green-600 transition-opacity 
                               duration-300 -z-10 blur-sm"></div>
             </div>
-
-            {/* Compact status info */}
+        
+            {/* Edit button */}
+            <div className="relative group flex-shrink-0">
+              <Link to={`/dashboard/product/${value._id}/thumbnail/edit`} 
+                    state={{
+                      thumbnail: {
+                        thumbnail: value.thumnail ,
+                        name: value.name
+                      }
+                    }}>
+                <div className="w-8 h-8 rounded-lg border border-gray-300/60 
+                                bg-white hover:bg-gray-50
+                                flex items-center justify-center
+                                group-hover:border-blue-400/80 hover:shadow-sm
+                                transition-all duration-200 cursor-pointer">
+                  <svg className="w-3.5 h-3.5 text-gray-600 group-hover:text-blue-600 transition-colors"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                </div>
+              </Link>
+            </div>
+        
+            {/* Status info */}
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1.5">
                 <span className="inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 
                                  rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200/60
-                                 shadow-sm hover:bg-emerald-100 transition-colors duration-200">
+                                 shadow-sm">
                   <svg className="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
@@ -590,20 +612,21 @@ const ProductAdmin = memo(() => {
             <div className="relative flex-shrink-0">
               <span className="inline-flex h-2.5 w-2.5 rounded-full bg-orange-400 shadow-sm"></span>
             </div>
-
-            {/* Empty state placeholder */}
+        
+            {/* Add thumbnail button */}
             <div className="relative group flex-shrink-0">
-              <Link to={`/dashboard/product/${value._id}/thumbnail/add`} state={{
-                thumbnail: {
-                  thumbnail: value.thumnail,
-                  name: value.name
-                }
-              }}>
+              <Link to={`/dashboard/product/${value._id}/thumbnail/add`} 
+                    state={{
+                      thumbnail: {
+                        thumbnail: value.thumnail ,
+                        name: value.name
+                      }
+                    }}>
                 <div className="w-11 h-11 rounded-xl border-2 border-dashed border-orange-300/60 
-                              bg-gradient-to-br from-orange-50/50 to-red-50/50 
-                              flex items-center justify-center
-                              group-hover:border-orange-400/80 group-hover:bg-orange-50/80
-                              transition-all duration-200 cursor-pointer">
+                                bg-gradient-to-br from-orange-50/50 to-red-50/50 
+                                flex items-center justify-center
+                                group-hover:border-orange-400/80 group-hover:bg-orange-50/80
+                                transition-all duration-200 cursor-pointer">
                   <svg className="w-4 h-4 text-orange-500 group-hover:text-orange-600 transition-colors"
                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
@@ -611,19 +634,18 @@ const ProductAdmin = memo(() => {
                   </svg>
                 </div>
               </Link>
-
             </div>
-
-            {/* Missing status info */}
+        
+            {/* Status info for missing thumbnail */}
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1.5">
                 <span className="inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 
                                  rounded-md bg-orange-50 text-orange-700 border border-orange-200/60
-                                 shadow-sm hover:bg-orange-100 transition-colors duration-200">
+                                 shadow-sm">
                   <svg className="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                   </svg>
-                  Upload
+                  Upload Required
                 </span>
               </div>
             </div>

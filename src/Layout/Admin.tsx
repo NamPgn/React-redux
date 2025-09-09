@@ -49,10 +49,13 @@ const LayoutAdmin = () => {
         collapsible
         collapsed={collapsed}
       >
-        <div className="p-4 flex justify-center">
+        <div className="p-4 flex justify-center ">
+          <div className="w-[70px]">
           <MVLink to="/dashboard/product">
-            <Image src={"https://hhhihi.site/_next/image?url=%2Fimages%2Flogo.png&w=256&q=75"} width={150} height={50} alt="logo" preview={false} />
+            <Image src={"/img/b32705f7-9444-41f9-8457-d1cc7773a259-min.png"} alt="logo" preview={false} />
           </MVLink>
+          </div>
+          
         </div>
         <Menu
           className="h-[calc(100%-56px)]"
