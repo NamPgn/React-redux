@@ -1,25 +1,29 @@
-/* styles.css */
-.custom-sider {
-  background-color: #f0f2f5 !important;
-  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
-  border-right: 1px solid #e8e8e8;
+.ant-menu-item, .ant-menu-submenu-title{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
 }
 
-.custom-sider .ant-menu {
-  background: #f0f2f5;
-  border-right: 1px solid #e8e8e8;
+/* Animation for menu items */
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-.custom-sider .ant-menu-item {
-  border-radius: 4px;
-  margin: 0 8px;
+.custom-admin-menu .ant-menu-item,
+.custom-admin-menu .ant-menu-submenu {
+  animation: slideInFromLeft 0.3s ease-out;
 }
 
-.custom-sider .ant-menu-item:hover {
-  background: #e6f7ff;
-}
-
-.custom-sider .ant-menu-item-selected {
-  background: #1890ff;
-  color: #fff;
-}
+.custom-admin-menu .ant-menu-item:nth-child(1) { animation-delay: 0.1s; }
+.custom-admin-menu .ant-menu-item:nth-child(2) { animation-delay: 0.2s; }
+.custom-admin-menu .ant-menu-item:nth-child(3) { animation-delay: 0.3s; }
+.custom-admin-menu .ant-menu-item:nth-child(4) { animation-delay: 0.4s; }
+.custom-admin-menu .ant-menu-item:nth-child(5) { animation-delay: 0.5s; }

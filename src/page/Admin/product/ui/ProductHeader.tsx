@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, Space, Typography, Select, Input } from 'antd';
+import React, { useState } from 'react';
+import { Button, Space, Typography, Select, Input, Modal, theme } from 'antd';
 import {
   MenuOutlined,
   PlusOutlined,
@@ -8,6 +8,7 @@ import {
   FilterOutlined
 } from '@ant-design/icons';
 import MVLink from '../../../../components/Location/Link';
+import AddMultipleEpisodes from '../component/addMultipleEpisode';
 
 const { Title } = Typography;
 const { Search } = Input;
@@ -29,63 +30,105 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
   onEpisodeSearch,
   categories,
 }) => {
+  const [multipleEpisodeModalVisible, setMultipleEpisodeModalVisible] = useState(false);
+  const { token } = theme.useToken();
   return (
     <div>
       {/* Header Section */}
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: 'center',
-        padding: '16px 0',
-        marginBottom: '16px',
-        borderBottom: '1px solid #f0f0f0'
-      }}>
-        <Title level={3} style={{ margin: 0, color: '#1890ff' }}>
-          Quản lý episode
-        </Title>
-        
-        <Space size="middle" wrap>
+      <div style={{
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: `${token.paddingLG}px 0`,
+      marginBottom: token.marginLG,
+      borderBottom: `1px solid ${token.colorBorder}`, // Sử dụng token màu border
+      backgroundColor: token.colorBgContainer, // Màu nền container
+      borderRadius: token.borderRadius, // Border radius từ theme
+      paddingLeft: token.paddingMD,
+      paddingRight: token.paddingMD,
+    }}>
+      
+      <Title 
+        level={3} 
+        style={{ 
+          margin: 0, 
+          color: token.colorPrimary, // Màu primary từ theme
+          fontWeight: token.fontWeightStrong
+        }}
+      >
+        Manage Episode
+      </Title>
+
+      <Space size="middle" wrap>
+        {/* Button Quản lý */}
+        <Button
+          type="default"
+          icon={<MenuOutlined />}
+          onClick={onOpenDrawer}
+          size="middle"
+          style={{
+            borderColor: token.colorPrimary,
+            color: token.colorPrimary,
+          }}
+          ghost // Tạo button trong suốt với viền màu
+        >
+          Manage Episode
+        </Button>
+
+        {/* Button Thêm sản phẩm */}
+        <MVLink to="/dashboard/product/add">
           <Button
-            type="default"
-            icon={<MenuOutlined />}
-            onClick={onOpenDrawer}
+            type="primary"
+            icon={<PlusOutlined />}
             size="middle"
           >
-            Quản lý
+            Create Episode
           </Button>
+        </MVLink>
 
-          <MVLink to="/dashboard/product/add">
-            <Button
-              type="primary"
-              icon={<PlusOutlined />}
-              size="middle"
-            >
-              Thêm sản phẩm
-            </Button>
-          </MVLink>
+        {/* Button Tạo tập phim */}
+        <Button
+          type="default"
+          icon={<FileTextOutlined />}
+          onClick={onGenerateEpisode}
+          size="middle"
+          style={{
+            borderColor: token.colorWarning,
+            color: token.colorWarning,
+            backgroundColor: token.colorWarningBg,
+          }}
+        >
+          Create Multiple Episode
+        </Button>
 
-          <Button
-            type="default"
-            icon={<FileTextOutlined />}
-            onClick={onGenerateEpisode}
-            size="middle"
-          >
-            Tạo tập phim
-          </Button>
-        </Space>
-      </div>
+        {/* Button Thêm nhiều tập phim */}
+        <Button
+          type="dashed"
+          icon={<PlusOutlined />}
+          onClick={() => setMultipleEpisodeModalVisible(true)}
+          style={{
+            borderColor: token.colorInfo,
+            color: token.colorInfo,
+            borderStyle: 'dashed',
+            borderWidth: '2px',
+          }}
+        >
+          Create Multiple Episode
+        </Button>
+      </Space>
+    </div>
 
       {/* Filter Section */}
-      <div style={{ 
-        display: 'flex', 
-        gap: '16px', 
+      <div style={{
+        display: 'flex',
+        gap: '16px',
         marginBottom: '16px',
         alignItems: 'center',
         flexWrap: 'wrap'
       }}>
         <Select
           style={{ width: 240 }}
-          placeholder="Chọn danh mục để lọc"
+          placeholder="Select category to filter"
           allowClear
           value={selectedCategory || undefined}
           onChange={onCategoryFilter}
@@ -95,10 +138,10 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
           }))}
           suffixIcon={<FilterOutlined />}
         />
-        
+
         <Search
           style={{ width: 240 }}
-          placeholder="Tìm kiếm tập phim (episode)"
+          placeholder="Search episode"
           allowClear
           onSearch={onEpisodeSearch}
           onChange={(e) => {
@@ -108,7 +151,23 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
           }}
         />
       </div>
+      <Modal
+        title={
+          <Space>
+            <PlusOutlined style={{ color: '#1890ff' }} />
+            <span>Create Multiple Episode</span>
+          </Space>
+        }
+        open={multipleEpisodeModalVisible}
+        onCancel={() => setMultipleEpisodeModalVisible(false)}
+        footer={null}
+        width={700}
+        centered
+      >
+        <AddMultipleEpisodes />
+      </Modal>
     </div>
+
   );
 };
 

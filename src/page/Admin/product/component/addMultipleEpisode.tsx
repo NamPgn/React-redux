@@ -11,6 +11,8 @@ import {
   Space,
   Divider,
   Switch,
+  Row,
+  Col,
 } from "antd";
 import {
   SaveOutlined,
@@ -66,10 +68,12 @@ export default function AddMultipleEpisodes() {
   };
 
   return (
-    <div className="p-6">
-      <Card
-        title="Thêm Nhiều Tập Phim Cùng Lúc"
-        className="shadow-lg rounded-lg"
+    <div style={{ padding: '0' }}>
+      <div
+        style={{
+          backgroundColor: 'white',
+          borderRadius: '8px',
+        }}
       >
         <Form
           form={form}
@@ -85,76 +89,100 @@ export default function AddMultipleEpisodes() {
             options: [],
           }}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Form.Item
-              name="name"
-              label="Tên Phim"
-              rules={[{ required: true, message: "Vui lòng nhập tên phim!" }]}
-            >
-              <Input placeholder="Nhập tên phim" />
-            </Form.Item>
+          <div style={{ maxHeight: '50vh', overflowY: 'auto', paddingRight: '8px' }}>
+            <Row gutter={[16, 16]}>
+              <Col xs={24} md={12}>
+                <Form.Item
+                  name="name"
+                  label="Tên Phim"
+                  rules={[{ required: true, message: "Vui lòng nhập tên phim!" }]}
+                >
+                  <Input placeholder="Nhập tên phim" />
+                </Form.Item>
+              </Col>
 
-            <div className="grid grid-cols-2 gap-4">
-              <Form.Item
-                name="fromEpisode"
-                label="Từ Tập"
-                rules={[
-                  { required: true, message: "Vui lòng nhập số tập bắt đầu!" },
-                ]}
-              >
-                <InputNumber min={1} className="w-full" />
-              </Form.Item>
+              <Col xs={24} md={12}>
+                <Form.Item name="category" label="Thể Loại">
+                  <Select
+                    placeholder="Chọn thể loại"
+                    allowClear
+                    options={categoryOptions?.map((item: any) => ({
+                      label: item.name,
+                      value: item._id,
+                    }))}
+                  />
+                </Form.Item>
+              </Col>
 
-              <Form.Item
-                name="toEpisode"
-                label="Đến Tập"
-                rules={[
-                  { required: true, message: "Vui lòng nhập số tập kết thúc!" },
-                ]}
-              >
-                <InputNumber min={1} className="w-full" />
-              </Form.Item>
-            </div>
+              <Col xs={12} md={6}>
+                <Form.Item
+                  name="fromEpisode"
+                  label="Từ Tập"
+                  rules={[
+                    { required: true, message: "Vui lòng nhập số tập bắt đầu!" },
+                  ]}
+                >
+                  <InputNumber min={1} style={{ width: '100%' }} />
+                </Form.Item>
+              </Col>
 
-            <Form.Item name="category" label="Thể Loại">
-              <Select
-                placeholder="Chọn thể loại"
-                allowClear
-                options={categoryOptions?.map((item: any) => ({
-                  label: item.name,
-                  value: item._id,
-                }))}
-              />
-            </Form.Item>
+              <Col xs={12} md={6}>
+                <Form.Item
+                  name="toEpisode"
+                  label="Đến Tập"
+                  rules={[
+                    { required: true, message: "Vui lòng nhập số tập kết thúc!" },
+                  ]}
+                >
+                  <InputNumber min={1} style={{ width: '100%' }} />
+                </Form.Item>
+              </Col>
 
-            <Form.Item name="year" label="Năm Phát Hành">
-              <InputNumber min={1900} max={2100} className="w-full" />
-            </Form.Item>
+              <Col xs={12} md={6}>
+                <Form.Item name="year" label="Năm Phát Hành">
+                  <InputNumber min={1900} max={2100} style={{ width: '100%' }} />
+                </Form.Item>
+              </Col>
 
-            <Form.Item name="view" label="Lượt Xem">
-              <InputNumber min={0} className="w-full" />
-            </Form.Item>
+              <Col xs={12} md={6}>
+                <Form.Item name="view" label="Lượt Xem">
+                  <InputNumber min={0} style={{ width: '100%' }} />
+                </Form.Item>
+              </Col>
+
+              <Col xs={24}>
+                <Form.Item name="dailyMotionServer" label="DailyMotion Server">
+                  <Input placeholder="Nhập link DailyMotion (nếu có)" />
+                </Form.Item>
+              </Col>
+
+              <Col xs={24}>
+                <Form.Item name="trailer" label="Trailer">
+                  <Input placeholder="Nhập link trailer" />
+                </Form.Item>
+              </Col>
+
+              <Col xs={24}>
+                <Form.Item name="descriptions" label="Mô Tả">
+                  <TextArea rows={3} placeholder="Nhập mô tả phim" />
+                </Form.Item>
+              </Col>
+            </Row>
           </div>
 
-
-          <Form.Item name="dailyMotionServer" label="DailyMotion Server">
-            <Input placeholder="Nhập link DailyMotion (nếu có)" />
-          </Form.Item>
-
-          <Form.Item name="trailer" label="Trailer">
-            <Input placeholder="Nhập link trailer" />
-          </Form.Item>
-
-          <Form.Item name="descriptions" label="Mô Tả">
-            <TextArea rows={4} placeholder="Nhập mô tả phim" />
-          </Form.Item>
-          <div >
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'flex-end', 
+            paddingTop: '16px',
+            borderTop: '1px solid #f0f0f0',
+            marginTop: '16px'
+          }}>
             <Button
               type="primary"
               htmlType="submit"
               loading={loading}
               icon={<SaveOutlined />}
-              className="bg-blue-500 hover:bg-blue-600"
+              size="large"
             >
               Thêm{" "}
               {form.getFieldValue("toEpisode") -
@@ -164,7 +192,7 @@ export default function AddMultipleEpisodes() {
             </Button>
           </div>
         </Form>
-      </Card>
+      </div>
     </div>
   );
 }

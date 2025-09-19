@@ -1,26 +1,45 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { Layout, Menu, Input, Image } from "antd";
+import {
+  Layout,
+  Menu,
+  Input,
+  Image,
+  Button,
+  Space,
+  Typography,
+  Avatar,
+  Dropdown,
+  theme,
+} from "antd";
 import "../index.css";
 import "./style/index.css";
 import { TableRouterAdminPage } from "../router";
-import { MyButton } from "../components/MV/Button";
-import { LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined, SearchOutlined } from "@ant-design/icons";
-import { MyContext } from "../context";
-import MVRow from "../components/MV/Grid";
-import MVCol from "../components/MV/Grid/Col";
+import {
+  LogoutOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  SearchOutlined,
+  UserOutlined,
+  SettingOutlined,
+  BellOutlined,
+  HomeOutlined
+} from "@ant-design/icons";
 import MVLink from "../components/Location/Link";
 import MyBreadcrumb from "../components/MV/Breadcrumb";
 import { handleLogout } from "../function";
 import { useAppDispatch } from "../hook";
-import { LogOutIcon } from "lucide-react";
 
 const { Content, Sider, Header, Footer } = Layout;
 const { Search } = Input;
+const { Text } = Typography;
 
 const LayoutAdmin = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { token } = theme.useToken();
+  const [collapsed, setCollapsed] = useState(false);
+
   const items2 = TableRouterAdminPage.map((items, index) => {
     const key = String(index + 1);
     return {
@@ -37,72 +56,270 @@ const LayoutAdmin = () => {
       }),
     };
   });
-  const { isLoggedInState } = useContext(MyContext) ?? {};
-  const [collapsed, setCollapsed] = useState(false);
+
+  const userMenuItems = [
+    {
+      key: 'profile',
+      icon: <UserOutlined />,
+      label: 'Profile',
+    },
+    {
+      key: 'settings',
+      icon: <SettingOutlined />,
+      label: 'Settings',
+    },
+    {
+      type: 'divider' as const,
+    },
+    {
+      key: 'logout',
+      icon: <LogoutOutlined />,
+      label: 'Logout',
+      onClick: () => handleLogout(dispatch, navigate),
+    },
+  ];
 
 
   return (
-    <Layout className="min-h-screen">
+    <Layout className="min-h-screen" style={{ backgroundColor: token.colorBgContainer }}>
       <Sider
         theme="light"
         trigger={null}
         collapsible
         collapsed={collapsed}
+        style={{
+          background: `linear-gradient(180deg, ${token.colorBgElevated} 0%, ${token.colorBgContainer} 100%)`,
+          borderRight: `1px solid ${token.colorBorder}`,
+          boxShadow: '2px 0 8px rgba(0, 0, 0, 0.06)',
+        }}
+        width={200}
+        collapsedWidth={80}
       >
-        <div className="p-4 flex justify-center ">
-          <div className="w-[70px]">
+        {/* Logo Section */}
+        <div style={{
+          padding: collapsed ? token.padding : `${token.paddingLG}px ${token.paddingMD}px`,
+          borderBottom: `1px solid ${token.colorBorder}`,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '64px'
+        }}>
           <MVLink to="/dashboard/product">
-            <Image src={"/img/b32705f7-9444-41f9-8457-d1cc7773a259-min.png"} alt="logo" preview={false} />
+            <div style={{
+              width: '60px',
+              height: '60px',
+              borderRadius: '8px',
+              overflow: 'hidden',
+              background: 'white',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              <Image
+                src={"/img/b32705f7-9444-41f9-8457-d1cc7773a259-min.png"}
+                alt="logo"
+                preview={false}
+              />
+            </div>
           </MVLink>
-          </div>
-          
         </div>
-        <Menu
-          className="h-[calc(100%-56px)]"
-          theme="light"
-          mode="inline"
-          defaultSelectedKeys={["1"]}
-          items={items2}
-        />
+
+        {/* Navigation Menu */}
+        <div style={{ flex: 1, overflow: 'auto' }}>
+          <Menu
+            theme="light"
+            mode="inline"
+            defaultSelectedKeys={["1"]}
+            items={items2}
+            style={{
+              border: 'none',
+              background: 'transparent',
+              padding: `${token.paddingXS}px 0`,
+            }}
+            className="custom-admin-menu"
+          />
+        </div>
+
+        {/* User Profile Section */}
+        {!collapsed && (
+          <div style={{
+            padding: token.paddingMD,
+            borderTop: `1px solid ${token.colorBorder}`,
+            background: token.colorBgElevated
+          }}>
+            <Space direction="horizontal" align="center" style={{ width: '100%' }}>
+              <Avatar
+                size={32}
+                icon={<UserOutlined />}
+                style={{
+                  backgroundColor: token.colorPrimary,
+                  flexShrink: 0
+                }}
+              />
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <Text
+                  style={{
+                    display: 'block',
+                    fontSize: '14px',
+                    fontWeight: token.fontWeightStrong,
+                    color: token.colorText,
+                    lineHeight: 1.2
+                  }}
+                >
+                  Admin User
+                </Text>
+                <Text
+                  style={{
+                    display: 'block',
+                    fontSize: '12px',
+                    color: token.colorTextSecondary,
+                    lineHeight: 1.2
+                  }}
+                >
+                  Administrator
+                </Text>
+              </div>
+            </Space>
+          </div>
+        )}
       </Sider>
       <Layout className={`transition-all duration-300`}>
-        <Header className="bg-white p-0">
-          <MVRow align={"middle"} justify={"space-between"}>
-            <MVCol>
-              <MyButton
+        <Header style={{
+          background: token.colorBgElevated,
+          borderBottom: `1px solid ${token.colorBorder}`,
+          padding: 0,
+          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)',
+          position: 'sticky',
+          top: 0,
+          zIndex: 10
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: `0 ${token.paddingLG}px`,
+            height: '64px'
+          }}>
+            {/* Left Section - Toggle & Breadcrumb */}
+            <Space size="large" align="center" >
+              <Button
                 type="text"
                 icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
                 onClick={() => setCollapsed(!collapsed)}
-                className="text-gray-600 hover:text-blue-500 transition-colors"
                 style={{
                   fontSize: "16px",
-                  width: 64,
-                  height: 64,
+                  width: 40,
+                  height: 40,
+                  borderRadius: token.borderRadius,
+                  color: token.colorText,
+                  backgroundColor: 'transparent',
+                  border: 'none'
                 }}
-                children={undefined}
               />
-            </MVCol>
-            <Search
-              placeholder="Search email..."
-              allowClear
-              enterButton={<SearchOutlined />}
-              className="max-w-md"
-            />
-            <MVCol className="text-center" style={{ width: 64 }}>
-              <LogOutIcon size={20} onClick={() => handleLogout(dispatch, navigate)} className="cursor-pointer" />
-            </MVCol>
-          </MVRow>
+              <Space align="center" size="small">
+                <HomeOutlined style={{ color: token.colorTextSecondary }} />
+                <Text style={{ color: token.colorTextSecondary, fontSize: '14px' }}>
+                  Dashboard
+                </Text>
+              </Space>
+            </Space>
+
+            {/* Right Section - Notifications & User */}
+            <Space size="middle" align="center">
+              <Button
+                type="text"
+                icon={<BellOutlined />}
+                style={{
+                  width: 40,
+                  height: 40,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: token.borderRadius,
+                  color: token.colorText,
+                  backgroundColor: 'transparent',
+                  border: 'none'
+                }}
+              />
+
+              <Dropdown
+                menu={{ items: userMenuItems }}
+                placement="bottomRight"
+                arrow
+              >
+                <Button
+                  type="text"
+                  style={{
+                    height: 40,
+                    padding: `0 ${token.paddingXS}px`,
+                    borderRadius: token.borderRadius,
+                    backgroundColor: 'transparent',
+                    border: 'none'
+                  }}
+                >
+                  <Space align="center" size="small">
+                    <Avatar
+                      size={28}
+                      icon={<UserOutlined />}
+                      style={{ backgroundColor: token.colorPrimary }}
+                    />
+                    {!collapsed && (
+                      <>
+                        <div style={{ textAlign: 'left' }}>
+                          <Text style={{
+                            display: 'block',
+                            fontSize: '14px',
+                            fontWeight: token.fontWeightStrong,
+                            color: token.colorText,
+                            lineHeight: 1.2
+                          }}>
+                            Admin User
+                          </Text>
+                          <Text style={{
+                            display: 'block',
+                            fontSize: '12px',
+                            color: token.colorTextSecondary,
+                            lineHeight: 1.2
+                          }}>
+                            Administrator
+                          </Text>
+                        </div>
+                      </>
+                    )}
+                  </Space>
+                </Button>
+              </Dropdown>
+            </Space>
+          </div>
         </Header>
-        <Content className="min-h-[calc(100vh-64px)] overflow-auto bg-gray-200 p-4">
-          <div className="bg-white rounded-lg shadow-sm p-4">
-            <div className="mb-4">
+        <Content style={{
+          minHeight: 'calc(100vh - 64px)',
+          overflow: 'auto',
+          background: token.colorBgLayout,
+          padding: token.paddingLG
+        }}>
+          <div style={{
+            background: token.colorBgContainer,
+            borderRadius: token.borderRadiusLG,
+            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03), 0 1px 6px rgba(0, 0, 0, 0.05)',
+            padding: token.paddingLG,
+            minHeight: 'calc(100vh - 64px - 32px)'
+          }}>
+            <div style={{ marginBottom: token.marginLG }}>
               <MyBreadcrumb />
             </div>
             <Outlet />
           </div>
         </Content>
-        <Footer className="text-center text-gray-500 bg-white border-t border-gray-200 py-4">
-          © 2023 copyright | PH ANG
+        <Footer style={{
+          textAlign: 'center',
+          color: token.colorTextSecondary,
+          background: token.colorBgElevated,
+          borderTop: `1px solid ${token.colorBorder}`,
+          padding: `${token.padding}px 0`,
+          fontSize: '14px'
+        }}>
+          © 2024 Movie Management System | PH ANG
         </Footer>
       </Layout>
     </Layout>

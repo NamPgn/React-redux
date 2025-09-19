@@ -313,8 +313,8 @@ const CategoryAdmin = () => {
       <Tabs defaultActiveKey="1">
         <Tabs.TabPane tab="Category List" key="1">
           <Card style={{ marginBottom: '16px' }}>
-            <Row gutter={[16, 16]} align="middle">
-              <Col xs={24} sm={18} md={20}>
+            <Row gutter={[8, 8]} align="middle">
+              <Col xs={24} sm={18} md={4}>
                 <Search
                   placeholder="Tìm kiếm danh mục..."
                   value={searchValue}
@@ -325,7 +325,7 @@ const CategoryAdmin = () => {
                   size="middle"
                 />
               </Col>
-              <Col xs={24} sm={6} md={4}>
+              <Col xs={24} sm={6} md={2}>
                 <Button
                   type="primary"
                   onClick={showModal}
@@ -664,7 +664,6 @@ const CategoryAdmin = () => {
               </Form>
             </div>
           </Modal>
-          <Card>
             <MVTable
               columns={columnsCategory}
               dataSource={data}
@@ -680,7 +679,6 @@ const CategoryAdmin = () => {
                   `${range[0]}-${range[1]} of ${total} categories`,
               }}
             />
-          </Card>
         </Tabs.TabPane>
         <Tabs.TabPane tab="Recycle Bin" key="2">
           <RecycleBin />

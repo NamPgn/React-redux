@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Drawer, 
   Button, 
@@ -7,7 +7,7 @@ import {
   Col, 
   Divider,
   Popconfirm,
-  Typography
+  Typography,
 } from 'antd';
 import {
   DeleteOutlined,
@@ -16,8 +16,7 @@ import {
   FileTextOutlined,
   DownloadOutlined,
   ClearOutlined,
-  PlusOutlined,
-  FileExcelOutlined
+  FileExcelOutlined,
 } from '@ant-design/icons';
 import MVLink from '../../../../components/Location/Link';
 
@@ -42,7 +41,6 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
   onEditMultiple,
   onClearCache,
   onClearCacheRedis,
-  categories,
 }) => {
   return (
     <Drawer
@@ -121,21 +119,9 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
                 Thêm tập phim từ Excel
               </Button>
             </MVLink>
-
-            <MVLink to={"/dashboard/product/add-multiple-episode"}>
-              <Button
-                type="default"
-                icon={<PlusOutlined />}
-                block
-              >
-                Thêm nhiều tập phim
-              </Button>
-            </MVLink>
           </Space>
         </div>
-
         <Divider />
-
         {/* Export Section */}
         <div>
           <Title level={5} style={{ marginBottom: '12px' }}>
@@ -194,6 +180,7 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
         </div>
 
       </Space>
+    
     </Drawer>
   );
 };
