@@ -6,6 +6,7 @@ import {
   getAllCategoryNotReq,
   updateCate,
   getCategory,
+  changeIsActiveCategory,
 } from "../../../../sevices/category";
 
 export const getAllcate = createAsyncThunk(
@@ -51,6 +52,14 @@ export const updateCatgorySlice = createAsyncThunk(
   "update/Category",
   async (dataUpdate: any) => {
     const { data }: any = await updateCate(dataUpdate);
+    return data;
+  }
+);
+
+export const changeIsActiveCategorySlice = createAsyncThunk(
+  "changeIsActive/Category",
+  async ({ slug, isActive }: { slug: string, isActive: boolean }) => {
+    const { data }: any = await changeIsActiveCategory(slug, isActive);
     return data;
   }
 );

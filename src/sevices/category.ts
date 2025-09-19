@@ -90,3 +90,11 @@ export const permanentlyDeleteCategory = async (id: string) => {
     },
   });
 };
+
+export const changeIsActiveCategory = async (slug: string, isActive: boolean) => {
+  return await intances.post(`/category/change/isActive/${slug}/${dataToken.user._id}`, { isActive }, {
+    headers: {
+      Authorization: `Bearer ${dataToken.token}`,
+    },
+  });
+};

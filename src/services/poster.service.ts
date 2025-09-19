@@ -24,6 +24,18 @@ export interface PosterListResponse {
   }
 }
 
+export interface BulkUploadResponse {
+  data: PosterItem[]
+  errors?: Array<{
+    fileIndex: number
+    fileName: string
+    error: string
+  }>
+  message: string
+  successCount: number
+  errorCount: number
+}
+
 export const posterService = {
   getAll: async (params?: { page?: number; limit?: number; category?: string; isActive?: boolean }): Promise<PosterListResponse> => {
     const response = await intances.get(`${API_URL}`, { params })
@@ -60,6 +72,15 @@ export const posterService = {
 
   delete: async (id: string): Promise<void> => {
     await intances.delete(`${API_URL}/${id}`)
+  },
+
+  bulkCreate: async (data: FormData): Promise<BulkUploadResponse> => {
+    const response = await intances.post(`${API_URL}/bulk`, data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    return response.data
   },
 }
 

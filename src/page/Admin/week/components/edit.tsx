@@ -26,7 +26,7 @@ const EditWeek = () => {
       reset(week); // Đặt lại giá trị form với dữ liệu mới
       setValue(week?.content?.map((item) => item._id));
     }
-    dispatch(getAllcate(0));
+    dispatch(getAllcate({ page: 0 }));
   }, [week]);
   const onChange = (newValue: string[]) => {
     console.log(newValue)

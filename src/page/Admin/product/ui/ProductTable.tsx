@@ -1,10 +1,5 @@
 import React from 'react';
-import { Eye, Edit, Trash2, ArrowUp, Check, XCircle, Send, MoreVertical } from 'lucide-react';
-import { Dropdown } from 'antd';
-import { MyButton } from '../../../../components/MV/Button';
 import MVTable from '../../../../components/MV/Table';
-import MVConfirm from '../../../../components/MV/Confirm';
-import MVLink from '../../../../components/Location/Link';
 
 interface ProductTableProps {
   data: any[];
@@ -16,15 +11,16 @@ interface ProductTableProps {
   onPageChange: (page: number) => void;
 }
 
-const ProductTable: React.FC<ProductTableProps> = ({
+const   ProductTable: React.FC<ProductTableProps> = ({
   data,
   columns,
   rowSelection,
-  isLoading,
   page,
   total,
   onPageChange,
 }) => {
+
+  
   return (
     <div className="bg-white rounded-lg shadow-sm">
       <MVTable

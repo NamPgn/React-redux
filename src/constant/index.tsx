@@ -207,6 +207,12 @@ const columnsCategory = [
     width: 50,
   },
   {
+    title: "IsActive",
+    dataIndex: "isActive",
+    key: "isActive",
+    width: 50,
+  },
+  {
     title: "Set",
     dataIndex: "set",
     key: "set",

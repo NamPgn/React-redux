@@ -6,6 +6,7 @@ import {
   addCateGorySlice,
   updateCatgorySlice,
   deleteCategorySlice,
+  changeIsActiveCategorySlice,
 } from "./thunk/category";
 import { isCategorysSlice } from "../../../interfaces/category";
 const state: isCategorysSlice = {
@@ -63,6 +64,16 @@ const categorySlice = createSlice({
       .addCase(getCateSlice.pending, (state, action) => {
         state.isLoading = true;
       });
+    builder.addCase(changeIsActiveCategorySlice.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(changeIsActiveCategorySlice.rejected, (state, action) => {
+      state.isError = true;
+    });
+    builder.addCase(changeIsActiveCategorySlice.fulfilled, (state, action) => {
+      state.category.data = state.category.data.map((item: any) => item.slug === action.payload.slug ? action.payload : item);
+      state.isLoading = false;
+    });
   },
 });
 

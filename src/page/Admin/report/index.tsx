@@ -150,14 +150,9 @@ const ReportManagement: React.FC = () => {
       key: 'movieTitle',
       render: (text, record) => (
         <Space>
-          <img
-            src={record?.product?.thumbnail}
-            alt={text}
-            style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: 4 }}
-          />
           <div>
             <a href={`/movies/${record?.product?.slug}`} target="_blank" rel="noopener noreferrer">
-              {text}
+              {record?.product?.slug}
             </a>
             <br />
             <Text type="secondary" style={{ fontSize: '12px' }}>
@@ -172,9 +167,6 @@ const ReportManagement: React.FC = () => {
       key: 'content',
       render: (_, record) => (
         <div>
-          <Tag color={record.reaction === 'error' ? 'red' : 'blue'}>
-            {record.reaction}
-          </Tag>
           <div style={{ marginTop: 4 }}>
             <Text>{record.comment}</Text>
           </div>

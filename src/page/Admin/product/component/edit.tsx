@@ -1,278 +1,459 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import { 
+  Card, 
+  Form, 
+  Input, 
+  Select, 
+  Upload, 
+  Button, 
+  Space, 
+  Row, 
+  Col, 
+  Typography,
+  Divider,
+  message,
+  Image,
+  Tag
+} from "antd";
+import { 
+  SaveOutlined, 
+  UploadOutlined,
+  InfoCircleOutlined,
+  LinkOutlined,
+  PictureOutlined,
+  VideoCameraOutlined,
+  EditOutlined,
+  EyeOutlined
+} from "@ant-design/icons";
 import {
   editProduct,
   getProduct,
 } from "../../../../redux/slice/product/thunk/product";
 import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../../../../hook";
-import { MySelectWrapper } from "../../../../components/Form/component/select";
 import { UploadAssby } from "../../../../sevices/product";
-import { MyButton } from "../../../../components/MV/Button";
-import Dividers from "../../../../components/MV/Divider";
-import MVUpload from "../../../../components/MV/Upload";
-import MVInput from "../../../../components/MV/Input";
 import MVLink from "../../../../components/Location/Link";
-import MVTitle from "../../../../components/MV/Title";
-import MVImage from "../../../../components/MV/Image";
 import { ApiContext } from "../../../../context/api";
 import { handleImage } from "../../../../lib/handleImage";
 import { getAllcate } from "../../../../redux/slice/category/thunk/category";
 import PageTitle from "../../../../components/PageTitle";
-declare var Promise: any;
+
+const { Title, Text } = Typography;
 
 const EditProduct = () => {
   const { seri }: any = useContext(ApiContext) || {};
   const [isLoading, setIsLoading] = useState(false);
+  const [uploadLoading, setUploadLoading] = useState(false);
   const { data }: any = useAppSelector((state) => state.category.category);
   const { id } = useParams();
-  const { handleSubmit, reset, control } = useForm();
+  const [form] = Form.useForm();
+  const [uploadForm] = Form.useForm();
   const dispatch = useAppDispatch();
   const [state, setState]: any = useState({});
 
   useEffect(() => {
-    const getFormProduct = async (): Promise<any> => {
-      const { payload }: any = await dispatch(getProduct(id));
-      reset({
-        ...payload,
-        category: payload.category?._id,
-      });
-      setState(payload);
+    const getFormProduct = async () => {
+      try {
+        const { payload }: any = await dispatch(getProduct(id));
+        form.setFieldsValue({
+          ...payload,
+          category: payload.category?._id,
+        });
+        setState(payload);
+      } catch (error) {
+        toast.error("Không thể tải thông tin sản phẩm");
+      }
     };
     getFormProduct();
-  }, []);
+  }, [id, form, dispatch]);
 
   useEffect(() => {
     dispatch(getAllcate({ page: 0 }));
-  }, []);
+  }, [dispatch]);
 
-  const onsubmit = async (value: any) => {
-    const formdata = new FormData();
-    formdata.append("name", value.name);
-    formdata.append("slug", value.slug);
-    formdata.append("category", value.category);
-    formdata.append("_id", value._id);
-    formdata.append("seri", value.seri);
-    formdata.append("LinkCopyright", value.LinkCopyright);
-    formdata.append("copyright", value.copyright);
-    formdata.append("trailer", value.trailer);
-    formdata.append("image", value.image);
-    formdata.append("typeId", value.typeId);
-    formdata.append("categorymain", value.categorymain);
-    formdata.append("dailyMotionServer", value.dailyMotionServer);
-    formdata.append("link", value.link);
-    formdata.append("imageLink", value.image);
-    formdata.append("view", value.view);
-    formdata.append("server2", value.server2);
-    const res = await dispatch(editProduct(formdata));
-    if (res?.meta?.requestStatus == "fulfilled") {
-      toast.success(`Edit ${value.name} Success`);
-    }
-  };
+  const categoryOptions = data ? [...data].sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()).map((item: any) => ({
+    label: item.name,
+    value: item._id,
+  })) : [];
 
-  const handleSubmitServerAssb = async (data: any) => {
+  const typeOptions = seri?.map((item: any) => ({
+    label: item.name,
+    value: item._id,
+  })) || [];
+
+  const onFinish = async (values: any) => {
+    setIsLoading(true);
     try {
       const formdata = new FormData();
-      formdata.append("fileupload", data.fileupload);
-      const res = await UploadAssby(id, formdata);
-      if (res) {
-        toast.success(`${data.name} Successfully Uploaded`);
-        setIsLoading(true);
+      formdata.append("name", values.name || "");
+      formdata.append("slug", values.slug || "");
+      formdata.append("category", values.category || "");
+      formdata.append("_id", state._id || "");
+      formdata.append("seri", values.seri || "");
+      formdata.append("LinkCopyright", values.LinkCopyright || "");
+      formdata.append("copyright", values.copyright || "");
+      formdata.append("trailer", values.trailer || "");
+      formdata.append("image", values.image || "");
+      formdata.append("typeId", values.typeId || "");
+      formdata.append("categorymain", values.categorymain || "");
+      formdata.append("dailyMotionServer", values.dailyMotionServer || "");
+      formdata.append("link", values.link || "");
+      formdata.append("imageLink", values.imageLink || "");
+      formdata.append("view", values.view || "");
+      formdata.append("server2", values.server2 || "");
+
+      const res = await dispatch(editProduct(formdata));
+      if (res?.meta?.requestStatus === "fulfilled") {
+        toast.success(`Cập nhật ${values.name} thành công`);
+      } else {
+        toast.error("Cập nhật thất bại");
       }
     } catch (error) {
-      toast.error(`${data.name} Failed to Upload`);
+      toast.error("Có lỗi xảy ra");
     } finally {
       setIsLoading(false);
     }
   };
 
+  const handleSubmitServerAssb = async (values: any) => {
+    setUploadLoading(true);
+    try {
+      const formdata = new FormData();
+      formdata.append("fileupload", values.fileupload);
+      const res = await UploadAssby(id, formdata);
+      if (res) {
+        toast.success("Upload video thành công");
+        uploadForm.resetFields();
+      } else {
+        toast.error("Upload video thất bại");
+      }
+    } catch (error) {
+      toast.error("Upload video thất bại");
+    } finally {
+      setUploadLoading(false);
+    }
+  };
+
+  const uploadProps = {
+    name: 'file',
+    multiple: false,
+    beforeUpload: (file: any) => {
+      form.setFieldsValue({ image: file });
+      return false;
+    },
+  };
+
+  const videoUploadProps = {
+    name: 'file',
+    multiple: false,
+    beforeUpload: (file: any) => {
+      uploadForm.setFieldsValue({ fileupload: file });
+      return false;
+    },
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div style={{ padding: '24px', backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <PageTitle
-          title={`Edit Episode: ${state?.name + " tập " + state?.seri}`}
-          subtitle="Edit Episode Description"
+          title={`Chỉnh sửa tập phim: ${state?.name} tập ${state?.seri}`}
+          subtitle="Cập nhật thông tin chi tiết cho tập phim"
         />
 
-        <div className="bg-white rounded-xl shadow-lg p-8 space-y-8">
-          <div className="flex items-center justify-between">
-            <MVTitle level={4} className="text-xl font-semibold text-gray-800">
-              <MVLink
-                to={`/d/${state?.slug}`}
-                className="text-blue-600 hover:text-blue-700 transition-colors duration-300"
-              >
-                {state?.name + " tập " + state?.seri}
-              </MVLink>
-            </MVTitle>
-            <div className="w-36 h-36 rounded-lg overflow-hidden shadow-md">
-              <MVImage
+        <Card style={{ marginTop: '24px' }}>
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            alignItems: 'center',
+            marginBottom: '24px',
+            padding: '16px',
+            backgroundColor: '#fafafa',
+            borderRadius: '8px',
+            border: '1px solid #e8e8e8'
+          }}>
+            <div>
+              <Title level={4} style={{ margin: 0, color: '#1890ff' }}>
+                <MVLink to={`/d/${state?.slug}`}>
+                  <Space>
+                    <EyeOutlined />
+                    <span>{state?.name} tập {state?.seri}</span>
+                  </Space>
+                </MVLink>
+              </Title>
+              <Text type="secondary" style={{ fontSize: '14px' }}>
+                ID: {state?._id}
+              </Text>
+            </div>
+            <div style={{ width: '120px', height: '120px' }}>
+              <Image
                 src={handleImage(200, state?.category?.linkImg)}
-                className="w-full h-full object-cover"
+                style={{ 
+                  width: '100%', 
+                  height: '100%', 
+                  objectFit: 'cover',
+                  borderRadius: '8px',
+                  border: '2px solid #e8e8e8'
+                }}
+                fallback="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMIAAADDCAYAAADQvc6UAAABRWlDQ1BJQ0MgUHJvZmlsZQAAKJFjYGASSSwoyGFhYGDIzSspCnJ3UoiIjFJgf8LAwSDCIMogwMCcmFxc4BgQ4ANUwgCjUcG3awyMIPqyLsis7PPOq3QdDFcvjV3jOD1boQVTPQrgSkktTgbSf4A4LbmgqISBgTEFyFYuLykAsTuAbJEioKOA7DkgdjqEvQHEToKwj4DVhAQ5A9k3gGyB5IxEoBmML4BsnSQk8XQkNtReEOBxcfXxUQg1Mjc0dyHgXNJBSWpFCYh2zi+oLMpMzyhRcASGUqqCZ16yno6CkYGRAQMDKMwhqj/fAIcloxgHQqxAjIHBEugw5sUIsSQpBobtQPdLciLEVJYzMPBHMDBsayhILEqEO4DxG0txmrERhM29nYGBddr//5/DGRjYNRkY/l7////39v///y4Dmn+LgeHANwDrkl1AuO+pmgAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAwqADAAQAAAABAAAAwwAAAAD9b/HnAAAHlklEQVR4Ae3dP3Ik1RnG4W+FgYxN..."
               />
             </div>
           </div>
 
-          <form onSubmit={handleSubmit(onsubmit)} className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-6">
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Basic Information</h3>
-                  <div className="space-y-4">
-                    <MVInput
-                      name={"name"}
-                      label={"Product name"}
-                      control={control}
-                      className="w-full"
-                    />
-                    <MVInput
-                      name={"slug"}
-                      label={"Slug"}
-                      control={control}
-                      className="w-full"
-                    />
-                    <MVInput
-                      name={"seri"}
-                      label={"Seri"}
-                      control={control}
-                      className="w-full"
-                    />
-                    <MVInput
-                      name={"view"}
-                      label={"View"}
-                      control={control}
-                      className="w-full"
-                    />
-                  </div>
-                </div>
+          {/* Main Edit Form */}
+          <Form
+            form={form}
+            layout="vertical"
+            onFinish={onFinish}
+            style={{ maxWidth: '100%' }}
+          >
+            <Row gutter={[24, 24]}>
+              {/* Basic Information */}
+              <Col xs={24} lg={12}>
+                <Card 
+                  title={
+                    <Space>
+                      <InfoCircleOutlined style={{ color: '#1890ff' }} />
+                      <span>Thông tin cơ bản</span>
+                    </Space>
+                  }
+                  size="small"
+                  style={{ height: '100%' }}
+                >
+                  <Form.Item
+                    name="name"
+                    label="Tên tập phim"
+                    rules={[{ required: true, message: 'Vui lòng nhập tên tập phim!' }]}
+                  >
+                    <Input placeholder="Nhập tên tập phim" />
+                  </Form.Item>
+                  
+                  <Form.Item
+                    name="slug"
+                    label="Slug"
+                    rules={[{ required: true, message: 'Vui lòng nhập slug!' }]}
+                  >
+                    <Input placeholder="Nhập slug" />
+                  </Form.Item>
+                  
+                  <Form.Item
+                    name="seri"
+                    label="Số tập"
+                    rules={[{ required: true, message: 'Vui lòng nhập số tập!' }]}
+                  >
+                    <Input placeholder="Nhập số tập" />
+                  </Form.Item>
+                  
+                  <Form.Item
+                    name="view"
+                    label="Lượt xem"
+                  >
+                    <Input placeholder="Nhập số lượt xem" type="number" />
+                  </Form.Item>
+                </Card>
+              </Col>
 
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Media Links</h3>
-                  <div className="space-y-4">
-                    <MVInput
-                      name={"link"}
-                      label={"Video Url"}
-                      control={control}
-                      className="w-full"
-                    />
-                    <MVInput
-                      name={"dailyMotionServer"}
-                      label={"DailyMotionServer"}
-                      control={control}
-                      className="w-full"
-                    />
-                    <MVInput
-                      name={"server2"}
-                      label={"Assb server"}
-                      control={control}
-                      className="w-full"
-                    />
-                    <MVInput
-                      name={"trailer"}
-                      label={"Trailer Video"}
-                      control={control}
-                      className="w-full"
-                    />
-                  </div>
-                </div>
-              </div>
+              {/* Media Links */}
+              <Col xs={24} lg={12}>
+                <Card 
+                  title={
+                    <Space>
+                      <VideoCameraOutlined style={{ color: '#1890ff' }} />
+                      <span>Liên kết media</span>
+                    </Space>
+                  }
+                  size="small"
+                  style={{ height: '100%' }}
+                >
+                  <Form.Item
+                    name="link"
+                    label="URL Video chính"
+                  >
+                    <Input placeholder="Nhập URL video chính" />
+                  </Form.Item>
+                  
+                  <Form.Item
+                    name="dailyMotionServer"
+                    label="DailyMotion Server"
+                  >
+                    <Input placeholder="Nhập DailyMotion server" />
+                  </Form.Item>
+                  
+                  <Form.Item
+                    name="server2"
+                    label="Assb Server"
+                  >
+                    <Input placeholder="Nhập Assb server" />
+                  </Form.Item>
+                  
+                  <Form.Item
+                    name="trailer"
+                    label="Video trailer"
+                  >
+                    <Input placeholder="Nhập link video trailer" />
+                  </Form.Item>
+                </Card>
+              </Col>
 
-              <div className="space-y-6">
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Image & Categories</h3>
-                  <div className="space-y-4">
-                    <MVUpload
-                      name={"image"}
-                      label={"New Image Upload"}
-                      control={control}
-                      className="w-full"
+              {/* Categories & Image */}
+              <Col xs={24} lg={12}>
+                <Card 
+                  title={
+                    <Space>
+                      <PictureOutlined style={{ color: '#1890ff' }} />
+                      <span>Danh mục & Hình ảnh</span>
+                    </Space>
+                  }
+                  size="small"
+                  style={{ height: '100%' }}
+                >
+                  <Form.Item
+                    name="category"
+                    label="Danh mục"
+                    rules={[{ required: true, message: 'Vui lòng chọn danh mục!' }]}
+                  >
+                    <Select
+                      placeholder="Chọn danh mục"
+                      options={categoryOptions}
+                      showSearch
+                      optionFilterProp="label"
                     />
-                    <MVInput
-                      name={"imageLink"}
-                      label={"Image Link"}
-                      control={control}
-                      className="w-full"
+                  </Form.Item>
+                  
+                  <Form.Item
+                    name="typeId"
+                    label="Thể loại phim lẻ"
+                  >
+                    <Select
+                      placeholder="Chọn thể loại"
+                      options={typeOptions}
+                      showSearch
+                      optionFilterProp="label"
                     />
-                    <MySelectWrapper
-                      label={"Category"}
-                      control={control}
-                      name={"category"}
-                      options={data?.map((item:any) => ({ label: item.name, value: item._id }))}
-                      className="w-full"
-                    />
-                    <MySelectWrapper
-                      name={"typeId"}
-                      label={"Thể loại của phim lẻ"}
-                      control={control}
-                      defaultValue={"Thể loại"}
-                      options={seri?.map((item:any) => ({ label: item.name, value: item._id }))}
-                      className="w-full"
-                    />
-                  </div>
-                </div>
+                  </Form.Item>
 
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Copyright Information</h3>
-                  <div className="space-y-4">
-                    <MVInput
-                      name={"LinkCopyright"}
-                      label={"LinkCopyright"}
-                      control={control}
-                      className="w-full"
-                    />
-                    <MVInput
-                      name={"copyright"}
-                      label={"Copyright"}
-                      control={control}
-                      className="w-full"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
+                  <Form.Item
+                    name="image"
+                    label="Upload hình ảnh mới"
+                  >
+                    <Upload {...uploadProps}>
+                      <Button icon={<UploadOutlined />}>
+                        Chọn file hình ảnh
+                      </Button>
+                    </Upload>
+                  </Form.Item>
+                  
+                  <Form.Item
+                    name="imageLink"
+                    label="Link hình ảnh"
+                  >
+                    <Input placeholder="Nhập link hình ảnh" />
+                  </Form.Item>
+                </Card>
+              </Col>
 
-            <div className="flex justify-end">
-              <MyButton 
+              {/* Copyright Information */}
+              <Col xs={24} lg={12}>
+                <Card 
+                  title={
+                    <Space>
+                      <LinkOutlined style={{ color: '#1890ff' }} />
+                      <span>Thông tin bản quyền</span>
+                    </Space>
+                  }
+                  size="small"
+                  style={{ height: '100%' }}
+                >
+                  <Form.Item
+                    name="LinkCopyright"
+                    label="Link bản quyền"
+                  >
+                    <Input placeholder="Nhập link bản quyền" />
+                  </Form.Item>
+                  
+                  <Form.Item
+                    name="copyright"
+                    label="Thông tin bản quyền"
+                  >
+                    <Input placeholder="Nhập thông tin bản quyền" />
+                  </Form.Item>
+                </Card>
+              </Col>
+            </Row>
+
+            <Divider />
+
+            {/* Submit Actions */}
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'flex-end',
+              paddingTop: '16px'
+            }}>
+              <Button
+                type="primary"
                 htmlType="submit"
-                className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+                loading={isLoading}
+                icon={<SaveOutlined />}
+                size="middle"
               >
-                Update Product
-              </MyButton>
+                Cập nhật tập phim
+              </Button>
             </div>
-          </form>
+          </Form>
 
-          <Dividers 
-            textColor={"#4B5563"} 
-            orientation={"center"} 
-            className="my-8 text-lg font-medium"
-          >
-            Abyss Server
-          </Dividers>
+          {/* Video Upload Section */}
+          <Divider orientation="center" style={{ margin: '32px 0' }}>
+            <Space>
+              <VideoCameraOutlined style={{ color: '#52c41a' }} />
+              <span style={{ fontSize: '16px', fontWeight: 'bold' }}>Abyss Server - Upload Video</span>
+            </Space>
+          </Divider>
 
-          <form
-            onSubmit={handleSubmit(handleSubmitServerAssb)}
-            className="bg-gray-50 p-6 rounded-lg"
+          <Card 
+            title={
+              <Space>
+                <UploadOutlined style={{ color: '#52c41a' }} />
+                <span>Upload video mới</span>
+              </Space>
+            }
+            style={{ backgroundColor: '#f6ffed', border: '1px solid #b7eb8f' }}
           >
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Upload Video</h3>
-            <div className="space-y-4">
-              <MVUpload
-                name={"fileupload"}
-                label={"New Video Upload"}
-                control={control}
-                className="w-full"
-              />
-              <div className="flex justify-end">
-                <MyButton 
-                  loading={isLoading} 
+            <Form
+              form={uploadForm}
+              layout="vertical"
+              onFinish={handleSubmitServerAssb}
+            >
+              <Form.Item
+                name="fileupload"
+                label="Chọn file video"
+                rules={[{ required: true, message: 'Vui lòng chọn file video!' }]}
+              >
+                <Upload {...videoUploadProps}>
+                  <Button icon={<UploadOutlined />} style={{ width: '100%' }}>
+                    Chọn file video để upload
+                  </Button>
+                </Upload>
+              </Form.Item>
+              
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'flex-end',
+                marginTop: '16px'
+              }}>
+                <Button 
+                  type="primary"
                   htmlType="submit"
-                  className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+                  loading={uploadLoading}
+                  icon={<UploadOutlined />}
+                  size="middle"
+                  style={{ backgroundColor: '#52c41a', borderColor: '#52c41a' }}
                 >
                   Upload Video
-                </MyButton>
+                </Button>
               </div>
-            </div>
-          </form>
-        </div>
+            </Form>
+          </Card>
+        </Card>
       </div>
     </div>
   );

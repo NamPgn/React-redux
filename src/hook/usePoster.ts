@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { message } from 'antd'
-import { posterService, PosterListResponse, PosterItem } from '../services/poster.service'
+import { posterService, PosterListResponse, PosterItem, BulkUploadResponse } from '../services/poster.service'
 
 export const usePosters = (params?: { page?: number; limit?: number; category?: string; isActive?: boolean }) => {
   const queryClient = useQueryClient()
@@ -52,6 +52,21 @@ export const usePosters = (params?: { page?: number; limit?: number; category?: 
     },
   })
 
+  const bulkCreateMutation = useMutation({
+    mutationFn: (data: FormData) => posterService.bulkCreate(data),
+    onSuccess: (response: BulkUploadResponse) => {
+      if (response.errorCount > 0) {
+        message.warning(`${response.message} - ${response.errorCount} files failed`)
+      } else {
+        message.success(`Successfully uploaded ${response.successCount} posters`)
+      }
+      queryClient.invalidateQueries({ queryKey: ['posters'] })
+    },
+    onError: (error: any) => {
+      message.error(error.response?.data?.message || 'Failed to bulk upload posters')
+    },
+  })
+
   return {
     posters: data?.data || [],
     pagination: data?.pagination,
@@ -60,9 +75,11 @@ export const usePosters = (params?: { page?: number; limit?: number; category?: 
     createPoster: createMutation.mutate,
     updatePoster: updateMutation.mutate,
     deletePoster: deleteMutation.mutate,
+    bulkCreatePosters: bulkCreateMutation.mutate,
     isCreating: createMutation.isPending,
     isUpdating: updateMutation.isPending,
     isDeleting: deleteMutation.isPending,
+    isBulkCreating: bulkCreateMutation.isPending,
   }
 }
 

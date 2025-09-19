@@ -13,26 +13,6 @@
   @apply bg-gradient-to-r from-blue-50/50 to-indigo-50/50;
 }
 
-.custom-table .ant-table-pagination {
-  @apply m-4 px-4;
-}
-
-.custom-table .ant-pagination-item {
-  @apply rounded-lg mx-1 border-gray-200 hover:border-blue-500 transition-colors duration-200;
-}
-
-.custom-table .ant-pagination-item-active {
-  @apply bg-gradient-to-r from-blue-500 to-indigo-500 border-transparent shadow-md;
-}
-
-.custom-table .ant-pagination-item-active a {
-  @apply text-white font-medium;
-}
-
-.custom-table .ant-pagination-prev,
-.custom-table .ant-pagination-next {
-  @apply rounded-lg border-gray-200 hover:border-blue-500 transition-colors duration-200;
-}
 
 .custom-table .ant-table-row-selected > td {
   @apply bg-gradient-to-r from-blue-50 to-indigo-50;

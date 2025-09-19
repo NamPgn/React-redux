@@ -1,9 +1,27 @@
 import React from 'react';
-import { Drawer, Button, Space, Row, Col, Divider } from 'antd';
-import { Trash2, CheckCircle2, Edit, FileText, Download, X } from 'lucide-react';
-import MVConfirm from '../../../../components/MV/Confirm';
+import { 
+  Drawer, 
+  Button, 
+  Space, 
+  Row, 
+  Col, 
+  Divider,
+  Popconfirm,
+  Typography
+} from 'antd';
+import {
+  DeleteOutlined,
+  CheckCircleOutlined,
+  EditOutlined,
+  FileTextOutlined,
+  DownloadOutlined,
+  ClearOutlined,
+  PlusOutlined,
+  FileExcelOutlined
+} from '@ant-design/icons';
 import MVLink from '../../../../components/Location/Link';
-import MySelect from '../../../../components/MV/Select';
+
+const { Title, Text } = Typography;
 
 interface ProductDrawerProps {
   open: boolean;
@@ -28,7 +46,7 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
 }) => {
   return (
     <Drawer
-      title="Movie Actions"
+      title="Product Management"
       onClose={onClose}
       open={open}
       width={400}
@@ -38,81 +56,79 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
     >
       <Space direction="vertical" size="large" style={{ width: '100%' }}>
         
-        {/* Movie Management Section */}
+        {/* Product Management Section */}
         <div>
-          <h4 style={{ marginBottom: '12px', color: '#666' }}>Movie Management</h4>
+          <Title level={5} style={{ marginBottom: '12px' }}>
+            Product Management
+          </Title>
           <Space direction="vertical" size="small" style={{ width: '100%' }}>
-            <MVConfirm
-              title="Delete The Movies"
+            <Popconfirm
+              title="Xóa sản phẩm đã chọn"
+              description="Bạn có chắc chắn muốn xóa các sản phẩm đã chọn?"
               onConfirm={onDeleteSelected}
-              okText="Yes"
-              cancelText="No"
+              okText="Xóa"
+              cancelText="Hủy"
+              okButtonProps={{ danger: true }}
             >
               <Button
-                color="red"
-                variant="solid"
-                icon={<Trash2 size={16}/>}
+                type="primary"
+                danger
+                icon={<DeleteOutlined />}
                 block
-                style={{ height: '40px' }}
               >
-                Delete Multiple Movies
+                Xóa sản phẩm đã chọn
               </Button>
-            </MVConfirm>
+            </Popconfirm>
 
-            <MVConfirm
-              title="Approved Multiple Movies"
+            <Popconfirm
+              title="Duyệt nhiều sản phẩm"
+              description="Bạn có chắc chắn muốn duyệt các sản phẩm đã chọn?"
               onConfirm={onApproveMultiple}
-              okText="Yes"
-              cancelText="No"
+              okText="Duyệt"
+              cancelText="Hủy"
             >
               <Button
-                color="green"
-                variant="solid"
-                icon={<CheckCircle2 size={16}/>}
+                type="primary"
+                icon={<CheckCircleOutlined />}
                 block
-                style={{ height: '40px' }}
               >
-                Approve Multiple
+                Duyệt nhiều sản phẩm
               </Button>
-            </MVConfirm>
+            </Popconfirm>
 
-            <MVConfirm
-              title="Edit Multiple Movies"
+            <Popconfirm
+              title="Chỉnh sửa nhiều sản phẩm"
+              description="Bạn có chắc chắn muốn chỉnh sửa các sản phẩm đã chọn?"
               onConfirm={onEditMultiple}
-              okText="Yes"
-              cancelText="No"
+              okText="Chỉnh sửa"
+              cancelText="Hủy"
             >
               <Button
-                color="blue"
-                variant="outlined"
-                icon={<Edit size={16}/>}
+                type="default"
+                icon={<EditOutlined />}
                 block
-                style={{ height: '40px' }}
               >
-                Encode Dailymotion Server Episode
+                Mã hóa tập phim Dailymotion
               </Button>
-            </MVConfirm>
+            </Popconfirm>
 
             <MVLink to={"/dashboard/product/creacting"}>
               <Button
-                color="purple"
-                variant="filled"
-                icon={<FileText size={16}/>}
+                type="default"
+                icon={<FileExcelOutlined />}
                 block
-                style={{ height: '40px' }}
               >
-                Add Multiple Episode From Excel
+                Thêm tập phim từ Excel
               </Button>
             </MVLink>
+
             <MVLink to={"/dashboard/product/add-multiple-episode"}>
               <Button
-                color="geekblue"
-                variant="dashed"
-                icon={<FileText size={16}/>}
+                type="default"
+                icon={<PlusOutlined />}
                 block
-                style={{ height: '40px' }}
               >
-                Add Multiple Episode 
+                Thêm nhiều tập phim
               </Button>
             </MVLink>
           </Space>
@@ -122,29 +138,28 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
 
         {/* Export Section */}
         <div>
-          <h4 style={{ marginBottom: '12px', color: '#666' }}>Export Options</h4>
+          <Title level={5} style={{ marginBottom: '12px' }}>
+            Xuất dữ liệu
+          </Title>
           <Row gutter={[8, 8]}>
             <Col span={12}>
               <MVLink to={"/dashboard/product/export-pdf"}>
                 <Button
-                  color="orange"
-                  variant="outlined"
+                  type="default"
+                  icon={<FileTextOutlined />}
                   block
-                  style={{ height: '40px' }}
                 >
-                  Export PDF
+                  Xuất PDF
                 </Button>
               </MVLink>
             </Col>
             <Col span={12}>
               <Button
-                color="cyan"
-                variant="filled"
-                icon={<Download size={16}/>}
+                type="default"
+                icon={<DownloadOutlined />}
                 block
-                style={{ height: '40px' }}
               >
-                Export Excel
+                Xuất Excel
               </Button>
             </Col>
           </Row>
@@ -152,32 +167,28 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
 
         <Divider />
 
-        <Divider />
-
         {/* Cache Management Section */}
         <div>
-          <h4 style={{ marginBottom: '12px', color: '#666' }}>Cache Management</h4>
+          <Title level={5} style={{ marginBottom: '12px' }}>
+            Quản lý Cache
+          </Title>
           <Space direction="vertical" size="small" style={{ width: '100%' }}>
             <Button
               onClick={onClearCache}
-              color="volcano"
-              variant="solid"
-              icon={<X size={16} />}
+              type="default"
+              icon={<ClearOutlined />}
               block
-              style={{ height: '40px' }}
             >
-              Clear Products Redis
+              Xóa Cache Sản phẩm
             </Button>
 
             <Button
               onClick={onClearCacheRedis}
-              color="geekblue"
-              variant="outlined"
-              icon={<X size={16}/>}
+              type="default"
+              icon={<ClearOutlined />}
               block
-              style={{ height: '40px' }}
             >
-              Clear Redis
+              Xóa toàn bộ Redis
             </Button>
           </Space>
         </div>

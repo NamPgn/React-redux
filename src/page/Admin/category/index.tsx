@@ -1,8 +1,30 @@
 import React, { useContext, useEffect, useState } from "react";
-import { DatePicker, Image, Input, Modal, Tabs, Dropdown, Space } from "antd";
+import {
+  DatePicker,
+  Image,
+  Input,
+  Modal,
+  Tabs,
+  Dropdown,
+  Space,
+  Switch,
+  Card,
+  Form,
+  Button,
+  Row,
+  Col,
+  Typography,
+  Divider,
+  Upload,
+  Select,
+  Tag,
+  TreeSelect,
+  message
+} from "antd";
 import { debounce } from "lodash";
 import {
   addCateGorySlice,
+  changeIsActiveCategorySlice,
   deleteCategorySlice,
   getAllcate,
 } from "../../../redux/slice/category/thunk/category";
@@ -18,7 +40,6 @@ import MVTable from "../../../components/MV/Table";
 import MVUpload from "../../../components/MV/Upload";
 import MVInput from "../../../components/MV/Input";
 import MVLink from "../../../components/Location/Link";
-import { TreeSelect } from "antd";
 import { MVError, MVSuccess } from "../../../components/Message";
 import MVTags from "../../../components/MV/Tag";
 import { ApiContext } from "../../../context/api";
@@ -32,9 +53,18 @@ import {
   MoreOutlined,
   PlayCircleOutlined,
   PlusOutlined,
+  CloseOutlined,
+  CheckOutlined,
+  SearchOutlined,
+  UploadOutlined,
+  InfoCircleOutlined,
+  SettingOutlined,
+  TagsOutlined
 } from "@ant-design/icons";
 import { useTags } from "../../../hook/useTags";
-import { CheckCircle } from "lucide-react";
+
+const { Title, Text } = Typography;
+const { Search } = Input;
 
 const CategoryAdmin = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,12 +78,14 @@ const CategoryAdmin = () => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    setPreviewImage(''); // Clear preview when closing modal
   };
   const dispatch = useAppDispatch();
   const category = useAppSelector(category$);
   const { seri, weeks } = useContext(ApiContext);
   const { handleSubmit, control } = useForm();
   const [valueId, setValue] = useState();
+  const [previewImage, setPreviewImage] = useState<string>('');
   const {
     data: tags = [],
   }: any = useTags();
@@ -138,6 +170,16 @@ const CategoryAdmin = () => {
       toast.success("Delete Success");
     } else {
       toast.error("Delete Failure");
+    }
+  };
+
+  const handleChangeIsActive = async (slug: string, isActive: boolean) => {
+    const res = await dispatch(changeIsActiveCategorySlice({ slug, isActive }));
+    if (res.payload.success) {
+      toast.success("Change isActive success");
+      dispatch(getAllcate({ page, search: searchTerm }));
+    } else {
+      toast.error("Change isActive failure");
     }
   };
 
@@ -227,25 +269,42 @@ const CategoryAdmin = () => {
         ),
         createAt: item.createdAt,
         duration: item.time,
+
         status:
           item.status === "pending" ? (
-            <MVTags color="warning">Đang chờ</MVTags>
+            <MVTags color="warning">Pending</MVTags>
           ) : (
-            <MVTags color="success">Hoàn thành</MVTags>
+            <MVTags color="success">Completed</MVTags>
           ),
         year: item.year,
         set: item.up,
-        week: item.week?.length > 0 ? item.week.map(w => w.name).join(" | ") : <span className="flex items-center gap-1"><CheckCircle size={16} /> <span className="text-green-500">Hoàn Thành</span></span>,
+        isActive: (
+          <Switch
+            className="ant-switch"
+            checked={item.isActive}
+            onChange={(checked) => handleChangeIsActive(item.slug, checked)}
+            checkedChildren={<CheckOutlined />}
+            unCheckedChildren={<CloseOutlined />}
+          />
+        ),
+        week: item.week?.length > 0 ? item.week.map(w => w.name).join(" | ") : <Space><CheckOutlined style={{ color: '#52c41a' }} /> <Text style={{ color: '#52c41a' }}>Hoàn Thành</Text></Space>,
         action: (
-          <Dropdown
-            menu={{ items: actionItems }}
-            trigger={["click"]}
-            placement="bottomRight"
-          >
-            <MyButton type="text">
-              <MoreOutlined style={{ fontSize: "20px" }} />
-            </MyButton>
-          </Dropdown>
+          <div className="flex items-center gap-2">
+            <Dropdown
+              menu={{ items: actionItems }}
+              trigger={["click"]}
+              placement="bottomRight"
+            >
+              <MyButton type="text">
+                <MoreOutlined size={16} />
+              </MyButton>
+            </Dropdown>
+            <MVLink to={`/dashboard/category/edit/${item.slug}`}>
+              <Space className="cursor-pointer">
+                <EditOutlined style={{ color: '#1890ff', fontSize: '16px' }} />
+              </Space>
+            </MVLink>
+          </div>
         ),
       };
     });
@@ -253,272 +312,375 @@ const CategoryAdmin = () => {
     <div>
       <Tabs defaultActiveKey="1">
         <Tabs.TabPane tab="Category List" key="1">
-          <div className="flex gap-1 mb-3">
-            <div className="flex gap-2 mb-2">
-              <Input
-                placeholder="Tìm kiếm category..."
-                value={searchValue}
-                onChange={handleSearch}
-                allowClear
-                onClear={handleClearSearch}
-                style={{ flex: 1 }}
-              />
-              <MyButton type="primary" onClick={showModal}>
-                New
-              </MyButton>
-            </div>
-          </div>
+          <Card style={{ marginBottom: '16px' }}>
+            <Row gutter={[16, 16]} align="middle">
+              <Col xs={24} sm={18} md={20}>
+                <Search
+                  placeholder="Tìm kiếm danh mục..."
+                  value={searchValue}
+                  onChange={handleSearch}
+                  allowClear
+                  onClear={handleClearSearch}
+                  style={{ width: '100%' }}
+                  size="middle"
+                />
+              </Col>
+              <Col xs={24} sm={6} md={4}>
+                <Button
+                  type="primary"
+                  onClick={showModal}
+                  icon={<PlusOutlined />}
+                  size="middle"
+                  block
+                >
+                  Create New
+                </Button>
+              </Col>
+            </Row>
+          </Card>
           <Modal
             title={
-              <div className="flex items-center gap-2 text-lg font-semibold">
-                <span className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                  📝
-                </span>
-                Create New Category
-              </div>
+              <Space>
+                <InfoCircleOutlined style={{ color: '#1890ff', fontSize: '20px' }} />
+                <span style={{ fontSize: '18px', fontWeight: 'bold' }}>Create New Category</span>
+              </Space>
             }
             open={isModalOpen}
             footer={null}
             onCancel={handleCancel}
-            width={800}
-            className="custom-modal"
+            width={900}
+            centered
           >
-            <div className="max-h-[70vh] overflow-y-auto pr-2">
-              <form onSubmit={handleSubmit(onsubmit)} className="space-y-6">
-                {/* Basic Information */}
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <h3 className="text-md font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2">
-                    📋 Basic Information
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <MVInput
-                      name={"name"}
-                      label={"Category Name"}
-                      control={control}
-                      rules={undefined}
-                    />
-                    <MVInput
-                      name={"anotherName"}
-                      label={"Another Name"}
-                      control={control}
-                      rules={undefined}
-                    />
-                    <div className="md:col-span-2">
-                      <MVInput
-                        name={"des"}
-                        label={"Description"}
-                        control={control}
-                        rules={undefined}
-                      />
-                    </div>
+            <div style={{ maxHeight: '70vh', overflowY: 'auto', paddingRight: '8px' }}>
+              <Form
+                layout="vertical"
+                onFinish={onsubmit}
+                style={{ maxWidth: '100%' }}
+              >
+                <Row gutter={[16, 16]}>
+                  {/* Basic Information */}
+                  <Col xs={24}>
+                    <Card
+                      title={
+                        <Space>
+                          <InfoCircleOutlined style={{ color: '#1890ff' }} />
+                          <span>Basic Information</span>
+                        </Space>
+                      }
+                      size="small"
+                    >
+                      <Row gutter={[16, 16]}>
+                        <Col xs={24} md={12}>
+                          <Form.Item
+                            name="name"
+                            label="Category Name"
+                            rules={[{ required: true, message: 'Please enter category name!' }]}
+                          >
+                            <Input placeholder="Enter category name" />
+                          </Form.Item>
+                        </Col>
+                        <Col xs={24} md={12}>
+                          <Form.Item
+                            name="anotherName"
+                            label="Alternative Name"
+                          >
+                            <Input placeholder="Enter alternative name" />
+                          </Form.Item>
+                        </Col>
+                        <Col xs={24}>
+                          <Form.Item
+                            name="des"
+                            label="Category Description"
+                          >
+                            <Input.TextArea placeholder="Enter category description" rows={3} />
+                          </Form.Item>
+                        </Col>
+                        <Col xs={24} md={12}>
+                          <Form.Item
+                            name="episode_many_title"
+                            label="Episode Many Title"
+                          >
+                            <Input placeholder="Enter episode many title" />
+                          </Form.Item>
+                        </Col>
+                      </Row>
+                    </Card>
+                  </Col>
 
-                    <MVInput
-                      name={"episode_many_title"}
-                      label={"Episode Many Title"}
-                      control={control}
-                      rules={undefined}
-                    />
-                  </div>
-                </div>
+                  {/* Time & Duration */}
+                  <Col xs={24}>
+                    <Card
+                      title={
+                        <Space>
+                          <SettingOutlined style={{ color: '#1890ff' }} />
+                          <span>Time & Duration</span>
+                        </Space>
+                      }
+                      size="small"
+                    >
+                      <Row gutter={[16, 16]}>
+                        <Col xs={24} md={8}>
+                          <Form.Item
+                            name="time"
+                            label="Duration"
+                          >
+                            <Input placeholder="Enter duration" />
+                          </Form.Item>
+                        </Col>
+                        <Col xs={24} md={8}>
+                          <Form.Item
+                            name="year"
+                            label="Year"
+                          >
+                            <Input placeholder="Enter year" />
+                          </Form.Item>
+                        </Col>
+                        <Col xs={24} md={8}>
+                          <Form.Item
+                            name="hour"
+                            label="Hour"
+                          >
+                            <Input placeholder="Enter hour" />
+                          </Form.Item>
+                        </Col>
+                        <Col xs={24} md={8}>
+                          <Form.Item
+                            name="sumSeri"
+                            label="Total Episodes"
+                          >
+                            <Input placeholder="Enter total episodes" />
+                          </Form.Item>
+                        </Col>
+                        <Col xs={24} md={8}>
+                          <Form.Item
+                            name="up"
+                            label="Setup"
+                          >
+                            <Input placeholder="Enter setup" />
+                          </Form.Item>
+                        </Col>
+                        <Col xs={24} md={8}>
+                          <Form.Item
+                            name="releaseDate"
+                            label="Release Date"
+                          >
+                            <DatePicker
+                              style={{ width: '100%' }}
+                              placeholder="Select release date"
+                            />
+                          </Form.Item>
+                        </Col>
+                      </Row>
+                    </Card>
+                  </Col>
 
-                {/* Time & Duration */}
-                <div className="bg-blue-50 rounded-lg p-4">
-                  <h3 className="text-md font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2">
-                    ⏰ Time & Duration
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <MVInput
-                      name={"time"}
-                      label={"Duration"}
-                      control={control}
-                      rules={undefined}
-                    />
-                    <MVInput
-                      name={"year"}
-                      label={"Year"}
-                      control={control}
-                      rules={undefined}
-                    />
-                    <MVInput
-                      name={"hour"}
-                      label={"Hour"}
-                      control={control}
-                      rules={undefined}
-                    />
-                    <MVInput
-                      name={"sumSeri"}
-                      label={"Sum Series"}
-                      control={control}
-                      rules={undefined}
-                    />
-                    <MVInput
-                      name={"up"}
-                      label={"Set"}
-                      control={control}
-                      rules={undefined}
-                    />
-                    <div className="space-y-2">
-                      <label className="block text-sm font-medium text-gray-700">
-                        📅 Release Date
-                      </label>
-                      <Controller
-                        name="releaseDate"
-                        control={control}
-                        defaultValue={null}
-                        render={({ field }) => (
-                          <DatePicker
-                            {...field}
-                            value={
-                              field.value
-                                ? dayjs(field.value, "YYYY-MM-DD")
-                                : null
-                            }
-                            className="w-full h-10"
-                            placeholder="Select release date"
-                            onChange={(date, dateString) => {
-                              if (date) {
-                                field.onChange(
-                                  dayjs(date).format("YYYY-MM-DD")
-                                );
-                              } else {
-                                field.onChange(null);
-                              }
-                            }}
-                          />
-                        )}
-                      />
-                    </div>
-                  </div>
-                </div>
+                  {/* Settings & Status */}
+                  <Col xs={24}>
+                    <Card
+                      title={
+                        <Space>
+                          <TagsOutlined style={{ color: '#1890ff' }} />
+                          <span>Settings & Status</span>
+                        </Space>
+                      }
+                      size="small"
+                    >
+                      <Row gutter={[16, 16]}>
+                        <Col xs={24} sm={12} md={8}>
+                          <Form.Item
+                            name="status"
+                            label="Status"
+                          >
+                            <Select placeholder="Select status">
+                              <Select.Option value="completed">✅ Hoàn thành</Select.Option>
+                              <Select.Option value="pending">⏳ Đang chờ</Select.Option>
+                            </Select>
+                          </Form.Item>
+                        </Col>
+                        <Col xs={24} sm={12} md={8}>
+                          <Form.Item
+                            name="week"
+                            label="Week"
+                          >
+                            <Select
+                              mode="multiple"
+                              placeholder="Select week"
+                              options={weeekOptions}
+                            />
+                          </Form.Item>
+                        </Col>
+                        <Col xs={24} sm={12} md={8}>
+                          <Form.Item
+                            name="upcomingReleases"
+                            label="Upcoming Releases"
+                          >
+                            <Select
+                              placeholder="Select release"
+                              options={UpcomingReleasesOptions}
+                            />
+                          </Form.Item>
+                        </Col>
+                        <Col xs={24} sm={12} md={8}>
+                          <Form.Item
+                            name="isMovie"
+                            label="Movie Type"
+                          >
+                            <Select
+                              placeholder="Select movie type"
+                              options={isMovieOptions}
+                            />
+                          </Form.Item>
+                        </Col>
+                        <Col xs={24} sm={12} md={8}>
+                          <Form.Item
+                            name="newMovie"
+                            label="New Movie"
+                          >
+                            <Select placeholder="Is new movie?">
+                              <Select.Option value={true}>✅ Có</Select.Option>
+                              <Select.Option value={false}>❌ Không</Select.Option>
+                            </Select>
+                          </Form.Item>
+                        </Col>
+                        <Col xs={24} sm={12} md={8}>
+                          <Form.Item
+                            name="tags"
+                            label="Tags"
+                          >
+                            <Select
+                              mode="multiple"
+                              placeholder="Select tags"
+                              options={tagsOptions}
+                            />
+                          </Form.Item>
+                        </Col>
+                      </Row>
+                    </Card>
+                  </Col>
 
-                {/* Settings & Status */}
-                <div className="bg-green-50 rounded-lg p-4">
-                  <h3 className="text-md font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2">
-                    ⚙️ Settings & Status
-                  </h3>
-                  <div className="flex flex-wrap gap-4">
-                    <div className="w-full sm:w-[200px]">
-                      <MySelectWrapper
-                        name={"status"}
-                        label={"Status"}
-                        control={control}
-                        placeholder={"Select Status"}
-                        rules={undefined}
-                        options={[
+                  {/* File Upload */}
+                  <Col xs={24}>
+                    <Card
+                      title={
+                        <Space>
+                          <UploadOutlined style={{ color: '#1890ff' }} />
+                          <span>Upload Image</span>
+                        </Space>
+                      }
+                      size="small"
+                    >
+                      <Row gutter={[24, 24]}>
+                        <Col xs={24} lg={6}>
+                          <Space direction="vertical" style={{ width: '100%' }} size="large">
+                            <Form.Item
+                              name="file"
+                              label="Select Image"
+                            >
+                              <Upload
+                                name="file"
+                                multiple={false}
+                                showUploadList={false}
+                                beforeUpload={(file) => {
+                                  // Create preview URL
+                                  const reader = new FileReader();
+                                  reader.onload = (e) => {
+                                    setPreviewImage(e.target?.result as string);
+                                  };
+                                  reader.readAsDataURL(file);
+                                  return false;
+                                }}
+                              >
+                                <Button icon={<UploadOutlined />}>
+                                  {previewImage ? 'Change Image' : 'Select Image File'}
+                                </Button>
+                              </Upload>
+                              {previewImage && (
+                                <div style={{ marginTop: '8px' }}>
+                                  <Button
+                                    type="link"
+                                    danger
+                                    size="small"
+                                    onClick={() => {
+                                      setPreviewImage('');
+                                    }}
+                                  >
+                                    Remove Preview
+                                  </Button>
+                                </div>
+                              )}
+                            </Form.Item>
+                          </Space>
+                        </Col>
+                        <Col xs={24} lg={6}>
                           {
-                            label: "✅ Hoàn thành",
-                            value: "completed",
-                          },
-                          {
-                            label: "⏳ Đang chờ",
-                            value: "pending",
-                          },
-                        ]}
-                      />
-                    </div>
+                            previewImage && <div style={{
+                              border: '2px dashed #d9d9d9',
+                              borderRadius: '8px',
+                              padding: '16px',
+                              textAlign: 'center',
+                              backgroundColor: '#fafafa'
+                            }}>
+                              <Image
+                                style={{ width: '100%', maxHeight: '200px', objectFit: 'cover' }}
+                                src={previewImage || ''}
+                                alt="Category Preview"
+                                preview={false}
+                                fallback="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMIAAADDCAYAAADQvc6UAAABRWlDQ1BJQ0MgUHJvZmlsZQAAKJFjYGASSSwoyGFhYGDIzSspCnJ3UoiIjFJgf8LAwSDCIMogwMCcmFxc4BgQ4ANUwgCjUcG3awyMIPqyLsis7PPOq3QdDFcvjV3jOD1boQVTPQrgSkktTgbSf4A4LbmgqISBgTEFyFYuLykAsTuAbJEioKOA7DkgdjqEvQHEToKwj4DVhAQ5A9k3gGyB5IxEoBmML4BsnSQk8XQkNtReEOBxcfXxUQg1Mjc0dyHgXNJBSWpFCYh2zi+oLMpMzyhRcASGUqqCZ16yno6CkYGRAQMDKMwhqj/fAIcloxgHQqxAjIHBEugw5sUIsSQpBobtQPdLciLEVJYzMPBHMDBsayhILEqEO4DxG0txmrERhM29nYGBddr//5/DGRjYNRkY/l7////39v///y4Dmn+LgeHANwDrkl1AuO+pmgAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAwqADAAQAAAABAAAAwwAAAAD9b/HnAAAHlklEQVR4Ae3dP3Ik1RnG4W+FgYxN..."
+                              />
+                              {previewImage && (
+                                <div style={{ marginTop: '8px' }}>
+                                  <Text type="secondary" style={{ fontSize: '12px' }}>
+                                    Image Preview
+                                  </Text>
+                                </div>
+                              )}
+                            </div>
+                          }
+                        </Col>
 
-                    <div className="w-full sm:w-[180px]">
-                      <MySelectWrapper
-                        name={"week"}
-                        label={"Week"}
-                        control={control}
-                        placeholder={"Select Week"}
-                        defaultValue={undefined}
-                        options={weeekOptions}
-                        mode="multiple"
-                      />
-                    </div>
+                      </Row>
+                    </Card>
+                  </Col>
+                </Row>
 
-                    <div className="w-full sm:w-[220px]">
-                      <MySelectWrapper
-                        name={"upcomingReleases"}
-                        label={"Upcoming Releases"}
-                        control={control}
-                        placeholder={"Select Release"}
-                        defaultValue={undefined}
-                        options={UpcomingReleasesOptions}
-                      />
-                    </div>
+                <Divider />
 
-                    <div className="w-full sm:w-[160px]">
-                      <MySelectWrapper
-                        name={"isMovie"}
-                        label={"Is Movie"}
-                        control={control}
-                        placeholder={"Select Type"}
-                        defaultValue={undefined}
-                        options={isMovieOptions}
-                      />
-                    </div>
-
-                    <div className="w-full sm:w-[160px]">
-                      <MySelectWrapper
-                        name={"newMovie"}
-                        label={"New Movie"}
-                        control={control}
-                        placeholder={"Is New?"}
-                        defaultValue={undefined}
-                        options={[
-                          {
-                            label: "✅ Có",
-                            value: true,
-                          },
-                          {
-                            label: "❌ Không",
-                            value: false,
-                          },
-                        ]}
-                      />
-                    </div>
-                    <div className="sm:w-[160px]">
-                      <MySelectWrapper
-                        name={"tags"}
-                        label={"Tags"}
-                        placeholder={"Select Tags"}
-                        control={control}
-                        rules={undefined}
-                        options={tagsOptions}
-                        mode="multiple"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* File Upload */}
-                <div className="bg-purple-50 rounded-lg p-4">
-                  <h3 className="text-md font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2">
-                    📁 File Upload
-                  </h3>
-                  <MVUpload
-                    name={"file"}
-                    label={"Upload Image"}
-                    control={control}
-                  />
-                </div>
-                <div className="flex justify-end pt-4 border-t border-gray-200">
-                  <MyButton
+                {/* Submit Actions */}
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  paddingTop: '16px'
+                }}>
+                  <Button
+                    type="primary"
                     htmlType="submit"
-                    className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-8 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
+                    icon={<PlusOutlined />}
+                    size="middle"
+                    style={{ backgroundColor: '#52c41a', borderColor: '#52c41a' }}
                   >
-                    🚀 Create Category
-                  </MyButton>
+                    Create Category
+                  </Button>
                 </div>
-              </form>
+              </Form>
             </div>
           </Modal>
-          <MVTable
-            columns={columnsCategory}
-            dataSource={data}
-            scroll={{ x: 1000, y: 1000 }}
-            pagination={{
-              defaultPageSize: 24,
-              showSizeChanger: true,
-              pageSizeOptions: ["24", "44", "64"],
-              current: page,
-              onChange: handlePageChangePage,
-              total: category?.totalCount,
-            }}
-          ></MVTable>
+          <Card>
+            <MVTable
+              columns={columnsCategory}
+              dataSource={data}
+              scroll={{ x: 1000, y: 1000 }}
+              pagination={{
+                defaultPageSize: 24,
+                showSizeChanger: true,
+                pageSizeOptions: ["24", "44", "64"],
+                current: page,
+                onChange: handlePageChangePage,
+                total: category?.totalCount,
+                showTotal: (total, range) =>
+                  `${range[0]}-${range[1]} of ${total} categories`,
+              }}
+            />
+          </Card>
         </Tabs.TabPane>
         <Tabs.TabPane tab="Recycle Bin" key="2">
           <RecycleBin />

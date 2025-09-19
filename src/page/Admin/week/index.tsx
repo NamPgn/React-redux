@@ -31,6 +31,7 @@ const Weeks = () => {
         mutate(urlSwr + "/weeks");
         MVSuccess("Delete Success");
       }
+
     } catch (error) {
       MVError("Delete Failure");
     }
@@ -59,7 +60,7 @@ const Weeks = () => {
               okText="Yes"
               cancelText="No"
             >
-              <MyButton type="text" shape="circle" className="ml-2">
+              <MyButton type="text" shape="circle" className="ml-2">  
                 <DeleteOutlined />
               </MyButton>
             </MVConfirm>
