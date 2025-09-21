@@ -1,8 +1,24 @@
-.ant-menu-item, .ant-menu-submenu-title{
+/* Menu Item Alignment */
+.ant-menu-item, .ant-menu-submenu-title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.ant-menu-item-icon {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 10px !important;
+  width: 16px !important;
+  height: 16px !important;
+  font-size: 16px !important;
+  flex-shrink: 0 !important;
+}
+
+.ant-menu-item-text {
+  display: flex !important;
+  align-items: center !important;
+  line-height: 1 !important;
 }
 
 /* Animation for menu items */

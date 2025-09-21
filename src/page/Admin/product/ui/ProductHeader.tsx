@@ -39,26 +39,11 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      padding: `${token.paddingLG}px 0`,
       marginBottom: token.marginLG,
-      borderBottom: `1px solid ${token.colorBorder}`, // Sử dụng token màu border
       backgroundColor: token.colorBgContainer, // Màu nền container
       borderRadius: token.borderRadius, // Border radius từ theme
-      paddingLeft: token.paddingMD,
-      paddingRight: token.paddingMD,
     }}>
       
-      <Title 
-        level={3} 
-        style={{ 
-          margin: 0, 
-          color: token.colorPrimary, // Màu primary từ theme
-          fontWeight: token.fontWeightStrong
-        }}
-      >
-        Manage Episode
-      </Title>
-
       <Space size="middle" wrap>
         {/* Button Quản lý */}
         <Button
@@ -66,11 +51,6 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
           icon={<MenuOutlined />}
           onClick={onOpenDrawer}
           size="middle"
-          style={{
-            borderColor: token.colorPrimary,
-            color: token.colorPrimary,
-          }}
-          ghost // Tạo button trong suốt với viền màu
         >
           Manage Episode
         </Button>
@@ -92,26 +72,14 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
           icon={<FileTextOutlined />}
           onClick={onGenerateEpisode}
           size="middle"
-          style={{
-            borderColor: token.colorWarning,
-            color: token.colorWarning,
-            backgroundColor: token.colorWarningBg,
-          }}
         >
           Create Multiple Episode
         </Button>
 
         {/* Button Thêm nhiều tập phim */}
         <Button
-          type="dashed"
           icon={<PlusOutlined />}
           onClick={() => setMultipleEpisodeModalVisible(true)}
-          style={{
-            borderColor: token.colorInfo,
-            color: token.colorInfo,
-            borderStyle: 'dashed',
-            borderWidth: '2px',
-          }}
         >
           Create Multiple Episode
         </Button>
