@@ -14,7 +14,8 @@ import {
   Divider,
   message,
   Image,
-  Tag
+  Tag,
+  Spin
 } from "antd";
 import { 
   SaveOutlined, 
@@ -45,6 +46,7 @@ const EditProduct = () => {
   const { seri }: any = useContext(ApiContext) || {};
   const [isLoading, setIsLoading] = useState(false);
   const [uploadLoading, setUploadLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
   const { data }: any = useAppSelector((state) => state.category.category);
   const { id } = useParams();
   const [form] = Form.useForm();
@@ -54,6 +56,7 @@ const EditProduct = () => {
 
   useEffect(() => {
     const getFormProduct = async () => {
+      setInitialLoading(true);
       try {
         const { payload }: any = await dispatch(getProduct(id));
         form.setFieldsValue({
@@ -63,6 +66,8 @@ const EditProduct = () => {
         setState(payload);
       } catch (error) {
         toast.error("Không thể tải thông tin sản phẩm");
+      } finally {
+        setInitialLoading(false);
       }
     };
     getFormProduct();
@@ -86,22 +91,22 @@ const EditProduct = () => {
     setIsLoading(true);
     try {
       const formdata = new FormData();
-      formdata.append("name", values.name || "");
-      formdata.append("slug", values.slug || "");
-      formdata.append("category", values.category || "");
-      formdata.append("_id", state._id || "");
-      formdata.append("seri", values.seri || "");
-      formdata.append("LinkCopyright", values.LinkCopyright || "");
-      formdata.append("copyright", values.copyright || "");
-      formdata.append("trailer", values.trailer || "");
-      formdata.append("image", values.image || "");
-      formdata.append("typeId", values.typeId || "");
-      formdata.append("categorymain", values.categorymain || "");
-      formdata.append("dailyMotionServer", values.dailyMotionServer || "");
-      formdata.append("link", values.link || "");
-      formdata.append("imageLink", values.imageLink || "");
-      formdata.append("view", values.view || "");
-      formdata.append("server2", values.server2 || "");
+      formdata.append("name", values.name);
+      formdata.append("slug", values.slug);
+      formdata.append("category", values.category);
+      formdata.append("_id", state._id);
+      formdata.append("seri", values.seri);
+      formdata.append("LinkCopyright", values.LinkCopyright);
+      formdata.append("copyright", values.copyright);
+      formdata.append("trailer", values.trailer);
+      formdata.append("image", values.image);
+      formdata.append("typeId", values.typeId);
+      formdata.append("categorymain", values.categorymain);
+      formdata.append("dailyMotionServer", values.dailyMotionServer);
+      formdata.append("link", values.link);
+      formdata.append("imageLink", values.imageLink);
+      formdata.append("view", values.view);
+      formdata.append("server2", values.server2);
 
       const res = await dispatch(editProduct(formdata));
       if (res?.meta?.requestStatus === "fulfilled") {
@@ -152,6 +157,26 @@ const EditProduct = () => {
       return false;
     },
   };
+
+  if (initialLoading) {
+    return (
+      <div style={{ 
+        padding: '24px', 
+        backgroundColor: '#f5f5f5', 
+        minHeight: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <Spin size="default" />
+          <div style={{ marginTop: '16px', fontSize: '16px', color: '#666' }}>
+            Đang tải thông tin tập phim...
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div style={{ padding: '24px', backgroundColor: '#f5f5f5', minHeight: '100vh' }}>

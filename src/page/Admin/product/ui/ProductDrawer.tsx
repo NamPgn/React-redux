@@ -24,6 +24,7 @@ import {
   DatabaseOutlined,
 } from '@ant-design/icons';
 import MVLink from '../../../../components/Location/Link';
+import CreatingProductsModal from '../component/creatingProducts';
 
 const { Title, Text } = Typography;
 
@@ -47,6 +48,8 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
   onClearCache,
   onClearCacheRedis,
 }) => {
+  const [excelModalVisible, setExcelModalVisible] = useState(false);
+
   return (
     <Drawer
       title={
@@ -159,17 +162,16 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
           style={{ margin: '12px 16px 0 16px', borderRadius: '6px' }}
           bodyStyle={{ padding: '12px' }}
         >
-          <MVLink to={"/dashboard/product/creacting"}>
-            <Button
-              icon={<FileExcelOutlined className="text-base" />}
-              size="middle"
-              block
-              className="h-9 flex items-center justify-center gap-2"
-            >
-              <PlusOutlined className="text-xs mr-1" />
-              <span className="text-sm font-medium">Thêm từ Excel</span>
-            </Button>
-          </MVLink>
+          <Button
+            icon={<FileExcelOutlined className="text-base" />}
+            size="middle"
+            block
+            className="h-9 flex items-center justify-center gap-2"
+            onClick={() => setExcelModalVisible(true)}
+          >
+            <PlusOutlined className="text-xs mr-1" />
+            <span className="text-sm font-medium">Thêm từ Excel</span>
+          </Button>
         </Card>
 
         {/* Export Section */}
@@ -236,7 +238,7 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
                 block
                 className="h-9 flex items-center justify-center gap-2"
               >
-                <span className="text-sm font-medium">Xóa Cache sản phẩm</span>
+                <span className="text-sm font-medium">Xóa Cache Episodes</span>
               </Button>
             </Tooltip>
 
@@ -257,6 +259,16 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
         </Card>
 
       </div>
+
+      {/* Excel Import Modal */}
+      <CreatingProductsModal
+        open={excelModalVisible}
+        onClose={() => setExcelModalVisible(false)}
+        onSuccess={() => {
+          // Refresh data if needed
+          setExcelModalVisible(false);
+        }}
+      />
     </Drawer>
   );
 };

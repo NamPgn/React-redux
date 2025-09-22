@@ -9,6 +9,7 @@ import {
 } from '@ant-design/icons';
 import MVLink from '../../../../components/Location/Link';
 import AddMultipleEpisodes from '../component/addMultipleEpisode';
+import ProductAddModal from '../component/add';
 
 const { Title } = Typography;
 const { Search } = Input;
@@ -20,6 +21,7 @@ interface ProductHeaderProps {
   onCategoryFilter: (value: string) => void;
   onEpisodeSearch: (value: string) => void;
   categories: any[];
+  onRefresh?: () => void;
 }
 
 const ProductHeader: React.FC<ProductHeaderProps> = ({
@@ -29,8 +31,10 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
   onCategoryFilter,
   onEpisodeSearch,
   categories,
+  onRefresh,
 }) => {
   const [multipleEpisodeModalVisible, setMultipleEpisodeModalVisible] = useState(false);
+  const [addModalVisible, setAddModalVisible] = useState(false);
   const { token } = theme.useToken();
   return (
     <div>
@@ -56,15 +60,14 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
         </Button>
 
         {/* Button Thêm sản phẩm */}
-        <MVLink to="/dashboard/product/add">
-          <Button
-            type="primary"
-            icon={<PlusOutlined />}
-            size="middle"
-          >
-            Create Episode
-          </Button>
-        </MVLink>
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          size="middle"
+          onClick={() => setAddModalVisible(true)}
+        >
+          Create Episode
+        </Button>
 
         {/* Button Tạo tập phim */}
         <Button
@@ -119,6 +122,16 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
           }}
         />
       </div>
+      {/* Add Episode Modal */}
+      <ProductAddModal
+        open={addModalVisible}
+        onClose={() => setAddModalVisible(false)}
+        onSuccess={() => {
+          onRefresh?.();
+        }}
+      />
+
+      {/* Multiple Episode Modal */}
       <Modal
         title={
           <Space>

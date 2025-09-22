@@ -175,14 +175,15 @@ export default function AddMultipleEpisodes() {
             justifyContent: 'flex-end', 
             paddingTop: '16px',
             borderTop: '1px solid #f0f0f0',
-            marginTop: '16px'
+            marginTop: '16px',
+            alignItems: 'center',
           }}>
             <Button
               type="primary"
               htmlType="submit"
               loading={loading}
               icon={<SaveOutlined />}
-              size="large"
+              size="middle"
             >
               Thêm{" "}
               {form.getFieldValue("toEpisode") -

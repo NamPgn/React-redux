@@ -57,7 +57,7 @@ export const editProductData = async (data: any): Promise<IProduct> => {
 };
 
 export const importData = async (data: any): Promise<IProduct> => {
-  return await intances.post(`/products/creating`, data, {
+  return await intances.post(`/products/create/excel`, data, {
     // headers: {
     //   Authorization: `Bearer ${dataToken.token}`,
     // },

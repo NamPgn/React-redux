@@ -64,14 +64,14 @@ const EditCategory = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-    dispatch(getCateSlice(id));
-      const { data }: any = await getCategory(id);
+        dispatch(getCateSlice(id));
+        const { data }: any = await getCategory(id);
         form.setFieldsValue({
-        ...data,
+          ...data,
           week: data.week?.map((week: any) => week._id) || [],
           tags: data.tags?.map((tag: any) => tag._id) || []
-      });
-      setState(data);
+        });
+        setState(data);
       } catch (error) {
         toast.error("Unable to load category information");
       }
@@ -84,8 +84,8 @@ const EditCategory = () => {
   );
 
   const weeekOptions = weeks?.map((item: any) => ({
-      label: item.name,
-      value: item._id,
+    label: item.name,
+    value: item._id,
   })) || [];
 
   const UpcomingReleasesOptions = RELEASES?.map((item: any) => ({
@@ -94,9 +94,9 @@ const EditCategory = () => {
   })) || [];
 
   const treeDataCateogys = categorySelect && categorySelect?.map((item: any) => ({
-      title: item.name,
-      value: item._id,
-      key: item._id,
+    title: item.name,
+    value: item._id,
+    key: item._id,
   })) || [];
 
   const isMovieOptions = ISMOVIE?.map((item: any) => ({
@@ -123,44 +123,44 @@ const EditCategory = () => {
   const onFinish = async (values: any) => {
     setLoading(true);
     try {
-    const formdata = new FormData();
-      formdata.append("_id", values._id || "");
-      formdata.append("name", values.name || "");
-      formdata.append("slug", values.slug || "");
-      formdata.append("des", values.des || "");
-      formdata.append("type", values.type || "");
-      formdata.append("file", values.file || "");
-      formdata.append("up", values.up || "");
-      formdata.append("time", values.time || "");
-      formdata.append("status", values.status || "");
-      formdata.append("year", values.year || "");
-      formdata.append("anotherName", values.anotherName || "");
-      formdata.append("sumSeri", values.sumSeri || "");
-      formdata.append("hour", values.hour || "");
-      formdata.append("lang", values.lang || "");
-      formdata.append("season", values.season || "");
-      formdata.append("quality", values.quality || "");
-      formdata.append("episode_many_title", values.episode_many_title || "");
-      formdata.append("upcomingReleases", values.upcomingReleases || "");
-      formdata.append("isMovie", values.isMovie || "");
-      formdata.append("thuyetMinh", values.thuyetMinh || "");
-      formdata.append("newMovie", values.newMovie || "");
+      const formdata = new FormData();
+      formdata.append("_id", state._id);
+      formdata.append("name", values.name);
+      formdata.append("slug", values.slug);
+      formdata.append("des", values.des);
+      formdata.append("type", values.type);
+      formdata.append("file", values.file);
+      formdata.append("up", values.up);
+      formdata.append("time", values.time);
+      formdata.append("status", values.status);
+      formdata.append("year", values.year);
+      formdata.append("anotherName", values.anotherName);
+      formdata.append("sumSeri", values.sumSeri);
+      formdata.append("hour", values.hour);
+      formdata.append("lang", values.lang);
+      formdata.append("season", values.season);
+      formdata.append("quality", values.quality);
+      formdata.append("episode_many_title", values.episode_many_title);
+      formdata.append("upcomingReleases", values.upcomingReleases);
+      formdata.append("isMovie", values.isMovie);
+      formdata.append("thuyetMinh", values.thuyetMinh);
+      formdata.append("newMovie", values.newMovie);
 
       if (values.tags && Array.isArray(values.tags)) {
         values.tags.forEach((tag: any) => {
-        formdata.append("tags[]", tag);
-      });
-    }
+          formdata.append("tags[]", tag);
+        });
+      }
       if (values.week && Array.isArray(values.week)) {
         values.week.forEach((week: any) => {
-        formdata.append("week[]", week);
-      });
-    }
+          formdata.append("week[]", week);
+        });
+      }
 
-    const res = await dispatch(updateCatgorySlice(formdata));
-    if (res.payload) {
+      const res = await dispatch(updateCatgorySlice(formdata));
+      if (res.payload) {
         toast.success("Category updated successfully");
-    } else {
+      } else {
         toast.error("Failed to update category");
       }
     } catch (error) {
@@ -175,14 +175,14 @@ const EditCategory = () => {
     multiple: false,
     beforeUpload: (file: any) => {
       form.setFieldsValue({ file: file });
-      
+
       // Create preview URL
       const reader = new FileReader();
       reader.onload = (e) => {
         setPreviewImage(e.target?.result as string);
       };
       reader.readAsDataURL(file);
-      
+
       return false;
     },
   };
@@ -248,7 +248,7 @@ const EditCategory = () => {
                 </Card>
               </Col>
 
-      {/* Media & Technical Details */}
+              {/* Media & Technical Details */}
               <Col xs={24}>
                 <Card
                   title={
@@ -328,7 +328,7 @@ const EditCategory = () => {
                 </Card>
               </Col>
 
-      {/* Image Section */}
+              {/* Image Section */}
               <Col xs={24}>
                 <Card
                   title={
@@ -341,9 +341,9 @@ const EditCategory = () => {
                 >
                   <Row gutter={[24, 24]}>
                     <Col xs={24} lg={4}>
-                      <div style={{ 
-                        border: '2px dashed #d9d9d9', 
-                        borderRadius: '8px', 
+                      <div style={{
+                        border: '2px dashed #d9d9d9',
+                        borderRadius: '8px',
                         padding: '16px',
                         textAlign: 'center',
                         backgroundColor: '#fafafa'
@@ -383,9 +383,9 @@ const EditCategory = () => {
                           </Upload>
                           {previewImage && (
                             <div style={{ marginTop: '8px' }}>
-                              <Button 
-                                type="link" 
-                                danger 
+                              <Button
+                                type="link"
+                                danger
                                 size="small"
                                 onClick={() => {
                                   setPreviewImage('');
@@ -403,7 +403,7 @@ const EditCategory = () => {
                 </Card>
               </Col>
 
-      {/* Quality & Language Settings */}
+              {/* Quality & Language Settings */}
               <Col xs={24}>
                 <Card
                   title={
@@ -457,15 +457,15 @@ const EditCategory = () => {
                       >
                         <Select
                           placeholder="Select type"
-            options={isMovieOptions}
-          />
+                          options={isMovieOptions}
+                        />
                       </Form.Item>
                     </Col>
                   </Row>
                 </Card>
               </Col>
 
-      {/* Status & Release Settings */}
+              {/* Status & Release Settings */}
               <Col xs={24}>
                 <Card
                   title={
@@ -496,7 +496,7 @@ const EditCategory = () => {
                         <Select
                           mode="multiple"
                           placeholder="Select week"
-            options={weeekOptions}
+                          options={weeekOptions}
                         />
                       </Form.Item>
                     </Col>
@@ -507,8 +507,8 @@ const EditCategory = () => {
                       >
                         <Select
                           placeholder="Select release"
-            options={UpcomingReleasesOptions}
-          />
+                          options={UpcomingReleasesOptions}
+                        />
                       </Form.Item>
                     </Col>
                     <Col xs={24} sm={12} md={6}>
@@ -530,7 +530,7 @@ const EditCategory = () => {
                         <Select
                           mode="multiple"
                           placeholder="Select tags"
-            options={tagsOptions}
+                          options={tagsOptions}
                         />
                       </Form.Item>
                     </Col>
@@ -538,7 +538,7 @@ const EditCategory = () => {
                 </Card>
               </Col>
 
-      {/* Date & Category Selection */}
+              {/* Date & Category Selection */}
               <Col xs={24}>
                 <Card
                   title={
@@ -595,7 +595,7 @@ const EditCategory = () => {
           </Form>
         </Card>
       </div>
-      </div>
+    </div>
   );
 };
 

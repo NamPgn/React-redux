@@ -1,5 +1,5 @@
 import React, { memo, useContext, useEffect, useState } from "react";
-import { Spin, Dropdown, message, Tag, Modal, Typography, Divider } from "antd";
+import { Spin, Dropdown, message, Tag } from "antd";
 import {
   getProducts,
   deleteProduct,
@@ -36,20 +36,18 @@ import {
   CirclePlus,
   Pencil,
 } from "lucide-react";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
-import MVConfirm from "../../../components/MV/Confirm";
 import MVLink from "../../../components/Location/Link";
 import { MyContext } from "../../../context";
 
-const { Title, Text } = Typography;
 import PageTitle from "../../../components/PageTitle";
 import ProductTable from "./ui/ProductTable";
 import ProductHeader from "./ui/ProductHeader";
 import ProductDrawer from "./ui/ProductDrawer";
+import EditVoiceOver from "./component/edit-voice-over";
 import "./style.css";
-import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import ProductActions from "./ui/ProductActions";
+import DeleteConfirmModal from "./component/DeleteConfirmModal";
 
 const ProductAdmin = memo(() => {
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -64,6 +62,8 @@ const ProductAdmin = memo(() => {
   const [selectedRowKeys, setSelectedRowKeys]: any = useState<React.Key[]>([]);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState<any>(null);
+  const [editVoiceOverVisible, setEditVoiceOverVisible] = useState(false);
+  const [selectedVoiceOverRecord, setSelectedVoiceOverRecord] = useState<any>(null);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -384,12 +384,16 @@ const ProductAdmin = memo(() => {
                 {
                   key: 'edit-voice-over',
                   label: (
-                    <MVLink to={`/dashboard/product/edit-voice-over/${record.slug}`} >
-                      <div className="flex items-center gap-2">
-                        <Edit size={16} />
-                        <span>Edit Voice Over</span>
-                      </div>
-                    </MVLink>
+                    <div 
+                      className="flex items-center gap-2 cursor-pointer hover:bg-gray-100 rounded"
+                      onClick={() => {
+                        setSelectedVoiceOverRecord(record);
+                        setEditVoiceOverVisible(true);
+                      }}
+                    >
+                      <Edit size={16} />
+                      <span>Edit Voice Translation</span>
+                    </div>
                   ),
                 },
                 {
@@ -696,6 +700,9 @@ const ProductAdmin = memo(() => {
         onCategoryFilter={handleCategoryFilter}
         onEpisodeSearch={handleEpisodeSearch}
         categories={cate?.data || []}
+        onRefresh={() => {
+          dispatch(getProducts({ page: 0, categoryId: selectedCategory, seri: episodeSearch }));
+        }}
       />
 
       <ProductDrawer
@@ -722,80 +729,29 @@ const ProductAdmin = memo(() => {
       </Spin>
 
       {/* Delete Confirmation Modal */}
-      <Modal
-        title={
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <ExclamationCircleOutlined style={{ color: '#ff4d4f', fontSize: '20px' }} />
-            <span>Xác nhận xóa tập phim</span>
-          </div>
-        }
+      <DeleteConfirmModal
         open={isDeleteModalVisible}
-        onOk={handleDeleteConfirm}
+        onConfirm={handleDeleteConfirm}
         onCancel={() => {
           setIsDeleteModalVisible(false);
           setSelectedRecord(null);
         }}
-        okText="Xóa"
-        cancelText="Hủy"
-        okButtonProps={{ 
-          danger: true,
-          size: 'middle'
+        selectedRecord={selectedRecord}
+      />
+
+      {/* Edit Voice Over Modal */}
+      <EditVoiceOver
+        open={editVoiceOverVisible}
+        slug={selectedVoiceOverRecord?.slug}
+        onClose={() => {
+          setEditVoiceOverVisible(false);
+          setSelectedVoiceOverRecord(null);
         }}
-        cancelButtonProps={{
-          size: 'middle'
+        onSuccess={() => {
+          // Refresh data if needed
+          dispatch(getProducts({ page, categoryId: selectedCategory, seri: episodeSearch }));
         }}
-        width={500}
-        centered
-      >
-        {selectedRecord && (
-          <div style={{ marginTop: '16px' }}>
-            <Text style={{ fontSize: '16px', color: '#666' }}>
-              Bạn có chắc chắn muốn xóa tập phim này? Hành động này không thể hoàn tác.
-            </Text>
-            
-            <Divider style={{ margin: '16px 0' }} />
-            
-            <div style={{ 
-              background: '#fafafa', 
-              padding: '16px', 
-              borderRadius: '8px',
-              border: '1px solid #e8e8e8'
-            }}>
-              <Title level={5} style={{ margin: '0 0 12px 0', color: '#1890ff' }}>
-                Thông tin tập phim
-              </Title>
-              
-              <div style={{ display: 'grid', gap: '8px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <Text strong>Tên tập phim:</Text>
-                  <Text>{selectedRecord.name}</Text>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <Text strong>Slug:</Text>
-                  <Text code>{selectedRecord.slug}</Text>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <Text strong>Danh mục:</Text>
-                  <Text>{selectedRecord.category}</Text>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <Text strong>Tập số:</Text>
-                  <Text>{selectedRecord.seri}</Text>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <Text strong>Trạng thái:</Text>
-                  <Text style={{ 
-                    color: selectedRecord.isApproved ? '#52c41a' : '#faad14',
-                    fontWeight: 'bold'
-                  }}>
-                    {selectedRecord.isApproved ? 'Đã duyệt' : 'Chưa duyệt'}
-                  </Text>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </Modal>
+      />
     </>
   );
 });
