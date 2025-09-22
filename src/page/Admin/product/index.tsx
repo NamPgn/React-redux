@@ -47,7 +47,7 @@ import EditVoiceOver from "./component/edit-voice-over";
 import "./style.css";
 import { Link } from "react-router-dom";
 import ProductActions from "./ui/ProductActions";
-import DeleteConfirmModal from "./component/DeleteConfirmModal";
+import DeleteConfirmModal from "./component/deleteConfirmModal";
 
 const ProductAdmin = memo(() => {
   const [selectedCategory, setSelectedCategory] = useState("");
