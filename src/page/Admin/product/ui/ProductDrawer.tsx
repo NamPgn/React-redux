@@ -24,7 +24,7 @@ import {
   DatabaseOutlined,
 } from '@ant-design/icons';
 import MVLink from '../../../../components/Location/Link';
-import CreatingProductsModal from '../component/creatingProducts';
+import CreatingProductsModal from './creatingProducts';
 
 const { Text } = Typography;
 
