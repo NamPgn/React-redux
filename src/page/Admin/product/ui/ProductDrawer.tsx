@@ -26,7 +26,7 @@ import {
 import MVLink from '../../../../components/Location/Link';
 import CreatingProductsModal from '../component/creatingProducts';
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 interface ProductDrawerProps {
   open: boolean;
