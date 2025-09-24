@@ -59,12 +59,33 @@ const EditProduct = () => {
       setInitialLoading(true);
       try {
         const { payload }: any = await dispatch(getProduct(id));
-        form.setFieldsValue({
-          ...payload,
-          category: payload.category?._id,
-        });
-        setState(payload);
+        console.log("API Response:", payload); // Debug log
+        
+        if (payload) {
+          // Đảm bảo tất cả các field được set đúng cách
+          const formData = {
+            name: payload.name || '',
+            slug: payload.slug || '',
+            seri: payload.seri || '',
+            view: payload.view || 0,
+            link: payload.link || '',
+            dailyMotionServer: payload.dailyMotionServer || '',
+            server2: payload.server2 || '',
+            trailer: payload.trailer || '',
+            category: payload.category?._id || '',
+            typeId: payload.typeId || '',
+            imageLink: payload.imageLink || '',
+            LinkCopyright: payload.LinkCopyright || '',
+            copyright: payload.copyright || '',
+            categorymain: payload.categorymain || ''
+          };
+          
+          console.log("Form Data:", formData); // Debug log
+          form.setFieldsValue(formData);
+          setState(payload);
+        }
       } catch (error) {
+        console.error("Error loading product:", error);
         toast.error("Không thể tải thông tin sản phẩm");
       } finally {
         setInitialLoading(false);
@@ -76,6 +97,31 @@ const EditProduct = () => {
   useEffect(() => {
     dispatch(getAllcate({ page: 0 }));
   }, [dispatch]);
+
+  // Đảm bảo form được populate khi state thay đổi
+  useEffect(() => {
+    if (state && Object.keys(state).length > 0) {
+      const formData = {
+        name: state.name || '',
+        slug: state.slug || '',
+        seri: state.seri || '',
+        view: state.view || 0,
+        link: state.link || '',
+        dailyMotionServer: state.dailyMotionServer || '',
+        server2: state.server2 || '',
+        trailer: state.trailer || '',
+        category: state.category?._id || '',
+        typeId: state.typeId || '',
+        imageLink: state.imageLink || '',
+        LinkCopyright: state.LinkCopyright || '',
+        copyright: state.copyright || '',
+        categorymain: state.categorymain || ''
+      };
+      
+      console.log("Setting form with state data:", formData);
+      form.setFieldsValue(formData);
+    }
+  }, [state, form]);
 
   const categoryOptions = data ? [...data].sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()).map((item: any) => ({
     label: item.name,
@@ -105,7 +151,7 @@ const EditProduct = () => {
       formdata.append("dailyMotionServer", values.dailyMotionServer);
       formdata.append("link", values.link);
       formdata.append("imageLink", values.imageLink);
-      formdata.append("view", values.view);
+      formdata.append("view", values.view || 0);
       formdata.append("server2", values.server2);
 
       const res = await dispatch(editProduct(formdata));
@@ -115,6 +161,7 @@ const EditProduct = () => {
         toast.error("Cập nhật thất bại");
       }
     } catch (error) {
+      console.error("Error updating product:", error);
       toast.error("Có lỗi xảy ra");
     } finally {
       setIsLoading(false);
