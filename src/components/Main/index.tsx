@@ -52,7 +52,6 @@ const DetailComponent = () => {
     setLink(decryptedText);
 
   }, [id, getOneProductDetail.dailyMotionServer]); //nếu mà 2 thằng này có thay đổi thì rereder
-  console.log(getOneProductDetail.server2 )
   return (
     <>
       <PageMeta

@@ -59,10 +59,8 @@ const EditProduct = () => {
       setInitialLoading(true);
       try {
         const { payload }: any = await dispatch(getProduct(id));
-        console.log("API Response:", payload); // Debug log
         
         if (payload) {
-          // Đảm bảo tất cả các field được set đúng cách
           const formData = {
             name: payload.name || '',
             slug: payload.slug || '',
@@ -80,7 +78,6 @@ const EditProduct = () => {
             categorymain: payload.categorymain || ''
           };
           
-          console.log("Form Data:", formData); // Debug log
           form.setFieldsValue(formData);
           setState(payload);
         }
@@ -118,7 +115,6 @@ const EditProduct = () => {
         categorymain: state.categorymain || ''
       };
       
-      console.log("Setting form with state data:", formData);
       form.setFieldsValue(formData);
     }
   }, [state, form]);
