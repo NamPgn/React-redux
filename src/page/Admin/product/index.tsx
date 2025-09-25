@@ -1,5 +1,5 @@
 import React, { memo, useContext, useEffect, useState } from "react";
-import { Spin, Dropdown, message, Tag } from "antd";
+import { Dropdown, message, Tag } from "antd";
 import {
   getProducts,
   deleteProduct,
@@ -64,6 +64,7 @@ const ProductAdmin = memo(() => {
   const [selectedRecord, setSelectedRecord] = useState<any>(null);
   const [editVoiceOverVisible, setEditVoiceOverVisible] = useState(false);
   const [selectedVoiceOverRecord, setSelectedVoiceOverRecord] = useState<any>(null);
+  const [isGeneratingEpisode, setIsGeneratingEpisode] = useState(false);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -206,13 +207,20 @@ const ProductAdmin = memo(() => {
   };
 
   const handleAutoRenderEpisodeMovie = async () => {
-    const res = await dispatch(autoGenarateEpisodeMovieSlice());
-    if (res.meta.requestStatus == "fulfilled") {
-      setInit(!init);
-      setOpen(false);
-      toast.success("Success");
-    } else {
-      toast.error("Error");
+    try {
+      setIsGeneratingEpisode(true);
+      const res = await dispatch(autoGenarateEpisodeMovieSlice());
+      if (res.meta.requestStatus == "fulfilled") {
+        setInit(!init);
+        setOpen(false);
+        toast.success("Success");
+      } else {
+        toast.error("Error");
+      }
+    } catch (error) {
+      toast.error("Error generating episodes");
+    } finally {
+      setIsGeneratingEpisode(false);
     }
   };
 
@@ -700,6 +708,7 @@ const ProductAdmin = memo(() => {
         onCategoryFilter={handleCategoryFilter}
         onEpisodeSearch={handleEpisodeSearch}
         categories={cate?.data || []}
+        isGeneratingEpisode={isGeneratingEpisode}
         onRefresh={() => {
           dispatch(getProducts({ page: 0, categoryId: selectedCategory, seri: episodeSearch }));
         }}
@@ -716,17 +725,15 @@ const ProductAdmin = memo(() => {
         categories={cate?.data}
       />
 
-      <Spin spinning={isLoading} delay={undefined}>
-        <ProductTable
-          data={data}
-          columns={columnsProduct}
-          rowSelection={rowSelection}
-          isLoading={isLoading}
-          page={page}
-          total={products?.totalCount}
-          onPageChange={handlePageChangePage}
-        />
-      </Spin>
+      <ProductTable
+        data={data}
+        columns={columnsProduct}
+        rowSelection={rowSelection}
+        isLoading={isLoading}
+        page={page}
+        total={products?.totalCount}
+        onPageChange={handlePageChangePage}
+      />
 
       {/* Delete Confirmation Modal */}
       <DeleteConfirmModal

@@ -125,26 +125,26 @@ const EditCategory = () => {
     try {
       const formdata = new FormData();
       formdata.append("_id", state._id);
-      formdata.append("name", values.name);
+      formdata.append("name", values.name || "");
       formdata.append("slug", values.slug);
-      formdata.append("des", values.des);
-      formdata.append("type", values.type);
-      formdata.append("file", values.file);
+      formdata.append("des", values.des || "");
+      formdata.append("type", values.type || "");
+      formdata.append("file", values.file || "");
       formdata.append("up", values.up);
-      formdata.append("time", values.time);
+      formdata.append("time", values.time || "");
       formdata.append("status", values.status);
       formdata.append("year", values.year);
       formdata.append("anotherName", values.anotherName);
       formdata.append("sumSeri", values.sumSeri);
-      formdata.append("hour", values.hour);
-      formdata.append("lang", values.lang);
+      formdata.append("hour", values.hour || "");
+      formdata.append("lang", values.lang || "Vietsub");
       formdata.append("season", values.season);
-      formdata.append("quality", values.quality);
+      formdata.append("quality", values.quality || "HD");
       formdata.append("episode_many_title", values.episode_many_title);
       formdata.append("upcomingReleases", values.upcomingReleases);
       formdata.append("isMovie", values.isMovie);
-      formdata.append("thuyetMinh", values.thuyetMinh);
-      formdata.append("newMovie", values.newMovie);
+      formdata.append("thuyetMinh", values.thuyetMinh );
+      formdata.append("newMovie", values.newMovie || false);
 
       if (values.tags && Array.isArray(values.tags)) {
         values.tags.forEach((tag: any) => {

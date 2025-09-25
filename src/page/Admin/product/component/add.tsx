@@ -64,18 +64,20 @@ const ProductAddModal: React.FC<ProductAddModalProps> = ({
     setLoading(true);
     try {
       const formdata = new FormData();
-      formdata.append("name", values.name);
-      formdata.append("category", values.category);
-      formdata.append("seri", values.seri);
-      formdata.append("LinkCopyright", values.LinkCopyright);
-      formdata.append("copyright", values.copyright);
-      formdata.append("trailer", values.trailer);
-      formdata.append("image", values.image);
-      formdata.append("typeId", values.typeId);
-      formdata.append("categorymain", values.categorymain);
-      formdata.append("dailyMotionServer", values.dailyMotionServer);
-      formdata.append("imageLink", values.imageLink);
-      formdata.append("video2", values.video2);
+      formdata.append("name", values.name || "");
+      formdata.append("category", values.category || "");
+      formdata.append("seri", values.seri || "");
+      formdata.append("LinkCopyright", values.LinkCopyright || "");
+      formdata.append("copyright", values.copyright || "");
+      formdata.append("trailer", values.trailer || "");
+      if (values.image && values.image instanceof File) {
+        formdata.append("image", values.image);
+      }
+      formdata.append("typeId", values.typeId || "");
+      formdata.append("categorymain", values.categorymain || "");
+      formdata.append("dailyMotionServer", values.dailyMotionServer || "");
+      formdata.append("imageLink", values.imageLink || "");
+      formdata.append("video2", values.video2 || "");
 
       const res = await dispatch(addProduct(formdata));
       if (res.payload.success === true) {

@@ -88,22 +88,22 @@ const EditVoiceOver: React.FC<EditVoiceOverProps> = ({
 		onClose?.();
 	};
 
-	if (initialLoading) {
-		return (
-			<div style={{ 
-				display: 'flex',
-				justifyContent: 'center',
-				alignItems: 'center',
-				height: '200px'
-			}}>
-				<div style={{ textAlign: 'center' }}>
-					<div style={{ marginBottom: '16px', fontSize: '16px', color: '#666' }}>
-						Đang tải thông tin voice translation...
-					</div>
-				</div>
-			</div>
-		);
-	}
+	// if (initialLoading) {
+	// 	return (
+	// 		<div style={{ 
+	// 			display: 'flex',
+	// 			justifyContent: 'center',
+	// 			alignItems: 'center',
+	// 			height: '200px'
+	// 		}}>
+	// 			<div style={{ textAlign: 'center' }}>
+	// 				<div style={{ marginBottom: '16px', fontSize: '16px', color: '#666' }}>
+	// 					Đang tải thông tin voice translation...
+	// 				</div>
+	// 			</div>
+	// 		</div>
+	// 	);
+	// }
 
 	return (
 		<Modal

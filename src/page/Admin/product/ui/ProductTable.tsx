@@ -11,10 +11,11 @@ interface ProductTableProps {
   onPageChange: (page: number) => void;
 }
 
-const   ProductTable: React.FC<ProductTableProps> = ({
+const ProductTable: React.FC<ProductTableProps> = ({
   data,
   columns,
   rowSelection,
+  isLoading,
   page,
   total,
   onPageChange,
@@ -27,6 +28,7 @@ const   ProductTable: React.FC<ProductTableProps> = ({
         rowSelection={rowSelection}
         columns={columns}
         dataSource={data}
+        loading={isLoading}
         scroll={{ x: 1500, y: 1000 }}
         pagination={{
           defaultPageSize: 20,

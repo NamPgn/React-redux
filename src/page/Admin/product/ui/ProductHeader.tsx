@@ -22,6 +22,7 @@ interface ProductHeaderProps {
   onEpisodeSearch: (value: string) => void;
   categories: any[];
   onRefresh?: () => void;
+  isGeneratingEpisode?: boolean;
 }
 
 const ProductHeader: React.FC<ProductHeaderProps> = ({
@@ -32,6 +33,7 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
   onEpisodeSearch,
   categories,
   onRefresh,
+  isGeneratingEpisode = false,
 }) => {
   const [multipleEpisodeModalVisible, setMultipleEpisodeModalVisible] = useState(false);
   const [addModalVisible, setAddModalVisible] = useState(false);
@@ -75,8 +77,10 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
           icon={<FileTextOutlined />}
           onClick={onGenerateEpisode}
           size="middle"
+          loading={isGeneratingEpisode}
+          disabled={isGeneratingEpisode}
         >
-          Create Multiple Episode
+          {isGeneratingEpisode ? 'Generating...' : 'Create Multiple Episode'}
         </Button>
 
         {/* Button Thêm nhiều tập phim */}

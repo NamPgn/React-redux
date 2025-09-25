@@ -127,25 +127,25 @@ const CategoryAdmin = () => {
 
   const onsubmit = async (data: any) => {
     const formdata = new FormData();
-    formdata.append("name", data.name);
-    formdata.append("slug", data.slug);
-    formdata.append("des", data.des);
+    formdata.append("name", data.name || "");
+    formdata.append("slug", data.slug || "");
+    formdata.append("des", data.des || "");
     formdata.append("type", data.type);
-    formdata.append("file", data.file);
-    formdata.append("up", data.up);
-    formdata.append("time", data.time);
-    formdata.append("status", data.status);
+    formdata.append("file", data.file || "");
+    formdata.append("up", data.up || "");
+    formdata.append("time", data.time || "");
+    formdata.append("status", data.status || "pending");
     formdata.append("year", data.year);
     formdata.append("anotherName", data.anotherName);
-    formdata.append("sumSeri", data.sumSeri);
-    formdata.append("hour", data.hour);
-    formdata.append("lang", data.lang);
-    formdata.append("season", data.season);
-    formdata.append("quality", data.quality);
+    formdata.append("sumSeri", data.sumSeri || "");
+    formdata.append("hour", data.hour );
+    formdata.append("lang", data.lang || "Vietsub");
+    formdata.append("season", data.season || "");
+    formdata.append("quality", data.quality || "HD");
     formdata.append("episode_many_title", data.episode_many_title);
-    formdata.append("upcomingReleases", data.upcomingReleases);
-    formdata.append("isMovie", data.isMovie);
-    formdata.append("newMovie", data.newMovie);
+    formdata.append("upcomingReleases", data.upcomingReleases || "");
+    formdata.append("isMovie", data.isMovie || "");
+    formdata.append("newMovie", data.newMovie || false);
     if (data.tags) {
       data.tags.forEach((tag: any) => {
         formdata.append("tags[]", tag);
