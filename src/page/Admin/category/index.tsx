@@ -28,6 +28,7 @@ import MVLink from "../../../components/Location/Link";
 import MVTags from "../../../components/MV/Tag";
 import { ApiContext } from "../../../context/api";
 import RecycleBin from "./component/recycleBin";
+
 import AddCategoryModal from "./component/addCategoryModal";
 import EditCategoryModal from "./component/editCategoryModal";
 import {
