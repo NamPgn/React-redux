@@ -1,5 +1,6 @@
 import React from "react"
 import { useState } from "react"
+import { QUALITY_OPTIONS, ISMOVIE } from "../../../constants/category"
 import {
     Table,
     Button,
@@ -316,10 +317,10 @@ const SliderAdmin: React.FC = () => {
                             rules={[{ required: true, message: "Please select the quality" }]}
                         >
                             <Select placeholder="Select quality">
-                                <Option value="SD">SD</Option>
-                                <Option value="HD">HD</Option>
-                                <Option value="Full HD">Full HD</Option>
-                                <Option value="4K">4K</Option>
+                                <Option value={QUALITY_OPTIONS.SD}>{QUALITY_OPTIONS.SD}</Option>
+                                <Option value={QUALITY_OPTIONS.HD}>{QUALITY_OPTIONS.HD}</Option>
+                                <Option value={QUALITY_OPTIONS.FULL_HD}>{QUALITY_OPTIONS.FULL_HD}</Option>
+                                <Option value={QUALITY_OPTIONS.ULTRA_HD}>{QUALITY_OPTIONS.ULTRA_HD}</Option>
                             </Select>
                         </Form.Item>
                     </div>
@@ -341,8 +342,8 @@ const SliderAdmin: React.FC = () => {
                             rules={[{ required: true, message: "Please select whether this is a movie" }]}
                         >
                             <Select placeholder="Select type">
-                                <Option value="drama">Drama</Option>
-                                <Option value="movie">Movie</Option>
+                                <Option value={ISMOVIE[1].val}>{ISMOVIE[1].name}</Option>
+                                <Option value={ISMOVIE[0].val}>{ISMOVIE[0].name}</Option>
                             </Select>
                         </Form.Item>
                     </div>

@@ -18,13 +18,5 @@ export default defineConfig(({ mode }): any => {
         },
       },
     },
-    server: {
-      proxy: {
-        '/api': {
-          target: 'http://localhost:8080',
-          changeOrigin: true
-        }
-      }
-    }
   };
 });

@@ -41,7 +41,9 @@ import { getAllcate } from "../../../../redux/slice/category/thunk/category";
 import PageTitle from "../../../../components/PageTitle";
 
 const { Title, Text } = Typography;
-
+interface EditProductProps {
+  version?: string;
+}
 const EditProduct = () => {
   const { seri }: any = useContext(ApiContext) || {};
   const [isLoading, setIsLoading] = useState(false);
@@ -90,12 +92,7 @@ const EditProduct = () => {
     };
     getFormProduct();
   }, [id, form, dispatch]);
-
-  useEffect(() => {
-    dispatch(getAllcate({ page: 0 }));
-  }, [dispatch]);
-
-  // Đảm bảo form được populate khi state thay đổi
+  
   useEffect(() => {
     if (state && Object.keys(state).length > 0) {
       const formData = {

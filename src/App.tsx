@@ -3,7 +3,7 @@ import { ToastContainer } from "react-toastify";
 import { router } from "./router";
 import { GlobalStyle } from "./components/Styled/Global";
 import { useLocation, useNavigate, useRoutes } from "react-router-dom";
-import { FloatButton, notification, ConfigProvider } from "antd";
+import { FloatButton, notification, ConfigProvider, theme } from "antd";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./index.css";
@@ -17,6 +17,13 @@ function App() {
   const route: any = useRoutes(router);
   const nav = useNavigate();
   const Auth = isAuthentication();
+
+  // Ant Design Theme Configuration
+  const antdTheme = {
+    token: {
+      borderRadius: 2,
+    },
+  };
   useEffect(() => {
     (async () => {
       if (Auth) {
@@ -47,12 +54,12 @@ function App() {
     // }, 2000);
   }, []);
   return (
-    <>
+    <ConfigProvider theme={antdTheme}>
       {route}
-        <GlobalStyle />
-        <ToastContainer />
-        <FloatButton.BackTop visibilityHeight={200} />
-    </>
+      <GlobalStyle />
+      <ToastContainer />
+      <FloatButton.BackTop visibilityHeight={200} />
+    </ConfigProvider>
   );
 }
 

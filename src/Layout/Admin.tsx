@@ -136,7 +136,7 @@ const LayoutAdmin = () => {
               background: 'transparent',
               padding: `${token.paddingXS}px 0`,
             }}
-            className="custom-admin-menu"
+            className="admin-menu"
           />
         </div>
 
@@ -206,15 +206,7 @@ const LayoutAdmin = () => {
                 type="text"
                 icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
                 onClick={() => setCollapsed(!collapsed)}
-                style={{
-                  fontSize: "16px",
-                  width: 40,
-                  height: 40,
-                  borderRadius: token.borderRadius,
-                  color: token.colorText,
-                  backgroundColor: 'transparent',
-                  border: 'none'
-                }}
+                className="admin-toggle-btn"
               />
               <Space align="center" size="small">
                 <HomeOutlined style={{ color: token.colorTextSecondary }} />
@@ -229,33 +221,18 @@ const LayoutAdmin = () => {
               <Button
                 type="text"
                 icon={<BellOutlined />}
-                style={{
-                  width: 40,
-                  height: 40,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: token.borderRadius,
-                  color: token.colorText,
-                  backgroundColor: 'transparent',
-                  border: 'none'
-                }}
+                className="admin-icon-btn"
               />
 
               <Dropdown
                 menu={{ items: userMenuItems }}
                 placement="bottomRight"
                 arrow
+                overlayClassName="admin-dropdown"
               >
                 <Button
                   type="text"
-                  style={{
-                    height: 40,
-                    padding: `0 ${token.paddingXS}px`,
-                    borderRadius: token.borderRadius,
-                    backgroundColor: 'transparent',
-                    border: 'none'
-                  }}
+                  className="admin-user-btn"
                 >
                   <Space align="center" size="small">
                     <Avatar
@@ -298,17 +275,17 @@ const LayoutAdmin = () => {
           background: token.colorBgLayout,
           padding: token.paddingLG
         }}>
-          <div style={{
+          <div className="admin-card" style={{
             background: token.colorBgContainer,
-            borderRadius: token.borderRadiusLG,
-            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03), 0 1px 6px rgba(0, 0, 0, 0.05)',
             padding: token.paddingLG,
             minHeight: 'calc(100vh - 64px - 32px)'
           }}>
             <div style={{ marginBottom: token.marginLG }}>
               <MyBreadcrumb />
             </div>
-            <Outlet />
+            <div className="admin-content">
+              <Outlet />
+            </div>
           </div>
         </Content>
         <Footer style={{

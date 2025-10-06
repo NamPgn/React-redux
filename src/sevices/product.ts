@@ -1,35 +1,44 @@
 import { isAuthentication } from "../auth/getToken";
 import { IProduct } from "../interfaces/product";
 import intances, { URL_SERVER_RENDER } from "./instances";
+import {
+  PRODUCT_ENDPOINTS,
+  PRODUCT_QUERY_PARAMS,
+  HEADERS,
+  BEARER_PREFIX,
+  FORM_DATA_FIELDS,
+  VOICE_OVER_FIELDS,
+} from "../constants/product";
 declare var Promise: any;
-const dataToken = isAuthentication();
+const dataToken = isAuthentication() || { user: { _id: '' }, token: '' };
 
-export const getAllProduct = async (page: number, categoryId?: string, seri?: string): Promise<IProduct> => {
-  let url = `products?page=${page}`;
-  if (categoryId) url += `&categoryId=${categoryId}`;
-  if (seri) url += `&seri=${seri}`;
+export const getAllProduct = async (page: number, categoryId?: string, seri?: string, version?: string): Promise<IProduct> => {
+  let url = `${PRODUCT_ENDPOINTS.BASE}?${PRODUCT_QUERY_PARAMS.PAGE}=${page}`;
+  if (categoryId) url += `&${PRODUCT_QUERY_PARAMS.CATEGORY_ID}=${categoryId}`;
+  if (seri) url += `&${PRODUCT_QUERY_PARAMS.SERI}=${seri}`;
+  if (version) url += `&${PRODUCT_QUERY_PARAMS.VERSION}=${version}`;
   return await intances.get(url);
 };
 
 export const getOneProduct = async (id: string): Promise<IProduct> => {
-  return await intances.get(`product/${id}`);
+  return await intances.get(`${PRODUCT_ENDPOINTS.SINGLE}/${id}`);
 };
 
 export const deleteProductById = async (id: string): Promise<IProduct> => {
-  return await intances.delete(`/product/${id}/${dataToken.user._id}`, {
+  return await intances.delete(`${PRODUCT_ENDPOINTS.SINGLE}/${id}/${dataToken.user._id}`, {
     headers: {
-      Authorization: `Bearer ${dataToken.token}`,
+      [HEADERS.AUTHORIZATION]: `${BEARER_PREFIX} ${dataToken.token}`,
     },
   });
 };
 
 export const addMultipleEpisodeMovie = async (data: any) => {
   return await intances.post(
-    `/products/addMultiple/${dataToken.user._id}`,
+    `${PRODUCT_ENDPOINTS.ADD_MULTIPLE}/${dataToken.user._id}`,
     data,
     {
       headers: {
-        Authorization: `Bearer ${dataToken.token}`,
+        [HEADERS.AUTHORIZATION]: `${BEARER_PREFIX} ${dataToken.token}`,
       },
     }
   );
@@ -37,101 +46,101 @@ export const addMultipleEpisodeMovie = async (data: any) => {
 
 
 export const addProductData = async (data: IProduct): Promise<IProduct> => {
-  return await intances.post(`/product/${dataToken.user._id}`, data, {
+  return await intances.post(`${PRODUCT_ENDPOINTS.CREATE}/${dataToken.user._id}`, data, {
     headers: {
-      Authorization: `Bearer ${dataToken.token}`,
+      [HEADERS.AUTHORIZATION]: `${BEARER_PREFIX} ${dataToken.token}`,
     },
   });
 };
 
 export const editProductData = async (data: any): Promise<IProduct> => {
   return await intances.put(
-    `/product/${data.get("_id")}/${dataToken.user._id}`,
+    `${PRODUCT_ENDPOINTS.UPDATE}/${data.get(FORM_DATA_FIELDS.ID)}/${dataToken.user._id}`,
     data,
     {
       headers: {
-        Authorization: `Bearer ${dataToken.token}`,
+        [HEADERS.AUTHORIZATION]: `${BEARER_PREFIX} ${dataToken.token}`,
       },
     }
   );
 };
 
 export const importData = async (data: any): Promise<IProduct> => {
-  return await intances.post(`/products/create/excel`, data, {
+  return await intances.post(`${PRODUCT_ENDPOINTS.IMPORT_EXCEL}`, data, {
     // headers: {
-    //   Authorization: `Bearer ${dataToken.token}`,
+    //   [HEADERS.AUTHORIZATION]: `${BEARER_PREFIX} ${dataToken.token}`,
     // },
   });
 };
 
 export const deleteMultipleProduct = async (id: string): Promise<IProduct> =>
-  await intances.post(`/products/deleteMultiple/${dataToken.user._id}`, id, {
+  await intances.post(`${PRODUCT_ENDPOINTS.DELETE_MULTIPLE}/${dataToken.user._id}`, id, {
     headers: {
-      Authorization: `Bearer ${dataToken.token}`,
+      [HEADERS.AUTHORIZATION]: `${BEARER_PREFIX} ${dataToken.token}`,
     },
   });
 
 export const getAllProductsByCategory = async (id: string): Promise<IProduct> =>
-  await intances.get(`/category/products/${id}`);
+  await intances.get(`${PRODUCT_ENDPOINTS.BY_CATEGORY}/${id}`);
 
 export const pushListData = async (
   id: string,
   typeId: string | any
 ): Promise<IProduct> =>
-  await intances.post(`/product/pushlist/${id}/${dataToken.user._id}`, typeId, {
+  await intances.post(`${PRODUCT_ENDPOINTS.PUSH_LIST}/${id}/${dataToken.user._id}`, typeId, {
     headers: {
-      Authorization: `Bearer ${dataToken.token}`,
+      [HEADERS.AUTHORIZATION]: `${BEARER_PREFIX} ${dataToken.token}`,
     },
   });
 
 export const UploadAssby = async (id: any, body: any): Promise<IProduct> =>
   await URL_SERVER_RENDER.post(
-    `/product/abyss/${id}/${dataToken.user._id}`,
+    `${PRODUCT_ENDPOINTS.UPLOAD_ABYSS}/${id}/${dataToken.user._id}`,
     body,
     {
       headers: {
-        Authorization: `Bearer ${dataToken.token}`,
+        [HEADERS.AUTHORIZATION]: `${BEARER_PREFIX} ${dataToken.token}`,
       },
     }
   );
 
 export const approveProduct = async (id: any) =>
-  await intances.post(`/product/approve/${id}/${dataToken.user._id}`, null, {
+  await intances.post(`${PRODUCT_ENDPOINTS.APPROVE}/${id}/${dataToken.user._id}`, null, {
     headers: {
-      Authorization: `Bearer ${dataToken.token}`,
+      [HEADERS.AUTHORIZATION]: `${BEARER_PREFIX} ${dataToken.token}`,
     },
   });
 
 export const cancelApproveProduct = async (id: any) =>
   await intances.post(
-    `/product/approve/cancel/${id}/${dataToken.user._id}`,
+    `${PRODUCT_ENDPOINTS.APPROVE_CANCEL}/${id}/${dataToken.user._id}`,
     null,
     {
       headers: {
-        Authorization: `Bearer ${dataToken.token}`,
+        [HEADERS.AUTHORIZATION]: `${BEARER_PREFIX} ${dataToken.token}`,
       },
     }
   );
 
 export const filterProductByCategory = async (categoryId) => {
-  return await intances.get(`/product/filter?c=${categoryId}`);
+  return await intances.get(`${PRODUCT_ENDPOINTS.FILTER}?${PRODUCT_QUERY_PARAMS.CATEGORY}=${categoryId}`);
 };
 
 export const searchProduct = async (val: any) => {
-  return await intances.get(`/product/v?name=${val}`);
+  return await intances.get(`${PRODUCT_ENDPOINTS.SEARCH}?${PRODUCT_QUERY_PARAMS.NAME}=${val}`);
 };
 
 export const clearCacheProducts = async () => {
-  return await intances.post(`/products/clear/${dataToken.user._id}`, null, {
+  return await intances.post(`${PRODUCT_ENDPOINTS.CLEAR_CACHE}/${dataToken.user._id}`, null, {
     headers: {
-      Authorization: `Bearer ${dataToken.token}`,
+      [HEADERS.AUTHORIZATION]: `${BEARER_PREFIX} ${dataToken.token}`,
     },
   });
 };
 
 export const clearCacheRedis = async () => {
-  return await intances.post(
-    `/products/clear/redis/bull`,
+  return   await intances.post(
+    `${PRODUCT_ENDPOINTS.CLEAR_REDIS}`,
     null,
   );
 };
@@ -140,11 +149,11 @@ export const approvedMultipleMovies = async (
   arrId: string
 ): Promise<IProduct> =>
   await intances.post(
-    `/products/approvedMultiple/${dataToken.user._id}`,
+    `${PRODUCT_ENDPOINTS.APPROVED_MULTIPLE}/${dataToken.user._id}`,
     arrId,
     {
       headers: {
-        Authorization: `Bearer ${dataToken.token}`,
+        [HEADERS.AUTHORIZATION]: `${BEARER_PREFIX} ${dataToken.token}`,
       },
     }
   );
@@ -153,43 +162,43 @@ export const endcodeMutipleDailymotionServer = async (
   arrId: string
 ): Promise<IProduct> =>
   await intances.post(
-    `/products/encodeMultipleDailymotionServer/${dataToken.user._id}`,
+    `${PRODUCT_ENDPOINTS.ENCODE_DAILYMOTION}/${dataToken.user._id}`,
     arrId,
     {
       headers: {
-        Authorization: `Bearer ${dataToken.token}`,
+        [HEADERS.AUTHORIZATION]: `${BEARER_PREFIX} ${dataToken.token}`,
       },
     }
   );
 
 export const autoRenderEpisodeMovie = async () => {
   return await intances.post(
-    `/products/autoAddEpisodeMovie/${dataToken.user._id}`,
+    `${PRODUCT_ENDPOINTS.AUTO_ADD_EPISODE}/${dataToken.user._id}`,
     null,
     {
       headers: {
-        Authorization: `Bearer ${dataToken.token}`,
+        [HEADERS.AUTHORIZATION]: `${BEARER_PREFIX} ${dataToken.token}`,
       },
     }
   );
 };
 export const exportDataExcel = async () =>
-  await intances.get(`/products/export/excel`);
+  await intances.get(`${PRODUCT_ENDPOINTS.EXPORT_EXCEL}`);
 
 export const editVoiceOverBySlug = async (slug: string, voiceOverLink: string, voiceOverLink2: string) => {
   return await intances.post(
-    `/product/editVoiceOver/${slug}/${dataToken.user._id}`,
-    { voiceOverLink, voiceOverLink2 },
+    `${PRODUCT_ENDPOINTS.EDIT_VOICE_OVER}/${slug}/${dataToken.user._id}`,
+    { [VOICE_OVER_FIELDS.VOICE_OVER_LINK]: voiceOverLink, [VOICE_OVER_FIELDS.VOICE_OVER_LINK_2]: voiceOverLink2 },
     {
       headers: {
-        Authorization: `Bearer ${dataToken.token}`,
+        [HEADERS.AUTHORIZATION]: `${BEARER_PREFIX} ${dataToken.token}`,
       },
     }
   );
 };
 
 export const getVoiceOverBySlug = async (slug: string) => {
-  return await intances.get(`/product/getVoiceOver/${slug}`);
+  return await intances.get(`${PRODUCT_ENDPOINTS.GET_VOICE_OVER}/${slug}`);
 };
 
 export const uploadProductThumbnailService = async (
@@ -197,13 +206,13 @@ export const uploadProductThumbnailService = async (
   file: File
 ) => {
   const form = new FormData();
-  form.append("file", file);
+  form.append(FORM_DATA_FIELDS.FILE, file);
   return await intances.post(
-    `/product/${productId}/thumbnail/${dataToken.user._id}`,
+    `${PRODUCT_ENDPOINTS.UPLOAD_THUMBNAIL}/${productId}/thumbnail/${dataToken.user._id}`,
     form,
     {
       headers: {
-        Authorization: `Bearer ${dataToken.token}`,
+        [HEADERS.AUTHORIZATION]: `${BEARER_PREFIX} ${dataToken.token}`,
       },
     }
   );
@@ -214,14 +223,23 @@ export const updateProductThumbnailService = async (
   file: File
 ) => {
   const form = new FormData();
-  form.append("file", file);
+  form.append(FORM_DATA_FIELDS.FILE, file);
   return await intances.put(
-    `/product/${productId}/thumbnail/${dataToken.user._id}`,
+    `${PRODUCT_ENDPOINTS.UPDATE_THUMBNAIL}/${productId}/thumbnail/${dataToken.user._id}`,
     form,
     {
       headers: {
-        Authorization: `Bearer ${dataToken.token}`,
+        [HEADERS.AUTHORIZATION]: `${BEARER_PREFIX} ${dataToken.token}`,
       },
     }
   );
+};
+
+// Lấy tất cả episodes theo category và version
+export const getAllEpisodesByCategoryAndVersion = async (categoryId: string, version?: string): Promise<IProduct> => {
+  let url = `${PRODUCT_ENDPOINTS.BASE}/category/${categoryId}`;
+  if (version) {
+    url += `/version/${version}`;
+  }
+  return await intances.get(url);
 };

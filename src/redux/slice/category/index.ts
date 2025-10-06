@@ -7,8 +7,10 @@ import {
   updateCatgorySlice,
   deleteCategorySlice,
   changeIsActiveCategorySlice,
+  getAllcateVersion2,
 } from "./thunk/category";
 import { isCategorysSlice } from "../../../interfaces/category";
+import { getAllcategoryVersion2 } from "../../../sevices/category";
 const state: isCategorysSlice = {
   category: {
     data: [],
@@ -24,6 +26,19 @@ const categorySlice = createSlice({
   initialState: state,
   reducers: {},
   extraReducers: (builder) => {
+    
+    builder
+      .addCase(getAllcateVersion2.fulfilled, (state, action) => {
+        state.isLoading = false;  
+        state.category = action.payload;
+      })
+      .addCase(getAllcateVersion2.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllcateVersion2.rejected, (state, action) => {
+        state.isError = true;
+      });
+    
     builder
       .addCase(getAllcate.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -45,9 +60,25 @@ const categorySlice = createSlice({
         state.isLoading = true;
       });
 
-    builder.addCase(addCateGorySlice.fulfilled, (state, action) => {
-      state.category.data = state.category.data.concat(action.payload);
-    });
+    builder
+      .addCase(addCateGorySlice.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(addCateGorySlice.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        if (action.payload && action.payload.data) {
+          state.category.data = state.category.data.concat(action.payload.data);
+        }
+      })
+      .addCase(addCateGorySlice.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+      });
+
+
+    
     builder.addCase(deleteCategorySlice.fulfilled, (state, action) => {
       state.category.data = state.category.data.filter(
         (item: any) => item._id !== action.payload._id

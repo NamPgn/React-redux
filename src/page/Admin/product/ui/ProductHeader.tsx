@@ -23,6 +23,7 @@ interface ProductHeaderProps {
   categories: any[];
   onRefresh?: () => void;
   isGeneratingEpisode?: boolean;
+  version?: '2d' | '3d';
 }
 
 const ProductHeader: React.FC<ProductHeaderProps> = ({
@@ -31,9 +32,10 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
   selectedCategory,
   onCategoryFilter,
   onEpisodeSearch,
-  categories,
+  categories, 
   onRefresh,
   isGeneratingEpisode = false,
+  version = '3d',
 }) => {
   const [multipleEpisodeModalVisible, setMultipleEpisodeModalVisible] = useState(false);
   const [addModalVisible, setAddModalVisible] = useState(false);
@@ -133,6 +135,7 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
         onSuccess={() => {
           onRefresh?.();
         }}
+        version={version}
       />
 
       {/* Multiple Episode Modal */}

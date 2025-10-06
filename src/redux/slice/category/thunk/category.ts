@@ -2,17 +2,26 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   addCate,
   deleteCate,
-  getAllcategory,
   getAllCategoryNotReq,
   updateCate,
   getCategory,
   changeIsActiveCategory,
+  getAllCategory____,
+  getAllcategoryVersion2,
 } from "../../../../sevices/category";
 
-export const getAllcate = createAsyncThunk(
+export const getAllcateVersion2 = createAsyncThunk(
   "category/getAllcate",
-  async ({ page, search }: { page: number; search?: string }) => {
-    const { data }: any = await getAllcategory(page, search);
+  async ({ page, search, version }: { page: number; search?: string; version?: string }) => {
+    const { data }: any = await getAllcategoryVersion2(page, search, version);
+    return data;
+  }
+);
+
+export const getAllcate = createAsyncThunk(
+  "category/getAllCategory",
+  async ({ page, search, version }: { page: number; search?: string; version?: string }) => {
+    const { data }: any = await getAllCategory____(page, search, version);
     return data;
   }
 );

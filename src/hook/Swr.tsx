@@ -1,7 +1,7 @@
 import useSWR from "swr";
-import intances from "../sevices/instances";
+import instances from "../sevices/instances";
 
-const baseFetcher = async (url: string) => await intances.get(url);
+const baseFetcher = async (url: string) => await instances.get(url);
 
 // const localStorageCache = {
 //   get: (key) => {

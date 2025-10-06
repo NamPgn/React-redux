@@ -1,4 +1,4 @@
-import intances from '../sevices/instances'
+import instances from '../sevices/instances'
 
 const API_URL = 'posters'
 
@@ -38,22 +38,22 @@ export interface BulkUploadResponse {
 
 export const posterService = {
   getAll: async (params?: { page?: number; limit?: number; category?: string; isActive?: boolean }): Promise<PosterListResponse> => {
-    const response = await intances.get(`${API_URL}`, { params })
+    const response = await instances.get(`${API_URL}`, { params })
     return response.data
   },
 
   getById: async (id: string): Promise<{ data: PosterItem }> => {
-    const response = await intances.get(`${API_URL}/${id}`)
+    const response = await instances.get(`${API_URL}/${id}`)
     return response.data
   },
 
   getByCategory: async (categoryId: string, params?: { page?: number; limit?: number }): Promise<PosterListResponse> => {
-    const response = await intances.get(`${API_URL}/category/${categoryId}`, { params })
+    const response = await instances.get(`${API_URL}/category/${categoryId}`, { params })
     return response.data
   },
 
   create: async (data: FormData): Promise<{ data: PosterItem }> => {
-    const response = await intances.post(`${API_URL}`, data, {
+    const response = await instances.post(`${API_URL}`, data, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -62,7 +62,7 @@ export const posterService = {
   },
 
   update: async (id: string, data: FormData): Promise<{ data: PosterItem }> => {
-    const response = await intances.put(`${API_URL}/${id}`, data, {
+    const response = await instances.put(`${API_URL}/${id}`, data, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -71,11 +71,11 @@ export const posterService = {
   },
 
   delete: async (id: string): Promise<void> => {
-    await intances.delete(`${API_URL}/${id}`)
+    await instances.delete(`${API_URL}/${id}`)
   },
 
   bulkCreate: async (data: FormData): Promise<BulkUploadResponse> => {
-    const response = await intances.post(`${API_URL}/bulk`, data, {
+    const response = await instances.post(`${API_URL}/bulk`, data, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
