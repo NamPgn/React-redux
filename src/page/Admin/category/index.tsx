@@ -43,7 +43,7 @@ import {
   CATEGORY_ERROR_MESSAGES,
   CATEGORY_SUCCESS_MESSAGES,
 } from "../../../constants/category";
-import RecycleBin from "./component/recycleBin";
+import RecycleBin from "./component/RecycleBin";
 
 const { Text } = Typography;
 const { Search } = Input;
