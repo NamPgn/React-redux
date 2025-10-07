@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import instances from "../../../sevices/instances";
+import intances from "../../../sevices/instances";
 
 export const fetchData = createAsyncThunk(
   "data/fetchData",
@@ -14,7 +14,7 @@ export const fetchData = createAsyncThunk(
           }`
         : `${process.env.NEXT_PUBLIC_API_BASE_URL}/${key}?page=${page || 1}`;
 
-      const response = await instances.get(url);
+      const response = await intances.get(url);
       return response.data.data;    
     } catch (error: any) {
       return rejectWithValue(

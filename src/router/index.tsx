@@ -21,9 +21,6 @@ import {
   PlusSquareOutlined,
   PictureOutlined,
   TagsOutlined,
-  PlayCircleOutlined,
-  PauseCircleOutlined,
-  PauseOutlined,
 } from "@ant-design/icons";
 import DetailProductPage from "../page/Home/Detail";
 import CategoryProduct from "../page/Home/Category";
@@ -35,7 +32,6 @@ import Weeks from "../page/Admin/week";
 import Page404 from "../components/404/Page404";
 import ForgotPassword from "../page/Auth-Page/Forgot-password";
 import ResetPassword from "../page/Auth-Page/Reset-password";
-import LatestAdmin from "../page/Admin/category/component/lastest";
 import AdminPage from "../page/Admin";
 import EditWeek from "../page/Admin/week/components/edit";
 import TypeCategory from "../page/Admin/category/type";
@@ -55,10 +51,8 @@ import { Navigate } from "react-router-dom";
 import AddThumnail from "../page/Admin/product/component/addThumnail";
 import EditThumnail from "../page/Admin/product/component/editThumnail";
 import CreatingProducts from "../page/Admin/product/ui/creatingProducts";
+import LatestAdmin from "../page/Admin/category/component/lastest";
 const ProductAdmin = lazy(() => import("../page/Admin/product"));
-const ProductAdminWrapper = lazy(() => import("../page/Admin/product/productAdminWrapper"));
-const ProductAdmin2D = lazy(() => import("../page/Admin/product/productAdmin2D"));
-const ProductAdmin3D = lazy(() => import("../page/Admin/product/productAdmin3D"));
 const ListType = lazy(() => import("../page/Type/Theloai"));
 const OllMovie = lazy(() => import("../page/Type/SidebarData"));
 const SearchResults = lazy(() => import("../components/Search")); //search
@@ -74,7 +68,7 @@ const Adduser = lazy(() => import("../page/Admin/user/component/add"));
 const EditUser = lazy(() => import("../page/Admin/user/component/edit"));
 const GetAdmin = lazy(() => import("../page/Admin/user/component/admin"));
 const ProductAdd = lazy(() => import("../page/Admin/product/component/add"));
-// const EditProduct = lazy(() => import("../page/Admin/product/component/edit")); // Removed - now using modal
+const EditProduct = lazy(() => import("../page/Admin/product/component/edit"));
 const CreatingUser = lazy(() => import("../page/Admin/user/component/adds"));
 // const CreatingProducts = lazy(
 //   () => import("../page/Admin/product/component/creatingProducts")
@@ -83,6 +77,7 @@ const CreatingUser = lazy(() => import("../page/Admin/user/component/adds"));
 
 
 const CategoryAdmin = lazy(() => import("../page/Admin/category"));
+
 const Trailer = lazy(() => import("../page/Admin/trailer"));
 const EditTrailerUrl = lazy(
   () => import("../page/Admin/trailer/component/edit")
@@ -261,31 +256,7 @@ export const router = [
         path: "products",
         element: (
           <LazyComponent>
-            <ProductAdminWrapper />
-          </LazyComponent>
-        ),
-      },
-      {
-        path: "products-2d",
-        element: (
-          <LazyComponent>
-            <ProductAdmin2D />
-          </LazyComponent>
-        ),
-      },
-      {
-        path: "products/2d",
-        element: (
-          <LazyComponent>
-            <ProductAdmin2D />
-          </LazyComponent>
-        ),
-      },
-      {
-        path: "products-3d",
-        element: (
-          <LazyComponent>
-            <ProductAdmin3D />
+            <ProductAdmin />
           </LazyComponent>
         ),
       },
@@ -361,14 +332,14 @@ export const router = [
           </LazyComponent>
         ),
       },
-      // {
-      //   path: "product/edit/:id", // Removed - now using modal
-      //   element: (
-      //     <LazyComponent>
-      //       <EditProduct />
-      //     </LazyComponent>
-      //   ),
-      // },
+      {
+        path: "product/edit/:id",
+        element: (
+          <LazyComponent>
+            <EditProduct />
+          </LazyComponent>
+        ),
+      },
       // {
       //   path: "product/creacting",
       //   element: (
@@ -385,12 +356,19 @@ export const router = [
           </LazyComponent>
         ),
       },
-
       {
         path: "category",
         element: (
           <LazyComponent>
             <CategoryAdmin />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: "category/edit/:id",
+        element: (
+          <LazyComponent>
+            <EditProduct />
           </LazyComponent>
         ),
       },
@@ -569,32 +547,14 @@ export const TableRouterAdminPage = [
     name: "Admin",
     icon: <DashboardOutlined />,
   },
-
   {
     path: "/dashboard/products",
     name: "Movies",
     icon: <NotificationOutlined />,
-    children: [
-      {
-        path: "/dashboard/products",
-        name: "All EP (2D & 3D)",
-        icon: <PlayCircleOutlined />,
-      },
-      {
-        path: "/dashboard/products-2d",
-        name: "2D EP",
-        icon:<PauseCircleOutlined />,
-      },
-      {
-        path: "/dashboard/products-3d",
-        name: "3D EP",
-        icon: <PauseOutlined />,
-      },
-    ],
   },
   {
     name: "User",
-    icon: <UserOutlined />,
+    icon: <SlidersOutlined />,
     children: [
       {
         path: "/dashboard/users",

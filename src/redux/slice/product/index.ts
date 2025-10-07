@@ -96,12 +96,6 @@ const productSlice = createSlice({
         state.isLoading = false;
       }
     );
-    builder.addCase(
-      autoGenarateEpisodeMovieSlice.pending,
-      (state, action) => {
-        state.isLoading = true;
-      }
-    );
 
     builder
       .addCase(addVoiceOverBySlugThunk.pending, (state) => {

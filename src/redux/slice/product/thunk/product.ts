@@ -12,12 +12,11 @@ import {
   searchProduct,
   editVoiceOverBySlug,
   getVoiceOverBySlug,
-  getAllEpisodesByCategoryAndVersion,
 } from "../../../../sevices/product";
 export const getProducts = createAsyncThunk(
   "product/getProducts",
-  async ({ page, categoryId, seri, version }: { page: number; categoryId?: string; seri?: string; version?: string }) => {
-    const { data }: any = await getAllProduct(page, categoryId, seri, version);
+  async ({ page, categoryId, seri }: { page: number; categoryId?: string; seri?: string }) => {
+    const { data }: any = await getAllProduct(page, categoryId, seri);
     return data;
   }
 );
@@ -120,19 +119,6 @@ export const getVoiceOverBySlugThunk = createAsyncThunk(
   async (slug: string) => {
     try {
       const response = await getVoiceOverBySlug(slug);
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  }
-);
-
-// Lấy tất cả episodes theo category và version
-export const getAllEpisodesByCategoryAndVersionThunk = createAsyncThunk(
-  "product/getAllEpisodesByCategoryAndVersion",
-  async ({ categoryId, version }: { categoryId: string; version?: string }) => {
-    try {
-      const response:any = await getAllEpisodesByCategoryAndVersion(categoryId, version);
       return response.data;
     } catch (error) {
       throw error;

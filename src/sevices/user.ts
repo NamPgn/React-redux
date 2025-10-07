@@ -4,11 +4,11 @@ import intances from "./instances";
 declare var Promise: any;
 const Auth = isAuthentication();
 export const resgister = async (data: any) => {
-  return await intances.post("signup", data);
+  return await intances.post("/signup", data);
 };
 
 export const login = async (data: any) => {
-  return await intances.post("signin", data);
+  return await intances.post("/signin", data);
 };
 
 export const getUser = async (): Promise<Iusers[]> => {
@@ -43,20 +43,20 @@ export const findCartByUser = async (id: string): Promise<Iusers> =>
   await intances.get(`user/cart/${id}`);
 
 export const editImageUser = async (id: any, data: any) =>
-  await intances.post(`user/upload/${id}`, data, {
+  await intances.post(`/user/upload/${id}`, data, {
     headers: {
       Authorization: `Bearer ${Auth.token}`,
     },
   });
 
 export const forgotPassword = async (data) => {
-  return await intances.post("forgot-password", data);
+  return await intances.post("/forgot-password", data);
 };
 
 export const resetPassword = async (id, token, data) => {
-  return await intances.post(`reset-password/${id}/${token}`, data);
+  return await intances.post(`/reset-password/${id}/${token}`, data);
 };
 
 export const refreshTokenAuth = async (refreshToken: any) => {
-  return await intances.post("refreshToken", refreshToken);
+  return await intances.post("/refreshToken", refreshToken);
 };

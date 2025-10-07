@@ -20,14 +20,12 @@ interface ProductActionsProps {
   record: any;
   user: any;
   onDelete: (id: string) => void;
-  onEdit?: (record: any) => void;
 }
 
 const ProductActions: React.FC<ProductActionsProps> = ({
   record,
   user,
   onDelete,
-  onEdit,
 }) => {
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 
@@ -39,15 +37,15 @@ const ProductActions: React.FC<ProductActionsProps> = ({
   return (
     <>
       <Space size="small" wrap>
-        {(user?.role === 1 || user?.role === 2) && onEdit && (
+        {(user?.role === 1 || user?.role === 2) && (
           <Tooltip title="Chỉnh sửa">
+            <MVLink to={`/dashboard/product/edit/${record.slug}`}>
               <Button 
                 type="text" 
                 size="small"
                 icon={<EditOutlined />}
-                onClick={() => onEdit(record)}
-                className="admin-btn admin-btn-text"
               />
+            </MVLink>
           </Tooltip>
         )}
 
@@ -60,7 +58,6 @@ const ProductActions: React.FC<ProductActionsProps> = ({
               danger
               icon={<DeleteOutlined />}
               onClick={() => setIsDeleteModalVisible(true)}
-              className="admin-btn admin-btn-text"
             />
           </Tooltip>
         )}
@@ -81,16 +78,13 @@ const ProductActions: React.FC<ProductActionsProps> = ({
         cancelText="Hủy"
         okButtonProps={{ 
           danger: true,
-          size: 'middle',
-          className: 'admin-btn admin-btn-primary'
+          size: 'middle'
         }}
         cancelButtonProps={{
-          size: 'middle',
-          className: 'admin-btn admin-btn-secondary'
+          size: 'middle'
         }}
         width={500}
         centered
-        className="admin-modal"
       >
         <div style={{ marginTop: '16px' }}>
           <Text style={{ fontSize: '16px', color: '#666' }}>
