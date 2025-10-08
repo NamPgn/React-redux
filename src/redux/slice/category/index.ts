@@ -7,6 +7,7 @@ import {
   updateCatgorySlice,
   deleteCategorySlice,
   changeIsActiveCategorySlice,
+  getAllCategoryAdminSlice,
 } from "./thunk/category";
 import { isCategorysSlice } from "../../../interfaces/category";
 const state: isCategorysSlice = {
@@ -35,7 +36,17 @@ const categorySlice = createSlice({
       .addCase(getAllcate.rejected, (state, action) => {
         state.isError = true;
       });
-
+    builder
+      .addCase(getAllCategoryAdminSlice.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.category = action.payload;
+      })
+      .addCase(getAllCategoryAdminSlice.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllCategoryAdminSlice.rejected, (state, action) => {
+        state.isError = true;
+      });
     builder
       .addCase(getAllCategoryNotReqSlice.fulfilled, (state, action) => {
         state.isLoading = false;

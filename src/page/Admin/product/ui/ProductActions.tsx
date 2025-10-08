@@ -13,6 +13,7 @@ import {
   ExclamationCircleOutlined,
 } from '@ant-design/icons';
 import MVLink from '../../../../components/Location/Link';
+import EditProductModal from '../component/editProductModal';
 
 const { Title, Text } = Typography;
 
@@ -20,32 +21,39 @@ interface ProductActionsProps {
   record: any;
   user: any;
   onDelete: (id: string) => void;
+  onEditSuccess?: () => void;
 }
 
 const ProductActions: React.FC<ProductActionsProps> = ({
   record,
   user,
   onDelete,
+  onEditSuccess,
 }) => {
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
-
+  const [openEditModal, setIsEditModalVisible] = useState(false);
   const handleDeleteConfirm = () => {
     onDelete(record.key);
     setIsDeleteModalVisible(false);
   };
+
+  const handleEditSuccess = () => {
+    setIsEditModalVisible(false);
+    onEditSuccess?.();
+  };
+  
 
   return (
     <>
       <Space size="small" wrap>
         {(user?.role === 1 || user?.role === 2) && (
           <Tooltip title="Chỉnh sửa">
-            <MVLink to={`/dashboard/product/edit/${record.slug}`}>
               <Button 
+                onClick={() => setIsEditModalVisible(true)}
                 type="text" 
                 size="small"
                 icon={<EditOutlined />}
               />
-            </MVLink>
           </Tooltip>
         )}
 
@@ -133,6 +141,14 @@ const ProductActions: React.FC<ProductActionsProps> = ({
           </div>
         </div>
       </Modal>
+
+      {/* Edit Product Modal */}
+      <EditProductModal
+        open={openEditModal}
+        onClose={() => setIsEditModalVisible(false)}
+        productId={record.slug}
+        onSuccess={handleEditSuccess}
+      />
     </>
   );
 };

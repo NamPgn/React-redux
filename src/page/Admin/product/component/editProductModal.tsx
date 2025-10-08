@@ -21,7 +21,6 @@ import {
 import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../../../../hook";
 import { ApiContext } from "../../../../context/api";
-import { getAllcate } from "../../../../redux/slice/category/thunk/category";
 
 interface EditProductModalProps {
   open: boolean;
@@ -35,10 +34,8 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
   open, 
   onClose, 
   productId, 
-  version,
   onSuccess 
 }) => {
-  const { seri }: any = useContext(ApiContext) || {};
   const [isLoading, setIsLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
   const { data }: any = useAppSelector((state) => state.category.category);
@@ -190,7 +187,7 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
           alignItems: 'center',
           minHeight: '300px'
         }}>
-          <Spin size="large" />
+          <Spin size="default" />
         </div>
       ) : (
         <>

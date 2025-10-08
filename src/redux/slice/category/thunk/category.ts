@@ -8,11 +8,19 @@ import {
   getCategory,
   changeIsActiveCategory,
 } from "../../../../sevices/category";
-
+import { getAllCategoryAdmin } from "../../../../sevices/v2/categories";
 export const getAllcate = createAsyncThunk(
   "category/getAllcate",
   async ({ page, search }: { page: number; search?: string }) => {
     const { data }: any = await getAllcategory(page, search);
+    return data;
+  }
+);
+
+export const getAllCategoryAdminSlice = createAsyncThunk(
+  "category/getAllCategoryAdminSlice",
+  async ({ page }: { page: any }) => {
+    const { data }: any = await getAllCategoryAdmin(page);
     return data;
   }
 );

@@ -48,6 +48,7 @@ import "./style.css";
 import { Link } from "react-router-dom";
 import ProductActions from "./ui/ProductActions";
 import DeleteConfirmModal from "./component/deleteConfirmModal";
+import { getAllcate, getAllCategoryAdminSlice } from "../../../redux/slice/category/thunk/category";
 
 const ProductAdmin = memo(() => {
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -64,12 +65,16 @@ const ProductAdmin = memo(() => {
   const [selectedRecord, setSelectedRecord] = useState<any>(null);
   const [editVoiceOverVisible, setEditVoiceOverVisible] = useState(false);
   const [selectedVoiceOverRecord, setSelectedVoiceOverRecord] = useState<any>(null);
+  const [isGeneratingEpisodes, setIsGeneratingEpisodes] = useState(false);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getProducts({ page, categoryId: selectedCategory, seri: episodeSearch }));
   }, [page, selectedCategory, episodeSearch, init]);
 
+  useEffect(() => {
+    dispatch(getAllCategoryAdminSlice({ page: 0 }));
+  }, []);
 
   const handleCategoryFilter = (value: string) => {
     setSelectedCategory(value);
@@ -206,13 +211,24 @@ const ProductAdmin = memo(() => {
   };
 
   const handleAutoRenderEpisodeMovie = async () => {
-    const res = await dispatch(autoGenarateEpisodeMovieSlice());
-    if (res.meta.requestStatus == "fulfilled") {
-      setInit(!init);
-      setOpen(false);
-      toast.success("Success");
-    } else {
-      toast.error("Error");
+    try {
+      setIsGeneratingEpisodes(true);
+      toast.info("Generating episodes... Please wait");
+
+      const res = await dispatch(autoGenarateEpisodeMovieSlice());
+
+      if (res.meta.requestStatus == "fulfilled") {
+        setInit(!init);
+        setOpen(false);
+        toast.success("Episodes generated successfully!");
+      } else {
+        toast.error("Failed to generate episodes");
+      }
+    } catch (error) {
+      console.error("Error generating episodes:", error);
+      toast.error("An error occurred while generating episodes");
+    } finally {
+      setIsGeneratingEpisodes(false);
     }
   };
 
@@ -363,7 +379,7 @@ const ProductAdmin = memo(() => {
                 {
                   key: 'delete',
                   label: (
-                    <div 
+                    <div
                       className="flex items-center gap-2"
                       onClick={() => handleDeleteClick(record)}
                     >
@@ -384,7 +400,7 @@ const ProductAdmin = memo(() => {
                 {
                   key: 'edit-voice-over',
                   label: (
-                    <div 
+                    <div
                       className="flex items-center gap-2 cursor-pointer hover:bg-gray-100 rounded"
                       onClick={() => {
                         setSelectedVoiceOverRecord(record);
@@ -474,24 +490,27 @@ const ProductAdmin = memo(() => {
         };
 
         return (
-         <div className="flex items-center gap-2">
-           <Dropdown
-            menu={{
-              items: getMenuItems(),
-            }}
-            placement="bottomRight"
-            trigger={['click']}
-          >
-            <MyButton type="text" shape="circle" className="hover:bg-gray-100">
-              <MoreVertical size={16} />
-            </MyButton>
-          </Dropdown>
-          <ProductActions
-            record={record}
-            user={user}
-            onDelete={confirm}
-          />
-         </div>
+          <div className="flex items-center gap-2">
+            <Dropdown
+              menu={{
+                items: getMenuItems(),
+              }}
+              placement="bottomRight"
+              trigger={['click']}
+            >
+              <MyButton type="text" shape="circle" className="hover:bg-gray-100">
+                <MoreVertical size={16} />
+              </MyButton>
+            </Dropdown>
+            <ProductActions
+              record={record}
+              user={user}
+              onDelete={confirm}
+              onEditSuccess={() => {
+                setInit(!init);
+              }}
+            />
+          </div>
         );
       },
     },
@@ -566,7 +585,7 @@ const ProductAdmin = memo(() => {
             <span className="text-red-700 font-medium text-sm">No</span>
           </div>
         ),
-        thumbnail: value.thumnail  ? (
+        thumbnail: value.thumnail ? (
           <div className="flex items-center gap-2.5 py-1.5">
             {/* Thumbnail container with advanced styling */}
             <div className="relative group flex-shrink-0">
@@ -574,10 +593,10 @@ const ProductAdmin = memo(() => {
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-green-600/20 
                               rounded-xl blur-sm group-hover:blur-md transition-all duration-300 opacity-0 
                               group-hover:opacity-100 transform scale-95 group-hover:scale-100"></div>
-        
+
               {/* Main thumbnail image */}
               <img
-                src={value.thumnail }
+                src={value.thumnail}
                 alt={`${value.name} thumbnail`}
                 className="relative w-11 h-11 object-cover rounded-xl border border-emerald-200/80 
                            shadow-sm transition-all duration-300 ease-out
@@ -589,7 +608,7 @@ const ProductAdmin = memo(() => {
                   (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'flex';
                 }}
               />
-        
+
               {/* Fallback placeholder (hidden by default) */}
               <div className="hidden w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-50 to-green-100 
                               border border-emerald-200 items-center justify-center">
@@ -597,22 +616,22 @@ const ProductAdmin = memo(() => {
                   <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
                 </svg>
               </div>
-        
+
               {/* Hover tooltip indicator */}
               <div className="absolute -inset-0.5 rounded-xl opacity-0 group-hover:opacity-100 
                               bg-gradient-to-r from-emerald-600 to-green-600 transition-opacity 
                               duration-300 -z-10 blur-sm"></div>
             </div>
-        
+
             {/* Edit button */}
             <div className="relative group flex-shrink-0">
-              <Link to={`/dashboard/product/${value._id}/thumbnail/edit`} 
-                    state={{
-                      thumbnail: {
-                        thumbnail: value.thumnail ,
-                        name: value.name
-                      }
-                    }}>
+              <Link to={`/dashboard/product/${value._id}/thumbnail/edit`}
+                state={{
+                  thumbnail: {
+                    thumbnail: value.thumnail,
+                    name: value.name
+                  }
+                }}>
                 <div className="w-8 h-8 rounded-lg border border-gray-300/60 
                                 bg-white hover:bg-gray-50
                                 flex items-center justify-center
@@ -626,7 +645,7 @@ const ProductAdmin = memo(() => {
                 </div>
               </Link>
             </div>
-        
+
             {/* Status info */}
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1.5">
@@ -647,16 +666,16 @@ const ProductAdmin = memo(() => {
             <div className="relative flex-shrink-0">
               <span className="inline-flex h-2.5 w-2.5 rounded-full bg-orange-400 shadow-sm"></span>
             </div>
-        
+
             {/* Add thumbnail button */}
             <div className="relative group flex-shrink-0">
-              <Link to={`/dashboard/product/${value._id}/thumbnail/add`} 
-                    state={{
-                      thumbnail: {
-                        thumbnail: value.thumnail ,
-                        name: value.name
-                      }
-                    }}>
+              <Link to={`/dashboard/product/${value._id}/thumbnail/add`}
+                state={{
+                  thumbnail: {
+                    thumbnail: value.thumnail,
+                    name: value.name
+                  }
+                }}>
                 <div className="w-11 h-11 rounded-xl border-2 border-dashed border-orange-300/60 
                                 bg-gradient-to-br from-orange-50/50 to-red-50/50 
                                 flex items-center justify-center
@@ -670,7 +689,7 @@ const ProductAdmin = memo(() => {
                 </div>
               </Link>
             </div>
-        
+
             {/* Status info for missing thumbnail */}
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1.5">
@@ -696,6 +715,7 @@ const ProductAdmin = memo(() => {
       <ProductHeader
         onOpenDrawer={showDrawer}
         onGenerateEpisode={handleAutoRenderEpisodeMovie}
+        isGeneratingEpisodes={isGeneratingEpisodes}
         selectedCategory={selectedCategory}
         onCategoryFilter={handleCategoryFilter}
         onEpisodeSearch={handleEpisodeSearch}

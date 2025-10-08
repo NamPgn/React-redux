@@ -17,25 +17,23 @@ const { Search } = Input;
 interface ProductHeaderProps {
   onOpenDrawer: () => void;
   onGenerateEpisode: () => void;
+  isGeneratingEpisodes?: boolean;
   selectedCategory: string;
   onCategoryFilter: (value: string) => void;
   onEpisodeSearch: (value: string) => void;
   categories: any[];
   onRefresh?: () => void;
-  isGeneratingEpisode?: boolean;
-  version?: '2d' | '3d';
 }
 
 const ProductHeader: React.FC<ProductHeaderProps> = ({
   onOpenDrawer,
   onGenerateEpisode,
+  isGeneratingEpisodes = false,
   selectedCategory,
   onCategoryFilter,
   onEpisodeSearch,
-  categories, 
+  categories,
   onRefresh,
-  isGeneratingEpisode = false,
-  version = '3d',
 }) => {
   const [multipleEpisodeModalVisible, setMultipleEpisodeModalVisible] = useState(false);
   const [addModalVisible, setAddModalVisible] = useState(false);
@@ -79,10 +77,10 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
           icon={<FileTextOutlined />}
           onClick={onGenerateEpisode}
           size="middle"
-          loading={isGeneratingEpisode}
-          disabled={isGeneratingEpisode}
+          loading={isGeneratingEpisodes}
+          disabled={isGeneratingEpisodes}
         >
-          {isGeneratingEpisode ? 'Generating...' : 'Create Multiple Episode'}
+          {isGeneratingEpisodes ? 'Generating...' : 'Create Multiple Episode'}
         </Button>
 
         {/* Button Thêm nhiều tập phim */}
@@ -135,7 +133,6 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
         onSuccess={() => {
           onRefresh?.();
         }}
-        version={version}
       />
 
       {/* Multiple Episode Modal */}
