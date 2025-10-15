@@ -48,7 +48,7 @@ import "./style.css";
 import { Link } from "react-router-dom";
 import ProductActions from "./ui/ProductActions";
 import DeleteConfirmModal from "./component/deleteConfirmModal";
-import { getAllcate, getAllCategoryAdminSlice } from "../../../redux/slice/category/thunk/category";
+import { getAllCategoryAdminSlice } from "../../../redux/slice/category/thunk/category";
 
 const ProductAdmin = memo(() => {
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -66,11 +66,12 @@ const ProductAdmin = memo(() => {
   const [editVoiceOverVisible, setEditVoiceOverVisible] = useState(false);
   const [selectedVoiceOverRecord, setSelectedVoiceOverRecord] = useState<any>(null);
   const [isGeneratingEpisodes, setIsGeneratingEpisodes] = useState(false);
+  const [selectedVersion, setSelectedVersion] = useState("3d");
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getProducts({ page, categoryId: selectedCategory, seri: episodeSearch }));
-  }, [page, selectedCategory, episodeSearch, init]);
+    dispatch(getProducts({ page, categoryId: selectedCategory, seri: episodeSearch, version: selectedVersion }));
+  }, [page, selectedCategory, episodeSearch, init, selectedVersion]);
 
   useEffect(() => {
     dispatch(getAllCategoryAdminSlice({ page: 0 }));
@@ -84,6 +85,11 @@ const ProductAdmin = memo(() => {
 
   const handleEpisodeSearch = (value: string) => {
     setEpisodeSearch(value);
+    setPage(1);
+  };
+
+  const handleVersionFilter = (value: string) => {
+    setSelectedVersion(value);
     setPage(1);
   };
 
@@ -723,6 +729,8 @@ const ProductAdmin = memo(() => {
         onRefresh={() => {
           dispatch(getProducts({ page: 0, categoryId: selectedCategory, seri: episodeSearch }));
         }}
+        selectedVersion={selectedVersion}
+        onVersionFilter={handleVersionFilter}
       />
 
       <ProductDrawer

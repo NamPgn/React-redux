@@ -4,10 +4,11 @@ import intances, { URL_SERVER_RENDER } from "./instances";
 declare var Promise: any;
 const dataToken = isAuthentication();
 
-export const getAllProduct = async (page: number, categoryId?: string, seri?: string): Promise<IProduct> => {
+export const getAllProduct = async (page: number, categoryId?: string, seri?: string, version?: string): Promise<IProduct> => {
   let url = `products?page=${page}`;
   if (categoryId) url += `&categoryId=${categoryId}`;
   if (seri) url += `&seri=${seri}`;
+  if (version) url += `&version=${version}`;
   return await intances.get(url);
 };
 

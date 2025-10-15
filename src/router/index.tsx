@@ -21,6 +21,8 @@ import {
   PlusSquareOutlined,
   PictureOutlined,
   TagsOutlined,
+  BellOutlined,
+  DeliveredProcedureOutlined,
 } from "@ant-design/icons";
 import DetailProductPage from "../page/Home/Detail";
 import CategoryProduct from "../page/Home/Category";
@@ -47,6 +49,8 @@ import AddCombiningEpisodes from "../page/Admin/combining-episodes/components/ad
 import EditCombiningEpisodes from "../page/Admin/combining-episodes/components/edit-combining-episodes";
 import CombiningEpisodesList from "../page/Admin/combining-episodes";
 import EditVoiceOver from "../page/Admin/product/component/edit-voice-over";
+import PushNotificationManagement from "../page/Admin/push-notification-device";
+import NotificationHistory from "../page/Admin/notification";
 import { Navigate } from "react-router-dom";
 import AddThumnail from "../page/Admin/product/component/addThumnail";
 import EditThumnail from "../page/Admin/product/component/editThumnail";
@@ -532,6 +536,22 @@ export const router = [
           </LazyComponent>
         ),
       },
+      {
+        path: "push-notification",
+        element: (
+          <LazyComponent>
+            <PushNotificationManagement />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: "notification-history",
+        element: (
+          <LazyComponent>
+            <NotificationHistory />
+          </LazyComponent>
+        ),
+      },
 
     ],
   },
@@ -663,5 +683,15 @@ export const TableRouterAdminPage = [
     path: "/dashboard/tags",
     icon: <TagsOutlined />,
     name: "Tags",
+  },
+  {
+    path: "/dashboard/notification-history",
+    icon: <BellOutlined />,
+    name: "Notification",
+  },
+  {
+    path: "/dashboard/push-notification",
+    icon: <DeliveredProcedureOutlined />,
+    name: "Notification Device",
   },
 ];

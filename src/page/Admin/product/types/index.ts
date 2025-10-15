@@ -4,14 +4,7 @@ export type ProductVersion = '2d' | '3d';
 
 export interface ProductConfig {
   version: ProductVersion;
-  title: string;
-  subtitle: string;
-  apiEndpoint: string;
-  baseUrl: string;
-  movieViewPath: string;
-  editPath: string;
-  thumbnailAddPath: string;
-  thumbnailEditPath: string;
+  name: string;
 }
 
 export interface ProductRecord {
@@ -112,27 +105,14 @@ export interface EditVoiceOverProps {
 }
 
 // Configuration for different versions
-export const PRODUCT_CONFIGS: Record<ProductVersion, ProductConfig> = {
-  '2d': {
+export const PRODUCT_VERSIONS: ProductConfig[] = [
+  {
     version: '2d',
-    title: 'Quản lý phim 2D',
-    subtitle: 'Movie Episode 2D',
-    apiEndpoint: '/products/2d',
-    baseUrl: 'https://hh3dtq.site',
-    movieViewPath: '/xem-phim-2d',
-    editPath: '/dashboard/product-2d/edit',
-    thumbnailAddPath: '/dashboard/product-2d',
-    thumbnailEditPath: '/dashboard/product-2d',
+    name: '2D',
   },
-  '3d': {
+  {
     version: '3d',
-    title: 'Quản lý phim 3D',
-    subtitle: 'Movie Episode 3D',
-    apiEndpoint: '/products/3d',
-    baseUrl: 'https://hh3dtq.site',
-    movieViewPath: '/xem-phim-3d',
-    editPath: '/dashboard/product-3d/edit',
-    thumbnailAddPath: '/dashboard/product-3d',
-    thumbnailEditPath: '/dashboard/product-3d',
+    name: '3D',
   },
-};
+];
+

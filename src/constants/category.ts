@@ -4,6 +4,17 @@ export const CATEGORY_STATUS = {
   COMPLETED: 'completed',
 } as const;
 
+export const CATEGORY_IS_ACTIVE = [
+  {
+    name: 'Active',
+    value: true,
+  },
+  {
+    name: 'Inactive',
+    value: false,
+  },
+] as const; 
+
 // Category types
 export const CATEGORY_TYPES = {
   MOVIE: 'isMovie',

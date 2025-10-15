@@ -8,12 +8,19 @@ import {
   Row, 
   Col, 
   Divider,
-  Spin
+  Spin,
+  Switch,
+  Alert,
+  Space,
+  Typography
 } from "antd";
 import { 
   SaveOutlined,
-  EditOutlined
+  EditOutlined,
+  BellOutlined
 } from "@ant-design/icons";
+
+const { Text, Title } = Typography;
 import {
   editProduct,
   getProduct,
@@ -44,6 +51,7 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
   const [state, setState]: any = useState({});
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
+  const [sendNotification, setSendNotification] = useState(false);
 
   useEffect(() => {
     if (open && productId) {
@@ -134,10 +142,18 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
       formdata.append("imageLink", values.imageLink);
       formdata.append("view", values.view || 0);
       formdata.append("server2", values.server2);
+      
+      // Thêm flag gửi push notification
+      formdata.append("sendPushNotification", sendNotification ? "true" : "false");
 
       const res = await dispatch(editProduct(formdata));
       if (res?.meta?.requestStatus === "fulfilled") {
         toast.success(`Cập nhật ${values.name} thành công`);
+        if (sendNotification) {
+          toast.info("🔔 Push notification đã được gửi đến users!");
+        }
+        // Reset notification toggle
+        setSendNotification(false);
         onSuccess?.();
         onClose();
       } else {
@@ -155,6 +171,7 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
   const handleClose = () => {
     form.resetFields();
     setState({});
+    setSendNotification(false);
     setInitialLoading(true);
     onClose();
   };
@@ -302,6 +319,59 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
 
             <Divider />
 
+            {/* Push Notification Section */}
+            <div
+              style={{
+                marginBottom: '20px',
+                padding: '16px',
+                backgroundColor: sendNotification ? '#e6f7ff' : '#fafafa',
+                border: sendNotification ? '2px solid #1890ff' : '1px solid #e8e8e8',
+                borderRadius: '8px',
+                transition: 'all 0.3s ease'
+              }}
+            >
+              <Space direction="vertical" style={{ width: '100%' }} size="middle">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Space>
+                    <BellOutlined style={{ fontSize: '18px', color: sendNotification ? '#1890ff' : '#8c8c8c' }} />
+                    <div>
+                      <Text strong style={{ fontSize: '14px' }}>
+                        Gửi Push Notification
+                      </Text>
+                      <div>
+                        <Text type="secondary" style={{ fontSize: '12px' }}>
+                          Thông báo đến mobile app khi cập nhật
+                        </Text>
+                      </div>
+                    </div>
+                  </Space>
+                  <Switch
+                    checked={sendNotification}
+                    onChange={(checked) => setSendNotification(checked)}
+                    checkedChildren="BẬT"
+                    unCheckedChildren="TẮT"
+                  />
+                </div>
+                
+                {sendNotification && (
+                  <Alert
+                    message="Notification sẽ được gửi"
+                    description={
+                      <div style={{ fontSize: '12px' }}>
+                        <div><strong>Title:</strong> Tập {form.getFieldValue('seri')} mới đã ra! 🎬</div>
+                        <div><strong>Body:</strong> {state?.category?.name} - Tập {form.getFieldValue('seri')} vừa được cập nhật</div>
+                        <div><strong>Gửi đến:</strong> Tất cả thiết bị active</div>
+                      </div>
+                    }
+                    type="info"
+                    showIcon
+                    icon={<BellOutlined />}
+                    style={{ fontSize: '12px' }}
+                  />
+                )}
+              </Space>
+            </div>
+
             <div style={{ 
               display: 'flex', 
               justifyContent: 'space-between',
@@ -314,10 +384,16 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
                 type="primary"
                 htmlType="submit"
                 loading={isLoading}
-                icon={<SaveOutlined />}
+                icon={sendNotification ? <BellOutlined /> : <SaveOutlined />}
                 className="admin-btn admin-btn-primary"
+                style={{
+                  background: sendNotification 
+                    ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' 
+                    : undefined,
+                  borderColor: sendNotification ? '#667eea' : undefined,
+                }}
               >
-                Cập nhật
+                {sendNotification ? '🔔 Cập nhật & Gửi Thông Báo' : 'Cập nhật'}
               </Button>
             </div>
           </Form>

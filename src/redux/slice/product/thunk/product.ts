@@ -15,8 +15,8 @@ import {
 } from "../../../../sevices/product";
 export const getProducts = createAsyncThunk(
   "product/getProducts",
-  async ({ page, categoryId, seri }: { page: number; categoryId?: string; seri?: string }) => {
-    const { data }: any = await getAllProduct(page, categoryId, seri);
+  async ({ page, categoryId, seri, version }: { page: number; categoryId?: string; seri?: string; version?: string }) => {
+    const { data }: any = await getAllProduct(page, categoryId, seri, version);
     return data;
   }
 );

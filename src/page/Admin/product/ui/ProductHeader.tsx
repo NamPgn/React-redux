@@ -10,6 +10,7 @@ import {
 import MVLink from '../../../../components/Location/Link';
 import AddMultipleEpisodes from '../component/addMultipleEpisode';
 import ProductAddModal from '../component/add';
+import { PRODUCT_VERSIONS } from '../types';
 
 const { Title } = Typography;
 const { Search } = Input;
@@ -23,6 +24,8 @@ interface ProductHeaderProps {
   onEpisodeSearch: (value: string) => void;
   categories: any[];
   onRefresh?: () => void;
+  selectedVersion: string;
+  onVersionFilter: (value: string) => void;
 }
 
 const ProductHeader: React.FC<ProductHeaderProps> = ({
@@ -33,6 +36,8 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
   onCategoryFilter,
   onEpisodeSearch,
   categories,
+  selectedVersion,
+  onVersionFilter,
   onRefresh,
 }) => {
   const [multipleEpisodeModalVisible, setMultipleEpisodeModalVisible] = useState(false);
@@ -42,56 +47,58 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
     <div>
       {/* Header Section */}
       <div style={{
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginBottom: token.marginLG,
-      backgroundColor: token.colorBgContainer, // Màu nền container
-      borderRadius: token.borderRadius, // Border radius từ theme
-    }}>
-      
-      <Space size="middle" wrap>
-        {/* Button Quản lý */}
-        <Button
-          type="default"
-          icon={<MenuOutlined />}
-          onClick={onOpenDrawer}
-          size="middle"
-        >
-          Manage Episode
-        </Button>
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: token.marginLG,
+        backgroundColor: token.colorBgContainer, // Màu nền container
+        borderRadius: token.borderRadius, // Border radius từ theme
+      }}>
 
-        {/* Button Thêm sản phẩm */}
-        <Button
-          type="primary"
-          icon={<PlusOutlined />}
-          size="middle"
-          onClick={() => setAddModalVisible(true)}
-        >
-          Create Episode
-        </Button>
+        <Space size="middle" wrap>
+          {/* Button Quản lý */}
+          <Button
+            type="default"
+            icon={<MenuOutlined />}
+            onClick={onOpenDrawer}
+            size="middle"
+          >
+            Manage Episode
+          </Button>
 
-        {/* Button Tạo tập phim */}
-        <Button
-          type="default"
-          icon={<FileTextOutlined />}
-          onClick={onGenerateEpisode}
-          size="middle"
-          loading={isGeneratingEpisodes}
-          disabled={isGeneratingEpisodes}
-        >
-          {isGeneratingEpisodes ? 'Generating...' : 'Create Multiple Episode'}
-        </Button>
+          {/* Button Thêm sản phẩm */}
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            size="middle"
+            onClick={() => setAddModalVisible(true)}
+          >
+            Create Episode
+          </Button>
 
-        {/* Button Thêm nhiều tập phim */}
-        <Button
-          icon={<PlusOutlined />}
-          onClick={() => setMultipleEpisodeModalVisible(true)}
-        >
-          Create Multiple Episode
-        </Button>
-      </Space>
-    </div>
+          {/* Button Tạo tập phim */}
+          <Button
+            type="default"
+            icon={<FileTextOutlined />}
+            onClick={onGenerateEpisode}
+            size="middle"
+            loading={isGeneratingEpisodes}
+            disabled={isGeneratingEpisodes}
+          >
+            {isGeneratingEpisodes ? 'Generating...' : 'Create Multiple Episode'}
+          </Button>
+
+          {/* Button Thêm nhiều tập phim */}
+          <Button
+            icon={<PlusOutlined />}
+            onClick={() => setMultipleEpisodeModalVisible(true)}
+          >
+            Create Multiple Episode
+          </Button>
+
+
+        </Space>
+      </div>
 
       {/* Filter Section */}
       <div style={{
@@ -151,7 +158,7 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
       >
         <AddMultipleEpisodes />
       </Modal>
-    </div>
+    </div >
 
   );
 };

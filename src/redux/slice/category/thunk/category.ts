@@ -11,8 +11,8 @@ import {
 import { getAllCategoryAdmin } from "../../../../sevices/v2/categories";
 export const getAllcate = createAsyncThunk(
   "category/getAllcate",
-  async ({ page, search }: { page: number; search?: string }) => {
-    const { data }: any = await getAllcategory(page, search);
+  async ({ page, search, version }: { page: number; search?: string; version?: string }) => {
+    const { data }: any = await getAllcategory(page, search, version);
     return data;
   }
 );

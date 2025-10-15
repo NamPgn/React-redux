@@ -11,6 +11,7 @@ import {
   Row,
   Col,
   Typography,
+  Select,
 } from "antd";
 import { debounce } from "lodash";
 import {
@@ -30,7 +31,7 @@ import { ApiContext } from "../../../context/api";
 import AddCategoryModal from "./component/addCategoryModal";
 import EditCategoryModal from "./component/editCategoryModal";
 import {
-  EditOutlined, 
+  EditOutlined,
   DeleteOutlined,
   MoreOutlined,
   PlusOutlined,
@@ -42,8 +43,10 @@ import {
   PAGINATION_DEFAULTS,
   CATEGORY_ERROR_MESSAGES,
   CATEGORY_SUCCESS_MESSAGES,
+  CATEGORY_IS_ACTIVE,
 } from "../../../constants/category";
 import RecycleBin from "./component/RecycleBin";
+import { PRODUCT_VERSIONS } from "../product/types";
 
 const { Text } = Typography;
 const { Search } = Input;
@@ -55,7 +58,9 @@ const CategoryAdmin = () => {
   const [page, setPage]: any = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchValue, setSearchValue] = useState("");
-  
+  const [selectedVersion, setSelectedVersion] = useState("3d");
+  const [selectedStatus, setSelectedStatus] = useState("completed");
+  const [selectedIsActive, setSelectedIsActive] = useState(true);
   const dispatch = useAppDispatch();
   const category = useAppSelector(category$);
   const { weeks } = useContext(ApiContext);
@@ -78,8 +83,8 @@ const CategoryAdmin = () => {
     setSelectedEditRecord(null);
   };
   useEffect(() => {
-    dispatch(getAllcate({ page, search: searchTerm }));
-  }, [page, searchTerm]);
+    dispatch(getAllcate({ page, search: searchTerm, version: selectedVersion }));
+  }, [page, searchTerm, selectedVersion, selectedStatus, selectedIsActive]);
 
   useEffect(() => {
     const debouncedSearch = debounce(() => {
@@ -127,22 +132,26 @@ const CategoryAdmin = () => {
     }
   };
 
-  // const hanedlePushCategoryToType = async (categoryId) => {
-  //   const body = {
-  //     categoryId: categoryId,
-  //   };
-  //   const res = await pushCateTotype(valueId, body);
-  //   if (res.data.success) {
-  //     MVSuccess("Add category success!");
-  //   } else {
-  //     MVError("Failure!");
-  //   }
-  // };
 
   const handlePageChangePage = (page: number) => {
     setPage(page);
   };
 
+  const handleVersionFilter = (value: string) => {
+    setSelectedVersion(value);
+    setPage(1);
+  };
+
+  const handleIsActiveFilter = (value: boolean) => {
+    setSelectedIsActive(value);
+    setPage(1);
+  };
+
+
+  const handleStatusFilter = (value: string) => {
+    setSelectedStatus(value);
+    setPage(1);
+  };
   const data =
     category.data &&
     category.data.map((item: any) => {
@@ -231,8 +240,8 @@ const CategoryAdmin = () => {
                 <MoreOutlined size={16} />
               </MyButton>
             </Dropdown>
-            <Space 
-              className="cursor-pointer" 
+            <Space
+              className="cursor-pointer"
               onClick={() => showEditModal(item)}
             >
               <EditOutlined style={{ color: '#1890ff', fontSize: '16px' }} />
@@ -246,7 +255,48 @@ const CategoryAdmin = () => {
       <Tabs defaultActiveKey="1">
         <Tabs.TabPane tab="Category List" key="1">
           <Card style={{ marginBottom: '16px' }}>
+
             <Row gutter={[8, 8]} align="middle">
+
+              <Select
+                style={{ width: 240 }}
+                placeholder="Select version to filter"
+                allowClear
+                value={selectedVersion || undefined}
+                defaultValue="3d"
+                onChange={handleVersionFilter}
+                options={PRODUCT_VERSIONS.map((item: any) => ({
+                  label: item.name,
+                  value: item.version,
+                }))}
+              />
+
+              <Select
+                style={{ width: 240, marginLeft: '8px' }}
+                placeholder="Select status to filter"
+                allowClear
+                value={selectedStatus || undefined}
+                defaultValue="completed"
+                onChange={handleStatusFilter}
+                options={Object.values(CATEGORY_STATUS).map((item: any) => ({
+                  label: item,
+                  value: item.value,
+                }))}
+              />
+
+              <Select
+                style={{ width: 240, marginLeft: '8px' }}
+                placeholder="Select isActive to filter"
+                allowClear
+                value={selectedIsActive || undefined}
+                defaultValue={CATEGORY_IS_ACTIVE[0].value}
+                onChange={handleIsActiveFilter}
+                options={CATEGORY_IS_ACTIVE.map((item: any) => ({
+                  label: item.name,
+                  value: item.value,  
+                }))}
+              />
+
               <Col xs={24} sm={18} md={4}>
                 <Search
                   placeholder="Tìm kiếm danh mục..."
@@ -258,6 +308,7 @@ const CategoryAdmin = () => {
                   size="middle"
                 />
               </Col>
+
               <Col xs={24} sm={6} md={2}>
                 <Button
                   type="primary"
@@ -269,24 +320,27 @@ const CategoryAdmin = () => {
                   Create New
                 </Button>
               </Col>
+
+
+
             </Row>
           </Card>
-            <MVTable
-              columns={columnsCategory}
-              dataSource={data}
-              scroll={{ x: 1000, y: 1000 }}
-              pagination={{
-                defaultPageSize: PAGINATION_DEFAULTS.PAGE_SIZE,
-                showSizeChanger: PAGINATION_DEFAULTS.SHOW_SIZE_CHANGER,
-                pageSizeOptions: PAGINATION_DEFAULTS.PAGE_SIZE_OPTIONS,
-                showQuickJumper: PAGINATION_DEFAULTS.SHOW_QUICK_JUMPER,
-                current: page,
-                onChange: handlePageChangePage,
-                total: category?.totalCount,
-                showTotal: (total, range) =>
-                  `${range[0]}-${range[1]} of ${total} categories`,
-              }}
-            />
+          <MVTable
+            columns={columnsCategory}
+            dataSource={data}
+            scroll={{ x: 1000, y: 1000 }}
+            pagination={{
+              defaultPageSize: PAGINATION_DEFAULTS.PAGE_SIZE,
+              showSizeChanger: PAGINATION_DEFAULTS.SHOW_SIZE_CHANGER,
+              pageSizeOptions: PAGINATION_DEFAULTS.PAGE_SIZE_OPTIONS,
+              showQuickJumper: PAGINATION_DEFAULTS.SHOW_QUICK_JUMPER,
+              current: page,
+              onChange: handlePageChangePage,
+              total: category?.totalCount,
+              showTotal: (total, range) =>
+                `${range[0]}-${range[1]} of ${total} categories`,
+            }}
+          />
         </Tabs.TabPane>
         <Tabs.TabPane tab="Recycle Bin" key="2">
           <RecycleBin />
