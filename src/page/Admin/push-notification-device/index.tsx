@@ -36,6 +36,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/vi";
 import PageTitle from "../../../components/PageTitle";
 import { useNotificationDevice } from "../../../hook/api/useNotificationDevice";
+import { isAuthentication } from "../../../auth/getToken";
 
 dayjs.extend(relativeTime);
 dayjs.locale("vi");
@@ -104,7 +105,7 @@ const PushNotificationManagement: React.FC = () => {
   const handleSendNotification = async (values: any) => {
     setSendLoading(true);
     try {
-      const token = localStorage.getItem("token");
+      const token:any = isAuthentication();
       const payload: any = {
         title: values.title,
         body: values.body,
@@ -119,7 +120,7 @@ const PushNotificationManagement: React.FC = () => {
         `${API_BASE_URL}/push-notification/test`,
         payload,
         {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${token.token}` },
         }
       );
 
@@ -131,7 +132,7 @@ const PushNotificationManagement: React.FC = () => {
         toast.error("Gửi notification thất bại");
       }
     } catch (error: any) {
-      console.error("Error sending notification:", error);
+      console.log(error);
       toast.error(error.response?.data?.message || "Không thể gửi notification");
     } finally {
       setSendLoading(false);
@@ -215,7 +216,7 @@ const PushNotificationManagement: React.FC = () => {
       render: (token: string) => (
         <Tooltip title={token}>
           <Text code style={{ fontSize: "11px" }}>
-            {token.substring(0, 30)}...
+            {token}...
           </Text>
         </Tooltip>
       ),

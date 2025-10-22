@@ -15,4 +15,12 @@ export const notificationDevice = {
     });
     return data;
   },
+
+
+  getPushNotificationDevices: async (page = 1, limit = 20) => {
+    const { data } = await intances.get("/push-notification/devices", {
+      params: { page, limit },
+    });
+    return data;
+  },
 }

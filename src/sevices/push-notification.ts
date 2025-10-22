@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import intances from "./instances";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
 
@@ -9,6 +10,14 @@ interface NotificationPayload {
   data?: any;
   token?: string; // Optional: gửi đến 1 device cụ thể
 }
+
+export const getDevices = async (page = 1, limit = 20) => {
+  const { data } = await intances.get(`/push-notification/devices`, {
+    params: { page, limit },
+  });
+  return data;
+};
+
 
 /**
  * Gửi test notification (cần admin token)

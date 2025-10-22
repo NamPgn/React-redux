@@ -56,6 +56,7 @@ import AddThumnail from "../page/Admin/product/component/addThumnail";
 import EditThumnail from "../page/Admin/product/component/editThumnail";
 import CreatingProducts from "../page/Admin/product/ui/creatingProducts";
 import LatestAdmin from "../page/Admin/category/component/lastest";
+import FeatureBanner from "../page/Admin/category/component/feature-banner";
 const ProductAdmin = lazy(() => import("../page/Admin/product"));
 const ListType = lazy(() => import("../page/Type/Theloai"));
 const OllMovie = lazy(() => import("../page/Type/SidebarData"));
@@ -552,7 +553,14 @@ export const router = [
           </LazyComponent>
         ),
       },
-
+      {
+        path: "category/feature-banner",
+        element: (
+          <LazyComponent>
+            <FeatureBanner />
+          </LazyComponent>
+        ),
+      },
     ],
   },
   {
@@ -596,6 +604,11 @@ export const TableRouterAdminPage = [
         path: "/dashboard/category",
         name: "Category",
         icon: <ControlOutlined />,
+      },
+      {
+        path: "/dashboard/category/feature-banner",
+        name: "Feature Banner",
+        icon: <PictureOutlined />
       },
       {
         path: "/dashboard/category/latest",
