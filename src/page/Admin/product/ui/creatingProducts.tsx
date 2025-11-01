@@ -42,7 +42,7 @@ const CreatingProductsModal: React.FC<CreatingProductsModalProps> = ({
       if (response?.payload?.success === true) {
         const data = response.payload.data;
         const message = data 
-          ? `Thêm thành công ${data.inserted} sản phẩm từ Excel${data.skipped > 0 ? ` (bỏ qua ${data.skipped} dòng lỗi)` : ''}`
+          ? `Thêm thành công ${data.inserted} sản phẩm từ Excel`
           : "Thêm sản phẩm từ Excel thành công";
         
         toast.success(message);

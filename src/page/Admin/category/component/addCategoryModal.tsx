@@ -56,12 +56,31 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
   const [form] = Form.useForm();
   const [previewImage, setPreviewImage] = useState<string>('');
   const dispatch = useAppDispatch();
-  
+
   const { data: tags = [] }: any = useTags();
   const tagsOptions = tags?.data?.map((tag: any) => ({
     label: tag.name,
     value: tag._id,
   }));
+
+  // Set giá trị mặc định khi mở modal
+  React.useEffect(() => {
+    if (open) {
+      const currentYear = new Date().getFullYear();
+      form.setFieldsValue({
+        status: CATEGORY_STATUS.COMPLETED,
+        lang: LANGUAGE_OPTIONS.VIETSUB,
+        quality: QUALITY_OPTIONS.FULL_HD,
+        year: currentYear.toString(),
+        newMovie: false,
+        isMovie: ISMOVIE[1].val,
+        time: '20 phút/tập',
+        upcomingReleases: RELEASES[1].val,
+        sumSeri: '1',
+        up: '92',
+      });
+    }
+  }, [open, form]);
 
   const weekOptions = weeks?.map((item: any) => ({
     label: item.name,
@@ -194,9 +213,9 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
                     name="des"
                     label="Category Description"
                   >
-                    <Input.TextArea 
-                      placeholder="Enter category description" 
-                      rows={3} 
+                    <Input.TextArea
+                      placeholder="Enter category description"
+                      rows={3}
                       maxLength={CATEGORY_VALIDATION_RULES.DESCRIPTION.maxLength.value}
                       showCount
                       className="admin-input"
@@ -241,7 +260,12 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
                     name="year"
                     label="Year"
                   >
-                    <Input placeholder="Enter year" className="admin-input" />
+                    <Input
+                      placeholder="Enter year"
+                      className="admin-input"
+                      type="number"
+                      maxLength={4}
+                    />
                   </Form.Item>
                 </Col>
                 <Col xs={24} md={8}>
@@ -256,8 +280,31 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
                   <Form.Item
                     name="sumSeri"
                     label="Total Episodes"
+                    rules={[
+                      { required: true, message: 'Please enter total episodes' },
+                      {
+                        pattern: /^[0-9]+$/,
+                        message: 'Total episodes must be a number'
+                      },
+                      {
+                        validator: (_, value) => {
+                          if (value && parseInt(value) < 1) {
+                            return Promise.reject('Total episodes must be at least 1');
+                          }
+                          if (value && parseInt(value) > 10000) {
+                            return Promise.reject('Total episodes cannot exceed 10,000');
+                          }
+                          return Promise.resolve();
+                        }
+                      }
+                    ]}
                   >
-                    <Input placeholder="Enter total episodes" className="admin-input" />
+                    <Input
+                      placeholder="Enter total episodes"
+                      className="admin-input"
+                      type="number"
+                      min={1}
+                    />
                   </Form.Item>
                 </Col>
                 <Col xs={24} md={8}>
@@ -278,6 +325,49 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
                       placeholder="Select release date"
                       className="admin-input"
                     />
+                  </Form.Item>
+                </Col>
+              </Row>
+            </Card>
+          </Col>
+
+          {/* Quality & Language */}
+          <Col xs={24}>
+            <Card
+              title={
+                <Space>
+                  <SettingOutlined style={{ color: '#1890ff' }} />
+                  <span>Quality & Language</span>
+                </Space>
+              }
+              size="small"
+              className="admin-card"
+            >
+              <Row gutter={[16, 16]}>
+                <Col xs={24} md={12}>
+                  <Form.Item
+                    name="lang"
+                    label="Language"
+                    rules={[{ required: true, message: 'Please select language' }]}
+                  >
+                    <Select placeholder="Select language" className="admin-select">
+                      <Select.Option value={LANGUAGE_OPTIONS.VIETSUB}>🇻🇳 Vietsub</Select.Option>
+                      <Select.Option value={LANGUAGE_OPTIONS.THUYETMINH}>🎙️ Thuyết Minh</Select.Option>
+                      <Select.Option value={LANGUAGE_OPTIONS.THUYETMINH_VIETSUB}>🎙️🇻🇳 Thuyết Minh + Vietsub</Select.Option>
+                    </Select>
+                  </Form.Item>
+                </Col>
+                <Col xs={24} md={12}>
+                  <Form.Item
+                    name="quality"
+                    label="Quality"
+                    rules={[{ required: true, message: 'Please select quality' }]}
+                  >
+                    <Select placeholder="Select quality" className="admin-select">
+                      <Select.Option value={QUALITY_OPTIONS.HD}>📺 HD</Select.Option>
+                      <Select.Option value={QUALITY_OPTIONS.FULL_HD}>🎬 FHD</Select.Option>
+                      <Select.Option value={QUALITY_OPTIONS.ULTRA_HD}>✨ 4K</Select.Option>
+                    </Select>
                   </Form.Item>
                 </Col>
               </Row>

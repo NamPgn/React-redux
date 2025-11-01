@@ -112,6 +112,10 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
           style={{ width: 240 }}
           placeholder="Select category to filter"
           allowClear
+          showSearch
+          filterOption={(input, option) =>
+            (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+          }
           value={selectedCategory || undefined}
           onChange={onCategoryFilter}
           options={categories?.map((item: any) => ({
