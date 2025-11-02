@@ -79,19 +79,13 @@ const ProductAdmin = memo(() => {
 
   const handleCategoryFilter = (value: string) => {
     setSelectedCategory(value);
-    setPage(1);
   };
 
 
   const handleEpisodeSearch = (value: string) => {
     setEpisodeSearch(value);
-    setPage(1);
   };
 
-  const handleVersionFilter = (value: string) => {
-    setSelectedVersion(value);
-    setPage(1);
-  };
 
 
   const handlePageChangePage = (value) => {
@@ -729,8 +723,7 @@ const ProductAdmin = memo(() => {
         onRefresh={() => {
           dispatch(getProducts({ page: 0, categoryId: selectedCategory, seri: episodeSearch }));
         }}
-        selectedVersion={selectedVersion}
-        onVersionFilter={handleVersionFilter}
+        // onVersionFilter={handleVersionFilter}
       />
 
       <ProductDrawer

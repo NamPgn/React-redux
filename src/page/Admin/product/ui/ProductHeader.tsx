@@ -24,8 +24,6 @@ interface ProductHeaderProps {
   onEpisodeSearch: (value: string) => void;
   categories: any[];
   onRefresh?: () => void;
-  selectedVersion: string;
-  onVersionFilter: (value: string) => void;
 }
 
 const ProductHeader: React.FC<ProductHeaderProps> = ({
@@ -36,8 +34,6 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
   onCategoryFilter,
   onEpisodeSearch,
   categories,
-  selectedVersion,
-  onVersionFilter,
   onRefresh,
 }) => {
   const [multipleEpisodeModalVisible, setMultipleEpisodeModalVisible] = useState(false);

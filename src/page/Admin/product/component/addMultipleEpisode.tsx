@@ -20,7 +20,7 @@ import {
   MinusCircleOutlined,
 } from "@ant-design/icons";
 import { getAllcate } from "../../../../redux/slice/category/thunk/category";
-import { useAppDispatch } from "../../../../hook";
+import { useAppDispatch, useAppSelector } from "../../../../hook";
 import { addMultipleEpisodeMovie } from "../../../../sevices/product";
 
 const { TextArea } = Input;
@@ -30,23 +30,8 @@ export default function AddMultipleEpisodes() {
   const [loading, setLoading] = useState(false);
   const [categoryPage, setCategoryPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
-  const [categoryOptions, setCategoryOptions] = useState<any[]>([]);
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(getAllcate({page: categoryPage})).then((result: any) => {
-      if (result.payload) {
-        const { data, totalPages: total } = result.payload;
-        setTotalPages(total);
-        
-        if (categoryPage === 1) {
-          setCategoryOptions(data || []);
-        } else {
-          setCategoryOptions(prev => [...prev, ...(data || [])]);
-        }
-      }
-    });
-  }, [categoryPage]);
+  const categories: any = useAppSelector((state) => state.category.category)?.data || [];
 
 
   const onFinish = async (values) => {
@@ -106,7 +91,7 @@ export default function AddMultipleEpisodes() {
                   <Select
                     placeholder="Chọn thể loại"
                     allowClear
-                    options={categoryOptions?.map((item: any) => ({
+                    options={categories?.map((item: any) => ({
                       label: item.name,
                       value: item._id,
                     }))}
