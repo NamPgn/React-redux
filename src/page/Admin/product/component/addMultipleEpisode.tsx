@@ -91,6 +91,10 @@ export default function AddMultipleEpisodes() {
                   <Select
                     placeholder="Chọn thể loại"
                     allowClear
+                    showSearch
+                    filterOption={(input, option) =>
+                      (String(option?.label ?? '')).toLowerCase().includes(input.toLowerCase())
+                    }
                     options={categories?.map((item: any) => ({
                       label: item.name,
                       value: item._id,

@@ -1,5 +1,4 @@
 import React, { lazy } from "react";
-import HomePage from "../page/Home";
 import {
   DashboardOutlined,
   NotificationOutlined,
@@ -35,7 +34,6 @@ import Page404 from "../components/404/Page404";
 import ForgotPassword from "../page/Auth-Page/Forgot-password";
 import ResetPassword from "../page/Auth-Page/Reset-password";
 import AdminPage from "../page/Admin";
-import EditWeek from "../page/Admin/week/components/edit";
 import TypeCategory from "../page/Admin/category/type";
 import Banners from "../page/Admin/banner";
 import SeriesSeason from "../page/Admin/season";
@@ -651,6 +649,44 @@ export const TableRouterAdminPage = [
     ],
   },
   {
+    name: "Media",
+    icon: <FileImageOutlined />,
+    children: [
+      {
+        path: "/dashboard/banners",
+        icon: <FileImageOutlined />,
+        name: "Banners",
+      },
+      {
+        path: "/dashboard/sliders",
+        icon: <PictureOutlined />,
+        name: "Sliders",
+      },
+      {
+        path: "/dashboard/posters",
+        icon: <FileImageOutlined />,
+        name: "Posters",
+      },
+    ]
+  },
+
+  {
+    name: "Notification",
+    icon: <BellOutlined />,
+    children: [
+      {
+        path: "/dashboard/notification-history",
+        icon: <BellOutlined />,
+        name: "Notification",
+      },
+      {
+        path: "/dashboard/push-notification",
+        icon: <DeliveredProcedureOutlined />,
+        name: "Notification Device",
+      },
+    ]
+  },
+  {
     path: "/dashboard/comments",
     name: "Comments",
     icon: <CarryOutOutlined />,
@@ -660,17 +696,10 @@ export const TableRouterAdminPage = [
     name: "Cart",
     icon: <ShoppingCartOutlined />,
   },
-
   {
     path: "/dashboard/weeks",
     icon: <ClockCircleOutlined />,
     name: "Week",
-  },
-
-  {
-    path: "/dashboard/banners",
-    icon: <FileImageOutlined />,
-    name: "Banners",
   },
   {
     path: "/dashboard/series",
@@ -682,29 +711,11 @@ export const TableRouterAdminPage = [
     icon: <ExclamationOutlined />,
     name: "Report",
   },
-  {
-    path: "/dashboard/sliders",
-    icon: <PictureOutlined />,
-    name: "Sliders",
-  },
-  {
-    path: "/dashboard/posters",
-    icon: <FileImageOutlined />,
-    name: "Posters",
-  },
+
   {
     path: "/dashboard/tags",
     icon: <TagsOutlined />,
     name: "Tags",
   },
-  {
-    path: "/dashboard/notification-history",
-    icon: <BellOutlined />,
-    name: "Notification",
-  },
-  {
-    path: "/dashboard/push-notification",
-    icon: <DeliveredProcedureOutlined />,
-    name: "Notification Device",
-  },
+
 ];

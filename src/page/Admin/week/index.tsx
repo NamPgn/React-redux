@@ -1,103 +1,85 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { MyButton } from "../../../components/MV/Button";
 import MVTable from "../../../components/MV/Table";
 import { columnsWeeks } from "../../../constant";
 import { useForm } from "react-hook-form";
 import {
   addWeeks,
-  deleteCategoryByWeek,
   removeWeeks,
 } from "../../../sevices/week";
 import MVRow from "../../../components/MV/Grid";
 import MVCol from "../../../components/MV/Grid/Col";
 import MVInput from "../../../components/MV/Input";
-import MVLink from "../../../components/Location/Link";
-import MVConfirm from "../../../components/MV/Confirm";
-import { DeleteOutlined } from "@ant-design/icons";
 import { MVError, MVSuccess } from "../../../components/Message";
 import { ApiContext } from "../../../context/api";
 import { mutate } from "swr";
 import { urlSwr } from "../../../function";
+import EditWeekModal from "./components/editModal";
+import { toast } from "react-toastify";
+
 const Weeks = () => {
   const { weeks } = useContext(ApiContext);
-  const { handleSubmit, control } = useForm();
-  const handleDeleteCategoryByWeek = async (weeksId, categoryId) => {
-    const _ = {
-      categoryId: categoryId,
-    };
+  const { handleSubmit, control, reset } = useForm();
+  const [editModalVisible, setEditModalVisible] = useState(false);
+  const [selectedWeek, setSelectedWeek] = useState<{ id: string; name: string } | null>(null);
+  const onAdd = async (data) => {
     try {
-      const response = await deleteCategoryByWeek(weeksId, _);
-      if (response.data) {
-        mutate(urlSwr + "/weeks");
-        MVSuccess("Delete Success");
-      }
-
+      await addWeeks(data);
+      mutate(urlSwr + "/weeks");
+      MVSuccess("Thêm week thành công");
+      reset();
     } catch (error) {
-      MVError("Delete Failure");
+      MVError("Thêm week thất bại");
     }
   };
-  const onAdd = async (data) => {
-    await addWeeks(data);
-  };
-  const handledelete = async (id) => {
-    await removeWeeks(id);
-    
-  };
-  const expandedRowRender = (record) => {
-    const columns = [
-      { title: "ID", dataIndex: "_id", key: "_id" },
-      { title: "Name", dataIndex: "name", key: "name" },
-      {
-        title: "Action",
-        key: "operation",
-        render: (text, category) => (
-          <>
-            <MVConfirm
-              title="Delete the category"
-              onConfirm={() =>
-                handleDeleteCategoryByWeek(record.key, category._id)
-              }
-              okText="Yes"
-              cancelText="No"
-            >
-              <MyButton type="text" shape="circle" className="ml-2">  
-                <DeleteOutlined />
-              </MyButton>
-            </MVConfirm>
-          </>
-        ),
-      },
-    ];
 
-    // Lấy danh sách category theo id của bảng cha
-    const dataCategorys =
-      weeks.find((week) => week._id === record.key)?.category || [];
-    return (
-      <MVTable
-        columns={columns}
-        dataSource={dataCategorys}
-        pagination={false}
-      />
-    );
+  const handledelete = async (id) => {
+    try {
+      await removeWeeks(id);
+      mutate(urlSwr + "/weeks");
+      toast.success("Xóa week thành công");
+    } catch (error) {
+      toast.error("Xóa week thất bại");
+    }
   };
+
+  const handleEdit = (weekId: string, weekName: string) => {
+    setSelectedWeek({ id: weekId, name: weekName });
+    setEditModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setEditModalVisible(false);
+    setSelectedWeek(null);
+  };
+
+  const handleEditSuccess = () => {
+    mutate(urlSwr + "/weeks");
+  };
+
   const data =
     weeks &&
     weeks.map((v, i) => {
       return {
         key: v._id,
         name: v.name,
+        slug: v.slug,
         action: (
           <>
-            <MVLink to={`/dashboard/week/edit/${v.name}`}>
-              <MyButton type="primary">Edit</MyButton>
-            </MVLink>
-            <MyButton onClick={() => handledelete(v._id)} className="ml-1">
+            <MyButton 
+              type="primary" 
+              onClick={() => handleEdit(v._id, v.name)}
+            >
+              Edit
+            </MyButton>
+            <MyButton onClick={() => handledelete(v._id)} className="ml-1" danger>
               Delete
             </MyButton>
           </>
         ),
       };
     });
+
   return (
     <>
       <form onSubmit={handleSubmit(onAdd)}>
@@ -120,10 +102,14 @@ const Weeks = () => {
       <MVTable
         columns={columnsWeeks}
         dataSource={data}
-        expandable={{
-          expandedRowRender,
-          defaultExpandedRowKeys: ["0"],
-        }}
+      />
+
+      <EditWeekModal
+        open={editModalVisible}
+        weekName={selectedWeek?.name || null}
+        weekId={selectedWeek?.id || null}
+        onClose={handleCloseModal}
+        onSuccess={handleEditSuccess}
       />
     </>
   );

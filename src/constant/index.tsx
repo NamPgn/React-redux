@@ -392,6 +392,11 @@ const columnsWeeks = [
     key: "name",
   },
   {
+    title: "Slug",
+    dataIndex: "slug",
+    key: "slug",
+  },
+  {
     title: "Action",
     dataIndex: "action",
     key: "action",
